@@ -60,3 +60,7 @@ Each Python tool supplies its arguments with `--help`, or records its invocation
 The original effect is **BOY II**, effect ID `2420270134`, by **dikdikz7**. Its [source archive URL](https://lf16-effectcdn-sg.tiktokcdn.com/obj/ies.fe.effect.alisg/bccbefabc0ff09f12e3954f857d04b4a), API path, Effect House version, hashes, and complete member inventory are recorded in [original-effect-provenance.json](original-effect-provenance.json).
 
 The portable skin model SHA-256 is `c4d17902dc2f74173e988a069df3d48aad3583a1ca5febebf7d381b4e006595d`. The compared native skin model SHA-256 is `66d0b9008cb0bdb76ef925a6c3f2672f697753c53d79772ae93ff669890ac5c7`. Face model and native geometry provenance is tied to the supplied extracted files and the locally available matching native framework; no independently verified download URL is asserted for that framework.
+
+## Video and camera follow-up
+
+`video-file-validation.json` records synthetic codec, timing, audio, fallback, and cancellation checks. `motion-ui-validation.json` records integrated UI results without private media. Additional browser fixtures and reports live in `../tests/pipeline-motion-browser*`, `../tests/video-browser.ts`, and `../tests/recording-browser*`. The latter generates MediaRecorder output in memory and verifies that lossless remuxing adds usable duration and seeking. Camera requests are simulated with generated browser MediaStreams; these checks do not claim physical-device testing. No input clips, recorded clips, screenshots, or private frame data are committed.

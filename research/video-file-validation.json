@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-09",
+  "driver": "Aside browser REPL",
+  "environment": "Chrome 153 on macOS",
+  "dependency": "mediabunny 1.61.3",
+  "synthetic": true,
+  "fixture": {
+    "description": "160x96 generated color frames and a 440 Hz sine audio; no personal media",
+    "video_codec": "vp8",
+    "audio_codec": "opus",
+    "timestamps": [
+      0,
+      0.08,
+      0.21,
+      0.25,
+      0.5,
+      0.57,
+      0.8,
+      1.1
+    ],
+    "duration_seconds": 1.4
+  },
+  "roundtrip": {
+    "passed": true,
+    "output_format": "mp4",
+    "input_frames": 8,
+    "output_frames": 8,
+    "frames_processed": 8,
+    "input_duration_seconds": 1.4,
+    "output_duration_seconds": 1.4,
+    "timestamps_preserved": true,
+    "every_frame_has_filter_marker": true,
+    "frame_sequence_preserved": true,
+    "input_audio_samples": 67848,
+    "output_audio_samples": 67848,
+    "audio_rms": 0.10557685523197068,
+    "maximum_concurrent_frame_callbacks": 1,
+    "callback_delay_ms": 220,
+    "elapsed_ms": 1927.5,
+    "output_bytes": 26609,
+    "progress_monotonic": true
+  },
+  "cancellation": {
+    "passed": true,
+    "cancel_after_frame": 2,
+    "exception": "AbortError",
+    "input_dispose_calls": 2,
+    "decoder_close_calls": 1,
+    "temporary_files_leaked": 0
+  },
+  "audio_removed_by_request": {
+    "passed": true,
+    "frames": 8,
+    "duration_seconds": 1.4,
+    "audio": false,
+    "width": 128,
+    "height": 76
+  },
+  "video_without_audio_input": {
+    "passed": true,
+    "frames": 8,
+    "input_metadata_duration_seconds": 1.4,
+    "output_duration_seconds": 1.4,
+    "audio": false
+  },
+  "webm_and_memory_fallback": {
+    "passed": true,
+    "avc_support_probe_forced_false": true,
+    "opfs_forced_unavailable": true,
+    "output_format": "webm",
+    "frames": 8,
+    "duration_seconds": 1.4,
+    "audio": true,
+    "audio_rms": 0.10557685523197068,
+    "output_bytes": 27548
+  },
+  "reproduction": "Open video-harness.html in Aside against Vite; call window.runVideoValidation with roundtrip,cancel,silent,no-audio-input,fallback.",
+  "memory": "At most two caller-held decoded samples plus bounded decoder/cache queues. Encoded output streams to temporary OPFS storage. If unavailable, encoded RAM buffering is capped at 128 MiB before allocation.",
+  "sources": [
+    "https://mediabunny.dev/guide/converting-media-files",
+    "https://mediabunny.dev/guide/media-sinks",
+    "https://mediabunny.dev/guide/writing-media-files"
+  ],
+  "passed": true
+}

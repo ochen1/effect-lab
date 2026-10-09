@@ -1,7 +1,7 @@
 {
   "name": "Effect Lab",
   "short_name": "Effect Lab",
-  "description": "Private photo experiments, right in your browser.",
+  "description": "Private photo, video and live camera effects, right in your browser.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

@@ -1,6 +1,6 @@
 # Effect Lab
 
-A personal photo lab that runs in a mobile or desktop browser. **BOY II** is the first supported effect. The app shell, local photo handling, presets, and export flow are named independently of that effect so the collection can grow.
+A personal photo, video, and live camera lab that runs in a mobile or desktop browser. **BOY II** is the first supported effect. The app shell, local photo handling, presets, and export flow are named independently of that effect so the collection can grow.
 
 The original **BOY II** effect is by **dikdikz7**, effect ID **2420270134**. [Source provenance](research/original-effect-provenance.json) records the untouched original archive and member hashes.
 
@@ -8,9 +8,9 @@ The original **BOY II** effect is by **dikdikz7**, effect ID **2420270134**. [So
 
 ## What the app does
 
-Choose a photo, use the camera file picker, or drop an image into the preview. Adjust the effect, compare with the original, save a named preset in this browser, and export a JPEG or PNG at the source dimensions. Mobile previews stay visible while adjusting controls. Preview work is debounced and smaller than the final export. Long operations show status and support cancellation.
+Choose **Photo**, **Video**, or **Live camera**. The same effect controls and saved presets work across all three modes. Photos keep their full-resolution JPEG/PNG export and before/after comparison. Video playback supports play, pause, seeking, sound, and original/filtered preview. Live camera supports camera switching, a filtered-frame snapshot, and recording the filtered preview. Camera access begins only when you press Start; microphone recording is a separate opt-in.
 
-Photo pixels stay in the browser. Network requests fetch static application files, models, and original effect assets. There is no photo upload endpoint, account system, analytics, or server inference. Presets store versioned settings only. The first edit downloads the processing tools; offline installation is not promised.
+Photo, video, and camera pixels stay in the browser. Network requests fetch static application files, models, and original effect assets. There is no photo upload endpoint, account system, analytics, or server inference. Presets store versioned settings only. The first edit downloads the processing tools; offline installation is not promised.
 
 BOY II retains its authored defaults:
 
@@ -25,7 +25,7 @@ BOY II retains its authored defaults:
 | Lips | 0.19 |
 | Berry | 0.40 |
 
-Skin processing applies to one selected face. The authored makeup overlays apply to every detected face. Skin, color, and makeup can each be switched off. Reset restores the original BOY II settings. If no face is found, color adjustments remain available and the app says that facial effects were not applied.
+Skin processing applies to one selected face. The authored makeup overlays apply to every detected face. Skin, color, and makeup can each be switched off. Reset restores the original BOY II settings. For photos, if no face is found, color adjustments remain available and the app says that facial effects were not applied.
 
 ## Objective and approach
 
@@ -34,12 +34,12 @@ The goal is a complete, adjustable browser implementation of the supplied effect
 The implementation was built by extracting the original model containers and assets, converting the original networks to ONNX, recovering alignment and mesh arithmetic, and comparing isolated stages with native reference tools on mathematical inputs. Native tools are development references; the deployed app runs TypeScript, WebGL 2, and ONNX Runtime Web.
 
 ```text
-local photo → original face networks → original alignment → original skin model
+photo / video frame → original face networks → original alignment → original skin model
            → original color shader → original TT295 makeup geometry + textures
-           → browser preview / full resolution image
+                    → preview / photo export / encoded video
 ```
 
-`src/pipeline.ts` coordinates these stages and serializes work. Face analysis uses a reduced image, landmarks map back to source coordinates, and the skin model result is cached while effect amounts change. `src/compositor.ts` renders in tiles so GPU texture limits do not force export dimensions to shrink. The skin runtime attempts WebGPU and falls back to single-thread WebAssembly when needed. Face inference uses WebAssembly.
+`src/pipeline.ts` coordinates these stages and serializes work. Face analysis uses a reduced image, landmarks map back to source coordinates, and the photo skin model result is cached while effect amounts change. Motion frames receive fresh face analysis and fresh skin inference; the loaded photo is preserved when switching modes. `src/compositor.ts` renders in tiles so GPU texture limits do not force export dimensions to shrink. The skin runtime attempts WebGPU and falls back to single-thread WebAssembly when needed. Face inference uses WebAssembly.
 
 ## What is verified
 
@@ -59,9 +59,21 @@ Checked-in input fixtures are synthetic. Reports contain numerical results and p
 | Local app flow | A real browser loaded a 3000 × 4000 photo, rendered the GPU preview, and exported a PNG that decoded at 3000 × 4000. Brightness, saved presets, and reset were exercised. No photo or exported image is included as evidence. |
 | Responsive UI | [A 412 × 915 browser layout check](research/ui-browser-validation.json) loads a mathematical checkerboard, renders color with a no-face notice, and verifies zero horizontal overflow plus visible keyboard focus below the sticky preview. |
 
-**Complete phone-app pixel parity is not established.** The browser processes a still image with the original detector and the package's two refinement cycles. It does not replay the native video tracker's frame history or temporal landmark filtering. Input sizing, browser image decoding, final rasterization, and phone camera processing can also change the final image. Exact network tensors, crop samples, and geometry arithmetic do not establish equivalence to every native video session. See [the face runtime findings](research/face-runtime.md). Actual Android hardware has not yet been verified; responsive browser sizing is a layout check, not an Android device test.
+**Complete phone-app pixel parity is not established.** The browser processes each image or video frame with the original detector and the package's two refinement cycles. It does not replay the native video tracker's frame history or temporal landmark filtering. Input sizing, browser image decoding, final rasterization, and phone camera processing can also change the final image. Exact network tensors, crop samples, and geometry arithmetic do not establish equivalence to every native video session. See [the face runtime findings](research/face-runtime.md). Actual Android hardware has not yet been verified; responsive browser sizing is a layout check, not an Android device test.
 
 WebGL 2 is required. Recent Safari, Chrome, or Edge is recommended. Memory limits still apply to large photos, and full resolution exports can take longer on a phone. Failed processing produces a visible error; the app does not silently export the source as an edited result.
+
+## Video and live camera
+
+Video export uses [Mediabunny](https://mediabunny.dev/guide/converting-media-files) and browser WebCodecs. It processes source frames asynchronously with their original timestamps, independently of preview speed. Original audio is retained by default; incompatible audio is transcoded when supported. An unsupported track produces an error instead of silently losing audio. The app prefers MP4/H.264 and can fall back to WebM according to the browser's available encoders. Export defaults to original resolution, with 1080-pixel and 720-pixel alternatives (longest edge); common encoders require even dimensions, so an odd source edge can lose one pixel.
+
+The preview processes one frame at a time and displays its measured processing speed. It skips ahead during playback rather than queueing old frames. Live recordings capture the filtered preview at that device's processing speed; they do not promise 30 processed frames per second. Video-file export processes every source frame even when inference is slower than playback. Skin targets the first detected face in motion modes; overlays apply to all detected faces. Detection is recomputed per frame, without persistent person IDs.
+
+Encoded video output uses temporary local browser storage when available. The fallback is capped at 128 MB; camera recordings stop at a 256 MB buffer limit. These files stay on the device. Large exports still require available local storage, and decoded-frame processing can be slow on a phone. Camera recordings are finalized with duration and seek metadata without re-encoding their packets. Stopping the camera or backgrounding the page stops its hardware tracks; a completed recording can then be downloaded. Camera preview requires HTTPS (the published site) or localhost, WebGL 2, and camera permission. Offline video export also requires a working WebCodecs decoder and encoder for the chosen tracks. Unsupported functionality produces a visible message.
+
+Validation: [frame-pipeline checks](tests/pipeline-motion-browser-report.json), [video codec and audio roundtrips](research/video-file-validation.json), [recording finalization](tests/recording-browser-report.json), and [integrated UI checks](research/motion-ui-validation.json). Tests preserve all 24 frames and exact two-second timing of a face clip, including identical decoded audio. A separate eight-frame variable-rate fixture preserves every timestamp during processing slower than playback. Camera UI tests use real browser MediaStreams generated from fixtures; physical camera hardware remains untested.
+
+Implementation: `src/motion.ts` owns devices, playback, and recording; `src/frame-pump.ts` prevents overlapping preview work; `src/video-file.ts` handles decoding, audio, timestamps, encoding, and cancellation; `src/pipeline.ts` applies the original models to each captured frame.
 
 ## Run and check
 

@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>Effect Lab synthetic video checks</title></head><body>
+<h1>Synthetic video checks</h1><p>Variable timestamps, colored frames, and a generated 440 Hz tone. No personal media.</p>
+<button id="roundtrip">Validate frame export</button><button id="cancel">Validate cancellation</button><pre id="result">Ready</pre>
+<script type="module">
+import {validateRecordingFinalization} from '/tests/recording-browser.ts';
+import {validateVideoExport,validateVideoCancellation,validateSilentVideoExport,validateVideoFallback,validateVideoWithoutAudioInput,createSyntheticVideo} from '/tests/video-browser.ts';
+window.makeSyntheticVideo=createSyntheticVideo;
+window.runVideoValidation=async(kind='roundtrip')=>{
+  const result=document.getElementById('result');result.textContent='Running '+kind;
+  try{const report=await(kind==='recording'?validateRecordingFinalization():kind==='cancel'?validateVideoCancellation():kind==='silent'?validateSilentVideoExport():kind==='fallback'?validateVideoFallback():kind==='no-audio-input'?validateVideoWithoutAudioInput():validateVideoExport());window.videoValidationResult=report;result.textContent=JSON.stringify(report,null,2);return report;}
+  catch(error){window.videoValidationResult={passed:false,error:String(error),stack:error.stack};result.textContent=JSON.stringify(window.videoValidationResult,null,2);return window.videoValidationResult;}
+};
+document.getElementById('roundtrip').onclick=()=>window.runVideoValidation();
+document.getElementById('cancel').onclick=()=>window.runVideoValidation('cancel');
+</script></body></html>

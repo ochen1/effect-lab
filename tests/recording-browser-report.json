@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-09",
+  "driver": "Aside browser REPL",
+  "environment": "Chrome 153 on macOS",
+  "synthetic": true,
+  "fixture": "Canvas captureStream(15) with 30 generated moving-color frames and MediaRecorder(video/webm;codecs=vp8), approximately 2 seconds; no private media.",
+  "original": {
+    "finite_duration": false,
+    "video_packets": 30,
+    "bytes": 7983
+  },
+  "finalized": {
+    "finite_duration": true,
+    "duration_seconds": 1.997,
+    "seeking_verified": true,
+    "video_packets": 30,
+    "bytes": 7047,
+    "container": "webm",
+    "codec": "vp8"
+  },
+  "checks": {
+    "encoded_packet_payload_hash_identical": true,
+    "all_packet_timestamps_preserved": true,
+    "VideoEncoder_or_VideoDecoder_constructions": 0
+  },
+  "reproduction": "Run window.runVideoValidation(\"recording\") from video-harness.html against the Vite development server using Aside.",
+  "passed": true
+}

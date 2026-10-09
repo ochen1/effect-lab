@@ -38,6 +38,8 @@ __pycache__/
 !/research/browser-skin-validation.json
 !/research/compositing-browser-validation.json
 !/research/ui-browser-validation.json
+!/research/video-file-validation.json
+!/research/motion-ui-validation.json
 !/research/publication-provenance-audit.json
 !/research/face-*-layer-validation.json
 !/research/face-quantization-validation.json
@@ -88,6 +90,13 @@ __pycache__/
 *.PNG
 *.mov
 *.mp4
+*.webm
+*.mkv
+*.avi
+*.m4v
+*.m4a
+*.wav
+*.mp3
 *.dylib
 *.so
 *.dll

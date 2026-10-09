@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-09",
+  "driver": "Aside browser REPL",
+  "environment": "Chrome 153 on macOS",
+  "scope": "Local built application; production verification is recorded separately after deployment.",
+  "private_images_or_videos_in_repository": false,
+  "video_file": {
+    "source_dimensions": [
+      360,
+      480
+    ],
+    "source_duration_seconds": 2,
+    "source_frames": 24,
+    "source_video_codec": "h264",
+    "source_audio_codec": "aac",
+    "source_media": "Private validation clip, kept outside the repository; only aggregate results are recorded.",
+    "default_effect": true,
+    "playback": true,
+    "export_format": "mp4",
+    "export_dimensions": [
+      360,
+      480
+    ],
+    "export_duration_seconds": 2,
+    "export_frames": 24,
+    "every_frame_changed": true,
+    "decoded_audio_bit_identical": true,
+    "decoder_verification": "FFmpeg/ffprobe"
+  },
+  "camera": {
+    "capture_source": "Browser-generated MediaStream fixtures; one private face clip and one mathematical moving rectangle. getUserMedia was replaced for testing. No physical camera or microphone was accessed.",
+    "permission_denied_error_handling": true,
+    "retry": true,
+    "live_preview": true,
+    "front_back_constraints_checked": true,
+    "microphone_off_by_default": true,
+    "microphone_requested_only_when_opted_in": true,
+    "filtered_recording": true,
+    "finalized_recording": {
+      "video_codec": "vp8",
+      "audio_codec": "opus",
+      "dimensions": [
+        320,
+        240
+      ],
+      "decoded_video_frames": 32,
+      "duration_seconds": 2.057,
+      "finite_duration": true
+    },
+    "all_tracks_ended_after_stop": true,
+    "background_stops_camera": true
+  },
+  "responsive_layout": {
+    "method": "Same-origin iframe containing the actual application",
+    "viewport": [
+      412,
+      915
+    ],
+    "document_scroll_width": 412,
+    "video_mode": true,
+    "default_export_resolution": "original"
+  },
+  "limitations": [
+    "Physical Android hardware and camera drivers were not tested.",
+    "Live preview frame rate depends on device and model execution speed.",
+    "These tests establish media plumbing and effect application, not exact native temporal tracking parity."
+  ]
+}

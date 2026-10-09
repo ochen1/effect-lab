@@ -81,7 +81,143 @@ export async function createPipeline(options: PipelineOptions = {}) {
 		return next;
 	};
 
+	let frameSource: HTMLCanvasElement | undefined;
+	let frameAnalysis: HTMLCanvasElement | undefined;
+	type Prepared = { analysis: ImageData; faces: Face[]; meshes: FaceMesh[] };
+	async function analyze(
+		input: HTMLCanvasElement,
+		signal?: AbortSignal,
+		reusable?: HTMLCanvasElement,
+	): Promise<Prepared> {
+		cancelled(signal);
+		const scale = Math.min(1, 360 / input.width, 640 / input.height);
+		const width = Math.max(1, Math.round(input.width * scale));
+		const height = Math.max(1, Math.round(input.height * scale));
+		const small = reusable ?? canvas(width, height);
+		if (small.width !== width) small.width = width;
+		if (small.height !== height) small.height = height;
+		try {
+			const context = small.getContext("2d", { willReadFrequently: true })!;
+			context.clearRect(0, 0, width, height);
+			context.drawImage(input, 0, 0, width, height);
+			const nextFaces = await detector.detect(small, signal);
+			cancelled(signal);
+			const sx = input.width / width,
+				sy = input.height / height;
+			const nextMeshes = nextFaces.map((face) => {
+				if (face.points.length !== 106 || face.extra?.length !== 134) {
+					throw new Error("The face model returned incomplete landmarks.");
+				}
+				const toSource = (p: { x: number; y: number }) => ({
+					x: p.x * sx,
+					y: p.y * sy,
+				});
+				const positions = buildTT295Positions(
+					imageToTT295Coordinates(
+						face.points.map(toSource),
+						input.width,
+						input.height,
+					),
+					imageToTT295Coordinates(
+						face.extra.map(toSource),
+						input.width,
+						input.height,
+					),
+				);
+				return {
+					positions: tt295ToImageCoordinates(
+						positions,
+						input.width,
+						input.height,
+					),
+					uv: new Float32Array(topology.uv),
+					indices: new Uint16Array(topology.indices),
+				};
+			});
+			return {
+				faces: nextFaces,
+				meshes: nextMeshes,
+				analysis: context.getImageData(0, 0, width, height),
+			};
+		} finally {
+			if (!reusable) small.width = small.height = 1;
+		}
+	}
+
+	async function renderPrepared(
+		input: HTMLCanvasElement,
+		prepared: Prepared,
+		values: EffectSettings,
+		renderOptions: RenderOptions,
+		cache?: Map<number, SkinPatch>,
+	) {
+		const { signal, onProgress } = renderOptions;
+		cancelled(signal);
+		const settings = validateSettings(values);
+		const faceIndex = Math.min(
+			settings.faceIndex,
+			Math.max(0, prepared.faces.length - 1),
+		);
+		const active: SkinPatch[] = [];
+		onProgress?.(0);
+		if (settings.skinEnabled && settings.skin > 0 && prepared.faces.length) {
+			let patch = cache?.get(faceIndex);
+			if (!patch) {
+				if (cache) options.onStatus?.("Applying the skin effect…");
+				await warmSkin();
+				cancelled(signal);
+				const crop = alignFace(prepared.faces[faceIndex].points, alignment);
+				const rgb = sampleAlignedRGB(prepared.analysis, crop, alignment.size);
+				const rgba = await runSkin(rgb);
+				cancelled(signal);
+				const sx = input.width / prepared.analysis.width,
+					sy = input.height / prepared.analysis.height;
+				const cropToSource: Affine = [
+					crop[0] * sx,
+					crop[1] * sy,
+					crop[2] * sx,
+					crop[3] * sy,
+					crop[4] * sx,
+					crop[5] * sy,
+				];
+				patch = { rgba, size: alignment.size, cropToSource };
+				cache?.set(faceIndex, patch);
+			}
+			active.push(patch);
+		}
+		cancelled(signal);
+		onProgress?.(0.35);
+		const result = await compositor.render(
+			input,
+			input.width,
+			input.height,
+			active,
+			prepared.meshes,
+			settings,
+			{
+				maxDimension: renderOptions.maxDimension,
+				signal,
+				onProgress: (p) => onProgress?.(0.35 + p * 0.65),
+			},
+		);
+		if (signal?.aborted) {
+			result.width = result.height = 1;
+			cancelled(signal);
+		}
+		return result;
+	}
+
 	return {
+		/** Warm the shared models once before starting a camera or offline conversion. */
+		warm(signal?: AbortSignal) {
+			return enqueue(async () => {
+				cancelled(signal);
+				await detector.load();
+				cancelled(signal);
+				await warmSkin();
+				cancelled(signal);
+			});
+		},
 		loadPhoto(file: File, signal?: AbortSignal) {
 			return enqueue(async () => {
 				cancelled(signal);
@@ -96,7 +232,7 @@ export async function createPipeline(options: PipelineOptions = {}) {
 						"This image could not be opened. Try a JPEG, PNG, WebP, or AVIF photo.",
 					);
 				}
-				let nextSource: HTMLCanvasElement;
+				let nextSource: HTMLCanvasElement | undefined;
 				try {
 					cancelled(signal);
 					nextSource = canvas(bitmap.width, bitmap.height);
@@ -104,119 +240,76 @@ export async function createPipeline(options: PipelineOptions = {}) {
 				} finally {
 					bitmap.close();
 				}
-				const scale = Math.min(
-					1,
-					360 / nextSource.width,
-					640 / nextSource.height,
-				);
-				const small = canvas(
-					Math.max(1, Math.round(nextSource.width * scale)),
-					Math.max(1, Math.round(nextSource.height * scale)),
-				);
-				const context = small.getContext("2d", { willReadFrequently: true })!;
-				context.drawImage(nextSource, 0, 0, small.width, small.height);
-				options.onStatus?.("Finding facial details…");
-				const nextFaces = await detector.detect(small, signal);
-				cancelled(signal);
-				const sx = nextSource.width / small.width,
-					sy = nextSource.height / small.height;
-				const nextMeshes = nextFaces.map((face) => {
-					if (face.points.length !== 106 || face.extra?.length !== 134) {
-						throw new Error("The face model returned incomplete landmarks.");
-					}
-					const toSource = (p: { x: number; y: number }) => ({
-						x: p.x * sx,
-						y: p.y * sy,
-					});
-					const positions = buildTT295Positions(
-						imageToTT295Coordinates(
-							face.points.map(toSource),
-							nextSource.width,
-							nextSource.height,
-						),
-						imageToTT295Coordinates(
-							face.extra.map(toSource),
-							nextSource.width,
-							nextSource.height,
-						),
-					);
+				try {
+					options.onStatus?.("Finding facial details…");
+					const prepared = await analyze(nextSource, signal);
+					if (source) source.width = source.height = 1;
+					source = nextSource;
+					({ analysis, faces, meshes } = prepared);
+					patches.clear();
 					return {
-						positions: tt295ToImageCoordinates(
-							positions,
-							nextSource.width,
-							nextSource.height,
-						),
-						uv: new Float32Array(topology.uv),
-						indices: new Uint16Array(topology.indices),
+						width: source.width,
+						height: source.height,
+						faceCount: faces.length,
 					};
-				});
-				if (source) source.width = source.height = 1;
-				source = nextSource;
-				analysis = context.getImageData(0, 0, small.width, small.height);
-				faces = nextFaces;
-				meshes = nextMeshes;
-				patches.clear();
-				small.width = small.height = 1;
-				return {
-					width: source.width,
-					height: source.height,
-					faceCount: faces.length,
-				};
+				} catch (error) {
+					nextSource.width = nextSource.height = 1;
+					throw error;
+				}
 			});
 		},
 		render(values: EffectSettings, renderOptions: RenderOptions) {
 			return enqueue(async () => {
-				const { signal, onProgress } = renderOptions;
-				cancelled(signal);
 				if (!source || !analysis) throw new Error("Choose a photo first.");
-				const settings = validateSettings(values);
-				const faceIndex = Math.min(
-					settings.faceIndex,
-					Math.max(0, faces.length - 1),
-				);
-				const active: SkinPatch[] = [];
-				onProgress?.(0);
-				if (settings.skinEnabled && settings.skin > 0 && faces.length) {
-					let patch = patches.get(faceIndex);
-					if (!patch) {
-						options.onStatus?.("Applying the skin effect…");
-						await warmSkin();
-						cancelled(signal);
-						const crop = alignFace(faces[faceIndex].points, alignment);
-						const input = sampleAlignedRGB(analysis, crop, alignment.size);
-						const rgba = await runSkin(input);
-						const sx = source.width / analysis.width,
-							sy = source.height / analysis.height;
-						const cropToSource: Affine = [
-							crop[0] * sx,
-							crop[1] * sy,
-							crop[2] * sx,
-							crop[3] * sy,
-							crop[4] * sx,
-							crop[5] * sy,
-						];
-						patch = { rgba, size: alignment.size, cropToSource };
-						patches.set(faceIndex, patch);
-					}
-					active.push(patch);
-				}
-				cancelled(signal);
-				onProgress?.(0.35);
-				const result = await compositor.render(
+				return renderPrepared(
 					source,
-					source.width,
-					source.height,
-					active,
-					meshes,
-					settings,
-					{
-						maxDimension: renderOptions.maxDimension,
-						signal,
-						onProgress: (p) => onProgress?.(0.35 + p * 0.65),
-					},
+					{ analysis, faces, meshes },
+					values,
+					renderOptions,
+					patches,
 				);
-				cancelled(signal);
-				return result;
+			});
+		},
+		/** Capture a coherent frame before inference; never reuse a previous frame's skin patch.
+		 * Calls are serialized with photo work. Callers apply backpressure and own the returned canvas.
+		 * The loaded photo and its cached analysis are preserved when switching media modes. */
+		processFrame(
+			input: CanvasImageSource,
+			width: number,
+			height: number,
+			values: EffectSettings,
+			renderOptions: RenderOptions,
+		) {
+			const settings = validateSettings(values);
+			return enqueue(async () => {
+				cancelled(renderOptions.signal);
+				if (
+					!Number.isInteger(width) ||
+					!Number.isInteger(height) ||
+					width <= 0 ||
+					height <= 0
+				) {
+					throw new Error("The video frame has invalid dimensions.");
+				}
+				const limit = renderOptions.maxDimension;
+				if (limit !== null && (!Number.isFinite(limit) || limit < 1))
+					throw new Error("The frame size limit is invalid.");
+				const scale = limit ? Math.min(1, limit / Math.max(width, height)) : 1;
+				const w = Math.max(1, Math.round(width * scale)),
+					h = Math.max(1, Math.round(height * scale));
+				frameSource ??= canvas(w, h);
+				frameAnalysis ??= canvas(1, 1);
+				if (frameSource.width !== w) frameSource.width = w;
+				if (frameSource.height !== h) frameSource.height = h;
+				const context = frameSource.getContext("2d")!;
+				context.clearRect(0, 0, w, h);
+				context.drawImage(input, 0, 0, w, h);
+				const prepared = await analyze(
+					frameSource,
+					renderOptions.signal,
+					frameAnalysis,
+				);
+				return renderPrepared(frameSource, prepared, settings, renderOptions);
 			});
 		},
 		getOriginal() {
@@ -225,13 +318,14 @@ export async function createPipeline(options: PipelineOptions = {}) {
 		},
 		dispose() {
 			disposed = true;
-			void queue.then(async () => {
+			return queue.then(async () => {
 				compositor.dispose();
 				await detector.dispose();
 				await disposeSkin();
 				patches.clear();
-				if (source) source.width = source.height = 1;
-				source = undefined;
+				for (const value of [source, frameSource, frameAnalysis])
+					if (value) value.width = value.height = 1;
+				source = frameSource = frameAnalysis = undefined;
 				analysis = undefined;
 				faces = [];
 				meshes = [];

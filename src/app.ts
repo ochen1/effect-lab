@@ -1,6 +1,7 @@
 import "./styles.css";
 import { createPipeline } from "./pipeline";
 import { getSkinStatus } from "./inference";
+import { createMotionController, type MotionMode } from "./motion";
 import {
 	DEFAULT_SETTINGS,
 	SETTING_RANGES,
@@ -52,7 +53,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <span class="privacy-pill">${icons.lock}<span>Stays on your device</span></span>
   </header>
   <main class="workspace">
-    <section class="studio" aria-label="Photo preview">
+    <section class="studio" aria-label="Media preview">
+      <div class="mode-switch" role="group" aria-label="Media mode"><button data-mode="photo" aria-pressed="true">Photo</button><button data-mode="video" aria-pressed="false">Video</button><button data-mode="camera" aria-pressed="false">Live camera</button></div>
       <div class="section-topline"><span class="eyebrow">A little room to experiment</span><span class="issue-label">PHOTO LAB / 001</span></div>
       <div class="stage" id="stage">
         <div class="empty-state" id="empty-state">
@@ -67,10 +69,12 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           <input id="compare-range" class="compare-range" type="range" min="0" max="100" value="50" aria-label="Before and after divider" hidden />
           <div class="image-corner-label" id="image-label">BOY II</div><div class="original-corner-label" id="original-label" hidden>ORIGINAL</div>
         </div>
+        <div id="motion-stage" hidden></div>
         <div class="stage-busy" id="stage-busy" hidden><span class="spinner"></span><strong id="stage-busy-label">Opening your photo…</strong><span id="stage-busy-detail">Everything happens on your device.</span><button class="button button-small" id="cancel-load">Cancel</button></div>
         <div class="preview-busy" id="preview-busy" hidden><span class="spinner"></span>Updating preview</div>
         <div class="drop-overlay" id="drop-overlay" hidden>${icons.image}<strong>Drop your next photo</strong></div>
       </div>
+      <div id="motion-controls" hidden></div>
       <div class="photo-toolbar" id="photo-toolbar" hidden>
         <button class="button button-small" id="replace-photo">${icons.image}<span>Change photo</span></button>
         <div class="view-switch" role="group" aria-label="Preview mode"><button data-view="edited" aria-pressed="true">Edited</button><button data-view="split" aria-pressed="false">Compare</button><button data-view="original" aria-pressed="false">Original</button></div>
@@ -91,7 +95,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <details class="control-group" open><summary><span><span class="group-index">03</span> Color</span>${icons.chevron}</summary><div class="group-content"><div class="group-intro"><span>The signature BOY II color</span>${toggle("colorEnabled", "Enable color adjustments")}</div>${slider("lut", "Color intensity")}${slider("brightness", "Brightness")}${slider("temperature", "Temperature")}</div></details>
         <details class="control-group"><summary><span><span class="group-index">04</span> Fine-tune</span>${icons.chevron}</summary><div class="group-content">${slider("saturation", "Saturation")}${slider("contrast", "Contrast")}${slider("exposure", "Exposure")}${slider("tint", "Tint")}</div></details>
       </div>
-      <div class="export-area"><div class="export-meta"><span id="export-resolution">Full resolution export</span><label><span class="sr-only">Export format</span><select id="export-format"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option></select></label></div><button class="button button-export" id="export-photo" disabled>${icons.download}<span id="export-button-text">Export photo</span>${icons.arrow}</button><div class="export-progress" id="export-progress" hidden><progress id="export-progress-bar" aria-label="Photo export progress" max="1" value="0"></progress><button class="text-button" id="cancel-export">Cancel</button></div><p class="export-note" id="export-note">Your photo never leaves this device.</p><button class="button button-small share-button" id="share-photo" hidden>Save or share exported photo ${icons.arrow}</button></div>
+      <div class="export-area" id="photo-export-area"><div class="export-meta"><span id="export-resolution">Full resolution export</span><label><span class="sr-only">Export format</span><select id="export-format"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option></select></label></div><button class="button button-export" id="export-photo" disabled>${icons.download}<span id="export-button-text">Export photo</span>${icons.arrow}</button><div class="export-progress" id="export-progress" hidden><progress id="export-progress-bar" aria-label="Photo export progress" max="1" value="0"></progress><button class="text-button" id="cancel-export">Cancel</button></div><p class="export-note" id="export-note">Your photo never leaves this device.</p></div>
+      <div class="export-area" id="motion-export-area" hidden></div><button class="button button-small share-button" id="share-photo" hidden>Save or share exported file ${icons.arrow}</button>
     </aside>
   </main>
   <footer class="footer"><span>Effect Lab<span class="brand-dot">.</span></span><span>Small experiments. Good light.</span><span>PRIVATE BY DESIGN ${icons.lock}</span></footer>
@@ -127,6 +132,142 @@ let previewVersion = 0;
 let loadVersion = 0;
 let downloadUrl: string | undefined;
 let exportedFile: File | undefined;
+let exportedRelease: (() => Promise<void>) | undefined;
+let pendingDownload = false;
+let mediaMode: "photo" | MotionMode = "photo";
+let modeVersion = 0;
+let motionBusy = false;
+let motionRecording = false;
+let motionHasMedia = false;
+
+function clearExport() {
+	if (downloadUrl) URL.revokeObjectURL(downloadUrl);
+	downloadUrl = undefined;
+	exportedFile = undefined;
+	pendingDownload = false;
+	const release = exportedRelease;
+	exportedRelease = undefined;
+	void release?.().catch(() => {});
+	element("share-photo").hidden = true;
+}
+
+function offerExport(file: File, release?: () => Promise<void>) {
+	clearExport();
+	exportedFile = file;
+	exportedRelease = release;
+	downloadUrl = URL.createObjectURL(file);
+	pendingDownload = document.hidden;
+	if (!pendingDownload) downloadExport();
+	element("share-photo").textContent = navigator.canShare?.({ files: [file] })
+		? "Save or share exported file ↗"
+		: "Download exported file ↗";
+	element("share-photo").hidden = false;
+}
+
+function downloadExport() {
+	if (!downloadUrl || !exportedFile) return;
+	const link = Object.assign(document.createElement("a"), {
+		href: downloadUrl,
+		download: exportedFile.name,
+	});
+	document.body.append(link);
+	link.click();
+	link.remove();
+	pendingDownload = false;
+}
+
+const motion = createMotionController({
+	getPipeline: ensurePipeline,
+	getSettings: () => settings,
+	onStatus: setStatus,
+	onError: showError,
+	onExport: offerExport,
+	onActivity: ({ busy, hasMedia, recording }) => {
+		if ((busy && !motionBusy && !motionRecording) || (recording && !motionRecording)) clearError();
+		motionBusy = busy;
+		motionHasMedia = hasMedia;
+		motionRecording = recording;
+		if (mediaMode !== "photo") {
+			document.body.classList.toggle("has-photo", hasMedia);
+			for (const control of document.querySelectorAll<
+				HTMLInputElement | HTMLSelectElement | HTMLButtonElement
+			>(".control-groups input, #preset-select, #reset-settings, #save-preset"))
+				control.disabled = busy;
+		}
+		for (const button of document.querySelectorAll<HTMLButtonElement>(
+			"[data-mode]",
+		))
+			button.disabled = busy || recording || phase === "exporting";
+	},
+});
+
+async function setMediaMode(next: "photo" | MotionMode, force = false) {
+	if (
+		!force &&
+		(next === mediaMode ||
+			phase === "exporting" ||
+			motionBusy ||
+			motionRecording)
+	)
+		return;
+	const version = ++modeVersion;
+	loadController?.abort();
+	previewController?.abort();
+	clearTimeout(previewTimer);
+	++loadVersion;
+	++previewVersion;
+	mediaMode = next;
+	clearError();
+	clearExport();
+	element("stage-busy").hidden = true;
+	element("preview-busy").hidden = true;
+	await motion.activate(next === "photo" ? null : next);
+	if (version !== modeVersion) return;
+	document
+		.querySelectorAll<HTMLButtonElement>("[data-mode]")
+		.forEach((button) =>
+			button.setAttribute("aria-pressed", String(button.dataset.mode === next)),
+		);
+	element("motion-stage").hidden = next === "photo";
+	element("motion-controls").hidden = next === "photo";
+	element("motion-export-area").hidden = next === "photo";
+	element("drop-overlay").querySelector("strong")!.textContent =
+		next === "video" ? "Drop your next video" : "Drop your next photo";
+	element("photo-export-area").hidden = next !== "photo";
+	element("empty-state").hidden = next !== "photo" || Boolean(original);
+	element("photo-stage").hidden = next !== "photo" || !original;
+	element("photo-toolbar").hidden = next !== "photo" || !original;
+	element("photo-message").hidden = next !== "photo";
+	element("face-select-wrap").hidden =
+		next !== "photo" ||
+		element<HTMLSelectElement>("face-select").options.length <= 1;
+	element("skin-help").textContent =
+		next === "photo"
+			? "Works on the selected face."
+			: "Works on the first detected face in each frame.";
+	if (next === "photo") {
+		updatePhase(original ? "ready" : "empty");
+		schedulePreview();
+	} else {
+		phase = "empty";
+		document.body.classList.remove("has-photo");
+	}
+	setStatus(
+		next === "camera"
+			? "Camera is off. Start it when you’re ready."
+			: next === "video"
+				? "Choose a video to get started"
+				: original
+					? "Your photo is ready"
+					: "Ready when you are",
+	);
+}
+
+document.querySelectorAll<HTMLButtonElement>("[data-mode]").forEach((button) =>
+	button.addEventListener("click", () => {
+		void setMediaMode(button.dataset.mode as "photo" | MotionMode);
+	}),
+);
 
 function readPresets(): Preset[] {
 	try {
@@ -227,6 +368,10 @@ function updatePhase(next: Phase) {
 	))
 		button.disabled = phase === "exporting";
 	document.body.classList.toggle("has-photo", Boolean(original));
+	for (const button of document.querySelectorAll<HTMLButtonElement>(
+		"[data-mode]",
+	))
+		button.disabled = phase === "loading" || phase === "exporting";
 }
 
 function updateControl(key: NumericSetting) {
@@ -317,7 +462,7 @@ async function ensurePipeline() {
 	if (!pipelinePromise) {
 		pipelinePromise = createPipeline({
 			onStatus(message: string) {
-				if (phase !== "empty")
+				if (mediaMode === "photo" && phase !== "empty")
 					setStatus(message, phase === "loading" || phase === "exporting");
 				if (phase === "loading")
 					element("stage-busy-detail").textContent = message;
@@ -336,6 +481,7 @@ async function ensurePipeline() {
 }
 
 async function openPhoto(file?: File) {
+	if (mediaMode !== "photo") return;
 	if (!file || phase === "exporting") return;
 	if (file.type && !file.type.startsWith("image/")) {
 		showError("Choose an image file, such as a JPEG, PNG, or WebP photo.");
@@ -421,6 +567,11 @@ async function openPhoto(file?: File) {
 }
 
 function schedulePreview(quick = false) {
+	if (mediaMode !== "photo") {
+		element("share-photo").hidden = true;
+		motion.settingsChanged();
+		return;
+	}
 	if (!original || phase !== "ready") return;
 	element("share-photo").hidden = true;
 	hasPreview = false;
@@ -534,7 +685,12 @@ let dragDepth = 0;
 const stage = element("stage");
 stage.addEventListener("dragenter", (event) => {
 	event.preventDefault();
-	if (phase !== "exporting") {
+	if (
+		phase !== "exporting" &&
+		!motionBusy &&
+		!motionRecording &&
+		mediaMode !== "camera"
+	) {
 		dragDepth++;
 		element("drop-overlay").hidden = false;
 	}
@@ -550,7 +706,9 @@ stage.addEventListener("drop", (event) => {
 	event.preventDefault();
 	dragDepth = 0;
 	element("drop-overlay").hidden = true;
-	void openPhoto(event.dataTransfer?.files[0]);
+	const dropped = event.dataTransfer?.files[0];
+	if (mediaMode === "video" && dropped) void motion.openVideo(dropped);
+	else if (mediaMode === "photo") void openPhoto(dropped);
 });
 window.addEventListener("dragover", (event) => {
 	event.preventDefault();
@@ -693,22 +851,12 @@ element("export-photo").addEventListener("click", async () => {
 		const blob = await toBlob(result, type);
 		if (controller.signal.aborted) return;
 		const extension = blob.type === "image/png" ? "png" : "jpg";
-		exportedFile = new File([blob], `${fileName}-boy-ii.${extension}`, {
+		const file = new File([blob], `${fileName}-boy-ii.${extension}`, {
 			type: blob.type,
 		});
-		if (downloadUrl) URL.revokeObjectURL(downloadUrl);
-		downloadUrl = URL.createObjectURL(blob);
-		const link = Object.assign(document.createElement("a"), {
-			href: downloadUrl,
-			download: exportedFile.name,
-		});
-		document.body.append(link);
-		link.click();
-		link.remove();
+		offerExport(file);
 		element<HTMLProgressElement>("export-progress-bar").value = 1;
 		setStatus("Your full resolution photo is exported");
-		if (navigator.canShare?.({ files: [exportedFile] }))
-			element("share-photo").hidden = false;
 	} catch (error) {
 		if (!isCancelled(error, controller.signal)) {
 			showError(`Export could not finish. ${messageOf(error)}`);
@@ -725,6 +873,10 @@ element("cancel-export").addEventListener("click", () => {
 });
 element("share-photo").addEventListener("click", async () => {
 	if (!exportedFile) return;
+	if (!navigator.canShare?.({ files: [exportedFile] })) {
+		downloadExport();
+		return;
+	}
 	try {
 		await navigator.share({ files: [exportedFile] });
 	} catch (error) {
@@ -737,7 +889,15 @@ window.addEventListener("pagehide", () => {
 	previewController?.abort();
 	loadController?.abort();
 	exportController?.abort();
-	if (downloadUrl) URL.revokeObjectURL(downloadUrl);
+	void motion.stop();
+	clearExport();
+});
+
+window.addEventListener("pageshow", (event) => {
+	if (event.persisted) void setMediaMode(mediaMode, true);
+});
+document.addEventListener("visibilitychange", () => {
+	if (!document.hidden && pendingDownload) downloadExport();
 });
 
 // Keyboard focus must stay below the sticky photo on narrow screens.
@@ -746,7 +906,7 @@ document.addEventListener("focusin", (event) => {
 	if (
 		!(target instanceof HTMLElement) ||
 		!target.closest(".inspector") ||
-		!original ||
+		!(original || motionHasMedia) ||
 		!matchMedia("(max-width: 780px)").matches
 	)
 		return;
@@ -754,7 +914,8 @@ document.addEventListener("focusin", (event) => {
 		const bottom = document
 			.querySelector<HTMLElement>(".studio")!
 			.getBoundingClientRect().bottom;
-		const top = (target.closest(".control") ?? target).getBoundingClientRect().top;
+		const top = (target.closest(".control") ?? target).getBoundingClientRect()
+			.top;
 		if (top < bottom + 16) window.scrollBy(0, top - bottom - 16);
 	});
 });

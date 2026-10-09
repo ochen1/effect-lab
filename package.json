@@ -1,7 +1,7 @@
 {
 	"name": "effect-lab",
-	"version": "0.1.0",
-	"description": "A private browser photo lab. BOY II is the first reconstructed effect.",
+	"version": "0.2.0",
+	"description": "Local photo, video, and live camera effects with original models and adjustable controls.",
 	"homepage": "https://ochen1.github.io/effect-lab/",
 	"repository": {
 		"type": "git",
@@ -21,6 +21,7 @@
 		"check:site": "bun tools/check-site.ts"
 	},
 	"dependencies": {
+		"mediabunny": "1.61.3",
 		"onnxruntime-web": "1.30.0"
 	},
 	"devDependencies": {

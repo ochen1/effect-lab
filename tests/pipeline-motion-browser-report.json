@@ -1,0 +1,212 @@
+{
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+  "syntheticOnly": true,
+  "realNeuralNetworks": true,
+  "coverage": "Real face detector runs on synthetic no-face frames; skin model is warmed. Moving-face skin inference is outside this fixture.",
+  "preAbortedWarm": true,
+  "warm": {
+    "milliseconds": 589,
+    "skin": {
+      "state": "ready",
+      "backend": "webgpu"
+    }
+  },
+  "consecutiveFrames": {
+    "observed": [
+      [
+        27,
+        73,
+        136,
+        255
+      ],
+      [
+        192,
+        66,
+        50,
+        255
+      ],
+      [
+        56,
+        166,
+        89,
+        255
+      ],
+      [
+        78,
+        40,
+        185,
+        255
+      ],
+      [
+        27,
+        73,
+        136,
+        255
+      ]
+    ],
+    "expected": [
+      [
+        27,
+        73,
+        136,
+        255
+      ],
+      [
+        192,
+        66,
+        50,
+        255
+      ],
+      [
+        56,
+        166,
+        89,
+        255
+      ],
+      [
+        78,
+        40,
+        185,
+        255
+      ],
+      [
+        27,
+        73,
+        136,
+        255
+      ]
+    ],
+    "maxDifferenceFromNoFaceReference": 0,
+    "firstFrameMatchesReturnToSameColor": true,
+    "distinctFirstFour": 4
+  },
+  "reusedFrameBuffers": {
+    "sourceIds": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "analysisIds": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "sourceCount": 1,
+    "analysisCount": 1
+  },
+  "dimensionLimit": {
+    "width": 80,
+    "height": 45,
+    "pixel": [
+      20,
+      70,
+      130,
+      255
+    ]
+  },
+  "photoPreserved": {
+    "loaded": {
+      "width": 80,
+      "height": 60,
+      "faceCount": 0
+    },
+    "originalIdentity": true,
+    "originalDifference": 0,
+    "renderDifference": 0,
+    "width": 80,
+    "height": 60
+  },
+  "preAbortedFrame": true,
+  "inProgressCancellation": true,
+  "cancelledAfterCapture": true,
+  "recoveredAfterCancellation": true,
+  "invalidDimensions": {
+    "cases": [
+      [
+        "0",
+        "90",
+        "null"
+      ],
+      [
+        "160",
+        "-1",
+        "null"
+      ],
+      [
+        "160.5",
+        "90",
+        "null"
+      ],
+      [
+        "NaN",
+        "90",
+        "null"
+      ],
+      [
+        "160",
+        "90",
+        "0"
+      ],
+      [
+        "160",
+        "90",
+        "-2"
+      ],
+      [
+        "160",
+        "90",
+        "NaN"
+      ],
+      [
+        "160",
+        "90",
+        "Infinity"
+      ]
+    ],
+    "rejected": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "repeatedFrames": {
+    "count": 12,
+    "sourceBufferCount": 1,
+    "reusedOriginalSource": true
+  },
+  "queuedFrames": {
+    "firstDifference": 0,
+    "secondDifference": 0,
+    "independentOutputs": true
+  },
+  "hdDimensionLimit": {
+    "width": 640,
+    "height": 360,
+    "analysisWidth": 360,
+    "analysisHeight": 203,
+    "pixel": [
+      110,
+      70,
+      190,
+      255
+    ],
+    "sameSource": true,
+    "sameAnalysis": true
+  },
+  "dispose": {
+    "sourceReleased": true,
+    "analysisReleased": true,
+    "photoReleased": true,
+    "rejectsNewFrame": true
+  },
+  "passed": true
+}
