@@ -1,6 +1,7 @@
 export interface EffectSettings {
 	skin: number;
 	lut: number;
+	highlightProtection: number;
 	brightness: number;
 	temperature: number;
 	saturation: number;
@@ -19,6 +20,7 @@ export interface EffectSettings {
 export const DEFAULT_SETTINGS: Readonly<EffectSettings> = Object.freeze({
 	skin: 1,
 	lut: 0.3,
+	highlightProtection: 0,
 	brightness: -0.02,
 	temperature: -0.01,
 	saturation: 0,
@@ -42,6 +44,7 @@ export const SETTING_RANGES: Record<NumericSetting, readonly [number, number]> =
 	{
 		skin: [0, 1],
 		lut: [0, 1],
+		highlightProtection: [0, 1],
 		brightness: [-1, 1],
 		temperature: [-1, 1],
 		saturation: [-1, 1],

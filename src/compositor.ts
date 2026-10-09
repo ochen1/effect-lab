@@ -116,11 +116,18 @@ vec3 sampleOriginalLut(vec3 rgb) {
  vec3 c10=texelFetch(_LutCube,ivec3(high.x,low.y,blue),0).rgb;
  vec3 c01=texelFetch(_LutCube,ivec3(low.x,high.y,blue),0).rgb;
  vec3 c11=texelFetch(_LutCube,ivec3(high,blue),0).rgb;
- return mix(mix(c00,c10,weight.x),mix(c01,c11,weight.x),weight.y);
+ vec3 graded=mix(mix(c00,c10,weight.x),mix(c01,c11,weight.x),weight.y);
+ // Optional correction for the authored LUT’s abrupt near-white darkening.
+ float luminance=dot(rgb,vec3(0.2126,0.7152,0.0722));
+ float protection=_HighlightProtection*smoothstep(0.80,0.98,luminance);
+ return mix(graded,rgb,protection);
 }
 `;
 	return authored
-		.replace(declaration, "uniform highp sampler3D _LutCube;")
+		.replace(
+			declaration,
+			"uniform highp sampler3D _LutCube;\nuniform highp float _HighlightProtection;",
+		)
 		.replace("void main()", sample + "\nvoid main()")
 		.replace(lookup, "sampleOriginalLut(_465.xyz)");
 }
@@ -601,6 +608,7 @@ export class Compositor {
 						gl.uniform1i(gl.getUniformLocation(p, "_LutCube"), 1);
 						for (const [n, v] of Object.entries({
 							_Intensity: settings.lut,
+							_HighlightProtection: settings.highlightProtection,
 							_Brightness: settings.brightness,
 							_Temperature: settings.temperature,
 							_Tint: settings.tint,

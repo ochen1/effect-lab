@@ -31,7 +31,8 @@ async function main() {
 	const rg = [0, 1 / 63, 0.03125, 0.1, 1 / 3, 0.5, 0.731, 62 / 63, 1].map(
 		Math.fround,
 	);
-	const count = blue.length * rg.length * rg.length,
+	const gridCount = blue.length * rg.length * rg.length,
+		count = gridCount + 256,
 		width = 512,
 		height = Math.ceil(count / width),
 		input = new Float32Array(width * height * 4);
@@ -42,6 +43,10 @@ async function main() {
 				input.set([r, g, b, 1], offset);
 				offset += 4;
 			}
+	for (let v = 0; v < 256; v++) {
+		input.set([v / 255, v / 255, v / 255, 1], offset);
+		offset += 4;
+	}
 	canvas.width = width;
 	canvas.height = height;
 	gl.viewport(0, 0, width, height);
@@ -130,7 +135,12 @@ async function main() {
 		gl.UNSIGNED_BYTE,
 		bytes,
 	);
-	function draw(p: WebGLProgram, intensity: number, cube: boolean) {
+	function draw(
+		p: WebGLProgram,
+		intensity: number,
+		cube: boolean,
+		protection = 0,
+	) {
 		gl.useProgram(p);
 		gl.bindBuffer(gl.ARRAY_BUFFER, quad);
 		const position = gl.getAttribLocation(p, "position");
@@ -143,6 +153,7 @@ async function main() {
 		);
 		for (const [k, v] of Object.entries({
 			_Intensity: intensity,
+			_HighlightProtection: protection,
 			_Exposure: 0,
 			_Brightness: -0.02,
 			_Temperature: -0.01,
@@ -185,6 +196,50 @@ async function main() {
 			channelsOutsideOneByte: outsideOne,
 		});
 	}
+	const highlightChecks = [];
+	const at = (v: number, channel: number) => {
+		const i = gridCount + v;
+		return (
+			((height - 1 - Math.floor(i / width)) * width + (i % width)) * 4 + channel
+		);
+	};
+	for (const intensity of [0.35, 1]) {
+		const original = draw(cubeProgram, intensity, true, 0);
+		const protectedPixels = draw(cubeProgram, intensity, true, 1);
+		const noLut = draw(cubeProgram, 0, true, 0);
+		let midtoneError = 0,
+			highlightError = 0,
+			reversal = 0;
+		for (let v = 0; v < 256; v++)
+			for (let c = 0; c < 3; c++) {
+				const k = at(v, c);
+				if (v <= 204)
+					midtoneError = Math.max(
+						midtoneError,
+						Math.abs(original[k] - protectedPixels[k]),
+					);
+				if (v >= 250)
+					highlightError = Math.max(
+						highlightError,
+						Math.abs(noLut[k] - protectedPixels[k]),
+					);
+				if (v >= 251)
+					reversal = Math.max(
+						reversal,
+						protectedPixels[at(v - 1, c)] - protectedPixels[k],
+					);
+			}
+		highlightChecks.push({
+			intensity,
+			midtoneError,
+			highlightError,
+			highlightReversal: reversal,
+			whiteOriginal: [0, 1, 2].map((c) => original[at(255, c)]),
+			whiteProtected: [0, 1, 2].map((c) => protectedPixels[at(255, c)]),
+			passed: midtoneError === 0 && highlightError === 0 && reversal === 0,
+		});
+	}
+	report.highlightProtection = highlightChecks;
 	report.coverage = {
 		blueBins: 64,
 		boundaryAdjacentFloat32Values: 188,
@@ -203,6 +258,7 @@ async function main() {
 	actual.dispose();
 	report.passed =
 		cases.every((c) => c.channelsOutsideOneByte === 0) &&
+		highlightChecks.every((c) => c.passed) &&
 		(report.productionDriverChecks as { status: string }).status === "passed";
 	document.querySelector("#state")!.textContent = report.passed
 		? "Original atlas and raw cube agree within one byte"

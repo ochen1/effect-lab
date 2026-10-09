@@ -105,7 +105,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       <div class="control-groups" id="control-groups">
         <details class="control-group" open><summary><span><span class="group-index">01</span> Skin</span>${icons.chevron}</summary><div class="group-content"><div class="group-intro"><span>A softer, even finish</span>${toggle("skinEnabled", "Enable skin smoothing")}</div>${slider("skin", "Skin strength", "Works on the selected face.")}</div></details>
         <details class="control-group" open><summary><span><span class="group-index">02</span> Face details</span>${icons.chevron}</summary><div class="group-content"><div class="group-intro"><span>Shape, color, a little dimension</span>${toggle("makeupEnabled", "Enable face overlays")}</div>${slider("contour", "Contour")}${slider("lips", "Lips")}${slider("berry", "Berry")}</div></details>
-        <details class="control-group" open><summary><span><span class="group-index">03</span> Color</span>${icons.chevron}</summary><div class="group-content"><div class="group-intro"><span>The signature BOY II color</span>${toggle("colorEnabled", "Enable color adjustments")}</div>${slider("lut", "Color intensity")}${slider("brightness", "Brightness")}${slider("temperature", "Temperature")}</div></details>
+        <details class="control-group" open><summary><span><span class="group-index">03</span> Color</span>${icons.chevron}</summary><div class="group-content"><div class="group-intro"><span>The signature BOY II color</span>${toggle("colorEnabled", "Enable color adjustments")}</div>${slider("lut", "Color intensity")}${slider("highlightProtection", "Highlight protection", "Reduce the color effect on bright areas. 0 keeps the original look; try 1 for darkened highlights.")}${slider("brightness", "Brightness")}${slider("temperature", "Temperature")}</div></details>
         <details class="control-group"><summary><span><span class="group-index">04</span> Fine-tune</span>${icons.chevron}</summary><div class="group-content">${slider("saturation", "Saturation")}${slider("contrast", "Contrast")}${slider("exposure", "Exposure")}${slider("tint", "Tint")}</div></details>
       </div>
       <details class="processing-controls"><summary>Processing & troubleshooting</summary><label for="processing-mode">Skin processing</label><select id="processing-mode"><option value="auto">Automatic · checked GPU</option><option value="wasm">CPU compatibility</option></select><p>For skin-processing issues, try CPU compatibility. It may be slower.</p><button class="button button-small" id="processing-report">Download processing report</button><p>The report contains generated-test results and settings, with no photos.</p><span id="processing-feedback" role="status"></span></details>
@@ -468,6 +468,7 @@ function updateGroupStates() {
 			"colorEnabled",
 			[
 				"lut",
+				"highlightProtection",
 				"brightness",
 				"temperature",
 				"saturation",

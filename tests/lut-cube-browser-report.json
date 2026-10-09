@@ -1,25 +1,61 @@
 {
   "syntheticOnly": true,
+  "highlightProtection": [
+    {
+      "intensity": 0.35,
+      "midtoneError": 0,
+      "highlightError": 0,
+      "highlightReversal": 0,
+      "whiteOriginal": [
+        225,
+        227,
+        231
+      ],
+      "whiteProtected": [
+        249,
+        250,
+        253
+      ],
+      "passed": true
+    },
+    {
+      "intensity": 1,
+      "midtoneError": 0,
+      "highlightError": 0,
+      "highlightReversal": 0,
+      "whiteOriginal": [
+        180,
+        185,
+        188
+      ],
+      "whiteProtected": [
+        249,
+        250,
+        253
+      ],
+      "passed": true
+    }
+  ],
   "coverage": {
     "blueBins": 64,
     "boundaryAdjacentFloat32Values": 188,
     "all256BlueByteValues": true,
     "redGreenGrid": "9×9",
-    "totalPixels": 41148
+    "totalPixels": 41404
   },
   "atlasVersusCube": [
     {
       "intensity": 0.3,
-      "pixels": 41148,
+      "pixels": 41404,
       "maxError": 1,
-      "meanError": 0.001944201419267036,
+      "meanError": 0.001944256593565839,
       "channelsOutsideOneByte": 0
     },
     {
       "intensity": 1,
-      "pixels": 41148,
+      "pixels": 41404,
       "maxError": 1,
-      "meanError": 0.0065069991251093615,
+      "meanError": 0.006569413583228673,
       "channelsOutsideOneByte": 0
     }
   ],
