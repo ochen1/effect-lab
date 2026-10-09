@@ -1,0 +1,980 @@
+{
+  "syntheticOnly": true,
+  "hardwareCameraTested": false,
+  "sources": [
+    "https://html.spec.whatwg.org/multipage/canvas.html#colour-spaces-and-colour-space-conversion",
+    "https://www.w3.org/TR/webcodecs/#videocolorspace",
+    "https://www.w3.org/TR/mediacapture-streams/#constrainable-properties",
+    "https://github.com/w3c-cg/ColorWeb-CG/blob/main/hdr-big-picture.md"
+  ],
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+  "defaultCanvas": {
+    "attributes": {
+      "alpha": true,
+      "colorSpace": "srgb",
+      "colorType": "unorm8",
+      "desynchronized": false,
+      "toneMapping": {
+        "mode": "standard"
+      },
+      "willReadFrequently": false
+    },
+    "globalHDRHeadroom": "unavailable",
+    "globalLinearHDRHeadroom": "unavailable",
+    "toneMapping": "unavailable"
+  },
+  "supportedConstraints": {
+    "aspectRatio": true,
+    "autoGainControl": true,
+    "brightness": true,
+    "channelCount": true,
+    "colorTemperature": true,
+    "contrast": true,
+    "deviceId": true,
+    "displaySurface": true,
+    "echoCancellation": true,
+    "exposureCompensation": true,
+    "exposureMode": true,
+    "exposureTime": true,
+    "facingMode": true,
+    "focusDistance": true,
+    "focusMode": true,
+    "frameRate": true,
+    "groupId": true,
+    "height": true,
+    "iso": true,
+    "latency": true,
+    "noiseSuppression": true,
+    "pan": true,
+    "pointsOfInterest": true,
+    "resizeMode": true,
+    "restrictOwnAudio": true,
+    "sampleRate": true,
+    "sampleSize": true,
+    "saturation": true,
+    "sharpness": true,
+    "suppressLocalAudioPlayback": true,
+    "tilt": true,
+    "torch": true,
+    "voiceIsolation": true,
+    "whiteBalanceMode": true,
+    "width": true,
+    "zoom": true
+  },
+  "srgb": {
+    "frameColorSpace": {
+      "fullRange": true,
+      "matrix": "rgb",
+      "primaries": "bt709",
+      "transfer": "iec61966-2-1"
+    },
+    "samples": [
+      [
+        0,
+        0,
+        0,
+        255
+      ],
+      [
+        16,
+        16,
+        16,
+        255
+      ],
+      [
+        64,
+        64,
+        64,
+        255
+      ],
+      [
+        128,
+        128,
+        128,
+        255
+      ],
+      [
+        192,
+        192,
+        192,
+        255
+      ],
+      [
+        235,
+        235,
+        235,
+        255
+      ],
+      [
+        192,
+        128,
+        96,
+        255
+      ],
+      [
+        80,
+        140,
+        190,
+        255
+      ]
+    ],
+    "explicitSrgbDifference": {
+      "max": 0,
+      "mean": 0
+    },
+    "compositorIdentity": {
+      "max": 0,
+      "mean": 0
+    },
+    "pngRoundtrip": {
+      "max": 0,
+      "mean": 0
+    },
+    "htmlVideoCapture": {
+      "supported": true,
+      "colorSpace": {
+        "fullRange": true,
+        "matrix": "rgb",
+        "primaries": "bt709",
+        "transfer": "iec61966-2-1"
+      },
+      "captureMetadata": {
+        "version": 1,
+        "conversion": "browser-managed-to-srgb",
+        "output": {
+          "colorSpace": "srgb",
+          "colorType": "unorm8",
+          "toneMapping": "standard"
+        },
+        "source": {
+          "width": 128,
+          "height": 32,
+          "format": "RGBA",
+          "colorSpace": {
+            "primaries": "bt709",
+            "transfer": "iec61966-2-1",
+            "matrix": "rgb",
+            "fullRange": true
+          },
+          "dynamicRange": "sdr"
+        },
+        "camera": {
+          "settings": {
+            "aspectRatio": 4,
+            "frameRate": 30,
+            "height": 32,
+            "resizeMode": "none",
+            "width": 128
+          },
+          "capabilities": {
+            "facingMode": [],
+            "resizeMode": [
+              "none",
+              "crop-and-scale"
+            ]
+          }
+        },
+        "canvas": {
+          "alpha": true,
+          "colorSpace": "srgb",
+          "colorType": "unorm8",
+          "desynchronized": false,
+          "toneMapping": {
+            "mode": "standard"
+          },
+          "willReadFrequently": false
+        }
+      },
+      "captureVsDirectFrame": {
+        "max": 0,
+        "mean": 0
+      },
+      "samples": [
+        [
+          0,
+          0,
+          0,
+          255
+        ],
+        [
+          16,
+          16,
+          16,
+          255
+        ],
+        [
+          64,
+          64,
+          64,
+          255
+        ],
+        [
+          128,
+          128,
+          128,
+          255
+        ],
+        [
+          192,
+          192,
+          192,
+          255
+        ],
+        [
+          235,
+          235,
+          235,
+          255
+        ],
+        [
+          192,
+          128,
+          96,
+          255
+        ],
+        [
+          80,
+          140,
+          190,
+          255
+        ]
+      ],
+      "pngRoundtrip": {
+        "max": 0,
+        "mean": 0
+      }
+    }
+  },
+  "displayP3": {
+    "frameColorSpace": {
+      "fullRange": true,
+      "matrix": "rgb",
+      "primaries": "smpte432",
+      "transfer": "iec61966-2-1"
+    },
+    "samples": [
+      [
+        0,
+        0,
+        0,
+        255
+      ],
+      [
+        16,
+        16,
+        16,
+        255
+      ],
+      [
+        64,
+        64,
+        64,
+        255
+      ],
+      [
+        128,
+        128,
+        128,
+        255
+      ],
+      [
+        192,
+        192,
+        192,
+        255
+      ],
+      [
+        235,
+        235,
+        235,
+        255
+      ],
+      [
+        203,
+        124,
+        90,
+        255
+      ],
+      [
+        56,
+        142,
+        195,
+        255
+      ]
+    ],
+    "explicitSrgbDifference": {
+      "max": 0,
+      "mean": 0
+    },
+    "compositorIdentity": {
+      "max": 0,
+      "mean": 0
+    },
+    "pngRoundtrip": {
+      "max": 0,
+      "mean": 0
+    },
+    "htmlVideoCapture": {
+      "supported": true,
+      "colorSpace": {
+        "fullRange": true,
+        "matrix": "rgb",
+        "primaries": "smpte432",
+        "transfer": "iec61966-2-1"
+      },
+      "captureMetadata": {
+        "version": 1,
+        "conversion": "browser-managed-to-srgb",
+        "output": {
+          "colorSpace": "srgb",
+          "colorType": "unorm8",
+          "toneMapping": "standard"
+        },
+        "source": {
+          "width": 128,
+          "height": 32,
+          "format": "RGBA",
+          "colorSpace": {
+            "primaries": "smpte432",
+            "transfer": "iec61966-2-1",
+            "matrix": "rgb",
+            "fullRange": true
+          },
+          "dynamicRange": "sdr"
+        },
+        "camera": {
+          "settings": {
+            "aspectRatio": 4,
+            "frameRate": 30,
+            "height": 32,
+            "resizeMode": "none",
+            "width": 128
+          },
+          "capabilities": {
+            "facingMode": [],
+            "resizeMode": [
+              "none",
+              "crop-and-scale"
+            ]
+          }
+        },
+        "canvas": {
+          "alpha": true,
+          "colorSpace": "srgb",
+          "colorType": "unorm8",
+          "desynchronized": false,
+          "toneMapping": {
+            "mode": "standard"
+          },
+          "willReadFrequently": false
+        }
+      },
+      "captureVsDirectFrame": {
+        "max": 0,
+        "mean": 0
+      },
+      "samples": [
+        [
+          0,
+          0,
+          0,
+          255
+        ],
+        [
+          16,
+          16,
+          16,
+          255
+        ],
+        [
+          64,
+          64,
+          64,
+          255
+        ],
+        [
+          128,
+          128,
+          128,
+          255
+        ],
+        [
+          192,
+          192,
+          192,
+          255
+        ],
+        [
+          235,
+          235,
+          235,
+          255
+        ],
+        [
+          203,
+          124,
+          90,
+          255
+        ],
+        [
+          56,
+          142,
+          195,
+          255
+        ]
+      ],
+      "pngRoundtrip": {
+        "max": 0,
+        "mean": 0
+      }
+    }
+  },
+  "hdrPQ": {
+    "frameColorSpace": {
+      "fullRange": true,
+      "matrix": "rgb",
+      "primaries": "bt2020",
+      "transfer": "pq"
+    },
+    "samples": [
+      [
+        0,
+        0,
+        0,
+        255
+      ],
+      [
+        1,
+        1,
+        1,
+        255
+      ],
+      [
+        30,
+        30,
+        30,
+        255
+      ],
+      [
+        132,
+        132,
+        132,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        0,
+        1,
+        255
+      ],
+      [
+        0,
+        114,
+        255,
+        255
+      ]
+    ],
+    "explicitSrgbDifference": {
+      "max": 0,
+      "mean": 0
+    },
+    "compositorIdentity": {
+      "max": 0,
+      "mean": 0
+    },
+    "pngRoundtrip": {
+      "max": 0,
+      "mean": 0
+    },
+    "htmlVideoCapture": {
+      "supported": true,
+      "colorSpace": {
+        "fullRange": true,
+        "matrix": "rgb",
+        "primaries": "bt2020",
+        "transfer": "pq"
+      },
+      "captureMetadata": {
+        "version": 1,
+        "conversion": "browser-managed-to-srgb",
+        "output": {
+          "colorSpace": "srgb",
+          "colorType": "unorm8",
+          "toneMapping": "standard"
+        },
+        "source": {
+          "width": 128,
+          "height": 32,
+          "format": "RGBA",
+          "colorSpace": {
+            "primaries": "bt2020",
+            "transfer": "pq",
+            "matrix": "rgb",
+            "fullRange": true
+          },
+          "dynamicRange": "hdr"
+        },
+        "camera": {
+          "settings": {
+            "aspectRatio": 4,
+            "frameRate": 30,
+            "height": 32,
+            "resizeMode": "none",
+            "width": 128
+          },
+          "capabilities": {
+            "facingMode": [],
+            "resizeMode": [
+              "none",
+              "crop-and-scale"
+            ]
+          }
+        },
+        "canvas": {
+          "alpha": true,
+          "colorSpace": "srgb",
+          "colorType": "unorm8",
+          "desynchronized": false,
+          "toneMapping": {
+            "mode": "standard"
+          },
+          "willReadFrequently": false
+        }
+      },
+      "captureVsDirectFrame": {
+        "max": 0,
+        "mean": 0
+      },
+      "samples": [
+        [
+          0,
+          0,
+          0,
+          255
+        ],
+        [
+          1,
+          1,
+          1,
+          255
+        ],
+        [
+          30,
+          30,
+          30,
+          255
+        ],
+        [
+          132,
+          132,
+          132,
+          255
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          1,
+          255
+        ],
+        [
+          0,
+          114,
+          255,
+          255
+        ]
+      ],
+      "pngRoundtrip": {
+        "max": 0,
+        "mean": 0
+      }
+    }
+  },
+  "hdrHLG": {
+    "frameColorSpace": {
+      "fullRange": true,
+      "matrix": "rgb",
+      "primaries": "bt2020",
+      "transfer": "hlg"
+    },
+    "samples": [
+      [
+        0,
+        0,
+        0,
+        255
+      ],
+      [
+        3,
+        3,
+        3,
+        255
+      ],
+      [
+        43,
+        43,
+        43,
+        255
+      ],
+      [
+        99,
+        100,
+        100,
+        255
+      ],
+      [
+        189,
+        189,
+        189,
+        255
+      ],
+      [
+        239,
+        239,
+        239,
+        255
+      ],
+      [
+        210,
+        89,
+        72,
+        255
+      ],
+      [
+        0,
+        114,
+        175,
+        255
+      ]
+    ],
+    "explicitSrgbDifference": {
+      "max": 0,
+      "mean": 0
+    },
+    "compositorIdentity": {
+      "max": 0,
+      "mean": 0
+    },
+    "pngRoundtrip": {
+      "max": 0,
+      "mean": 0
+    },
+    "htmlVideoCapture": {
+      "supported": true,
+      "colorSpace": {
+        "fullRange": true,
+        "matrix": "rgb",
+        "primaries": "bt2020",
+        "transfer": "hlg"
+      },
+      "captureMetadata": {
+        "version": 1,
+        "conversion": "browser-managed-to-srgb",
+        "output": {
+          "colorSpace": "srgb",
+          "colorType": "unorm8",
+          "toneMapping": "standard"
+        },
+        "source": {
+          "width": 128,
+          "height": 32,
+          "format": "RGBA",
+          "colorSpace": {
+            "primaries": "bt2020",
+            "transfer": "hlg",
+            "matrix": "rgb",
+            "fullRange": true
+          },
+          "dynamicRange": "hdr"
+        },
+        "camera": {
+          "settings": {
+            "aspectRatio": 4,
+            "frameRate": 30,
+            "height": 32,
+            "resizeMode": "none",
+            "width": 128
+          },
+          "capabilities": {
+            "facingMode": [],
+            "resizeMode": [
+              "none",
+              "crop-and-scale"
+            ]
+          }
+        },
+        "canvas": {
+          "alpha": true,
+          "colorSpace": "srgb",
+          "colorType": "unorm8",
+          "desynchronized": false,
+          "toneMapping": {
+            "mode": "standard"
+          },
+          "willReadFrequently": false
+        }
+      },
+      "captureVsDirectFrame": {
+        "max": 0,
+        "mean": 0
+      },
+      "samples": [
+        [
+          0,
+          0,
+          0,
+          255
+        ],
+        [
+          3,
+          3,
+          3,
+          255
+        ],
+        [
+          43,
+          43,
+          43,
+          255
+        ],
+        [
+          99,
+          100,
+          100,
+          255
+        ],
+        [
+          189,
+          189,
+          189,
+          255
+        ],
+        [
+          239,
+          239,
+          239,
+          255
+        ],
+        [
+          210,
+          89,
+          72,
+          255
+        ],
+        [
+          0,
+          114,
+          175,
+          255
+        ]
+      ],
+      "pngRoundtrip": {
+        "max": 0,
+        "mean": 0
+      }
+    }
+  },
+  "p3Canvas": {
+    "sourceAttributes": {
+      "alpha": true,
+      "colorSpace": "display-p3",
+      "colorType": "unorm8",
+      "desynchronized": false,
+      "toneMapping": {
+        "mode": "standard"
+      },
+      "willReadFrequently": false
+    },
+    "convertedSamples": [
+      [
+        0,
+        0,
+        0,
+        255
+      ],
+      [
+        16,
+        16,
+        16,
+        255
+      ],
+      [
+        64,
+        64,
+        64,
+        255
+      ],
+      [
+        128,
+        128,
+        128,
+        255
+      ],
+      [
+        192,
+        192,
+        192,
+        255
+      ],
+      [
+        235,
+        235,
+        235,
+        255
+      ],
+      [
+        203,
+        124,
+        90,
+        255
+      ],
+      [
+        56,
+        142,
+        195,
+        255
+      ]
+    ],
+    "sameAsDeclaredP3Frame": true
+  },
+  "yuvLimitedRange": {
+    "colorSpace": {
+      "fullRange": false,
+      "matrix": "bt709",
+      "primaries": "bt709",
+      "transfer": "bt709"
+    },
+    "samples": [
+      [
+        0,
+        0,
+        0,
+        255
+      ],
+      [
+        19,
+        19,
+        19,
+        255
+      ],
+      [
+        56,
+        56,
+        56,
+        255
+      ],
+      [
+        98,
+        98,
+        98,
+        255
+      ],
+      [
+        130,
+        130,
+        130,
+        255
+      ],
+      [
+        191,
+        191,
+        191,
+        255
+      ],
+      [
+        238,
+        238,
+        238,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ]
+  },
+  "yuvFullRange": {
+    "colorSpace": {
+      "fullRange": true,
+      "matrix": "bt709",
+      "primaries": "bt709",
+      "transfer": "bt709"
+    },
+    "samples": [
+      [
+        16,
+        16,
+        16,
+        255
+      ],
+      [
+        32,
+        32,
+        32,
+        255
+      ],
+      [
+        64,
+        64,
+        64,
+        255
+      ],
+      [
+        100,
+        100,
+        100,
+        255
+      ],
+      [
+        128,
+        128,
+        128,
+        255
+      ],
+      [
+        180,
+        180,
+        180,
+        255
+      ],
+      [
+        220,
+        220,
+        220,
+        255
+      ],
+      [
+        235,
+        235,
+        235,
+        255
+      ]
+    ]
+  },
+  "passed": true
+}

@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-09",
+  "environment": "Aside Chrome153 on macOS",
+  "private_media_published": false,
+  "fullscreen": {
+    "modes": [
+      "photo",
+      "video",
+      "camera"
+    ],
+    "desktop_viewport": [
+      1440,
+      900
+    ],
+    "mobile_iframe_viewport": [
+      412,
+      915
+    ],
+    "mobile_preview_size": [
+      412,
+      915
+    ],
+    "mobile_document_scroll_width": 412,
+    "exit_visible": true,
+    "exit_restores_inspector_interaction": true,
+    "scope": "Viewport fullscreen fallback was observed; no physical Android device used."
+  },
+  "original_photo_download": {
+    "byte_identical_to_input": true
+  },
+  "camera_photo_pair": {
+    "fixture": "Generated moving colored rectangle in a native browser MediaStream, no physical camera accessed.",
+    "incoming_size": [
+      1280,
+      720
+    ],
+    "preview_size": [
+      720,
+      405
+    ],
+    "original_png_size": [
+      1280,
+      720
+    ],
+    "edited_png_size": [
+      1280,
+      720
+    ],
+    "settings_sidecar": true,
+    "source_color_classification": "sdr"
+  },
+  "recording_pair": {
+    "original_size": [
+      1280,
+      720
+    ],
+    "edited_size": [
+      720,
+      405
+    ],
+    "original_decoded_frames": 44,
+    "edited_decoded_frames": 46,
+    "duration_seconds_each": 1.885,
+    "disk_backend": "opfs",
+    "original_peak_pending_bytes": 7652,
+    "edited_peak_pending_bytes": 5467,
+    "pending_limit_per_stream": 8388608,
+    "original_downloaded_and_decoded": true,
+    "edited_downloaded_and_decoded": true
+  },
+  "reediting": {
+    "recorded_original_reopened_as_video": true,
+    "captured_original_reopened_as_photo": true,
+    "associated_settings_restored": true,
+    "discarding_active_disk_source_blocked": true,
+    "photo_original_download_from_fullscreen": true
+  },
+  "hdr_status": "Synthetic HDR/P3/range tests passed; physical user webcam issue remains unreproduced pending device/sample information."
+}

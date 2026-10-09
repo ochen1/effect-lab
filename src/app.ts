@@ -1,3 +1,5 @@
+import { createExportTray, type ExportArtifact } from "./export-tray";
+import { setupPreviewFullscreen } from "./fullscreen";
 import "./styles.css";
 import { createPipeline } from "./pipeline";
 import { getSkinStatus } from "./inference";
@@ -54,7 +56,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <span class="privacy-pill">${icons.lock}<span>Stays on your device</span></span>
   </header>
   <main class="workspace">
-    <section class="studio" aria-label="Media preview">
+    <section class="studio" id="preview-workspace" aria-label="Media preview">
+      <button class="button button-small fullscreen-button" id="preview-fullscreen" aria-label="Fullscreen preview" aria-pressed="false">Fullscreen</button>
       <div class="mode-switch" role="group" aria-label="Media mode"><button data-mode="photo" aria-pressed="true">Photo</button><button data-mode="video" aria-pressed="false">Video</button><button data-mode="camera" aria-pressed="false">Live camera</button></div>
       <div class="section-topline"><span class="eyebrow">A little room to experiment</span><span class="issue-label">PHOTO LAB / 001</span></div>
       <div class="stage" id="stage">
@@ -79,12 +82,13 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       <div class="photo-toolbar" id="photo-toolbar" hidden>
         <button class="button button-small" id="replace-photo">${icons.image}<span>Change photo</span></button>
         <div class="view-switch" role="group" aria-label="Preview mode"><button data-view="edited" aria-pressed="true">Edited</button><button data-view="split" aria-pressed="false">Compare</button><button data-view="original" aria-pressed="false">Original</button></div>
-        <span class="photo-size" id="photo-size"></span>
+        <span class="photo-size" id="photo-size"></span><div class="fullscreen-only photo-save-controls"><button class="button button-small" id="fullscreen-save-photo" disabled>Save edited</button><button class="button button-small" id="fullscreen-original-photo" disabled>Save original</button></div>
       </div>
       <p class="photo-hold-tip" id="photo-hold-tip" hidden>Touch and hold the photo to see the original. Release to return.</p>
       <div class="photo-message" id="photo-message" aria-live="polite"></div>
       <div class="status-line"><span class="status-dot" id="status-dot"></span><span id="status-text" role="status">Ready when you are</span><span id="runtime-status" class="runtime-status" hidden></span><button class="text-button" id="about-button">About the lab ${icons.arrow}</button></div>
       <div class="error-message" id="error-message" role="alert" hidden><span id="error-text"></span><button id="dismiss-error" aria-label="Dismiss error">${icons.close}</button></div>
+      <details id="saved-files" class="saved-files" aria-label="Captured files" hidden><summary>Your files · originals and edits</summary><p>Download originals to edit them again later. Temporary files stay in this tab until discarded or the page closes.</p><div class="saved-file-list"></div></details>
     </section>
     <aside class="inspector" aria-label="Effect controls">
       <div class="inspector-top"><span class="eyebrow">THE EFFECT COLLECTION</span><span class="count-pill">01</span></div>
@@ -98,7 +102,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <details class="control-group" open><summary><span><span class="group-index">03</span> Color</span>${icons.chevron}</summary><div class="group-content"><div class="group-intro"><span>The signature BOY II color</span>${toggle("colorEnabled", "Enable color adjustments")}</div>${slider("lut", "Color intensity")}${slider("brightness", "Brightness")}${slider("temperature", "Temperature")}</div></details>
         <details class="control-group"><summary><span><span class="group-index">04</span> Fine-tune</span>${icons.chevron}</summary><div class="group-content">${slider("saturation", "Saturation")}${slider("contrast", "Contrast")}${slider("exposure", "Exposure")}${slider("tint", "Tint")}</div></details>
       </div>
-      <div class="export-area" id="photo-export-area"><div class="export-meta"><span id="export-resolution">Full resolution export</span><label><span class="sr-only">Export format</span><select id="export-format"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option></select></label></div><button class="button button-export" id="export-photo" disabled>${icons.download}<span id="export-button-text">Export photo</span>${icons.arrow}</button><div class="export-progress" id="export-progress" hidden><progress id="export-progress-bar" aria-label="Photo export progress" max="1" value="0"></progress><button class="text-button" id="cancel-export">Cancel</button></div><p class="export-note" id="export-note">Your photo never leaves this device.</p></div>
+      <div class="export-area" id="photo-export-area"><div class="export-meta"><span id="export-resolution">Full resolution export</span><label><span class="sr-only">Export format</span><select id="export-format"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option></select></label></div><button class="button button-export" id="export-photo" disabled>${icons.download}<span id="export-button-text">Export photo</span>${icons.arrow}</button><button class="button button-small" id="download-original-photo" disabled>Download original photo</button><div class="export-progress" id="export-progress" hidden><progress id="export-progress-bar" aria-label="Photo export progress" max="1" value="0"></progress><button class="text-button" id="cancel-export">Cancel</button></div><p class="export-note" id="export-note">Your photo never leaves this device.</p></div>
       <div class="export-area" id="motion-export-area" hidden></div><button class="button button-small share-button" id="share-photo" hidden>Save or share exported file ${icons.arrow}</button>
     </aside>
   </main>
@@ -123,6 +127,7 @@ let pipeline: Pipeline | undefined;
 let pipelinePromise: Promise<Pipeline> | undefined;
 let phase: Phase = "empty";
 let original: HTMLCanvasElement | undefined;
+let originalFile: File | undefined;
 let hasPreview = false;
 let fileName = "photo";
 let viewMode = "edited";
@@ -138,50 +143,63 @@ let exportController: AbortController | undefined;
 let previewTimer = 0;
 let previewVersion = 0;
 let loadVersion = 0;
-let downloadUrl: string | undefined;
-let exportedFile: File | undefined;
-let exportedRelease: (() => Promise<void>) | undefined;
-let pendingDownload = false;
 let mediaMode: "photo" | MotionMode = "photo";
 let modeVersion = 0;
 let motionBusy = false;
 let motionRecording = false;
 let motionHasMedia = false;
 
+const exportTray = createExportTray(
+	element("saved-files"),
+	showError,
+	async (file, savedSettings) => {
+		if (motionBusy || motionRecording || phase === "exporting")
+			throw new Error(
+				"Finish the current capture before reopening an original.",
+			);
+		if (savedSettings) {
+			settings = validateSettings(savedSettings);
+			syncControls();
+			refreshPresetOptions("custom");
+		}
+		if (file.type.startsWith("video/")) {
+			await setMediaMode("video");
+			await motion.openVideo(file);
+		} else {
+			await setMediaMode("photo");
+			await openPhoto(file);
+		}
+	},
+	(file) => file === originalFile || file === motion.originalFile,
+);
+setupPreviewFullscreen(
+	element("preview-workspace"),
+	element<HTMLButtonElement>("preview-fullscreen"),
+);
 function clearExport() {
-	if (downloadUrl) URL.revokeObjectURL(downloadUrl);
-	downloadUrl = undefined;
-	exportedFile = undefined;
-	pendingDownload = false;
-	const release = exportedRelease;
-	exportedRelease = undefined;
-	void release?.().catch(() => {});
 	element("share-photo").hidden = true;
 }
-
-function offerExport(file: File, release?: () => Promise<void>) {
-	clearExport();
-	exportedFile = file;
-	exportedRelease = release;
-	downloadUrl = URL.createObjectURL(file);
-	pendingDownload = document.hidden;
-	if (!pendingDownload) downloadExport();
-	element("share-photo").textContent = navigator.canShare?.({ files: [file] })
-		? "Save or share exported file ↗"
-		: "Download exported file ↗";
-	element("share-photo").hidden = false;
-}
-
-function downloadExport() {
-	if (!downloadUrl || !exportedFile) return;
+function triggerDownload(file: File, url: string) {
 	const link = Object.assign(document.createElement("a"), {
-		href: downloadUrl,
-		download: exportedFile.name,
+		href: url,
+		download: file.name,
 	});
 	document.body.append(link);
 	link.click();
 	link.remove();
-	pendingDownload = false;
+}
+function offerExportBatch(
+	items: ExportArtifact[],
+	title = "Original and edited files",
+) {
+	exportTray.add(items, title);
+}
+function offerExport(file: File, release?: () => Promise<void>) {
+	const urls = exportTray.add(
+		[{ file, kind: "edited", release }],
+		"Edited file",
+	);
+	if (!document.hidden) triggerDownload(file, urls[0]);
 }
 
 const motion = createMotionController({
@@ -190,6 +208,7 @@ const motion = createMotionController({
 	onStatus: setStatus,
 	onError: showError,
 	onExport: offerExport,
+	onExportBatch: offerExportBatch,
 	onActivity: ({ busy, hasMedia, recording }) => {
 		if (
 			(busy && !motionBusy && !motionRecording) ||
@@ -363,9 +382,15 @@ function isCancelled(error: unknown, signal?: AbortSignal) {
 function updatePhase(next: Phase) {
 	if (next !== "ready") photoHold?.cancel();
 	phase = next;
+	element<HTMLButtonElement>("download-original-photo").disabled =
+		!originalFile || phase === "loading" || phase === "exporting";
 	element("stage").setAttribute("aria-busy", String(phase === "loading"));
 	element<HTMLButtonElement>("export-photo").disabled =
 		phase !== "ready" || !hasPreview;
+	element<HTMLButtonElement>("fullscreen-save-photo").disabled =
+		phase !== "ready" || !hasPreview;
+	element<HTMLButtonElement>("fullscreen-original-photo").disabled =
+		!originalFile || phase === "loading" || phase === "exporting";
 	element("stage-busy").hidden = phase !== "loading";
 	element("export-progress").hidden = phase !== "exporting";
 	element("export-button-text").textContent =
@@ -543,6 +568,7 @@ async function openPhoto(file?: File) {
 		if (controller.signal.aborted || version !== loadVersion) return;
 		const photo = engine.getOriginal();
 		original = photo;
+		originalFile = file;
 		hasPreview = false;
 		element("original-image").replaceChildren(photo);
 		element("edited-image").replaceChildren();
@@ -611,6 +637,7 @@ function schedulePreview(quick = false) {
 	element("share-photo").hidden = true;
 	hasPreview = false;
 	element<HTMLButtonElement>("export-photo").disabled = true;
+	element<HTMLButtonElement>("fullscreen-save-photo").disabled = true;
 	clearTimeout(previewTimer);
 	previewController?.abort();
 	++previewVersion;
@@ -641,6 +668,7 @@ async function renderPreview(maxDimension: number, parentSignal?: AbortSignal) {
 		hasPreview = true;
 		if (phase === "ready") {
 			element<HTMLButtonElement>("export-photo").disabled = false;
+			element<HTMLButtonElement>("fullscreen-save-photo").disabled = false;
 			setStatus("Your photo is ready");
 		}
 		renderPhotoView();
@@ -1012,7 +1040,25 @@ element("export-photo").addEventListener("click", async () => {
 		const file = new File([blob], `${fileName}-boy-ii.${extension}`, {
 			type: blob.type,
 		});
-		offerExport(file);
+		const artifacts: ExportArtifact[] = [{ file, kind: "edited" }];
+		if (originalFile)
+			artifacts.unshift({ file: originalFile, kind: "original" });
+		artifacts.push({
+			file: new File(
+				[
+					JSON.stringify(
+						{ schemaVersion: 1, effect: "BOY II", settings: { ...settings } },
+						null,
+						2,
+					),
+				],
+				`${fileName}-settings.json`,
+				{ type: "application/json" },
+			),
+			kind: "settings",
+		});
+		const urls = exportTray.add(artifacts, "Photo original and edit");
+		if (!document.hidden) triggerDownload(file, urls[originalFile ? 1 : 0]);
 		element<HTMLProgressElement>("export-progress-bar").value = 1;
 		setStatus("Your full resolution photo is exported");
 	} catch (error) {
@@ -1029,18 +1075,19 @@ element("export-photo").addEventListener("click", async () => {
 element("cancel-export").addEventListener("click", () => {
 	exportController?.abort();
 });
-element("share-photo").addEventListener("click", async () => {
-	if (!exportedFile) return;
-	if (!navigator.canShare?.({ files: [exportedFile] })) {
-		downloadExport();
-		return;
-	}
-	try {
-		await navigator.share({ files: [exportedFile] });
-	} catch (error) {
-		if (!isCancelled(error))
-			showError(`Couldn’t open sharing. ${messageOf(error)}`);
-	}
+element("fullscreen-save-photo").addEventListener("click", () =>
+	element<HTMLButtonElement>("export-photo").click(),
+);
+element("fullscreen-original-photo").addEventListener("click", () =>
+	element<HTMLButtonElement>("download-original-photo").click(),
+);
+element("download-original-photo").addEventListener("click", () => {
+	if (!originalFile) return;
+	const urls = exportTray.add(
+		[{ file: originalFile, kind: "original" }],
+		"Original photo",
+	);
+	triggerDownload(originalFile, urls[0]);
 });
 
 window.addEventListener("pagehide", () => {
@@ -1050,13 +1097,11 @@ window.addEventListener("pagehide", () => {
 	exportController?.abort();
 	void motion.stop();
 	clearExport();
+	exportTray.clear();
 });
 
 window.addEventListener("pageshow", (event) => {
 	if (event.persisted) void setMediaMode(mediaMode, true);
-});
-document.addEventListener("visibilitychange", () => {
-	if (!document.hidden && pendingDownload) downloadExport();
 });
 
 // Keyboard focus must stay below the sticky photo on narrow screens.

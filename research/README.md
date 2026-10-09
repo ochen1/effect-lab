@@ -68,3 +68,7 @@ The portable skin model SHA-256 is `c4d17902dc2f74173e988a069df3d48aad3583a1ca5f
 ## Makeup registration correction
 
 The raw extra-network output groups are mouth/brows/eyes, while the TT295 renderer expects eyes/brows/mouth. `makeup-extra-order-validation.json` compares the corrected permutation with native SDK output; the report contains only index mappings and aggregate errors. `../tests/makeup-registration.test.ts` checks anatomical correspondence, and the browser registration harness renders all layers at full strength against original package-authored geometry and model means. These checks reproduce the old displacement and verify the corrected placement. No photo-derived coordinates or private images are included.
+
+## Paired capture and camera color
+
+The full-screen and paired-capture follow-up preserves unfiltered originals for later editing. `../tests/fullscreen-capture-browser-report.json` records integrated UI checks, while `../tests/paired-recording-browser-report.json` covers independent raw/edited capture, streaming OPFS writes, queue caps, matched durations, quota/cancellation, and cleanup. `../tests/capture-color-browser-report.json` uses only synthetic color frames. It verifies browser-managed conversion into explicit SDR sRGB surfaces; a physical webcam issue has not been reproduced. No captured images, recordings, device identifiers, or private pixel buffers are included.

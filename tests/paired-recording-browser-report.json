@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-09",
+  "driver": "Aside browser REPL on localhost:4179",
+  "synthetic": true,
+  "fixture": "Generated320x180 canvas stream at25fps and separately painted160x90 filtered canvas at3.3fps; optional generated440Hz audio stream. No private media.",
+  "silent_pair": {
+    "passed": true,
+    "original_frames": 55,
+    "filtered_frames": 10,
+    "original_size": [
+      320,
+      180
+    ],
+    "filtered_size": [
+      160,
+      90
+    ],
+    "original_duration_seconds": 2.204,
+    "filtered_duration_seconds": 2.204,
+    "disk_writes_before_stop": 14,
+    "original_peak_pending_bytes": 2440,
+    "filtered_peak_pending_bytes": 836,
+    "original_total_bytes_written": 17505,
+    "filtered_total_bytes_written": 4604
+  },
+  "microphone_pair": {
+    "passed": true,
+    "original_frames": 54,
+    "filtered_frames": 11,
+    "audio_tracks_in_each_file": 1,
+    "original_duration_seconds": 2.204,
+    "filtered_duration_seconds": 2.204,
+    "disk_writes_before_stop": 14,
+    "original_peak_pending_bytes": 7408,
+    "filtered_peak_pending_bytes": 6477
+  },
+  "ownership": {
+    "original_UI_track_remains_live_after_stop": true,
+    "filtered_file_readable_after_original_release": true,
+    "all_temporary_files_removed_after_release": true
+  },
+  "failure_cases": {
+    "cancel_during_capture": {
+      "passed": true,
+      "state": "aborted",
+      "temporary_files_leaked": 0,
+      "UI_track_preserved": true
+    },
+    "cancel_during_stop": {
+      "passed": true,
+      "state": "aborted",
+      "error": "AbortError",
+      "temporary_files_leaked": 0
+    },
+    "pagehide": {
+      "passed": true,
+      "state": "aborted",
+      "temporary_files_leaked": 0
+    },
+    "disk_quota_failure": {
+      "passed": true,
+      "state": "error",
+      "visible_storage_full_error": true,
+      "temporary_files_leaked": 0,
+      "UI_track_preserved": true
+    },
+    "OPFS_unavailable": {
+      "passed": true,
+      "visible_error": true,
+      "no_RAM_fallback": true,
+      "UI_track_preserved": true
+    },
+    "OPFS_denied_during_finalization": {
+      "passed": true,
+      "state": "error",
+      "notifications": 1,
+      "temporary_files_leaked": 0,
+      "no_RAM_fallback": true
+    },
+    "second_recorder_startup_failure": {
+      "passed": true,
+      "temporary_files_leaked": 0,
+      "UI_track_preserved": true
+    }
+  },
+  "bounded_queue": {
+    "max_pending_bytes_per_stream": 8388608,
+    "unit_overflow_probe_limit_bytes": 8,
+    "overflow_rejected_before_retaining_extra_blob": true,
+    "completed_chunks_released": true,
+    "whole_clip_blob_array_used": false
+  },
+  "timing": "Recorders start and stop in the same task, with start-call offsets included in returned metadata. Packet-copy finalization holds the last encoded picture until a shared stop clock. Filtered content retains processing latency and lower update cadence; frame-accurate content synchronization is not claimed.",
+  "sources": [
+    "https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/dataavailable_event",
+    "https://developer.mozilla.org/en-US/docs/Web/API/FileSystemWritableFileStream/write",
+    "https://mediabunny.dev/guide/converting-media-files"
+  ],
+  "passed": true
+}

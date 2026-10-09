@@ -1,3 +1,4 @@
+import { getSdrContext } from "./capture-color";
 import { invertAffine, type Affine } from "./alignment";
 import type { EffectSettings } from "./ui-types";
 export interface SkinPatch {
@@ -99,6 +100,7 @@ export class Compositor {
 		});
 		if (!gl) throw new Error("WebGL 2 is required to apply this effect.");
 		this.gl = gl;
+		if ("drawingBufferColorSpace" in gl) gl.drawingBufferColorSpace = "srgb";
 		this.tileLimit = Math.min(
 			2048,
 			gl.getParameter(gl.MAX_TEXTURE_SIZE),
@@ -228,10 +230,9 @@ export class Compositor {
 		const out = document.createElement("canvas");
 		out.width = Math.max(1, Math.round(width * scale));
 		out.height = Math.max(1, Math.round(height * scale));
-		const ctx = out.getContext("2d");
-		if (!ctx) throw new Error("Output canvas could not be allocated");
+		const ctx = getSdrContext(out);
 		const tile = document.createElement("canvas"),
-			tc = tile.getContext("2d", { alpha: true })!;
+			tc = getSdrContext(tile, { alpha: true });
 		const gl = this.gl;
 		const patchTextures: WebGLTexture[] = [];
 		try {

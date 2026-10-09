@@ -1,0 +1,8 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>Paired disk recording tests</title></head><body>
+<h1>Paired disk recording tests</h1><p>Generated raw motion at25 fps, filtered motion at3 fps. No personal media.</p><button id="run">Run disk capture test</button><button id="mic">Run generated audio test</button><pre id="result">Ready</pre>
+<script type="module">
+import {validatePairedRecording,validatePairedAbort,validatePairedQuotaFailure,validatePairedNoDisk,validatePairedStopCancellation,validatePairedPageHide,validatePairedFinalizationDiskFailure,validatePairedPartialStartupFailure} from '/tests/paired-recording-browser.ts';
+window.runPairedRecordingTest=async(kind='capture')=>{const el=document.getElementById('result');el.textContent='Running '+kind;try{const f={capture:validatePairedRecording,microphone:()=>validatePairedRecording(true),abort:validatePairedAbort,quota:validatePairedQuotaFailure,nodisk:validatePairedNoDisk,stopcancel:validatePairedStopCancellation,pagehide:validatePairedPageHide,finalizefailure:validatePairedFinalizationDiskFailure,partial:validatePairedPartialStartupFailure}[kind];const value=await f();el.textContent=JSON.stringify(value,null,2);return value;}catch(error){const value={passed:false,error:String(error),stack:error.stack};el.textContent=JSON.stringify(value,null,2);return value;}};
+document.getElementById('run').onclick=()=>window.runPairedRecordingTest();
+document.getElementById('mic').onclick=()=>{window.pairedMicResult=undefined;window.pairedMicPromise=window.runPairedRecordingTest('microphone').then(value=>window.pairedMicResult=value);};
+</script></body></html>

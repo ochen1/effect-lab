@@ -1,3 +1,4 @@
+import { getSdrContext } from "./capture-color";
 import {
 	alignFace,
 	sampleAlignedRGB,
@@ -34,8 +35,7 @@ function canvas(width: number, height: number): HTMLCanvasElement {
 	const value = document.createElement("canvas");
 	value.width = width;
 	value.height = height;
-	if (!value.getContext("2d"))
-		throw new Error("This browser cannot create an image canvas.");
+	getSdrContext(value);
 	return value;
 }
 async function jsonAsset<T>(path: string): Promise<T> {
@@ -97,7 +97,7 @@ export async function createPipeline(options: PipelineOptions = {}) {
 		if (small.width !== width) small.width = width;
 		if (small.height !== height) small.height = height;
 		try {
-			const context = small.getContext("2d", { willReadFrequently: true })!;
+			const context = getSdrContext(small, { willReadFrequently: true });
 			context.clearRect(0, 0, width, height);
 			context.drawImage(input, 0, 0, width, height);
 			const nextFaces = await detector.detect(small, signal);
@@ -236,7 +236,7 @@ export async function createPipeline(options: PipelineOptions = {}) {
 				try {
 					cancelled(signal);
 					nextSource = canvas(bitmap.width, bitmap.height);
-					nextSource.getContext("2d")!.drawImage(bitmap, 0, 0);
+					getSdrContext(nextSource).drawImage(bitmap, 0, 0);
 				} finally {
 					bitmap.close();
 				}
@@ -301,7 +301,7 @@ export async function createPipeline(options: PipelineOptions = {}) {
 				frameAnalysis ??= canvas(1, 1);
 				if (frameSource.width !== w) frameSource.width = w;
 				if (frameSource.height !== h) frameSource.height = h;
-				const context = frameSource.getContext("2d")!;
+				const context = getSdrContext(frameSource);
 				context.clearRect(0, 0, w, h);
 				context.drawImage(input, 0, 0, w, h);
 				const prepared = await analyze(

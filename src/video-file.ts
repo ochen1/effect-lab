@@ -1,5 +1,6 @@
+import {createRecordingDiskFile} from './recording-storage';
 import {
-  ALL_FORMATS, BlobSource, Conversion, Input, Mp4OutputFormat, Output, Quality,
+  ALL_FORMATS, BlobSource, Conversion, EncodedPacketSink, EncodedVideoPacketSource, Input, Mp4OutputFormat, Output, Quality,
   StreamTarget, VideoSample, VideoSampleSink, VideoSampleSource, WebMOutputFormat, getFirstEncodableVideoCodec,
   type InputVideoTrack, type StreamTargetChunk, type VideoCodec,
 } from 'mediabunny';
@@ -93,7 +94,15 @@ interface ExportStorage {
   release:()=>Promise<void>;
 }
 
-async function createStorage():Promise<ExportStorage> {
+async function createStorage(requireDisk=false):Promise<ExportStorage> {
+  if(requireDisk){
+    const disk=await createRecordingDiskFile('finalized');
+    return {
+      target:new StreamTarget(disk.writable as WritableStream<StreamTargetChunk>,{chunked:true,chunkSize:CHUNK_BYTES}),
+      async getBlob(mime){const file=await disk.getFile();return file.slice(0,file.size,mime);},
+      release:disk.release,
+    };
+  }
   // A File returned by OPFS remains backed by disk while the UI owns its URL.
   // Keeping the temporary file until release() avoids invalidating that snapshot.
   let directory:FileSystemDirectoryHandle|undefined;
@@ -312,7 +321,8 @@ export async function exportFilteredVideo(file:Blob,options:VideoExportOptions):
  * encoder is involved. The returned file follows the same release() ownership
  * as an offline export.
  */
-export async function finalizeRecording(file:Blob,options:{signal?:AbortSignal}={}):Promise<Pick<VideoExportResult,'blob'|'extension'|'release'>> {
+export async function finalizeRecording(file:Blob,options:{signal?:AbortSignal;requireDisk?:boolean;durationSeconds?:number}={}):Promise<Pick<VideoExportResult,'blob'|'extension'|'release'>> {
+  if(options.durationSeconds!==undefined)return finalizeRecordingWindow(file,options as {signal?:AbortSignal;requireDisk?:boolean;durationSeconds:number});
   const {signal}=options;
   abortIfNeeded(signal);
   const input=openInput(file);
@@ -327,7 +337,7 @@ export async function finalizeRecording(file:Blob,options:{signal?:AbortSignal}=
     const failures:string[]=[];
     for(const extension of candidates){
       abortIfNeeded(signal);
-      storage=await createStorage();
+      storage=await createStorage(options.requireDisk??false);
       output=new Output({format:extension==='webm'?new WebMOutputFormat():new Mp4OutputFormat({fastStart:false}),target:storage.target});
       conversion=await Conversion.init({input,output,copy:{mode:'forced'},showWarnings:false,tags:{}});
       abortIfNeeded(signal);
@@ -355,6 +365,54 @@ export async function finalizeRecording(file:Blob,options:{signal?:AbortSignal}=
       else if(output)await output.cancel().catch(()=>{});
       await storage?.release();
     }
+    input.dispose();
+  }
+}
+
+/** Keep the last captured picture visible until a shared recording stop clock. */
+async function finalizeRecordingWindow(file:Blob,options:{signal?:AbortSignal;requireDisk?:boolean;durationSeconds:number}):Promise<Pick<VideoExportResult,'blob'|'extension'|'release'>> {
+  const {signal,durationSeconds}=options;
+  abortIfNeeded(signal);
+  if(!Number.isFinite(durationSeconds)||durationSeconds<=0)throw new Error('The recording window has invalid timing.');
+  const input=openInput(file);
+  let storage:ExportStorage|undefined,output:Output|undefined,audio:Conversion|undefined;
+  let done=false,cancellation:Promise<unknown>|undefined;
+  const abort=()=>{cancellation=Promise.allSettled([audio?.cancel(),output?.cancel()]);input.dispose();};
+  signal?.addEventListener('abort',abort,{once:true});
+  try{
+    const track=await input.getPrimaryVideoTrack();
+    if(!track)throw new Error('The recording has no video frames.');
+    const codec=await track.getCodec();
+    if(!codec)throw new Error('The recording video codec could not be identified.');
+    const extension=(await input.getFormat()).mimeType.includes('mp4')?'mp4':'webm';
+    const origin=Math.max(0,await input.getFirstTimestamp());
+    const packets=new EncodedPacketSink(track);
+    const last=await packets.getPacket(Infinity,{metadataOnly:true});
+    if(!last)throw new Error('The recording has no video frames.');
+    storage=await createStorage(options.requireDisk??false);
+    output=new Output({format:extension==='mp4'?new Mp4OutputFormat({fastStart:false}):new WebMOutputFormat(),target:storage.target});
+    const video=new EncodedVideoPacketSource(codec);
+    output.addVideoTrack(video,{rotation:await track.getRotation(),flip:await track.getFlip()});
+    audio=await Conversion.init({input,output,composable:true,video:{discard:true},copy:{mode:'forced'},trim:{start:origin},showWarnings:false});
+    const discarded=audio.discardedTracks.filter(item=>item.reason!=='discarded_by_user');
+    if(discarded.length)throw new Error('This browser could not retain the recording audio without re-encoding.');
+    const decoderConfig=await track.getDecoderConfig();
+    abortIfNeeded(signal);await output.start();
+    for await(const packet of packets.packets()){
+      abortIfNeeded(signal);
+      const timestamp=packet.timestamp-origin;
+      const duration=packet.sequenceNumber===last.sequenceNumber&&durationSeconds>timestamp?durationSeconds-timestamp:packet.duration;
+      await video.add(packet.clone({timestamp,duration}),{decoderConfig:decoderConfig??undefined});
+      await audio.execute({until:Math.max(0,timestamp+duration)});
+    }
+    video.close();await audio.execute();await output.finalize();abortIfNeeded(signal);
+    const blob=await storage.getBlob(extension==='mp4'?'video/mp4':'video/webm');
+    abortIfNeeded(signal);done=true;
+    return {blob,extension,release:storage.release};
+  }catch(error){abortIfNeeded(signal);throw error;}
+  finally{
+    signal?.removeEventListener('abort',abort);
+    if(!done){await cancellation;await audio?.cancel().catch(()=>{});await output?.cancel().catch(()=>{});await storage?.release();}
     input.dispose();
   }
 }

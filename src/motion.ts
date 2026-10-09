@@ -1,7 +1,16 @@
 import type { EffectSettings } from "./ui-types";
 import { createFramePump } from "./frame-pump";
+import { describeCaptureColor, getSdrContext } from "./capture-color";
 
 export type MotionMode = "video" | "camera";
+export interface MotionExportItem {
+	file: File;
+	kind: "original" | "edited" | "settings";
+	release?: () => Promise<void>;
+}
+type PairedRecordingSession = Awaited<
+	ReturnType<typeof import("./live-recording").startPairedRecording>
+>;
 interface MotionPipeline {
 	warm(signal?: AbortSignal): Promise<void>;
 	processFrame(
@@ -25,6 +34,10 @@ interface MotionOptions {
 	onError(message: string): void;
 	onActivity(activity: MotionActivity): void;
 	onExport(file: File, release?: () => Promise<void>): void;
+	onExportBatch(
+		files: MotionExportItem[],
+		title?: string,
+	): Promise<void> | void;
 }
 
 const e = <T extends HTMLElement = HTMLElement>(id: string) =>
@@ -89,13 +102,14 @@ export function createMotionController(options: MotionOptions) {
     <div class="stage-busy" id="motion-loading" hidden><span class="spinner"></span><strong id="motion-loading-label">Getting ready…</strong><span>Processing tools stay on your device.</span><button class="button button-small" id="motion-cancel-load">Cancel</button></div>
     <video id="motion-source" class="decoder-video" playsinline muted preload="auto"></video>`;
 	e("motion-controls").innerHTML = `
-    <div class="motion-toolbar"><button class="button button-small" id="motion-replace">Change video</button><button class="button button-small" id="motion-original-toggle" disabled aria-pressed="false">Show original</button><button class="button button-small" id="camera-switch" hidden>Switch camera</button><button class="button button-small" id="camera-stop" hidden>Stop camera</button></div>
+    <div class="motion-toolbar"><button class="button button-small" id="motion-replace">Change video</button><button class="button button-small" id="video-download-original" disabled>Save original video</button><button class="button button-small" id="motion-original-toggle" disabled aria-pressed="false">Show original</button><button class="button button-small" id="camera-switch" hidden>Switch camera</button><button class="button button-small" id="camera-stop" hidden>Stop camera</button></div>
+    <div class="motion-capture-actions"><button id="motion-shutter" class="button button-primary" aria-label="Capture original and edited frame" disabled>◉ Capture photo</button><button id="camera-record-preview" class="button button-small" aria-label="Start recording original and edited videos" hidden disabled>● Record video</button><button id="motion-cancel-action" class="button button-small" hidden>Cancel</button><label class="media-checkbox" id="camera-microphone-wrap" hidden><input id="camera-microphone" type="checkbox" /> Microphone in both recordings</label><span id="motion-capture-size" class="motion-note">Saves an original and an edited version.</span></div>
     <div class="video-transport" id="video-transport" hidden><button id="video-play" class="button button-small" aria-label="Play video">Play</button><label class="sr-only" for="video-seek">Video position</label><input id="video-seek" class="slider" type="range" min="0" max="1" value="0" step="0.01" /><span id="video-time">0:00 / 0:00</span><label class="media-checkbox"><input id="video-sound" type="checkbox" /> Sound</label></div>
     <p class="motion-note" id="motion-fps" role="status">Preview speed depends on your device.</p>`;
 	e("motion-export-area").innerHTML = `
     <div id="video-export-options"><div class="export-meta"><label for="video-resolution">Export size</label><select id="video-resolution"><option value="original" selected>Original resolution</option><option value="1080">1080 px</option><option value="720">720 px · fastest</option></select></div><p class="motion-note">Size limits the longest edge. Every source frame is processed.</p><label class="media-checkbox"><input id="video-keep-audio" type="checkbox" checked /> Keep original audio</label><button id="video-export" class="button button-export" aria-label="Export video" disabled><span>Export video</span>↗</button></div>
-    <div id="camera-export-options" hidden><label class="media-checkbox"><input id="camera-microphone" type="checkbox" /> Include microphone in recording</label><button id="camera-record" class="button button-export" aria-label="Start recording" disabled><span>Start recording</span>●</button><p class="motion-note">Records the filtered preview at this device’s processing speed. Microphone is off unless selected.</p></div>
-    <button id="motion-snapshot" class="button button-small motion-snapshot" disabled>Save filtered frame ↗</button><div id="motion-export-progress" class="export-progress" hidden><progress id="video-progress" max="1" value="0" aria-label="Video export progress"></progress><button id="video-cancel-export" class="text-button">Cancel</button></div><p class="export-note" id="motion-export-note">Your video stays on this device.</p>
+    <div id="camera-export-options" hidden><button id="camera-record" class="button button-export" aria-label="Start recording original and edited videos" disabled><span>Record original + edited</span>●</button><p class="motion-note">The original keeps the camera’s stream size and cadence. The edited recording uses the filtered preview size and processing speed. Recording requires available device storage; microphone is off unless selected above.</p></div>
+    <button id="motion-snapshot" class="button button-small motion-snapshot" disabled>Capture original + edited photo ↗</button><div id="motion-export-progress" class="export-progress" hidden><progress id="video-progress" max="1" value="0" aria-label="Capture or video export progress"></progress><button id="video-cancel-export" class="text-button">Cancel</button></div><p class="export-note" id="motion-export-note">Your video stays on this device.</p>
     <input id="video-input" type="file" accept="video/*" hidden />`;
 
 	const video = e<HTMLVideoElement>("motion-source");
@@ -111,7 +125,6 @@ export function createMotionController(options: MotionOptions) {
 	let exportController: AbortController | undefined;
 	let stream: MediaStream | undefined;
 	let microphone: MediaStream | undefined;
-	let recordingStream: MediaStream | undefined;
 	let videoUrl: string | undefined;
 	let file: File | undefined;
 	let sourceName = "video";
@@ -119,6 +132,8 @@ export function createMotionController(options: MotionOptions) {
 	let ready = false;
 	let loading = false;
 	let exporting = false;
+	let capturing = false;
+	let snapshotController: AbortController | undefined;
 	let revision = 1;
 	let renderedRevision = 0;
 	let renderedTime = -1;
@@ -128,44 +143,65 @@ export function createMotionController(options: MotionOptions) {
 	let sourceHasAudio = false;
 	let lastFrameAt = 0;
 	let fps = 0;
-	let recorder: MediaRecorder | undefined;
-	let recordParts: Blob[] = [];
-	let recordedBytes = 0;
+	let recordingSession: PairedRecordingSession | undefined;
+	let recordingController: AbortController | undefined;
+	let recordingInitialSettings: EffectSettings | undefined;
+	let recordingCaptureColor: ReturnType<typeof describeCaptureColor> | undefined;
+	let recordingBaseName = "";
 	let recordingAt = 0;
 	let recordTimer = 0;
-	let recordSave = true;
 	let recordFinished: Promise<void> | undefined;
 	let recordingStarting = false;
 	let recordingStopping = false;
 	let finalizingRecording = false;
-	let recordFinalizeController: AbortController | undefined;
 
 	function activity() {
 		const recording =
-			Boolean(recorder && recorder.state !== "inactive") ||
+			Boolean(
+				recordingSession &&
+					(recordingSession.state === "recording" ||
+						recordingSession.state === "stopping"),
+			) ||
 			recordingStarting ||
 			recordingStopping;
 		options.onActivity({
-			busy: loading || exporting || finalizingRecording,
+			busy:
+				loading ||
+				exporting ||
+				capturing ||
+				recordingStarting ||
+				finalizingRecording,
 			hasMedia: ready,
 			recording,
 			exporting,
 		});
 		e<HTMLButtonElement>("video-export").disabled =
-			!ready || !canExport || exporting || loading;
+			!ready || !canExport || exporting || loading || capturing;
 		e<HTMLButtonElement>("motion-snapshot").disabled =
-			!ready || exporting || loading || recording || finalizingRecording;
+			!ready ||
+			exporting ||
+			loading ||
+			capturing ||
+			recording ||
+			finalizingRecording;
+		e<HTMLButtonElement>("motion-shutter").disabled =
+			e<HTMLButtonElement>("motion-snapshot").disabled;
+		e<HTMLButtonElement>("video-download-original").disabled =
+			!file || loading || exporting || capturing;
 		e<HTMLButtonElement>("motion-original-toggle").disabled =
-			!ready || exporting;
+			!ready || exporting || capturing;
 		e<HTMLButtonElement>("camera-record").disabled =
 			(!ready && !recording) ||
 			exporting ||
+			capturing ||
 			loading ||
 			recordingStarting ||
 			recordingStopping ||
 			finalizingRecording;
+		e<HTMLButtonElement>("camera-record-preview").disabled =
+			e<HTMLButtonElement>("camera-record").disabled;
 		e<HTMLButtonElement>("camera-switch").disabled =
-			!ready || recording || loading || finalizingRecording;
+			!ready || recording || loading || capturing || finalizingRecording;
 		e<HTMLButtonElement>("camera-stop").disabled =
 			!stream && !loading && !recording;
 		e<HTMLInputElement>("camera-microphone").disabled =
@@ -177,10 +213,13 @@ export function createMotionController(options: MotionOptions) {
 			"video-seek",
 			"motion-replace",
 		])
-			e<HTMLInputElement>(id).disabled = loading || exporting;
+			e<HTMLInputElement>(id).disabled = loading || exporting || capturing;
 		e<HTMLInputElement>("video-keep-audio").disabled =
-			loading || exporting || !sourceHasAudio;
-		e("motion-export-progress").hidden = !exporting && !finalizingRecording;
+			loading || exporting || capturing || !sourceHasAudio;
+		e("motion-export-progress").hidden =
+			!exporting && !capturing && !finalizingRecording;
+		e("motion-cancel-action").hidden =
+			!exporting && !capturing && !finalizingRecording;
 	}
 
 	function fail(error: unknown) {
@@ -215,7 +254,7 @@ export function createMotionController(options: MotionOptions) {
 			target.width = width;
 			target.height = height;
 		}
-		const context = target.getContext("2d")!;
+		const context = getSdrContext(target);
 		context.clearRect(0, 0, width, height);
 		context.drawImage(source, 0, 0, width, height);
 	}
@@ -225,6 +264,7 @@ export function createMotionController(options: MotionOptions) {
 			!mode ||
 			!engine ||
 			exporting ||
+			capturing ||
 			video.seeking ||
 			video.readyState < 2 ||
 			!video.videoWidth
@@ -238,7 +278,13 @@ export function createMotionController(options: MotionOptions) {
 		const version = generation;
 		const frameRevision = revision;
 		const scale = Math.min(1, 720 / video.videoWidth, 720 / video.videoHeight);
-		const recording = recorder && recorder.state !== "inactive";
+		const recording =
+			recordingStarting ||
+			Boolean(
+				recordingSession &&
+					(recordingSession.state === "recording" ||
+						recordingSession.state === "stopping"),
+			);
 		const width = recording
 			? filtered.width
 			: Math.max(1, Math.round(video.videoWidth * scale));
@@ -271,12 +317,14 @@ export function createMotionController(options: MotionOptions) {
 			lastFrameAt = now;
 			e("motion-fps").textContent =
 				mode === "camera"
-					? `Live processing · ${fps ? fps.toFixed(1) : "…"} fps. Recording follows this preview.`
+					? `Edited preview · ${fps ? fps.toFixed(1) : "…"} fps. Original recording follows the camera independently.`
 					: `Preview · ${fps ? fps.toFixed(1) : "…"} fps. Export processes every source frame.`;
 			e("motion-export-note").textContent =
 				mode === "camera"
-					? `Filtered frames: ${filtered.width} × ${filtered.height} px. Camera stays on until stopped.`
+					? `Original recording: ${video.videoWidth} × ${video.videoHeight}. Edited recording: ${filtered.width} × ${filtered.height} px.`
 					: "Your video stays on this device.";
+			e("motion-capture-size").textContent =
+				`Photos: original + edited at ${video.videoWidth} × ${video.videoHeight} px`;
 			if (!ready) {
 				ready = true;
 				loading = false;
@@ -342,17 +390,128 @@ export function createMotionController(options: MotionOptions) {
 		revision++;
 	});
 
+	function setRecordButtons(
+		label = "Record original + edited",
+		previewLabel = "● Record video",
+		accessible = "Start recording original and edited videos",
+	) {
+		e("camera-record").innerHTML = `<span>${label}</span>`;
+		e("camera-record").setAttribute("aria-label", accessible);
+		e("camera-record-preview").textContent = previewLabel;
+		e("camera-record-preview").setAttribute("aria-label", accessible);
+	}
+
 	async function endRecording(save = true) {
-		if (!save) {
-			recordSave = false;
-			recordFinalizeController?.abort();
+		const active = recordingSession;
+		if (!save) recordingController?.abort();
+		if (recordFinished) {
+			if (!save) await active?.abort();
+			return recordFinished;
 		}
-		if (!recorder || recorder.state === "inactive") return recordFinished;
-		recordSave = save;
+		if (!active) return;
+		const version = generation;
+		const abort = recordingController!;
+		const initialSettings = recordingInitialSettings;
+		const captureColor = recordingCaptureColor;
+		const basename = recordingBaseName;
+		const activeMicrophone = microphone;
 		recordingStopping = true;
+		finalizingRecording = save;
+		clearInterval(recordTimer);
+		e("record-indicator").hidden = true;
+		if (save) {
+			setRecordButtons(
+				"Finishing both recordings…",
+				"Finishing…",
+				"Finishing original and edited recordings",
+			);
+			e<HTMLProgressElement>("video-progress").removeAttribute("value");
+			options.onStatus("Finishing original and edited recordings…", true);
+		}
 		activity();
-		recorder.stop();
-		await recordFinished;
+		recordFinished = (async () => {
+			let output:
+				| Awaited<ReturnType<PairedRecordingSession["stop"]>>
+				| undefined;
+			try {
+				if (!save) {
+					await active.abort();
+					return;
+				}
+				output = await active.stop();
+				if (version !== generation || abort.signal.aborted) {
+					await output.release();
+					output = undefined;
+					return;
+				}
+				const metadata = {
+					schemaVersion: 1,
+					app: "Effect Lab",
+					effect: "BOY II",
+					initialSettings,
+					captureColor,
+					settingsNote:
+						"Initial settings only; adjustments during recording are not a complete parameter history.",
+					recording: output.metadata,
+				};
+				await options.onExportBatch(
+					[
+						{
+							file: new File(
+								[output.original.blob],
+								`${basename}-original.${output.original.extension}`,
+								{ type: output.original.blob.type },
+							),
+							kind: "original",
+							release: output.original.release,
+						},
+						{
+							file: new File(
+								[output.filtered.blob],
+								`${basename}-edited.${output.filtered.extension}`,
+								{ type: output.filtered.blob.type },
+							),
+							kind: "edited",
+							release: output.filtered.release,
+						},
+						{
+							file: new File(
+								[JSON.stringify(metadata, null, 2)],
+								`${basename}-settings.json`,
+								{ type: "application/json" },
+							),
+							kind: "settings",
+						},
+					],
+					"Camera recording · original + edited",
+				);
+				output = undefined; // The export gallery now owns both file lifetimes.
+				if (version === generation)
+					options.onStatus("Original and edited recordings are ready to save");
+			} catch (error) {
+				await output?.release();
+				if (save && version === generation) {
+					if (abort.signal.aborted || aborted(error))
+						options.onStatus("Recording save cancelled");
+					else {
+						options.onError(`Recordings could not be saved. ${text(error)}`);
+						options.onStatus("Recordings could not be saved");
+					}
+				}
+			} finally {
+				stopTracks(activeMicrophone);
+				if (microphone === activeMicrophone) microphone = undefined;
+				if (recordingSession === active) recordingSession = undefined;
+				if (recordingController === abort) recordingController = undefined;
+				recordFinished = undefined;
+				if (version === generation) {
+					recordingStopping = finalizingRecording = false;
+					setRecordButtons();
+					activity();
+				}
+			}
+		})();
+		return recordFinished;
 	}
 
 	async function stopMedia() {
@@ -361,15 +520,14 @@ export function createMotionController(options: MotionOptions) {
 		controller?.abort();
 		frameController?.abort();
 		exportController?.abort();
-		recordFinalizeController?.abort();
+		recordingController?.abort();
+		snapshotController?.abort();
 		stopTracks(stream);
 		stream = undefined;
 		stopTracks(microphone);
 		microphone = undefined;
 		video.pause();
 		await endRecording(false);
-		stopTracks(recordingStream);
-		recordingStream = undefined;
 		await pump.stop();
 		if (request !== requestSerial) return;
 		video.srcObject = null;
@@ -380,6 +538,7 @@ export function createMotionController(options: MotionOptions) {
 		file = undefined;
 		loading =
 			exporting =
+			capturing =
 			ready =
 			recordingStarting =
 			recordingStopping =
@@ -396,14 +555,14 @@ export function createMotionController(options: MotionOptions) {
 		e("motion-welcome").hidden = false;
 		e("video-transport").hidden = true;
 		e("record-indicator").hidden = true;
-		e("camera-record").innerHTML = "<span>Start recording</span>●";
-		e("camera-record").setAttribute("aria-label", "Start recording");
+		setRecordButtons();
 		activity();
 	}
 
 	async function stopCameraSafely(message: string) {
 		const version = generation;
 		ready = false;
+		snapshotController?.abort();
 		frameController?.abort();
 		void pump.stop();
 		const activeStream = stream;
@@ -536,7 +695,15 @@ export function createMotionController(options: MotionOptions) {
 	}
 
 	async function exportVideo() {
-		if (mode !== "video" || !file || !ready || exporting || !engine) return;
+		if (
+			mode !== "video" ||
+			!file ||
+			!ready ||
+			exporting ||
+			capturing ||
+			!engine
+		)
+			return;
 		const version = generation;
 		const sourceFile = file;
 		const abort = new AbortController();
@@ -581,12 +748,53 @@ export function createMotionController(options: MotionOptions) {
 				await output.release();
 				return;
 			}
-			options.onExport(
-				new File([output.blob], `${sourceName}-boy-ii.${output.extension}`, {
-					type: output.blob.type,
-				}),
-				output.release,
-			);
+			try {
+				const basename = `${sourceName}-${Date.now()}`;
+				await options.onExportBatch(
+					[
+						{ file: sourceFile, kind: "original" },
+						{
+							file: new File(
+								[output.blob],
+								`${basename}-edited.${output.extension}`,
+								{ type: output.blob.type },
+							),
+							kind: "edited",
+							release: output.release,
+						},
+						{
+							file: new File(
+								[
+									JSON.stringify(
+										{
+											schemaVersion: 1,
+											app: "Effect Lab",
+											effect: "BOY II",
+											settings: values,
+											source: { name: sourceFile.name, kind: "video" },
+											output: {
+												width: output.width,
+												height: output.height,
+												duration: output.duration,
+												hasAudio: output.hasAudio,
+											},
+										},
+										null,
+										2,
+									),
+								],
+								`${basename}-settings.json`,
+								{ type: "application/json" },
+							),
+							kind: "settings",
+						},
+					],
+					"Video · original + edited",
+				);
+			} catch (error) {
+				await output.release();
+				throw error;
+			}
 			options.onStatus(
 				`Video exported · ${output.width} × ${output.height} · ${output.hasAudio ? "with audio" : "silent"}`,
 			);
@@ -607,183 +815,92 @@ export function createMotionController(options: MotionOptions) {
 		if (
 			mode !== "camera" ||
 			!ready ||
+			capturing ||
 			recordingStarting ||
 			recordingStopping ||
 			finalizingRecording
 		)
 			return;
-		if (recorder && recorder.state !== "inactive") {
+		if (recordingSession?.state === "recording") {
 			await endRecording();
 			return;
 		}
-		if (
-			typeof MediaRecorder === "undefined" ||
-			typeof filtered.captureStream !== "function"
-		) {
-			fail(
-				new Error(
-					"This browser cannot record the filtered preview. You can still save a filtered frame.",
-				),
-			);
-			return;
-		}
+		if (!stream) return;
 		const version = generation;
+		const cameraStream = stream;
+		const abort = new AbortController();
+		recordingController = abort;
 		recordingStarting = true;
+		recordingInitialSettings = { ...options.getSettings(), faceIndex: 0 };
+		recordingBaseName = `effect-lab-recording-${Date.now()}`;
+		let requestedMicrophone: MediaStream | undefined;
 		activity();
+		options.onStatus("Preparing original and edited recording…", true);
 		try {
 			if (e<HTMLInputElement>("camera-microphone").checked) {
-				const acquired = await navigator.mediaDevices.getUserMedia({
+				requestedMicrophone = await navigator.mediaDevices.getUserMedia({
 					audio: true,
 					video: false,
 				});
-				if (version !== generation) {
-					stopTracks(acquired);
+				if (version !== generation || abort.signal.aborted) {
+					stopTracks(requestedMicrophone);
 					return;
 				}
-				microphone = acquired;
+				microphone = requestedMicrophone;
 			}
-			if (version !== generation) return;
-			recordingStream = filtered.captureStream(30);
-			for (const track of microphone?.getAudioTracks() ?? [])
-				recordingStream.addTrack(track);
-			const mimeType = [
-				"video/webm;codecs=vp8,opus",
-				"video/mp4",
-				"video/webm",
-			].find((type) => MediaRecorder.isTypeSupported(type));
-			recorder = new MediaRecorder(
-				recordingStream,
-				mimeType ? { mimeType } : undefined,
-			);
-			const active = recorder;
-			recordParts = [];
-			recordedBytes = 0;
-			recordSave = true;
-			recordingAt = performance.now();
-			recordFinished = new Promise<void>((resolve) => {
-				active.addEventListener("dataavailable", (event) => {
-					if (event.data.size) {
-						recordParts.push(event.data);
-						recordedBytes += event.data.size;
-					}
-					if (
-						recordedBytes >= 256 * 1024 * 1024 &&
-						active.state !== "inactive"
-					) {
-						options.onStatus(
-							"Recording reached the device buffer limit and is being saved",
-						);
-						recordingStopping = true;
-						activity();
-						active.stop();
-					}
-				});
-				active.addEventListener("error", () => {
-					recordSave = false;
-					options.onError(
-						"The browser could not finish recording. Try a shorter recording.",
+			const { startPairedRecording } = await import("./live-recording");
+			if (version !== generation || abort.signal.aborted) {
+				stopTracks(requestedMicrophone);
+				return;
+			}
+			recordingInitialSettings = { ...options.getSettings(), faceIndex: 0 };
+			recordingCaptureColor = describeCaptureColor(video, filtered, cameraStream.getVideoTracks()[0]);
+			const active = await startPairedRecording({
+				originalStream: cameraStream,
+				filteredCanvas: filtered,
+				microphoneStream: requestedMicrophone,
+				signal: abort.signal,
+				onError(error) {
+					if (version !== generation || recordingController !== abort) return;
+					options.onError(`Recording stopped. ${text(error)}`);
+					options.onStatus(
+						"Recording stopped; the camera preview is still available",
 					);
-				});
-				active.addEventListener(
-					"stop",
-					async () => {
-						const finalizeAbort = new AbortController();
-						try {
-							clearInterval(recordTimer);
-							stopTracks(microphone);
-							microphone = undefined;
-							stopTracks(recordingStream);
-							recordingStream = undefined;
-							const type = active.mimeType || recordParts[0]?.type || "video/webm";
-							const blob = new Blob(recordParts, { type });
-							recordParts = [];
-							if (!recordSave || version !== generation) return;
-							if (!blob.size) throw new Error("No video frames were recorded. Let the preview run before stopping.");
-							recordFinalizeController = finalizeAbort;
-							finalizingRecording = true;
-							e("record-indicator").hidden = true;
-							e("camera-record").innerHTML =
-								"<span>Finishing recording…</span>";
-							e("camera-record").setAttribute(
-								"aria-label",
-								"Finishing recording",
-							);
-							e<HTMLProgressElement>("video-progress").removeAttribute("value");
-							activity();
-							options.onStatus("Finishing your recording…", true);
-							const { finalizeRecording } = await import("./video-file");
-							const output = await finalizeRecording(blob, {
-								signal: finalizeAbort.signal,
-							});
-							if (version !== generation || finalizeAbort.signal.aborted) {
-								await output.release();
-								return;
-							}
-							options.onExport(
-								new File(
-									[output.blob],
-									`effect-lab-recording-${Date.now()}.${output.extension}`,
-									{ type: output.blob.type },
-								),
-								output.release,
-							);
-							options.onStatus("Your filtered recording is saved");
-						} catch (error) {
-							if (version === generation) {
-								if (finalizeAbort.signal.aborted || aborted(error))
-									options.onStatus("Recording save cancelled");
-								else {
-									options.onError(
-										`Recording could not be saved. ${text(error)}`,
-									);
-									options.onStatus("Recording could not be saved");
-								}
-							}
-						} finally {
-							if (recorder === active) recorder = undefined;
-							if (recordFinalizeController === finalizeAbort)
-								recordFinalizeController = undefined;
-							if (version === generation) {
-								recordingStopping = finalizingRecording = false;
-								e("record-indicator").hidden = true;
-								e("camera-record").innerHTML = "<span>Start recording</span>●";
-								e("camera-record").setAttribute(
-									"aria-label",
-									"Start recording",
-								);
-								activity();
-							}
-							resolve();
-						}
-					},
-					{ once: true },
-				);
+					void endRecording(false);
+				},
 			});
-			active.start(1000);
+			if (version !== generation || abort.signal.aborted) {
+				await active.abort();
+				stopTracks(requestedMicrophone);
+				return;
+			}
+			recordingSession = active;
+			recordingAt = performance.now();
 			e("record-time").textContent = "0:00";
 			e("record-indicator").hidden = false;
-			e("camera-record").innerHTML = "<span>Stop & save recording</span>■";
-			e("camera-record").setAttribute("aria-label", "Stop and save recording");
+			setRecordButtons(
+				"Stop & save both recordings",
+				"■ Stop & save",
+				"Stop and save original and edited recordings",
+			);
 			recordTimer = window.setInterval(() => {
 				e("record-time").textContent = time(
 					(performance.now() - recordingAt) / 1000,
 				);
+				if (recordingSession === active && active.state !== "recording") {
+					void endRecording(active.state === "stopping" || active.state === "stopped");
+				}
 			}, 250);
 			options.onStatus(
-				microphone
-					? "Recording filtered video with microphone"
-					: "Recording filtered video without microphone",
+				requestedMicrophone
+					? "Recording original + edited with microphone"
+					: "Recording original + edited without microphone",
 			);
 		} catch (error) {
+			stopTracks(requestedMicrophone);
+			if (microphone === requestedMicrophone) microphone = undefined;
 			if (version !== generation) return;
-			stopTracks(microphone);
-			microphone = undefined;
-			stopTracks(recordingStream);
-			recordingStream = undefined;
-			if (!recorder || recorder.state === "inactive") {
-				recorder = undefined;
-				recordFinished = undefined;
-			}
+			if (recordingController === abort) recordingController = undefined;
 			options.onError(
 				error instanceof DOMException && error.name === "NotAllowedError"
 					? "Microphone access was denied. Turn off microphone recording or enable it in your browser’s site settings."
@@ -794,6 +911,135 @@ export function createMotionController(options: MotionOptions) {
 			if (version === generation) {
 				recordingStarting = false;
 				activity();
+			}
+		}
+	}
+
+	async function capturePair() {
+		if (
+			!mode ||
+			!ready ||
+			!engine ||
+			exporting ||
+			capturing ||
+			recordingSession ||
+			recordingStarting ||
+			finalizingRecording
+		)
+			return;
+		if (
+			video.seeking ||
+			video.readyState < 2 ||
+			!video.videoWidth ||
+			!video.videoHeight
+		) {
+			options.onError(
+				"Wait for the current video frame to finish loading, then capture again.",
+			);
+			return;
+		}
+		const version = generation;
+		const capturedMode = mode;
+		const capturedAt = new Date();
+		const sourceTime = video.currentTime;
+		const width = video.videoWidth,
+			height = video.videoHeight;
+		const values = { ...options.getSettings(), faceIndex: 0 };
+		const wasPlaying = capturedMode === "video" && !video.paused;
+		const basename = `${capturedMode === "camera" ? "camera" : sourceName + "-frame-" + Math.round(sourceTime * 1000)}-${capturedAt.getTime()}`;
+		const source = document.createElement("canvas");
+		const abort = new AbortController();
+		snapshotController = abort;
+		let edited: HTMLCanvasElement | undefined;
+		let captureColor: ReturnType<typeof describeCaptureColor> | undefined;
+		capturing = true;
+		activity();
+		e<HTMLProgressElement>("video-progress").removeAttribute("value");
+		options.onStatus(
+			"Capturing original and edited photos at full source resolution…",
+			true,
+		);
+		try {
+			// Snapshot the actual decoded camera/video pixels synchronously, before any await.
+			paint(source, video, width, height);
+			captureColor = describeCaptureColor(video, source, stream?.getVideoTracks()[0]);
+			if (capturedMode === "video") video.pause();
+			frameController?.abort();
+			await pump.stop();
+			if (version !== generation || abort.signal.aborted) return;
+			edited = await engine.processFrame(source, width, height, values, {
+				maxDimension: null,
+				signal: abort.signal,
+			});
+			if (version !== generation || abort.signal.aborted) return;
+			const [rawBlob, editedBlob] = await Promise.all([
+				blobFrom(source),
+				blobFrom(edited),
+			]);
+			if (version !== generation || abort.signal.aborted) return;
+			const metadata = {
+				schemaVersion: 1,
+				app: "Effect Lab",
+				effect: "BOY II",
+				capturedAt: capturedAt.toISOString(),
+				source: {
+					kind: capturedMode === "camera" ? "camera" : "video-frame",
+					width,
+					height,
+					mediaTime: sourceTime,
+				},
+				settings: values,
+				captureColor,
+			};
+			await options.onExportBatch(
+				[
+					{
+						file: new File([rawBlob], `${basename}-original.png`, {
+							type: "image/png",
+						}),
+						kind: "original",
+					},
+					{
+						file: new File([editedBlob], `${basename}-edited.png`, {
+							type: "image/png",
+						}),
+						kind: "edited",
+					},
+					{
+						file: new File(
+							[JSON.stringify(metadata, null, 2)],
+							`${basename}-settings.json`,
+							{ type: "application/json" },
+						),
+						kind: "settings",
+					},
+				],
+				`${capturedMode === "camera" ? "Camera photo" : "Video frame"} · ${width} × ${height}`,
+			);
+			if (version === generation)
+				options.onStatus(
+					`Original and edited photos ready · ${width} × ${height} px`,
+				);
+		} catch (error) {
+			if (version === generation && !abort.signal.aborted && !aborted(error))
+				options.onError(`Capture could not finish. ${text(error)}`);
+		} finally {
+			source.width = source.height = 1;
+			if (edited) edited.width = edited.height = 1;
+			if (snapshotController === abort) snapshotController = undefined;
+			if (version === generation) {
+				capturing = false;
+				activity();
+				if (abort.signal.aborted) options.onStatus("Photo capture cancelled");
+				if (!document.hidden && ready) {
+					if (wasPlaying)
+						void video.play().catch(() => {
+							options.onStatus(
+								"Photos are ready. Press Play to resume the video.",
+							);
+						});
+					pump.start();
+				}
 			}
 		}
 	}
@@ -849,30 +1095,36 @@ export function createMotionController(options: MotionOptions) {
 		void exportVideo();
 	});
 	e("video-cancel-export").addEventListener("click", () => {
-		if (finalizingRecording) recordFinalizeController?.abort();
+		if (finalizingRecording) recordingController?.abort();
+		else if (capturing) snapshotController?.abort();
 		else exportController?.abort();
 	});
+	e("motion-cancel-action").addEventListener("click", () =>
+		e<HTMLButtonElement>("video-cancel-export").click(),
+	);
 	e("camera-record").addEventListener("click", () => {
 		void startRecording();
 	});
-	e("motion-snapshot").addEventListener("click", async () => {
-		if (!ready || exporting) return;
+	for (const id of ["motion-snapshot", "motion-shutter"])
+		e(id).addEventListener("click", () => {
+			void capturePair();
+		});
+	e("camera-record-preview").addEventListener("click", () => {
+		void startRecording();
+	});
+	e("video-download-original").addEventListener("click", async () => {
+		if (!file || mode !== "video" || exporting || capturing) return;
 		try {
-			const blob = await blobFrom(filtered);
-			options.onExport(
-				new File(
-					[blob],
-					`${mode === "camera" ? "camera" : sourceName}-boy-ii-frame.png`,
-					{ type: "image/png" },
-				),
+			await options.onExportBatch(
+				[{ file, kind: "original" }],
+				"Original video",
 			);
-			options.onStatus(
-				`Filtered frame saved · ${filtered.width} × ${filtered.height} px`,
-			);
+			options.onStatus("Original video is ready to save");
 		} catch (error) {
-			options.onError(text(error));
+			options.onError(`Original video could not be retained. ${text(error)}`);
 		}
 	});
+
 	document.addEventListener("visibilitychange", async () => {
 		if (document.hidden && mode) {
 			video.pause();
@@ -883,15 +1135,18 @@ export function createMotionController(options: MotionOptions) {
 					"Camera stopped while the app was in the background.",
 				);
 			}
-		} else if (!document.hidden && mode && !exporting) {
+		} else if (!document.hidden && mode && !exporting && !capturing) {
 			const version = generation;
 			// Settle an aborted frame before restarting: its rejection stops the pump.
 			await pump.stop();
-			if (document.hidden || version !== generation || exporting) return;
+			if (document.hidden || version !== generation || exporting || capturing)
+				return;
 			if (
-				(mode === "video" && (ready || (loading && engine && video.readyState >= 2))) ||
+				(mode === "video" &&
+					(ready || (loading && engine && video.readyState >= 2))) ||
 				(mode === "camera" && ready && stream)
-			) pump.start();
+			)
+				pump.start();
 		}
 	});
 
@@ -918,6 +1173,13 @@ export function createMotionController(options: MotionOptions) {
 			e("motion-start").textContent =
 				next === "camera" ? "Start live camera ↗" : "Choose a video ↗";
 			e("motion-replace").hidden = next === "camera";
+			e("video-download-original").hidden = next !== "video";
+			e("camera-record-preview").hidden = next !== "camera";
+			e("camera-microphone-wrap").hidden = next !== "camera";
+			e("motion-shutter").textContent =
+				next === "camera" ? "◉ Capture photo" : "◉ Capture frame";
+			e("motion-capture-size").textContent =
+				"Saves an original and an edited version at full source resolution.";
 			e("camera-switch").hidden = next !== "camera";
 			e("camera-stop").hidden = next !== "camera";
 			e("video-export-options").hidden = next !== "video";
@@ -932,7 +1194,7 @@ export function createMotionController(options: MotionOptions) {
 		openVideo,
 		settingsChanged() {
 			revision++;
-			if (mode && ready && !exporting) pump.start();
+			if (mode && ready && !exporting && !capturing) pump.start();
 		},
 		async stop() {
 			mode = null;
@@ -940,6 +1202,9 @@ export function createMotionController(options: MotionOptions) {
 		},
 		get active() {
 			return mode !== null;
+		},
+		get originalFile() {
+			return file;
 		},
 	};
 }
