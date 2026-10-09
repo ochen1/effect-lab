@@ -2,7 +2,13 @@ import { createExportTray, type ExportArtifact } from "./export-tray";
 import { setupPreviewFullscreen } from "./fullscreen";
 import "./styles.css";
 import { createPipeline } from "./pipeline";
-import { getSkinStatus } from "./inference";
+import {
+	getSkinStatus,
+	getSkinBackendPreference,
+	type SkinBackendPreference,
+} from "./inference";
+import { collectProcessingReport } from "./processing-report";
+import { getCompositorDiagnostics } from "./compositor";
 import { createMotionController, type MotionMode } from "./motion";
 import { createHoldGesture } from "./hold-gesture";
 import {
@@ -102,6 +108,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <details class="control-group" open><summary><span><span class="group-index">03</span> Color</span>${icons.chevron}</summary><div class="group-content"><div class="group-intro"><span>The signature BOY II color</span>${toggle("colorEnabled", "Enable color adjustments")}</div>${slider("lut", "Color intensity")}${slider("brightness", "Brightness")}${slider("temperature", "Temperature")}</div></details>
         <details class="control-group"><summary><span><span class="group-index">04</span> Fine-tune</span>${icons.chevron}</summary><div class="group-content">${slider("saturation", "Saturation")}${slider("contrast", "Contrast")}${slider("exposure", "Exposure")}${slider("tint", "Tint")}</div></details>
       </div>
+      <details class="processing-controls"><summary>Processing & troubleshooting</summary><label for="processing-mode">Skin processing</label><select id="processing-mode"><option value="auto">Automatic · checked GPU</option><option value="wasm">CPU compatibility</option></select><p>If the edited colors look wrong, try CPU compatibility. It may be slower.</p><button class="button button-small" id="processing-report">Download processing report</button><p>The report contains generated-test results and settings, with no photos.</p><span id="processing-feedback" role="status"></span></details>
       <div class="export-area" id="photo-export-area"><div class="export-meta"><span id="export-resolution">Full resolution export</span><label><span class="sr-only">Export format</span><select id="export-format"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option></select></label></div><button class="button button-export" id="export-photo" disabled>${icons.download}<span id="export-button-text">Export photo</span>${icons.arrow}</button><button class="button button-small" id="download-original-photo" disabled>Download original photo</button><div class="export-progress" id="export-progress" hidden><progress id="export-progress-bar" aria-label="Photo export progress" max="1" value="0"></progress><button class="text-button" id="cancel-export">Cancel</button></div><p class="export-note" id="export-note">Your photo never leaves this device.</p></div>
       <div class="export-area" id="motion-export-area" hidden></div><button class="button button-small share-button" id="share-photo" hidden>Save or share exported file ${icons.arrow}</button>
     </aside>
@@ -148,6 +155,7 @@ let modeVersion = 0;
 let motionBusy = false;
 let motionRecording = false;
 let motionHasMedia = false;
+let changingProcessing = false;
 
 const exportTray = createExportTray(
 	element("saved-files"),
@@ -218,6 +226,8 @@ const motion = createMotionController({
 		motionBusy = busy;
 		motionHasMedia = hasMedia;
 		motionRecording = recording;
+		element<HTMLSelectElement>("processing-mode").disabled =
+			busy || recording || changingProcessing;
 		if (mediaMode !== "photo") {
 			document.body.classList.toggle("has-photo", hasMedia);
 			for (const control of document.querySelectorAll<
@@ -360,6 +370,17 @@ function setStatus(text: string, busy = false) {
 		runtime.backend === "webgpu"
 			? "Skin smoothing uses graphics acceleration on this device."
 			: "Skin smoothing runs on this device’s CPU. Larger photos may take longer.";
+	const graphics = getCompositorDiagnostics();
+	if (graphics?.status === "failed" || graphics?.status === "error") {
+		element("processing-feedback").textContent =
+			"The graphics check found a mismatch. Download the processing report to identify the affected stage.";
+	} else if (
+		runtime.backend === "wasm" &&
+		runtime.validation?.phase === "failed"
+	) {
+		element("processing-feedback").textContent =
+			"GPU verification failed. Skin processing switched to CPU compatibility.";
+	}
 }
 
 function showError(message: string) {
@@ -382,6 +403,8 @@ function isCancelled(error: unknown, signal?: AbortSignal) {
 function updatePhase(next: Phase) {
 	if (next !== "ready") photoHold?.cancel();
 	phase = next;
+	element<HTMLSelectElement>("processing-mode").disabled =
+		phase === "loading" || phase === "exporting" || changingProcessing;
 	element<HTMLButtonElement>("download-original-photo").disabled =
 		!originalFile || phase === "loading" || phase === "exporting";
 	element("stage").setAttribute("aria-busy", String(phase === "loading"));
@@ -1122,6 +1145,67 @@ document.addEventListener("focusin", (event) => {
 			.top;
 		if (top < bottom + 16) window.scrollBy(0, top - bottom - 16);
 	});
+});
+
+element<HTMLSelectElement>("processing-mode").value =
+	getSkinBackendPreference();
+function processingUnavailable() {
+	return (
+		motionBusy ||
+		motionRecording ||
+		phase === "loading" ||
+		phase === "exporting"
+	);
+}
+element("processing-mode").addEventListener("change", async () => {
+	if (changingProcessing || processingUnavailable()) return;
+	const select = element<HTMLSelectElement>("processing-mode");
+	changingProcessing = true;
+	select.disabled = true;
+	clearError();
+	element("processing-feedback").textContent =
+		"Checking the selected processing mode…";
+	try {
+		const engine = await ensurePipeline();
+		await engine.setSkinBackend(select.value as SkinBackendPreference);
+		element("processing-feedback").textContent =
+			getSkinStatus().backend === "wasm"
+				? "CPU compatibility is active."
+				: "GPU passed the CPU comparison.";
+		schedulePreview();
+		setStatus("Processing mode updated");
+	} catch (error) {
+		showError(messageOf(error));
+		element("processing-feedback").textContent =
+			"Processing mode could not start.";
+	} finally {
+		changingProcessing = false;
+		select.value = getSkinBackendPreference();
+		select.disabled = processingUnavailable();
+	}
+});
+element("processing-report").addEventListener("click", async () => {
+	const button = element<HTMLButtonElement>("processing-report");
+	button.disabled = true;
+	try {
+		const report = await collectProcessingReport(settings);
+		const file = new File(
+			[JSON.stringify(report, null, 2)],
+			"effect-lab-processing-report.json",
+			{ type: "application/json" },
+		);
+		const urls = exportTray.add(
+			[{ file, kind: "diagnostics" }],
+			"Processing report · no photos",
+		);
+		triggerDownload(file, urls[0]);
+		element("processing-feedback").textContent =
+			"Processing report downloaded. It contains no photos.";
+	} catch (error) {
+		showError(messageOf(error));
+	} finally {
+		button.disabled = false;
+	}
 });
 
 refreshPresetOptions("default");

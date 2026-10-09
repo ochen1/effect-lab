@@ -1,6 +1,6 @@
 export interface ExportArtifact {
 	file: File;
-	kind: "original" | "edited" | "settings";
+	kind: "original" | "edited" | "settings" | "diagnostics";
 	release?: () => Promise<void>;
 }
 

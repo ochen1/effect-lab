@@ -94,6 +94,16 @@ An HDR webcam color report is still being investigated. Synthetic sRGB, P3, PQ, 
 
 A purpose-built Android app offers more control over camera buffers, threads, GPU composition, encoders, and inference. The current web landmark path is single-threaded WASM and includes canvas readbacks/uploads, so there is room for improvement, especially for sustained live use. The browser skin model already uses WebGPU when available. A significant speedup is plausible but must be measured on the target phone and these exact models; wrapping this website in a WebView alone would not establish one. Relevant native building blocks are [CameraX analysis](https://developer.android.com/media/camera/camerax/analyze) and [ONNX Runtime/XNNPACK](https://onnxruntime.ai/docs/execution-providers/Xnnpack-ExecutionProvider.html).
 
+## Processing compatibility and color reports
+
+If the original preview looks correct but the edit does not, open **Processing & troubleshooting**. **CPU compatibility** runs the same skin model in WASM and clears cached skin patches, without removing the effect or reloading the photo/camera. The preference stays in this browser. Automatic mode qualifies a new GPU session against a warmed WASM reference using a nonuniform generated RGB input and all 409,600 output values; materially different results fall back to CPU. Qualification is cached for the session. First startup can therefore take longer.
+
+GPU acceptance allows at most one 8-bit-equivalent level of maximum error and 0.25 mean levels; strict float parity is reported separately. [Qualification tests](tests/skin-qualification-browser-report.json) passed on the tested desktop. Fault-injection tests cover finite wrong outputs, alpha-only errors, nonfinite output, and excessive average drift. This is a correctness safeguard, not proof of a particular Samsung/Brave driver defect.
+
+The compositor also tests identity, original color grading, skin blending, and makeup against independent synthetic references. Texture samplers explicitly request high precision; incomplete framebuffers fail visibly. A failed graphics check is reported without silently disabling an effect. [The browser report](tests/compositor-driver-browser-report.json) records a detected injected shader failure.
+
+**Download processing report** saves the browser-reported implementation, settings, canvas readback test, compositor checks, skin backend, qualification results, and available capture color metadata. It contains no photographs or face landmarks and is not uploaded. Browser privacy features may alter the implementation information; the app does not attempt to recover hidden identifiers or change privacy settings. The reported S26 Ultra/Brave issue still needs on-device confirmation.
+
 ## Run and check
 
 Use the Bun version in `.bun-version`:

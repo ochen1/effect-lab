@@ -1,0 +1,58 @@
+{
+  "baseline": {
+    "version": 1,
+    "status": "passed",
+    "syntheticOnly": true,
+    "referenceVersion": 1,
+    "reportedImplementation": {
+      "vendor": "WebKit",
+      "renderer": "WebKit WebGL",
+      "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+    },
+    "fragmentHighFloat": {
+      "rangeMin": 127,
+      "rangeMax": 127,
+      "precision": 23
+    },
+    "checks": {
+      "identity": {
+        "passed": true,
+        "maxError": 0,
+        "meanError": 0,
+        "tolerance": 2,
+        "checkedChannels": 1024,
+        "outsideTolerance": 0,
+        "glErrors": []
+      },
+      "color": {
+        "passed": true,
+        "maxError": 1,
+        "meanError": 0.0068359375,
+        "tolerance": 3,
+        "checkedChannels": 1024,
+        "outsideTolerance": 0,
+        "glErrors": []
+      },
+      "skin": {
+        "passed": true,
+        "maxError": 0,
+        "meanError": 0,
+        "tolerance": 3,
+        "checkedChannels": 1024,
+        "outsideTolerance": 0,
+        "glErrors": []
+      },
+      "makeup": {
+        "passed": true,
+        "maxError": 0,
+        "meanError": 0,
+        "tolerance": 4,
+        "checkedChannels": 1024,
+        "outsideTolerance": 0,
+        "glErrors": []
+      }
+    }
+  },
+  "faultDetected": true,
+  "elapsedMilliseconds": 378
+}

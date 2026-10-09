@@ -52,6 +52,11 @@ body {
 .saved-file-name { font-size: 11px; color: var(--muted); overflow-wrap: anywhere; flex: 1 1 180px; }
 .saved-file-row a { text-decoration: none; }
 #download-original-photo { width: 100%; margin-top: 10px; }
+.processing-controls { border-top: 1px solid var(--line); padding: 14px 0; margin-top: 12px; }
+.processing-controls summary { cursor: pointer; font-size: 12px; margin-bottom: 12px; }
+.processing-controls label { display: block; font-size: 12px; margin-bottom: 6px; }
+.processing-controls select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); }
+.processing-controls p, #processing-feedback { font-size: 11px; line-height: 1.5; color: var(--muted); }
 .motion-capture-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 10px 0; }
 .motion-capture-actions .button-primary { min-height: 44px; padding: 10px 16px; }
 .motion-capture-actions #motion-capture-size { flex-basis: 100%; margin: 0; }

@@ -7,7 +7,13 @@ import {
 } from "./alignment";
 import { createCompositor, type FaceMesh, type SkinPatch } from "./compositor";
 import { createFaceRuntime, type Face } from "./face";
-import { runSkin, warmSkin, disposeSkin } from "./inference";
+import {
+	runSkin,
+	warmSkin,
+	disposeSkin,
+	setSkinBackendPreference,
+	type SkinBackendPreference,
+} from "./inference";
 import {
 	imageToTT295Coordinates,
 	tt295ToImageCoordinates,
@@ -208,6 +214,13 @@ export async function createPipeline(options: PipelineOptions = {}) {
 	}
 
 	return {
+		setSkinBackend(preference: SkinBackendPreference) {
+			return enqueue(async () => {
+				await setSkinBackendPreference(preference);
+				patches.clear();
+				await warmSkin();
+			});
+		},
 		/** Warm the shared models once before starting a camera or offline conversion. */
 		warm(signal?: AbortSignal) {
 			return enqueue(async () => {

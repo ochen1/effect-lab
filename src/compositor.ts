@@ -1,3 +1,5 @@
+import reference from "./compositor-reference.json";
+import { DEFAULT_SETTINGS } from "./ui-types";
 import { getSdrContext } from "./capture-color";
 import { invertAffine, type Affine } from "./alignment";
 import type { EffectSettings } from "./ui-types";
@@ -16,6 +18,38 @@ export interface CompositeOptions {
 	onProgress?: (progress: number) => void;
 	maxDimension?: number | null;
 }
+export interface CompositorStageCheck {
+	passed: boolean;
+	maxError: number;
+	meanError: number;
+	tolerance: number;
+	checkedChannels: number;
+	outsideTolerance: number;
+	glErrors: string[];
+}
+export interface CompositorDiagnostics {
+	version: 1;
+	status: "pending" | "passed" | "failed" | "error";
+	syntheticOnly: true;
+	referenceVersion: number;
+	reportedImplementation: { vendor: string; renderer: string; version: string };
+	fragmentHighFloat: {
+		rangeMin: number;
+		rangeMax: number;
+		precision: number;
+	} | null;
+	checks: Partial<
+		Record<"identity" | "color" | "skin" | "makeup", CompositorStageCheck>
+	>;
+	error?: string;
+}
+let latestDiagnostics: CompositorDiagnostics | null = null;
+/** Only built-in synthetic pixels and exposed WebGL API details; never user images. */
+export function getCompositorDiagnostics(): CompositorDiagnostics | null {
+	return latestDiagnostics
+		? JSON.parse(JSON.stringify(latestDiagnostics))
+		: null;
+}
 /** GanHeadCpu converts each model texel before filtering: CV_8UC4, alpha=beta=127.5.
  * Native MobileCV uses float32 fused multiply-add, then nearest-even U8 saturation.
  * Uint8ClampedArray supplies the same nearest-even/clamping step; see native oracle.
@@ -27,19 +61,20 @@ export function quantizeGanRGBA(rgba: Float32Array): Uint8ClampedArray {
 	return bytes;
 }
 const VERT = `#version 300 es
+precision highp float;
 in vec2 position; out vec2 v2f_v_texCoord;
 void main(){v2f_v_texCoord=position;gl_Position=vec4(position.x*2.-1.,1.-position.y*2.,0.,1.);}`;
 const HEADER = `#version 300 es
 precision highp float;
 in vec2 v2f_v_texCoord;out vec4 o_FragColor;
-uniform sampler2D u_FBOTexture;uniform float sourceFlip;
+uniform highp sampler2D u_FBOTexture;uniform float sourceFlip;
 vec4 sourceAt(vec2 uv){return texture(u_FBOTexture,vec2(uv.x,mix(uv.y,1.-uv.y,sourceFlip)));}
 `;
 const COPY = HEADER + `void main(){o_FragColor=sourceAt(v2f_v_texCoord);}`;
 const SKIN =
 	HEADER +
 	`
-uniform sampler2D ganTexture,maskTexture;uniform mat3 sourceToCrop;
+uniform highp sampler2D ganTexture,maskTexture;uniform mat3 sourceToCrop;
 uniform vec2 tileOrigin,tileSize;uniform float cropSize,strength;
 void main(){vec4 src=sourceAt(v2f_v_texCoord);vec2 pt=tileOrigin+v2f_v_texCoord*tileSize;
  vec2 uv=(sourceToCrop*vec3(pt,1.)).xy/cropSize;
@@ -48,13 +83,14 @@ void main(){vec4 src=sourceAt(v2f_v_texCoord);vec2 pt=tileOrigin+v2f_v_texCoord*
  float alpha=clamp(gan.a*texture(maskTexture,vec2(uv.x,1.-uv.y)).r*strength,0.,1.);
  o_FragColor=vec4(mix(src.rgb,gan.rgb,alpha),src.a+alpha*(1.-src.a));}`;
 const MESH_VERT = `#version 300 es
+precision highp float;
 in vec2 position;in vec2 texCoord;out vec2 v2f_v_texCoord;out vec2 makeupUV;
 uniform vec2 tileOrigin,tileSize;
 void main(){v2f_v_texCoord=(position-tileOrigin)/tileSize;makeupUV=texCoord;gl_Position=vec4(v2f_v_texCoord.x*2.-1.,1.-v2f_v_texCoord.y*2.,0.,1.);}`;
 const MAKEUP =
 	HEADER +
 	`
-in vec2 makeupUV;uniform sampler2D makeupTexture,opacityTexture;
+in vec2 makeupUV;uniform highp sampler2D makeupTexture,opacityTexture;
 uniform float intensity,opacityEnabled;uniform int blendMode;
 float softLight(float b,float s){return s<.5?2.*b*s+b*b*(1.-2.*s):sqrt(max(b,0.))*(2.*s-1.)+2.*b*(1.-s);}
 void main(){vec4 base=sourceAt(v2f_v_texCoord),m=texture(makeupTexture,makeupUV);
@@ -90,6 +126,7 @@ export class Compositor {
 	private fbo: WebGLFramebuffer;
 	private targets: WebGLTexture[] = [];
 	private tileLimit: number;
+	private diagnostics: CompositorDiagnostics;
 	private constructor() {
 		const gl = this.canvas.getContext("webgl2", {
 			alpha: true,
@@ -100,6 +137,30 @@ export class Compositor {
 		});
 		if (!gl) throw new Error("WebGL 2 is required to apply this effect.");
 		this.gl = gl;
+		const precision = gl.getShaderPrecisionFormat(
+			gl.FRAGMENT_SHADER,
+			gl.HIGH_FLOAT,
+		);
+		this.diagnostics = {
+			version: 1,
+			status: "pending",
+			syntheticOnly: true,
+			referenceVersion: reference.version,
+			reportedImplementation: {
+				vendor: String(gl.getParameter(gl.VENDOR)),
+				renderer: String(gl.getParameter(gl.RENDERER)),
+				version: String(gl.getParameter(gl.VERSION)),
+			},
+			fragmentHighFloat: precision
+				? {
+						rangeMin: precision.rangeMin,
+						rangeMax: precision.rangeMax,
+						precision: precision.precision,
+					}
+				: null,
+			checks: {},
+		};
+		latestDiagnostics = this.diagnostics;
 		if ("drawingBufferColorSpace" in gl) gl.drawingBufferColorSpace = "srgb";
 		this.tileLimit = Math.min(
 			2048,
@@ -146,12 +207,131 @@ export class Compositor {
 			c.programs.skin = c.program(VERT, SKIN);
 			c.programs.filter = c.program(VERT, filter);
 			c.programs.makeup = c.program(MESH_VERT, MAKEUP);
+			await c.checkSyntheticStages();
 			return c;
 		} catch (e) {
+			c.diagnostics.status = "error";
+			c.diagnostics.error = e instanceof Error ? e.message : String(e);
 			c.dispose();
 			throw e;
 		}
 	}
+	/** A small startup driver probe. Thresholds allow rounding/dithering and canvas
+	 * privacy noise. Failure is diagnostic: it does not replace or disable effects. */
+	private async checkSyntheticStages() {
+		const source = document.createElement("canvas");
+		source.width = reference.width;
+		source.height = reference.height;
+		const context = getSdrContext(source);
+		const pixels = new ImageData(
+			new Uint8ClampedArray(reference.input),
+			source.width,
+			source.height,
+		);
+		context.putImageData(pixels, 0, 0);
+		const off = {
+			...DEFAULT_SETTINGS,
+			skinEnabled: false,
+			colorEnabled: false,
+			makeupEnabled: false,
+		};
+		const mesh: FaceMesh = {
+			positions: new Float32Array([
+				0,
+				0,
+				source.width,
+				0,
+				0,
+				source.height,
+				source.width,
+				source.height,
+			]),
+			uv: new Float32Array([0, 1, 1, 1, 0, 0, 1, 0]),
+			indices: new Uint16Array([0, 1, 2, 1, 3, 2]),
+		};
+		const rgba = new Float32Array(320 * 320 * 4);
+		for (let i = 0; i < rgba.length; i += 4) rgba.set(reference.skinRGBA, i);
+		const patch: SkinPatch = {
+			rgba,
+			size: 320,
+			cropToSource: [source.width / 320, 0, 0, source.height / 320, 0, 0],
+		};
+		try {
+			for (const stage of ["identity", "color", "skin", "makeup"] as const) {
+				for (
+					let i = 0;
+					i < 16 && this.gl.getError() !== this.gl.NO_ERROR;
+					i++
+				) {}
+				const settings = {
+					...off,
+					...(stage === "color"
+						? { colorEnabled: true }
+						: stage === "skin"
+							? { skinEnabled: true, skin: reference.skinStrength }
+							: stage === "makeup"
+								? { makeupEnabled: true, contour: 1, lips: 1, berry: 1 }
+								: {}),
+				};
+				const output = await this.render(
+					source,
+					source.width,
+					source.height,
+					stage === "skin" ? [patch] : [],
+					stage === "makeup" ? [mesh] : [],
+					settings,
+				);
+				try {
+					const actual = getSdrContext(output).getImageData(
+							0,
+							0,
+							output.width,
+							output.height,
+						).data,
+						expected = reference.expected[stage],
+						tolerance = reference.tolerance[stage];
+					let maxError = 0,
+						total = 0,
+						outsideTolerance = 0;
+					for (let i = 0; i < actual.length; i++) {
+						const error = Math.abs(actual[i] - expected[i]);
+						maxError = Math.max(maxError, error);
+						total += error;
+						if (error > tolerance) outsideTolerance++;
+					}
+					const glErrors: string[] = [];
+					for (let i = 0; i < 16; i++) {
+						const code = this.gl.getError();
+						if (code === this.gl.NO_ERROR) break;
+						glErrors.push(`0x${code.toString(16)}`);
+					}
+					this.diagnostics.checks[stage] = {
+						passed: outsideTolerance === 0 && glErrors.length === 0,
+						maxError,
+						meanError: total / actual.length,
+						tolerance,
+						checkedChannels: actual.length,
+						outsideTolerance,
+						glErrors,
+					};
+				} finally {
+					output.width = output.height = 1;
+				}
+			}
+			this.diagnostics.status = Object.values(this.diagnostics.checks).every(
+				(c) => c?.passed,
+			)
+				? "passed"
+				: "failed";
+		} catch (error) {
+			this.diagnostics.status = "error";
+			this.diagnostics.error =
+				error instanceof Error ? error.message : String(error);
+		} finally {
+			source.width = source.height = 1;
+		}
+	}
+
 	private program(v: string, f: string) {
 		const gl = this.gl,
 			p = gl.createProgram()!;
@@ -318,6 +498,11 @@ export class Compositor {
 							t,
 							0,
 						);
+						const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
+						if (status !== gl.FRAMEBUFFER_COMPLETE)
+							throw new Error(
+								`Graphics framebuffer is incomplete (0x${status.toString(16)}).`,
+							);
 						return t;
 					};
 					const common = (p: WebGLProgram) => {

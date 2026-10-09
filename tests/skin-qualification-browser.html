@@ -1,0 +1,18 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>Skin backend qualification</title></head><body>
+<h1>Skin backend qualification</h1><p>Mathematical diagnostic only. No user images.</p><button id="run">Validate automatic backend</button><pre id="result">Ready</pre>
+<script type="module">
+import {createSkinRuntime} from '/src/inference.ts';
+window.qualifySkinBackend=async()=>{
+ const node=document.getElementById('result');node.textContent='Comparing GPU with WASM…';
+ const runtime=createSkinRuntime({backend:'auto'}),started=performance.now();
+ try{
+  const first=await runtime.warm(),firstWarmMs=performance.now()-started;
+  const again=performance.now(),second=await runtime.warm(),cachedWarmMs=performance.now()-again;
+  const report={synthetic:true,environment:navigator.userAgent,status:first,firstWarmMs,cachedWarmMs,qualificationCached:first.validation?.milliseconds===second.validation?.milliseconds,
+   passed:first.state==='ready'&&(first.backend==='wasm'||first.validation?.accepted===true)};
+  node.textContent=JSON.stringify(report,null,2);return report;
+ }catch(error){const report={passed:false,error:String(error),status:runtime.getStatus()};node.textContent=JSON.stringify(report,null,2);return report;}
+ finally{await runtime.dispose();}
+};
+document.getElementById('run').onclick=()=>window.qualifySkinBackend();
+</script></body></html>

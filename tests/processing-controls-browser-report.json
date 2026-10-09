@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-09",
+  "environment": "Aside Chromium 153 on macOS",
+  "scope": "Local production build; no S26 hardware available",
+  "private_media_published": false,
+  "photo_loaded": true,
+  "switch_to_cpu_without_reload": true,
+  "cpu_ready_and_preview_repainted": true,
+  "switch_back_to_auto": true,
+  "gpu_validation_passed": true,
+  "report_downloaded": true,
+  "report_contains_no_photos": true,
+  "compositor_stages": {
+    "identity": "passed",
+    "color": "passed",
+    "skin": "passed",
+    "makeup": "passed"
+  },
+  "canvas_readback": {
+    "max_byte_error": 0,
+    "mean_byte_error": 0
+  },
+  "limitation": "The reported Brave/S26 color problem has not been reproduced on physical hardware."
+}

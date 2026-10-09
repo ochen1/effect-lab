@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-09",
+  "scope": "Desktop browser validation of automatic backend qualification; Samsung S26 Ultra/Brave rendering failure has not been reproduced here.",
+  "driver": "Aside browser REPL",
+  "browser": "Chrome153 on macOS",
+  "synthetic": true,
+  "diagnostic": "rgb-pattern-v1",
+  "model_sha256": "c4d17902dc2f74173e988a069df3d48aad3583a1ca5febebf7d381b4e006595d",
+  "model_precision": {
+    "weights": "float32",
+    "float_initializers": 120,
+    "int64_resize_initializers": 7,
+    "cast_nodes": 0,
+    "onnxruntime_web_version": "1.30.0",
+    "wgsl_type_mapping": "DataType.float -> f32"
+  },
+  "thresholds": {
+    "strict_mae": 1e-05,
+    "strict_max_abs": 0.0002,
+    "accepted_mean_byte_error": 0.25,
+    "accepted_max_byte_error": 1,
+    "byte_scale_for_normalized_RGBA": 127.5
+  },
+  "observed": {
+    "selected_backend": "webgpu",
+    "values": 409600,
+    "accepted": true,
+    "strict_passed": true,
+    "mae": 3.5913228754271e-07,
+    "max_abs": 9.253621101379395e-06,
+    "mean_byte_error": 4.5789366661695524e-05,
+    "max_byte_error": 0.0011798366904258728,
+    "gpu_create_and_check_ms": 1911.7999999523163,
+    "full_cold_warm_ms": 3422.699999809265,
+    "cached_warm_ms": 0,
+    "qualification_cached": true
+  },
+  "mocked_scenarios": [
+    "correct GPU retained",
+    "finite wrong GPU falls back",
+    "alpha-only corruption falls back",
+    "excessive mean drift falls back",
+    "nonfinite GPU falls back",
+    "small non-strict drift accepted",
+    "GPU execution error falls back",
+    "CPU reference error retries",
+    "incomplete model download retries",
+    "later GPU run error falls back",
+    "disposal during qualification releases all resources",
+    "CPU preference without available localStorage"
+  ],
+  "temporary_reference": "WASM session is released on GPU acceptance; otherwise the warmed WASM session is retained and the GPU session is released.",
+  "backend_preference_key": "effect-lab.skin-backend.v1",
+  "passed": true
+}
