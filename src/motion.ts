@@ -873,7 +873,7 @@ export function createMotionController(options: MotionOptions) {
 			options.onError(text(error));
 		}
 	});
-	document.addEventListener("visibilitychange", () => {
+	document.addEventListener("visibilitychange", async () => {
 		if (document.hidden && mode) {
 			video.pause();
 			frameController?.abort();
@@ -883,7 +883,16 @@ export function createMotionController(options: MotionOptions) {
 					"Camera stopped while the app was in the background.",
 				);
 			}
-		} else if (mode && ready && !exporting) pump.start();
+		} else if (!document.hidden && mode && !exporting) {
+			const version = generation;
+			// Settle an aborted frame before restarting: its rejection stops the pump.
+			await pump.stop();
+			if (document.hidden || version !== generation || exporting) return;
+			if (
+				(mode === "video" && (ready || (loading && engine && video.readyState >= 2))) ||
+				(mode === "camera" && ready && stream)
+			) pump.start();
+		}
 	});
 
 	return {

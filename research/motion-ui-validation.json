@@ -2,7 +2,7 @@
   "date": "2026-10-09",
   "driver": "Aside browser REPL",
   "environment": "Chrome 153 on macOS",
-  "scope": "Local built application; production verification is recorded separately after deployment.",
+  "scope": "Local built application and published GitHub Pages application",
   "private_images_or_videos_in_repository": false,
   "video_file": {
     "source_dimensions": [
@@ -64,5 +64,27 @@
     "Physical Android hardware and camera drivers were not tested.",
     "Live preview frame rate depends on device and model execution speed.",
     "These tests establish media plumbing and effect application, not exact native temporal tracking parity."
-  ]
+  ],
+  "published_site": {
+    "url": "https://ochen1.github.io/effect-lab/",
+    "source_commit": "18af96c15abb3f969484d6d0264982f54ac55697",
+    "workflow": "https://github.com/ochen1/effect-lab/actions/runs/37897600473",
+    "bundle": "assets/index-Dzimzm_J.js",
+    "video_export": {
+      "decoded_frames": 24,
+      "dimensions": [
+        360,
+        480
+      ],
+      "duration_seconds": 2,
+      "audio_codec": "aac"
+    },
+    "camera_generated_stream": {
+      "live_preview": true,
+      "filtered_recording_download": true,
+      "all_tracks_ended_on_stop": true,
+      "microphone_requested_when_unchecked": false
+    },
+    "physical_camera_hardware": false
+  }
 }

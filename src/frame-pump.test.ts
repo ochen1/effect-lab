@@ -55,3 +55,29 @@ test("frame errors stop scheduling and are reported once", async () => {
 	expect(errors).toEqual([failure]);
 	expect(callbacks.length).toBe(0);
 });
+
+test("a first frame aborted in the background can restart after draining", async () => {
+	const callbacks: FrameRequestCallback[] = [];
+	let rejectFirst!: (error: Error) => void;
+	let rendered = 0;
+	const pump = createFramePump(
+		async () => {
+			if (++rendered === 1) await new Promise<void>((_, reject) => { rejectFirst = reject; });
+		},
+		() => {},
+		(callback) => { callbacks.push(callback); return callbacks.length; },
+		() => {},
+	);
+	pump.start();
+	callbacks.shift()!(0);
+	await Promise.resolve();
+	const drained = pump.stop();
+	rejectFirst(new DOMException("Hidden tab", "AbortError"));
+	await drained;
+	pump.start();
+	expect(callbacks.length).toBe(1);
+	callbacks.shift()!(1);
+	await pump.stop();
+	expect(rendered).toBe(2);
+	expect(pump.busy).toBe(false);
+});
