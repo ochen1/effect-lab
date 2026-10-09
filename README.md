@@ -4,7 +4,7 @@ A personal photo lab that runs in a mobile or desktop browser. **BOY II** is the
 
 The original **BOY II** effect is by **dikdikz7**, effect ID **2420270134**. [Source provenance](research/original-effect-provenance.json) records the untouched original archive and member hashes.
 
-Planned home: [ochen1/effect-lab](https://github.com/ochen1/effect-lab), with the static app at [ochen1.github.io/effect-lab](https://ochen1.github.io/effect-lab/).
+[Open the app](https://ochen1.github.io/effect-lab/) · [Source and research](https://github.com/ochen1/effect-lab)
 
 ## What the app does
 
@@ -102,4 +102,4 @@ The last command validates portable execution. A fresh native comparison additio
 
 The [Pages workflow](.github/workflows/pages.yml) checks changes on pull requests, then builds and deploys `main` through the `github-pages` environment. Set the repository's Pages source to **GitHub Actions** before its first deployment. It uploads only `dist/`, after tests, TypeScript checking, and the website inventory check. The build uses a relative Vite base so it works at `/effect-lab/`.
 
-The workflow follows the official [Pages artifact](https://github.com/actions/upload-pages-artifact) and [deployment](https://github.com/actions/deploy-pages) actions. A successful build is a build result; the deployed photo, comparison, and export flow still needs a real browser check.
+The workflow follows the official [Pages artifact](https://github.com/actions/upload-pages-artifact) and [deployment](https://github.com/actions/deploy-pages) actions. The first published build was verified in a real browser on October 9, 2026: photo selection, GPU preview, controls, comparison, reset, and PNG export all worked. The exported image was decoded and checked at 3000 × 4000 pixels. [The report](research/ui-browser-validation.json) includes the deployed bundle and workflow run; private inputs, outputs, and screenshots are excluded. Release checks passed 24 Bun tests and 16 Python extraction/conversion tests.

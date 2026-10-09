@@ -89,5 +89,13 @@
   "excluded_from_publication": "All native face SDK photo captures and derived tensors under temporary directories or user artifact storage remain outside this repository. Do not copy them into publication.",
   "compiled_helpers": "Research Mach-O executables are locally built tools, not native frameworks; publish their source and rebuild instructions rather than platform binaries.",
   "deletions_performed": false,
-  "browser_verification_report": "research/browser-skin-validation.json"
+  "browser_verification_report": "research/browser-skin-validation.json",
+  "final_publication_audit": {
+    "tracked_files": 310,
+    "native_executables": 0,
+    "personal_absolute_paths": 0,
+    "standalone_raster_files": 6,
+    "raster_provenance": "All six match the authored effect texture hashes in public/effects/boy-ii/assets.json. The unchanged original-effect archive separately contains authored effect assets only.",
+    "private_images_or_photo_tensors_published": false
+  }
 }

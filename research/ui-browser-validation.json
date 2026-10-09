@@ -1,30 +1,45 @@
 {
   "date": "2026-10-09",
   "environment": "Chrome 153 on macOS through the Aside browser REPL",
-  "scope": "Local built website, before GitHub Pages deployment",
+  "scope": "Local built website and published GitHub Pages website",
   "private_data_in_report": false,
   "photo_artifacts_committed": false,
   "root_observed_app_flow": {
-    "photo_dimensions": [3000, 4000],
+    "photo_dimensions": [
+      3000,
+      4000
+    ],
     "gpu_preview": true,
-    "png_export_decoded_dimensions": [3000, 4000],
+    "png_export_decoded_dimensions": [
+      3000,
+      4000
+    ],
     "export_bytes_approximate": 19700000,
     "brightness_control": true,
     "saved_preset": true,
     "reset": true,
-    "multi_face_photo_dimensions": [4000, 3000],
+    "multi_face_photo_dimensions": [
+      4000,
+      3000
+    ],
     "detected_faces": 2,
     "selected_skin_face_changed": true,
     "compare_mode": true
   },
   "mobile_layout": {
     "method": "Same-origin iframe containing the actual built application",
-    "viewport": [412, 915],
+    "viewport": [
+      412,
+      915
+    ],
     "document_scroll_width": 412,
     "empty_state_export_disabled": true,
     "synthetic_input": "400 by 600 two-color mathematical checkerboard generated in browser memory",
     "no_face_notice": true,
-    "color_preview_dimensions": [400, 600],
+    "color_preview_dimensions": [
+      400,
+      600
+    ],
     "loaded_export_enabled": true,
     "sticky_preview": true,
     "numeric_brightness_input": true,
@@ -36,7 +51,29 @@
   "limitations": [
     "Responsive sizing checks do not emulate Android hardware, touch input, its GPU, or its browser image decoder.",
     "No Android physical-device test has been performed.",
-    "The real deployed website flow still needs verification after publication.",
     "These flow checks do not establish phone-app pixel parity."
-  ]
+  ],
+  "published_site": {
+    "url": "https://ochen1.github.io/effect-lab/",
+    "source_commit": "efb248b6a4d1bbdaad5cacbd89a9be0fe2c9e58d",
+    "workflow_run": "https://github.com/ochen1/effect-lab/actions/runs/37894699656",
+    "bundle": "assets/index-DPdjQNwn.js",
+    "photo_selection": true,
+    "gpu_preview": true,
+    "brightness_control": true,
+    "comparison": true,
+    "reset": true,
+    "png_export": {
+      "decoded_dimensions": [
+        3000,
+        4000
+      ],
+      "bytes": 19673814,
+      "fully_opaque": true,
+      "nonblank": true,
+      "different_from_input": true
+    },
+    "photos_uploaded": false,
+    "private_artifacts_in_repository": false
+  }
 }
