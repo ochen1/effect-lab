@@ -2,6 +2,7 @@ import "./styles.css";
 import { createPipeline } from "./pipeline";
 import { getSkinStatus } from "./inference";
 import { createMotionController, type MotionMode } from "./motion";
+import { createHoldGesture } from "./hold-gesture";
 import {
 	DEFAULT_SETTINGS,
 	SETTING_RANGES,
@@ -35,8 +36,8 @@ const icons = {
 const slider = (key: NumericSetting, label: string, help = "") => {
 	const [min, max] = SETTING_RANGES[key];
 	return `<div class="control" data-control="${key}">
-    <div class="control-label"><label for="${key}">${label}</label><input class="number-input" id="${key}-number" type="number" inputmode="decimal" aria-label="${label} value" min="${min}" max="${max}" step="0.01" value="${DEFAULT_SETTINGS[key]}" /></div>
-    <input id="${key}" class="slider" data-setting="${key}" type="range" min="${min}" max="${max}" step="0.01" value="${DEFAULT_SETTINGS[key]}" aria-describedby="${key}-help" />
+    <div class="control-label"><label for="${key}">${label}</label><span class="control-value"><input class="number-input" id="${key}-number" type="number" inputmode="decimal" aria-label="${label} value" min="${min}" max="${max}" step="0.01" value="${DEFAULT_SETTINGS[key]}" title="Double-click to reset to ${DEFAULT_SETTINGS[key].toFixed(2)}" /><button type="button" class="control-reset" data-reset="${key}" aria-label="Reset ${label.toLowerCase()} to ${DEFAULT_SETTINGS[key].toFixed(2)}" title="Reset ${label.toLowerCase()}">↺</button></span></div>
+    <input id="${key}" class="slider" data-setting="${key}" type="range" min="${min}" max="${max}" step="0.01" value="${DEFAULT_SETTINGS[key]}" aria-describedby="${key}-help slider-reset-tip" title="Double-click to reset to ${DEFAULT_SETTINGS[key].toFixed(2)}" />
     <span class="control-help" id="${key}-help">${help}</span>
   </div>`;
 };
@@ -63,7 +64,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           <button class="button button-primary choose-photo" id="first-photo">${icons.plus} Choose a photo ${icons.arrow}</button>
           <button class="button-link camera-action" id="first-camera">${icons.camera} Take a photo</button><span class="drop-hint">or drop an image here</span></div>
         </div>
-        <div class="photo-stage" id="photo-stage" role="img" aria-label="Your photo with the BOY II effect" hidden>
+        <div class="photo-stage" id="photo-stage" role="img" aria-label="Your photo with the BOY II effect" aria-describedby="photo-hold-tip" hidden>
           <div class="image-layer" id="edited-image"></div><div class="image-layer original-image" id="original-image"></div>
           <div class="compare-divider" id="compare-divider" hidden><span>${icons.split}</span></div>
           <input id="compare-range" class="compare-range" type="range" min="0" max="100" value="50" aria-label="Before and after divider" hidden />
@@ -80,6 +81,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <div class="view-switch" role="group" aria-label="Preview mode"><button data-view="edited" aria-pressed="true">Edited</button><button data-view="split" aria-pressed="false">Compare</button><button data-view="original" aria-pressed="false">Original</button></div>
         <span class="photo-size" id="photo-size"></span>
       </div>
+      <p class="photo-hold-tip" id="photo-hold-tip" hidden>Touch and hold the photo to see the original. Release to return.</p>
       <div class="photo-message" id="photo-message" aria-live="polite"></div>
       <div class="status-line"><span class="status-dot" id="status-dot"></span><span id="status-text" role="status">Ready when you are</span><span id="runtime-status" class="runtime-status" hidden></span><button class="text-button" id="about-button">About the lab ${icons.arrow}</button></div>
       <div class="error-message" id="error-message" role="alert" hidden><span id="error-text"></span><button id="dismiss-error" aria-label="Dismiss error">${icons.close}</button></div>
@@ -89,6 +91,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       <div class="effect-card"><div class="effect-card-copy"><span class="effect-category">Soft light · berry tones</span><h2>BOY <span>II</span></h2><p>A softer finish. A little more you.</p></div><div class="effect-swatch" aria-hidden="true"><span></span><span></span><span></span></div></div>
       <div class="preset-row"><label for="preset-select" class="sr-only">Saved preset</label><select id="preset-select"><option value="default">BOY II · original settings</option><option value="custom" disabled>Custom settings</option></select><button class="icon-button" id="save-preset" aria-label="Save settings as a preset" title="Save preset">${icons.bookmark}</button><button class="icon-button" id="reset-settings" aria-label="Reset to BOY II original settings" title="Reset original settings">${icons.reset}</button></div>
       <div class="face-select" id="face-select-wrap" hidden><label for="face-select">Apply skin smoothing to</label><select id="face-select"></select><p>Face details apply to all detected faces.</p></div>
+      <p class="slider-reset-tip" id="slider-reset-tip">Double-click a slider to reset it, or use ↺.</p><span class="sr-only" id="control-reset-status" role="status"></span>
       <div class="control-groups" id="control-groups">
         <details class="control-group" open><summary><span><span class="group-index">01</span> Skin</span>${icons.chevron}</summary><div class="group-content"><div class="group-intro"><span>A softer, even finish</span>${toggle("skinEnabled", "Enable skin smoothing")}</div>${slider("skin", "Skin strength", "Works on the selected face.")}</div></details>
         <details class="control-group" open><summary><span><span class="group-index">02</span> Face details</span>${icons.chevron}</summary><div class="group-content"><div class="group-intro"><span>Shape, color, a little dimension</span>${toggle("makeupEnabled", "Enable face overlays")}</div>${slider("contour", "Contour")}${slider("lips", "Lips")}${slider("berry", "Berry")}</div></details>
@@ -123,6 +126,11 @@ let original: HTMLCanvasElement | undefined;
 let hasPreview = false;
 let fileName = "photo";
 let viewMode = "edited";
+let holdingOriginal = false;
+let heldCompareValue = "50";
+let photoHold: ReturnType<typeof createHoldGesture> | undefined;
+let heldViewButton: HTMLButtonElement | undefined;
+let suppressHoldClick: { button: HTMLButtonElement; until: number } | undefined;
 let presets: Preset[] = readPresets();
 let loadController: AbortController | undefined;
 let previewController: AbortController | undefined;
@@ -183,7 +191,11 @@ const motion = createMotionController({
 	onError: showError,
 	onExport: offerExport,
 	onActivity: ({ busy, hasMedia, recording }) => {
-		if ((busy && !motionBusy && !motionRecording) || (recording && !motionRecording)) clearError();
+		if (
+			(busy && !motionBusy && !motionRecording) ||
+			(recording && !motionRecording)
+		)
+			clearError();
 		motionBusy = busy;
 		motionHasMedia = hasMedia;
 		motionRecording = recording;
@@ -191,7 +203,9 @@ const motion = createMotionController({
 			document.body.classList.toggle("has-photo", hasMedia);
 			for (const control of document.querySelectorAll<
 				HTMLInputElement | HTMLSelectElement | HTMLButtonElement
-			>(".control-groups input, #preset-select, #reset-settings, #save-preset"))
+			>(
+				".control-groups input, .control-reset, #preset-select, #reset-settings, #save-preset",
+			))
 				control.disabled = busy;
 		}
 		for (const button of document.querySelectorAll<HTMLButtonElement>(
@@ -211,6 +225,7 @@ async function setMediaMode(next: "photo" | MotionMode, force = false) {
 	)
 		return;
 	const version = ++modeVersion;
+	photoHold?.cancel();
 	loadController?.abort();
 	previewController?.abort();
 	clearTimeout(previewTimer);
@@ -237,6 +252,7 @@ async function setMediaMode(next: "photo" | MotionMode, force = false) {
 	element("empty-state").hidden = next !== "photo" || Boolean(original);
 	element("photo-stage").hidden = next !== "photo" || !original;
 	element("photo-toolbar").hidden = next !== "photo" || !original;
+	element("photo-hold-tip").hidden = next !== "photo" || !original;
 	element("photo-message").hidden = next !== "photo";
 	element("face-select-wrap").hidden =
 		next !== "photo" ||
@@ -345,6 +361,7 @@ function isCancelled(error: unknown, signal?: AbortSignal) {
 }
 
 function updatePhase(next: Phase) {
+	if (next !== "ready") photoHold?.cancel();
 	phase = next;
 	element("stage").setAttribute("aria-busy", String(phase === "loading"));
 	element<HTMLButtonElement>("export-photo").disabled =
@@ -360,7 +377,7 @@ function updatePhase(next: Phase) {
 	for (const control of document.querySelectorAll<
 		HTMLInputElement | HTMLSelectElement | HTMLButtonElement
 	>(
-		".control-groups input, #face-select, #preset-select, #reset-settings, #save-preset, #export-format",
+		".control-groups input, .control-reset, #face-select, #preset-select, #reset-settings, #save-preset, #export-format",
 	))
 		control.disabled = phase === "loading" || phase === "exporting";
 	for (const button of document.querySelectorAll<HTMLButtonElement>(
@@ -436,6 +453,23 @@ for (const key of Object.keys(SETTING_RANGES) as NumericSetting[]) {
 	});
 	range.addEventListener("change", () => schedulePreview(false));
 	const number = element<HTMLInputElement>(`${key}-number`);
+	const control = range.closest<HTMLElement>(".control")!;
+	const reset = () => {
+		if (range.disabled) return;
+		settings[key] = DEFAULT_SETTINGS[key];
+		number.value = settings[key].toFixed(2);
+		updateControl(key);
+		settingsChanged();
+		element("control-reset-status").textContent =
+			`${control.querySelector("label")!.textContent} reset to ${settings[key].toFixed(2)}.`;
+	};
+	control.addEventListener("dblclick", (event) => {
+		event.preventDefault();
+		reset();
+	});
+	control
+		.querySelector<HTMLButtonElement>(".control-reset")!
+		.addEventListener("click", reset);
 	number.addEventListener("input", () => {
 		if (!number.value || !Number.isFinite(number.valueAsNumber)) return;
 		const [min, max] = SETTING_RANGES[key];
@@ -515,6 +549,7 @@ async function openPhoto(file?: File) {
 		element("empty-state").hidden = true;
 		element("photo-stage").hidden = false;
 		element("photo-toolbar").hidden = false;
+		element("photo-hold-tip").hidden = false;
 		setView("original");
 		fileName =
 			file.name
@@ -608,7 +643,7 @@ async function renderPreview(maxDimension: number, parentSignal?: AbortSignal) {
 			element<HTMLButtonElement>("export-photo").disabled = false;
 			setStatus("Your photo is ready");
 		}
-		setView(viewMode);
+		renderPhotoView();
 	} catch (error) {
 		if (!isCancelled(error, controller.signal) && version === previewVersion) {
 			if (parentSignal) throw error;
@@ -621,12 +656,20 @@ async function renderPreview(maxDimension: number, parentSignal?: AbortSignal) {
 }
 
 function setView(mode: string) {
+	photoHold?.cancel();
 	viewMode = mode;
+	renderPhotoView();
+}
+
+function renderPhotoView() {
+	const mode = viewMode;
+	const presentation = holdingOriginal ? "original" : mode;
+	element("photo-stage").classList.toggle("holding-original", holdingOriginal);
 	element("photo-stage").setAttribute(
 		"aria-label",
-		mode === "original"
+		presentation === "original"
 			? "Your original photo"
-			: mode === "split"
+			: presentation === "split"
 				? "Before and after comparison of your photo"
 				: "Your photo with the BOY II effect",
 	);
@@ -635,27 +678,142 @@ function setView(mode: string) {
 		.forEach((button) =>
 			button.setAttribute("aria-pressed", String(button.dataset.view === mode)),
 		);
-	element("original-image").hidden = mode === "edited";
-	element("compare-divider").hidden = mode !== "split";
+	element("original-image").hidden = presentation === "edited";
+	element("compare-divider").hidden = mode !== "split" || holdingOriginal;
+	// Keep the native range mounted during a hold so its pointer capture survives.
 	element("compare-range").hidden = mode !== "split";
 	element("image-label").textContent =
-		mode === "original" ? "ORIGINAL" : "BOY II";
-	element("original-label").hidden = mode !== "split";
+		presentation === "original" ? "ORIGINAL" : "BOY II";
+	element("original-label").hidden = mode !== "split" || holdingOriginal;
 	updateComparison();
 }
 
 function updateComparison() {
+	if (holdingOriginal)
+		element<HTMLInputElement>("compare-range").value = heldCompareValue;
 	const value = Number(element<HTMLInputElement>("compare-range").value);
 	element("original-image").style.clipPath =
-		viewMode === "split" ? `inset(0 ${100 - value}% 0 0)` : "none";
+		viewMode === "split" && !holdingOriginal
+			? `inset(0 ${100 - value}% 0 0)`
+			: "none";
 	element("compare-divider").style.left = `${value}%`;
 }
 
+photoHold = createHoldGesture((held) => {
+	if (
+		held &&
+		(mediaMode !== "photo" ||
+			phase !== "ready" ||
+			!original ||
+			viewMode === "original")
+	) {
+		photoHold?.cancel();
+		return;
+	}
+	holdingOriginal = held;
+	if (!held && heldViewButton) {
+		suppressHoldClick = {
+			button: heldViewButton,
+			until: performance.now() + 800,
+		};
+		heldViewButton = undefined;
+	}
+	// Only a recognized long hold restores the pre-press divider position.
+	// Ordinary taps and drags keep the range's native behavior.
+	element<HTMLInputElement>("compare-range").value = heldCompareValue;
+	renderPhotoView();
+});
+function beginPhotoHold(event: PointerEvent, button?: HTMLButtonElement) {
+	if (event.pointerType !== "touch" && event.pointerType !== "pen") return;
+	if (
+		!event.isPrimary ||
+		event.button !== 0 ||
+		mediaMode !== "photo" ||
+		phase !== "ready" ||
+		!original ||
+		viewMode === "original"
+	) {
+		photoHold?.cancel();
+		return;
+	}
+	photoHold?.cancel();
+	suppressHoldClick = undefined;
+	heldViewButton = button;
+	heldCompareValue = element<HTMLInputElement>("compare-range").value;
+	photoHold?.begin(event);
+}
+element("photo-stage").addEventListener(
+	"pointerdown",
+	(event) => beginPhotoHold(event),
+	{ capture: true, passive: true },
+);
+window.addEventListener(
+	"pointerdown",
+	(event) => {
+		if (
+			photoHold?.pointerId !== undefined &&
+			photoHold.pointerId !== event.pointerId
+		)
+			photoHold.cancel();
+	},
+	{ capture: true, passive: true },
+);
+window.addEventListener("pointermove", (event) => photoHold?.move(event), {
+	capture: true,
+	passive: true,
+});
+for (const type of [
+	"pointerup",
+	"pointercancel",
+	"lostpointercapture",
+] as const)
+	window.addEventListener(type, (event) => photoHold?.finish(event.pointerId), {
+		capture: true,
+		passive: true,
+	});
+window.addEventListener("scroll", () => photoHold?.cancel(), {
+	capture: true,
+	passive: true,
+});
+window.addEventListener("blur", () => photoHold?.cancel());
+document.addEventListener("visibilitychange", () => {
+	if (document.hidden) photoHold?.cancel();
+});
+element("photo-stage").addEventListener("contextmenu", (event) => {
+	if (photoHold?.pointerId !== undefined) event.preventDefault();
+});
+
 document
 	.querySelectorAll<HTMLButtonElement>("[data-view]")
-	.forEach((button) =>
-		button.addEventListener("click", () => setView(button.dataset.view!)),
-	);
+	.forEach((button) => {
+		if (button.dataset.view !== "original") {
+			button.addEventListener(
+				"pointerdown",
+				(event) => beginPhotoHold(event, button),
+				{ capture: true, passive: true },
+			);
+			button.title = "Tap to select. On touchscreens, hold for the original.";
+			button.addEventListener("contextmenu", (event) => {
+				if (heldViewButton === button && photoHold?.pointerId !== undefined)
+					event.preventDefault();
+			});
+		}
+		button.addEventListener("keydown", () => {
+			suppressHoldClick = undefined;
+		});
+		button.addEventListener("click", (event) => {
+			if (
+				suppressHoldClick?.button === button &&
+				performance.now() < suppressHoldClick.until
+			) {
+				suppressHoldClick = undefined;
+				event.preventDefault();
+				return;
+			}
+			suppressHoldClick = undefined;
+			setView(button.dataset.view!);
+		});
+	});
 element("compare-range").addEventListener("input", updateComparison);
 element("face-select").addEventListener("change", () => {
 	settings.faceIndex = Number(element<HTMLSelectElement>("face-select").value);
@@ -886,6 +1044,7 @@ element("share-photo").addEventListener("click", async () => {
 });
 
 window.addEventListener("pagehide", () => {
+	photoHold?.cancel();
 	previewController?.abort();
 	loadController?.abort();
 	exportController?.abort();

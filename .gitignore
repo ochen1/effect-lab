@@ -46,6 +46,7 @@ __pycache__/
 !/research/makeup-geometry-validation.json
 !/research/makeup-geometry-tt295-validation.json
 !/research/makeup-geometry-provenance.json
+!/research/makeup-extra-order-validation.json
 !/research/makeup-geometry-synthetic-input.f32
 !/research/makeup-geometry-synthetic-248.f32
 !/research/makeup-geometry-synthetic-tt295.f32

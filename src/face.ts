@@ -17,7 +17,22 @@ export interface Face {
 	box: FaceBox;
 	score: number;
 	points: Point[];
+	/** Canonical renderer order: 44 eye, 26 brow, 64 mouth points. */
 	extra?: Point[];
+}
+
+/** The extra network stores base106, mouth64, brows26, then eyes44.
+ * TT295 consumes the dense groups in eyes/brows/mouth order. Reorder whole
+ * groups; preserve each group's authored contour traversal and coordinates. */
+export function reorderExtraLandmarks(points: readonly Point[]): Point[] {
+	if (points.length !== 240) {
+		throw new Error("The extra face model must return 240 landmarks.");
+	}
+	return [
+		...points.slice(196, 240),
+		...points.slice(170, 196),
+		...points.slice(106, 170),
+	];
 }
 export interface FaceRuntimeOptions {
 	modelBaseUrl?: string;
@@ -483,7 +498,7 @@ export function createFaceRuntime(options: FaceRuntimeOptions = {}) {
 				box: { x: box.x, y: box.y, width: box.width, height: box.height },
 				score: confidence,
 				points,
-				extra: all.slice(106),
+				extra: reorderExtraLandmarks(all),
 			});
 		}
 		return faces;

@@ -64,3 +64,7 @@ The portable skin model SHA-256 is `c4d17902dc2f74173e988a069df3d48aad3583a1ca5f
 ## Video and camera follow-up
 
 `video-file-validation.json` records synthetic codec, timing, audio, fallback, and cancellation checks. `motion-ui-validation.json` records integrated UI results without private media. Additional browser fixtures and reports live in `../tests/pipeline-motion-browser*`, `../tests/video-browser.ts`, and `../tests/recording-browser*`. The latter generates MediaRecorder output in memory and verifies that lossless remuxing adds usable duration and seeking. Camera requests are simulated with generated browser MediaStreams; these checks do not claim physical-device testing. No input clips, recorded clips, screenshots, or private frame data are committed.
+
+## Makeup registration correction
+
+The raw extra-network output groups are mouth/brows/eyes, while the TT295 renderer expects eyes/brows/mouth. `makeup-extra-order-validation.json` compares the corrected permutation with native SDK output; the report contains only index mappings and aggregate errors. `../tests/makeup-registration.test.ts` checks anatomical correspondence, and the browser registration harness renders all layers at full strength against original package-authored geometry and model means. These checks reproduce the old displacement and verify the corrected placement. No photo-derived coordinates or private images are included.

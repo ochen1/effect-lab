@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-09",
+  "driver": "Aside browser REPL",
+  "environment": "Chrome 153 on macOS",
+  "source": "Built app; private input photo and screenshots remain outside repository.",
+  "double_click": {
+    "method": "Native browser locator.dblclick on lips range",
+    "before": {
+      "lips": 1,
+      "contour": 1,
+      "berry": 1
+    },
+    "after": {
+      "lips": 0.19,
+      "contour": 1,
+      "berry": 1
+    },
+    "passed": true
+  },
+  "touch_hold": {
+    "method": "Touch PointerEvents dispatched in the actual app DOM; no physical touchscreen used.",
+    "edited_shows_original_during_hold": true,
+    "edited_restored_on_release": true,
+    "comparison_before": 37,
+    "emulated_native_pointer_down_jump": 80,
+    "comparison_during_hold": 37,
+    "comparison_after_release": 37,
+    "original_remained_visible_during_async_preview": true,
+    "drag_before_hold_moved_divider_to": 60,
+    "drag_did_not_activate_original": true,
+    "mode_button_hold_restored_previous_edited_view": true,
+    "mode_button_short_tap_selected_comparison": true
+  },
+  "makeup_photo_check": {
+    "contour": 1,
+    "lips": 1,
+    "berry": 1,
+    "mouth_placement_visually_checked": true,
+    "private_image_published": false
+  },
+  "quantitative_registration_report": "makeup-registration-browser-report.json"
+}

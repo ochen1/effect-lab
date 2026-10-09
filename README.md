@@ -12,6 +12,8 @@ Choose **Photo**, **Video**, or **Live camera**. The same effect controls and sa
 
 Photo, video, and camera pixels stay in the browser. Network requests fetch static application files, models, and original effect assets. There is no photo upload endpoint, account system, analytics, or server inference. Presets store versioned settings only. The first edit downloads the processing tools; offline installation is not promised.
 
+Double-click an effect slider, its value, or its label to restore that setting’s original default; the small reset button provides the same action. On a touchscreen, hold the photo (or the Edited/Compare button) briefly to see the original. Releasing restores the previous view and comparison position. Moving to drag or scroll cancels the hold.
+
 BOY II retains its authored defaults:
 
 | Control | Default |
@@ -53,6 +55,7 @@ Checked-in input fixtures are synthetic. Reports contain numerical results and p
 | Original face networks | Gradient and seeded-noise reports compare 74 detector, 94 base, and 113 extra-network retained activations. Integer values match exactly; small base auxiliary float differences remain below `2e-6`. See [the face extraction notes](research/face-format.md). |
 | Face SDK crop and coordinate processing | [Native geometry audit](research/face-geometry-validation.json): all 43,200 initial-crop, 43,200 base-crop, and 76,800 extra-crop values match. Immediate base coordinate decode has maximum error below `0.000027` pixel. The audit reports numerical metrics only. |
 | Face alignment | [Portable regression tests](tests/compositing.test.ts) cover the original similarity fit, margin, offset, orientation, and pixel sampling. The native synthetic reference agrees within `0.001` pixel. |
+| Makeup registration | [Native landmark-order comparison](research/makeup-extra-order-validation.json) verifies all 134 dense points within `0.000026` pixel. [Full-strength browser checks](tests/makeup-registration-browser-report.json) verify lip, contour, and berry placement using authored fixtures. The original browser release mixed the network’s mouth/eye groups; that port bug is corrected. |
 | Original TT295 geometry | [47 synthetic comparisons](research/makeup-geometry-tt295-validation.json) match all 590 float32 coordinates exactly. The separate 248-point fallback is preserved as research and separately tested. |
 | Browser compositor | [Synthetic browser checks](research/compositing-browser-validation.json) verify an exact 3000 × 4000 identity pass, identical tiled/untiled results, skin orientation, makeup changes, and cancellation. |
 | Application boundaries | Bun tests cover stored settings validation, tensor layout, inference resource lifetime, alignment, and the native geometry fixtures. |

@@ -129,3 +129,41 @@ The extractor checks every copy, compares all four original files, and records
 source SHA-256 values, array offsets, and extracted-array hashes in the JSON.
 It preserves raw package UVs without flipping V. It reads only named original
 mesh files and does not copy their authored positions or consume user images.
+
+## Network-to-renderer ordering correction
+
+The renderer's canonical240 ordering above **is not the raw extra network's
+ordering**. The network emits base106, **mouth64, brow26, eye44**. Treating its
+last134 points directly as eye44/brow26/mouth64 put lip geometry on the eyes and
+eye geometry on the lips. This was a wiring defect in the browser port, rather
+than evidence of a defect in the original effect.
+
+The required canonical dense134 permutation is:
+
+| Renderer group | Raw network indices, inclusive |
+| --- | --- |
+| Eyes44 | 196–239 |
+| Brows26 | 170–195 |
+| Mouth64 | 106–169 |
+
+Every group preserves its internal traversal. This is independently verified
+against native SDK output, not inferred solely from labels or ranges. Decode a
+captured original extra-network output using its native crop transform and the
+authored mean, then compare all134 points with the SDK's `bef_face_ext_info_t`:
+
+```sh
+python3 tools/validate_makeup_extra_mapping.py /external/native-trace-directory
+```
+
+For the captured reference, all134 points agree within **0.00002502 pixels**.
+`research/makeup-extra-order-validation.json` contains only aggregate error
+statistics and non-personal permutation indices. Captured tensors, crop
+transforms, photographs, and image-derived landmarks stay outside the repository.
+
+`tests/makeup-registration.test.ts` tests the entire route from authored network
+mean through the public reorder function and TT295 assembly to image positions.
+It verifies every eye, brow, and mouth vertex against its anatomical region,
+checks independent base106 corner landmarks to detect reversal, and projects
+the original lips texture's pigment coordinate through the authored UV triangles
+to confirm it lands on the mouth below the nose. These checks cover the
+integration mistake that isolated native spline/mesh arithmetic tests missed.

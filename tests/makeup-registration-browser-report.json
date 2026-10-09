@@ -1,0 +1,181 @@
+{
+  "syntheticOnly": true,
+  "fixtures": "Original package-authored reference mesh and original model mean; no photographs",
+  "authored": {
+    "mouthRegion": {
+      "x0": 284.3264465332031,
+      "y0": 604.85107421875,
+      "x1": 420.2715759277344,
+      "y1": 671.5958251953125
+    },
+    "contour": {
+      "centroid": [
+        354.1395256588533,
+        506.9414347683972
+      ],
+      "insideFraction": 0.024980194234998865,
+      "effectPixels": 67840,
+      "bounds": [
+        191,
+        376,
+        515,
+        721
+      ],
+      "totalDifference": 902515
+    },
+    "contourAtNose": 39.46938775510204,
+    "contourAtBrowLeft": 32.857142857142854,
+    "contourAtBrowRight": 35.04081632653061,
+    "lips": {
+      "centroid": [
+        352.2966772566026,
+        638.1339345034609
+      ],
+      "insideFraction": 0.9997644443907565,
+      "effectPixels": 5913,
+      "bounds": [
+        286,
+        607,
+        423,
+        666
+      ],
+      "totalDifference": 496698
+    },
+    "berry": {
+      "centroid": [
+        353.81943069379435,
+        531.2381033280805
+      ],
+      "insideFraction": 0.000038078723366862134,
+      "effectPixels": 37442,
+      "bounds": [
+        147,
+        371,
+        560,
+        732
+      ],
+      "totalDifference": 341398
+    }
+  },
+  "modelMeanCorrected": {
+    "mouthRegion": {
+      "x0": 174.37999725341797,
+      "y0": 288.6925903320313,
+      "x1": 338.4199890136719,
+      "y1": 370.67779846191405
+    },
+    "contour": {
+      "centroid": [
+        258.61030011488685,
+        205.43334557284516
+      ],
+      "insideFraction": 0.032651726234005064,
+      "effectPixels": 77165,
+      "bounds": [
+        56,
+        48,
+        452,
+        434
+      ],
+      "totalDifference": 972261
+    },
+    "contourAtNose": 41.89795918367347,
+    "contourAtBrowLeft": 18.06122448979592,
+    "contourAtBrowRight": 22.142857142857142,
+    "lips": {
+      "centroid": [
+        256.41527527360194,
+        331.17883861963196
+      ],
+      "insideFraction": 0.9995887181405815,
+      "effectPixels": 9032,
+      "bounds": [
+        175,
+        290,
+        342,
+        367
+      ],
+      "totalDifference": 753741
+    },
+    "berry": {
+      "centroid": [
+        257.07548651842933,
+        220.08727845762706
+      ],
+      "insideFraction": 0.0000660681382732725,
+      "effectPixels": 43852,
+      "bounds": [
+        5,
+        89,
+        505,
+        446
+      ],
+      "totalDifference": 408669
+    }
+  },
+  "modelMeanOldOrder": {
+    "mouthRegion": {
+      "x0": 174.37999725341797,
+      "y0": 288.6925903320313,
+      "x1": 338.4199890136719,
+      "y1": 370.67779846191405
+    },
+    "contour": {
+      "centroid": [
+        237.24752711456938,
+        226.6838787193136
+      ],
+      "insideFraction": 0.17326768478766597,
+      "effectPixels": 64161,
+      "bounds": [
+        56,
+        48,
+        454,
+        408
+      ],
+      "totalDifference": 926347
+    },
+    "contourAtNose": 8,
+    "contourAtBrowLeft": 18.73469387755102,
+    "contourAtBrowRight": 11.510204081632653,
+    "lips": {
+      "centroid": [
+        252.92161869592533,
+        98.44012362759935
+      ],
+      "insideFraction": 0,
+      "effectPixels": 18766,
+      "bounds": [
+        116,
+        48,
+        415,
+        186
+      ],
+      "totalDifference": 1109461
+    },
+    "berry": {
+      "centroid": [
+        245.09353508938284,
+        251.29707779785136
+      ],
+      "insideFraction": 0.008108171053463356,
+      "effectPixels": 32255,
+      "bounds": [
+        5,
+        99,
+        505,
+        446
+      ],
+      "totalDifference": 300561
+    }
+  },
+  "checks": {
+    "authoredLipRegistration": true,
+    "modelMeanLipRegistration": true,
+    "oldPermutationReproducesDisplacedLips": true,
+    "contourFollowsNose": true,
+    "contourFollowsBothBrows": true,
+    "berryRemainsCentered": true
+  },
+  "passed": true
+}
