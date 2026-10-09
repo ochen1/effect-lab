@@ -7,8 +7,14 @@ const dist = new URL("dist/", root);
 const manifest = JSON.parse(
 	await readFile(new URL("public/effects/boy-ii/assets.json", root), "utf8"),
 ) as Record<string, { sha256: string; bytes: number }>;
+const lutManifest = JSON.parse(
+	await readFile(new URL("public/effects/boy-ii/peach-lut.json", root), "utf8"),
+) as { sha256: string; bytes: number; sourceSha256: string };
+if (lutManifest.sourceSha256 !== manifest["peach.png"].sha256)
+	throw new Error("Derived LUT provenance does not match original PNG");
 const textures = new Set([
 	"peach.png",
+	"peach-lut.rgba",
 	"contour.png",
 	"lips.png",
 	"berry.png",
@@ -30,7 +36,7 @@ function allowed(path: string) {
 	)
 		return true;
 	if (
-		/^effects\/boy-ii\/(assets|alignment|makeup-geometry|makeup-tt295)\.json$/.test(
+		/^effects\/boy-ii\/(assets|alignment|makeup-geometry|makeup-tt295|peach-lut)\.json$/.test(
 			path,
 		)
 	)
@@ -62,8 +68,13 @@ async function inspect(directory: URL, prefix = "") {
 			)
 		)
 			throw new Error(`Native executable found in website: ${path}`);
-		if (path.endsWith(".png")) {
-			const expected = manifest[entry.name];
+		if (
+			path.endsWith(".png") ||
+			path.endsWith(".rgba") ||
+			path.endsWith(".frag")
+		) {
+			const expected =
+				entry.name === "peach-lut.rgba" ? lutManifest : manifest[entry.name];
 			const hash = createHash("sha256").update(content).digest("hex");
 			if (
 				!expected ||
@@ -88,9 +99,11 @@ for (const path of [
 	"models/face-base.onnx",
 	"models/face-extra.onnx",
 	"effects/boy-ii/makeup-tt295.json",
+	"effects/boy-ii/peach-lut.rgba",
+	"effects/boy-ii/peach-lut.json",
 	"vendor/onnx/ort-wasm-simd-threaded.jsep.wasm",
 ])
 	await lstat(new URL(path, dist));
 console.log(
-	`Website inventory checked: ${files} files, ${(bytes / 1024 / 1024).toFixed(1)} MiB. Only application assets and original effect textures are published from ${fileURLToPath(dist)}.`,
+	`Website inventory checked: ${files} files, ${(bytes / 1024 / 1024).toFixed(1)} MiB. Only application assets and verified effect textures are published from ${fileURLToPath(dist)}.`,
 );

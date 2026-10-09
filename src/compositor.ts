@@ -32,6 +32,7 @@ export interface CompositorDiagnostics {
 	status: "pending" | "passed" | "failed" | "error";
 	syntheticOnly: true;
 	referenceVersion: number;
+	lutSampling: "raw-rgba8-cube-explicit-bilinear-rg-floor-b";
 	reportedImplementation: { vendor: string; renderer: string; version: string };
 	fragmentHighFloat: {
 		rangeMin: number;
@@ -97,6 +98,32 @@ void main(){vec4 base=sourceAt(v2f_v_texCoord),m=texture(makeupTexture,makeupUV)
  float alpha=clamp(m.a*intensity*mix(1.,texture(opacityTexture,makeupUV).r,opacityEnabled),0.,1.);
  vec3 blend=blendMode==5?vec3(softLight(base.r,m.r),softLight(base.g,m.g),softLight(base.b,m.b)):base.rgb*m.rgb;
  o_FragColor=vec4(mix(base.rgb,blend,alpha),base.a+alpha*(1.-base.a));}`;
+/** Preserve the authored floor(B*63) + bilinear RG lookup, without relying on
+ * packed-atlas coordinates, image upload color handling, or texture filtering. */
+export function cubeColorShader(authored: string): string {
+	const declaration = "uniform highp sampler2D _LutTexture;";
+	const lookup = "texture(_LutTexture, _756).xyz";
+	if (!authored.includes(declaration) || !authored.includes(lookup))
+		throw new Error("Unsupported effect color shader layout.");
+	const sample = `
+vec3 sampleOriginalLut(vec3 rgb) {
+ vec2 coordinate=clamp(rgb.rg,vec2(0.0),vec2(1.0))*63.0;
+ ivec2 low=ivec2(floor(coordinate));
+ ivec2 high=min(low+ivec2(1),ivec2(63));
+ int blue=int(clamp(floor(rgb.b*63.0),0.0,63.0));
+ vec2 weight=coordinate-vec2(low);
+ vec3 c00=texelFetch(_LutCube,ivec3(low,blue),0).rgb;
+ vec3 c10=texelFetch(_LutCube,ivec3(high.x,low.y,blue),0).rgb;
+ vec3 c01=texelFetch(_LutCube,ivec3(low.x,high.y,blue),0).rgb;
+ vec3 c11=texelFetch(_LutCube,ivec3(high,blue),0).rgb;
+ return mix(mix(c00,c10,weight.x),mix(c01,c11,weight.x),weight.y);
+}
+`;
+	return authored
+		.replace(declaration, "uniform highp sampler3D _LutCube;")
+		.replace("void main()", sample + "\nvoid main()")
+		.replace(lookup, "sampleOriginalLut(_465.xyz)");
+}
 function abort(signal?: AbortSignal) {
 	if (signal?.aborted)
 		throw new DOMException("Rendering cancelled", "AbortError");
@@ -146,6 +173,7 @@ export class Compositor {
 			status: "pending",
 			syntheticOnly: true,
 			referenceVersion: reference.version,
+			lutSampling: "raw-rgba8-cube-explicit-bilinear-rg-floor-b",
 			reportedImplementation: {
 				vendor: String(gl.getParameter(gl.VENDOR)),
 				renderer: String(gl.getParameter(gl.RENDERER)),
@@ -182,7 +210,7 @@ export class Compositor {
 	static async create(base = "./effects/boy-ii/"): Promise<Compositor> {
 		const c = new Compositor();
 		try {
-			const names = ["peach", "contour", "lips", "berry", "opacity", "ganmask"];
+			const names = ["contour", "lips", "berry", "opacity", "ganmask"];
 			const results = await Promise.all(
 				names.map((n) => bitmap(base + n + ".png")),
 			);
@@ -190,10 +218,16 @@ export class Compositor {
 				c.textures[names[i]] = c.imageTexture(b, false);
 				b.close();
 			});
+			const cubeResponse = await fetch(base + "peach-lut.rgba");
+			if (!cubeResponse.ok) throw new Error("Effect lookup table unavailable");
+			const cube = new Uint8Array(await cubeResponse.arrayBuffer());
+			if (cube.byteLength !== 64 * 64 * 64 * 4)
+				throw new Error("Effect lookup table has an invalid size.");
+			c.textures.lutCube = c.cubeTexture(cube);
 			const r = await fetch(base + "filter.frag");
 			if (!r.ok) throw new Error("Filter shader unavailable");
 			// Retain the authored LUT quantization and the exact color-correction constants.
-			let filter = await r.text();
+			let filter = cubeColorShader(await r.text());
 			filter = filter
 				.replace(
 					"uniform highp sampler2D u_FBOTexture;",
@@ -360,6 +394,33 @@ export class Compositor {
 		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
 		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 	}
+	private cubeTexture(bytes: Uint8Array) {
+		const gl = this.gl,
+			t = gl.createTexture();
+		if (!t) throw new Error("Cannot allocate effect lookup table.");
+		gl.bindTexture(gl.TEXTURE_3D, t);
+		gl.texParameteri(gl.TEXTURE_3D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+		gl.texParameteri(gl.TEXTURE_3D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+		gl.texParameteri(gl.TEXTURE_3D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+		gl.texParameteri(gl.TEXTURE_3D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+		gl.texParameteri(gl.TEXTURE_3D, gl.TEXTURE_WRAP_R, gl.CLAMP_TO_EDGE);
+		gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+		gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+		gl.texImage3D(
+			gl.TEXTURE_3D,
+			0,
+			gl.RGBA8,
+			64,
+			64,
+			64,
+			0,
+			gl.RGBA,
+			gl.UNSIGNED_BYTE,
+			bytes,
+		);
+		return t;
+	}
+
 	private imageTexture(image: TexImageSource, flip = false) {
 		const gl = this.gl,
 			t = gl.createTexture()!;
@@ -535,7 +596,9 @@ export class Compositor {
 							p = this.programs.filter;
 						this.use(p);
 						common(p);
-						this.bind(p, "_LutTexture", this.textures.peach, 1);
+						gl.activeTexture(gl.TEXTURE1);
+						gl.bindTexture(gl.TEXTURE_3D, this.textures.lutCube);
+						gl.uniform1i(gl.getUniformLocation(p, "_LutCube"), 1);
 						for (const [n, v] of Object.entries({
 							_Intensity: settings.lut,
 							_Brightness: settings.brightness,

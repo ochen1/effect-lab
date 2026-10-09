@@ -1,0 +1,15 @@
+{
+  "source": "peach.png",
+  "sourceSha256": "92e4e6b5347c381bba020c7a5f53d607b133a742e21258b1697b30aeff5f2b52",
+  "sha256": "6307df52cfc835b7c6983b47733a40d9d6c022422b0ad58e60ecc2302b2f81b5",
+  "bytes": 1048576,
+  "size": [
+    64,
+    64,
+    64
+  ],
+  "format": "RGBA8",
+  "layout": "(((blue * 64) + green) * 64 + red) * 4",
+  "sampling": "B=floor(clamp(B,0,1)*63); bilinear R/G at clamp(RG,0,1)*63; no blue interpolation",
+  "generator": "tools/extract_color_lut.py"
+}
