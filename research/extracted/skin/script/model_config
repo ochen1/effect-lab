@@ -1,0 +1,1 @@
+{"crop": {"name": "crop", "inputs": [{"name": "data", "size": [320, 320, 3], "format": 10}], "outputs": [{"name": "Tanh_134", "size": [320, 320, 4], "format": 10}], "forwardType": 1, "type": "gpu", "mode": "gpu"}}

@@ -1,0 +1,61 @@
+B
+1 58 1610280970
+DataV2 data 1 120 120 3 2 6 0
+Convolution conv1.0 16 4 4 4 4 0 0 1 1 2 12 4 18 2 8 data conv1.0
+DepthwiseSeparableConvolution stack0.0.dw.0 16 3 3 1 1 1 1 1 1 2 4 4 12 2 7 conv1.0 stack0.0.dw.0
+Convolution stack0.0.pw.0 16 1 1 1 1 0 0 1 0 2 10 4 17 2 7 stack0.0.dw.0 stack0.0.pw.0
+Eltwise stack0.0.elt stack0.0.pw.0 conv1.0 stack0.0.elt 2 8 1
+DepthwiseSeparableConvolution stack0.1.dw.0 16 3 3 1 1 1 1 1 1 2 6 4 14 2 7 stack0.0.elt stack0.1.dw.0
+Convolution stack0.1.pw.0 16 1 1 1 1 0 0 1 0 2 9 4 16 2 6 stack0.1.dw.0 stack0.1.pw.0
+Eltwise stack0.1.elt stack0.1.pw.0 stack0.0.elt stack0.1.elt 2 7 1
+DepthwiseSeparableConvolution stack0.2.dw.0 16 3 3 1 1 1 1 1 1 2 10 4 17 2 8 stack0.1.elt stack0.2.dw.0
+Convolution stack0.2.pw.0 16 1 1 1 1 0 0 1 0 2 9 4 17 2 7 stack0.2.dw.0 stack0.2.pw.0
+Eltwise stack0.2.elt stack0.2.pw.0 stack0.1.elt stack0.2.elt 2 6 1
+DepthwiseSeparableConvolution stack0.3.dw.0 16 3 3 1 1 1 1 1 1 2 11 4 17 2 8 stack0.2.elt stack0.3.dw.0
+Convolution stack0.3.pw.0 16 1 1 1 1 0 0 1 0 2 9 4 17 2 7 stack0.3.dw.0 stack0.3.pw.0
+Eltwise stack0.3.elt stack0.3.pw.0 stack0.2.elt stack0.3.elt 2 7 1
+DepthwiseSeparableConvolution block0.dw.0 16 3 3 2 2 1 1 1 1 2 13 4 20 2 9 stack0.3.elt block0.dw.0
+Convolution block0.pw.0 32 1 1 1 1 0 0 1 0 2 11 4 20 2 9 block0.dw.0 block0.pw.0
+Convolution block0.shortcut.0 32 1 1 2 2 0 0 1 0 2 12 4 19 2 9 stack0.3.elt block0.shortcut.0
+Eltwise block0.elt block0.pw.0 block0.shortcut.0 block0.elt 2 9 1
+DepthwiseSeparableConvolution stack1.0.dw.0 32 3 3 1 1 1 1 1 1 2 8 4 17 2 8 block0.elt stack1.0.dw.0
+Convolution stack1.0.pw.0 32 1 1 1 1 0 0 1 0 2 11 4 19 2 8 stack1.0.dw.0 stack1.0.pw.0
+Eltwise stack1.0.elt stack1.0.pw.0 block0.elt stack1.0.elt 2 8 1
+DepthwiseSeparableConvolution stack1.1.dw.0 32 3 3 1 1 1 1 1 1 2 9 4 17 2 8 stack1.0.elt stack1.1.dw.0
+Convolution stack1.1.pw.0 32 1 1 1 1 0 0 1 0 2 10 4 18 2 8 stack1.1.dw.0 stack1.1.pw.0
+Eltwise stack1.1.elt stack1.1.pw.0 stack1.0.elt stack1.1.elt 2 7 1
+DepthwiseSeparableConvolution stack1.2.dw.0 32 3 3 1 1 1 1 1 1 2 11 4 18 2 8 stack1.1.elt stack1.2.dw.0
+Convolution stack1.2.pw.0 32 1 1 1 1 0 0 1 0 2 10 4 18 2 7 stack1.2.dw.0 stack1.2.pw.0
+Eltwise stack1.2.elt stack1.2.pw.0 stack1.1.elt stack1.2.elt 2 7 1
+DepthwiseSeparableConvolution block1.dw.0 32 3 3 2 2 1 1 1 1 2 12 4 19 2 8 stack1.2.elt block1.dw.0
+Convolution block1.pw.0 64 1 1 1 1 0 0 1 0 2 11 4 19 2 9 block1.dw.0 block1.pw.0
+Convolution block1.shortcut.0 64 1 1 2 2 0 0 1 0 2 14 4 21 2 10 stack1.2.elt block1.shortcut.0
+Eltwise block1.elt block1.pw.0 block1.shortcut.0 block1.elt 2 8 1
+DepthwiseSeparableConvolution stack2.0.dw.0 64 3 3 1 1 1 1 1 1 2 7 4 15 2 7 block1.elt stack2.0.dw.0
+Convolution stack2.0.pw.0 64 1 1 1 1 0 0 1 0 2 11 4 18 2 9 stack2.0.dw.0 stack2.0.pw.0
+Eltwise stack2.0.elt stack2.0.pw.0 block1.elt stack2.0.elt 2 8 1
+DepthwiseSeparableConvolution stack2.1.dw.0 64 3 3 1 1 1 1 1 1 2 8 4 16 2 8 stack2.0.elt stack2.1.dw.0
+Convolution stack2.1.pw.0 64 1 1 1 1 0 0 1 0 2 11 4 19 2 8 stack2.1.dw.0 stack2.1.pw.0
+Eltwise stack2.1.elt stack2.1.pw.0 stack2.0.elt stack2.1.elt 2 8 1
+DepthwiseSeparableConvolution stack2.2.dw.0 64 3 3 1 1 1 1 1 1 2 8 4 16 2 8 stack2.1.elt stack2.2.dw.0
+Convolution stack2.2.pw.0 64 1 1 1 1 0 0 1 0 2 10 4 18 2 8 stack2.2.dw.0 stack2.2.pw.0
+Eltwise stack2.2.elt stack2.2.pw.0 stack2.1.elt stack2.2.elt 2 7 1
+DepthwiseSeparableConvolution stack2.3.dw.0 64 3 3 1 1 1 1 1 1 2 9 4 16 2 8 stack2.2.elt stack2.3.dw.0
+Convolution stack2.3.pw.0 64 1 1 1 1 0 0 1 0 2 9 4 17 2 7 stack2.3.dw.0 stack2.3.pw.0
+Eltwise stack2.3.elt stack2.3.pw.0 stack2.2.elt stack2.3.elt 2 7 1
+DepthwiseSeparableConvolution stack2.4.dw.0 64 3 3 1 1 1 1 1 1 2 10 4 17 2 8 stack2.3.elt stack2.4.dw.0
+Convolution stack2.4.pw.0 64 1 1 1 1 0 0 1 0 2 9 4 17 2 6 stack2.4.dw.0 stack2.4.pw.0
+Eltwise stack2.4.elt stack2.4.pw.0 stack2.3.elt stack2.4.elt 2 6 1
+DepthwiseSeparableConvolution stack2.5.dw.0 64 3 3 1 1 1 1 1 1 2 11 4 17 2 9 stack2.4.elt stack2.5.dw.0
+Convolution stack2.5.pw.0 64 1 1 1 1 0 0 1 0 2 8 4 17 2 6 stack2.5.dw.0 stack2.5.pw.0
+Eltwise stack2.5.elt stack2.5.pw.0 stack2.4.elt stack2.5.elt 2 5 1
+DepthwiseSeparableConvolution stack2.6.dw.0 64 3 3 1 1 1 1 1 1 2 12 4 17 2 9 stack2.5.elt stack2.6.dw.0
+Convolution stack2.6.pw.0 64 1 1 1 1 0 0 1 0 2 6 4 15 2 5 stack2.6.dw.0 stack2.6.pw.0
+Eltwise stack2.6.elt stack2.6.pw.0 stack2.5.elt stack2.6.elt 2 5 1
+PoolingDown 913 8 8 1 1 0 0 4 0 AVE stack2.6.elt 913 GLOBAL 
+Reshape 915 1 1 1 64 913 915
+Convolution fc_classification 2 1 1 1 1 0 0 1 0 4 0 4 0 4 0 915 fc_classification
+Softmax prob fc_classification prob
+Convolution fc_landmark_s1 212 1 1 1 1 0 0 1 0 4 0 4 0 4 0 915 fc_landmark_s1
+Convolution fc_pitch 1 1 1 1 1 0 0 1 0 4 0 4 0 4 0 915 fc_pitch
+Convolution fc_yaw 1 1 1 1 1 0 0 1 0 4 0 4 0 4 0 915 fc_yaw

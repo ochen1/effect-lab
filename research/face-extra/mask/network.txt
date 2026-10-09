@@ -1,0 +1,121 @@
+B
+1 118 1691982355
+DataV2 data 1 160 160 3 2 6 0
+Convolution backbone.net.first_conv.conv 8 3 3 2 2 1 1 1 1 2 7 4 13 2 5 data backbone.net.first_conv.conv
+Convolution backbone.net.features.0.conv.0.primary_conv.0 8 1 1 1 1 0 0 1 1 2 9 4 14 2 6 backbone.net.first_conv.conv backbone.net.features.0.conv.0.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.0.conv.0.cheap_operation.0 8 3 3 1 1 1 1 1 1 2 8 4 14 2 4 backbone.net.features.0.conv.0.primary_conv.0 backbone.net.features.0.conv.0.cheap_operation.0
+Concat backbone.net.features.0.conv.0.concat 2 backbone.net.features.0.conv.0.primary_conv.0 backbone.net.features.0.conv.0.cheap_operation.0 backbone.net.features.0.conv.0.concat 2 4
+DepthwiseSeparableConvolution backbone.net.features.0.conv.1.0 16 3 3 2 2 1 1 1 0 2 10 4 14 2 5 backbone.net.features.0.conv.0.concat backbone.net.features.0.conv.1.0
+Convolution backbone.net.features.0.conv.3.primary_conv.0 8 1 1 1 1 0 0 1 0 2 11 4 16 2 6 backbone.net.features.0.conv.1.0 backbone.net.features.0.conv.3.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.0.conv.3.cheap_operation.0 8 3 3 1 1 1 1 1 0 2 6 4 12 2 6 backbone.net.features.0.conv.3.primary_conv.0 backbone.net.features.0.conv.3.cheap_operation.0
+Concat backbone.net.features.0.conv.3.concat 2 backbone.net.features.0.conv.3.primary_conv.0 backbone.net.features.0.conv.3.cheap_operation.0 backbone.net.features.0.conv.3.concat 2 6
+DepthwiseSeparableConvolution backbone.net.features.0.shortcut.0.0 8 3 3 2 2 1 1 1 1 2 11 4 16 2 6 backbone.net.first_conv.conv backbone.net.features.0.shortcut.0.0
+Convolution backbone.net.features.0.shortcut.1 16 1 1 1 1 0 0 1 0 2 10 4 16 2 7 backbone.net.features.0.shortcut.0.0 backbone.net.features.0.shortcut.1
+Eltwise backbone.net.features.0.eltwise backbone.net.features.0.conv.3.concat backbone.net.features.0.shortcut.1 backbone.net.features.0.eltwise 2 5 0
+Convolution backbone.net.features.1.conv.0.primary_conv.0 16 1 1 1 1 0 0 1 1 2 9 4 14 2 5 backbone.net.features.0.eltwise backbone.net.features.1.conv.0.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.1.conv.0.cheap_operation.0 16 3 3 1 1 1 1 1 1 2 8 4 13 2 5 backbone.net.features.1.conv.0.primary_conv.0 backbone.net.features.1.conv.0.cheap_operation.0
+Concat backbone.net.features.1.conv.0.concat 2 backbone.net.features.1.conv.0.primary_conv.0 backbone.net.features.1.conv.0.cheap_operation.0 backbone.net.features.1.conv.0.concat 2 5
+DepthwiseSeparableConvolution backbone.net.features.1.conv.1.0 32 3 3 2 2 1 1 1 0 2 10 4 15 2 5 backbone.net.features.1.conv.0.concat backbone.net.features.1.conv.1.0
+Convolution backbone.net.features.1.conv.3.primary_conv.0 8 1 1 1 1 0 0 1 0 2 12 4 17 2 6 backbone.net.features.1.conv.1.0 backbone.net.features.1.conv.3.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.1.conv.3.cheap_operation.0 8 3 3 1 1 1 1 1 0 2 4 4 10 2 5 backbone.net.features.1.conv.3.primary_conv.0 backbone.net.features.1.conv.3.cheap_operation.0
+Concat backbone.net.features.1.conv.3.concat 2 backbone.net.features.1.conv.3.primary_conv.0 backbone.net.features.1.conv.3.cheap_operation.0 backbone.net.features.1.conv.3.concat 2 5
+DepthwiseSeparableConvolution backbone.net.features.1.shortcut.0.0 16 3 3 2 2 1 1 1 1 2 9 4 14 2 6 backbone.net.features.0.eltwise backbone.net.features.1.shortcut.0.0
+Convolution backbone.net.features.1.shortcut.1 16 1 1 1 1 0 0 1 0 2 10 4 16 2 6 backbone.net.features.1.shortcut.0.0 backbone.net.features.1.shortcut.1
+Eltwise backbone.net.features.1.eltwise backbone.net.features.1.conv.3.concat backbone.net.features.1.shortcut.1 backbone.net.features.1.eltwise 2 5 0
+Convolution backbone.net.features.3.conv.0.primary_conv.0 32 1 1 1 1 0 0 1 1 2 8 4 13 2 6 backbone.net.features.1.eltwise backbone.net.features.3.conv.0.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.3.conv.0.cheap_operation.0 32 3 3 1 1 1 1 1 1 2 8 4 14 2 5 backbone.net.features.3.conv.0.primary_conv.0 backbone.net.features.3.conv.0.cheap_operation.0
+Concat backbone.net.features.3.conv.0.concat 2 backbone.net.features.3.conv.0.primary_conv.0 backbone.net.features.3.conv.0.cheap_operation.0 backbone.net.features.3.conv.0.concat 2 5
+DepthwiseSeparableConvolution backbone.net.features.3.conv.1.0 64 3 3 2 2 1 1 1 0 2 10 4 15 2 6 backbone.net.features.3.conv.0.concat backbone.net.features.3.conv.1.0
+Convolution backbone.net.features.3.conv.3.primary_conv.0 16 1 1 1 1 0 0 1 0 2 11 4 17 2 6 backbone.net.features.3.conv.1.0 backbone.net.features.3.conv.3.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.3.conv.3.cheap_operation.0 16 3 3 1 1 1 1 1 0 2 6 4 12 2 6 backbone.net.features.3.conv.3.primary_conv.0 backbone.net.features.3.conv.3.cheap_operation.0
+Concat backbone.net.features.3.conv.3.concat 2 backbone.net.features.3.conv.3.primary_conv.0 backbone.net.features.3.conv.3.cheap_operation.0 backbone.net.features.3.conv.3.concat 2 6
+DepthwiseSeparableConvolution backbone.net.features.3.shortcut.0.0 16 3 3 2 2 1 1 1 1 2 10 4 15 2 6 backbone.net.features.1.eltwise backbone.net.features.3.shortcut.0.0
+Convolution backbone.net.features.3.shortcut.1 32 1 1 1 1 0 0 1 0 2 8 4 14 2 6 backbone.net.features.3.shortcut.0.0 backbone.net.features.3.shortcut.1
+Eltwise backbone.net.features.3.eltwise backbone.net.features.3.conv.3.concat backbone.net.features.3.shortcut.1 backbone.net.features.3.eltwise 2 6 0
+Convolution backbone.net.features.4.conv.0.primary_conv.0 64 1 1 1 1 0 0 1 1 2 11 4 17 2 7 backbone.net.features.3.eltwise backbone.net.features.4.conv.0.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.4.conv.0.cheap_operation.0 64 3 3 1 1 1 1 1 1 2 8 4 15 2 7 backbone.net.features.4.conv.0.primary_conv.0 backbone.net.features.4.conv.0.cheap_operation.0
+Concat backbone.net.features.4.conv.0.concat 2 backbone.net.features.4.conv.0.primary_conv.0 backbone.net.features.4.conv.0.cheap_operation.0 backbone.net.features.4.conv.0.concat 2 7
+Convolution backbone.net.features.4.conv.3.primary_conv.0 16 1 1 1 1 0 0 1 0 2 9 4 16 2 6 backbone.net.features.4.conv.0.concat backbone.net.features.4.conv.3.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.4.conv.3.cheap_operation.0 16 3 3 1 1 1 1 1 0 2 7 4 13 2 6 backbone.net.features.4.conv.3.primary_conv.0 backbone.net.features.4.conv.3.cheap_operation.0
+Concat backbone.net.features.4.conv.3.concat 2 backbone.net.features.4.conv.3.primary_conv.0 backbone.net.features.4.conv.3.cheap_operation.0 backbone.net.features.4.conv.3.concat 2 6
+Eltwise backbone.net.features.4.eltwise backbone.net.features.4.conv.3.concat backbone.net.features.3.eltwise backbone.net.features.4.eltwise 2 5 0
+Convolution backbone.net.features.5.conv.0.primary_conv.0 48 1 1 1 1 0 0 1 1 2 11 4 16 2 6 backbone.net.features.4.eltwise backbone.net.features.5.conv.0.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.5.conv.0.cheap_operation.0 48 3 3 1 1 1 1 1 1 2 9 4 15 2 7 backbone.net.features.5.conv.0.primary_conv.0 backbone.net.features.5.conv.0.cheap_operation.0
+Concat backbone.net.features.5.conv.0.concat 2 backbone.net.features.5.conv.0.primary_conv.0 backbone.net.features.5.conv.0.cheap_operation.0 backbone.net.features.5.conv.0.concat 2 6
+Convolution backbone.net.features.5.conv.3.primary_conv.0 24 1 1 1 1 0 0 1 0 2 11 4 17 2 6 backbone.net.features.5.conv.0.concat backbone.net.features.5.conv.3.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.5.conv.3.cheap_operation.0 24 3 3 1 1 1 1 1 0 2 7 4 13 2 7 backbone.net.features.5.conv.3.primary_conv.0 backbone.net.features.5.conv.3.cheap_operation.0
+Concat backbone.net.features.5.conv.3.concat 2 backbone.net.features.5.conv.3.primary_conv.0 backbone.net.features.5.conv.3.cheap_operation.0 backbone.net.features.5.conv.3.concat 2 6
+DepthwiseSeparableConvolution backbone.net.features.5.shortcut.0.0 32 3 3 1 1 1 1 1 1 2 11 4 16 2 6 backbone.net.features.4.eltwise backbone.net.features.5.shortcut.0.0
+Convolution backbone.net.features.5.shortcut.1 48 1 1 1 1 0 0 1 0 2 10 4 16 2 7 backbone.net.features.5.shortcut.0.0 backbone.net.features.5.shortcut.1
+Eltwise backbone.net.features.5.eltwise backbone.net.features.5.conv.3.concat backbone.net.features.5.shortcut.1 backbone.net.features.5.eltwise 2 6 0
+Convolution backbone.net.features.6.conv.0.primary_conv.0 72 1 1 1 1 0 0 1 1 2 11 4 17 2 6 backbone.net.features.5.eltwise backbone.net.features.6.conv.0.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.6.conv.0.cheap_operation.0 72 3 3 1 1 1 1 1 1 2 8 4 14 2 7 backbone.net.features.6.conv.0.primary_conv.0 backbone.net.features.6.conv.0.cheap_operation.0
+Concat backbone.net.features.6.conv.0.concat 2 backbone.net.features.6.conv.0.primary_conv.0 backbone.net.features.6.conv.0.cheap_operation.0 backbone.net.features.6.conv.0.concat 2 6
+Convolution backbone.net.features.6.conv.3.primary_conv.0 24 1 1 1 1 0 0 1 0 2 10 4 16 2 7 backbone.net.features.6.conv.0.concat backbone.net.features.6.conv.3.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.6.conv.3.cheap_operation.0 24 3 3 1 1 1 1 1 0 2 5 4 12 2 6 backbone.net.features.6.conv.3.primary_conv.0 backbone.net.features.6.conv.3.cheap_operation.0
+Concat backbone.net.features.6.conv.3.concat 2 backbone.net.features.6.conv.3.primary_conv.0 backbone.net.features.6.conv.3.cheap_operation.0 backbone.net.features.6.conv.3.concat 2 6
+Eltwise backbone.net.features.6.eltwise backbone.net.features.6.conv.3.concat backbone.net.features.5.eltwise backbone.net.features.6.eltwise 2 6 0
+Convolution backbone.net.features.7.conv.0.primary_conv.0 120 1 1 1 1 0 0 1 1 2 11 4 17 2 7 backbone.net.features.6.eltwise backbone.net.features.7.conv.0.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.7.conv.0.cheap_operation.0 120 3 3 1 1 1 1 1 1 2 8 4 15 2 6 backbone.net.features.7.conv.0.primary_conv.0 backbone.net.features.7.conv.0.cheap_operation.0
+Concat backbone.net.features.7.conv.0.concat 2 backbone.net.features.7.conv.0.primary_conv.0 backbone.net.features.7.conv.0.cheap_operation.0 backbone.net.features.7.conv.0.concat 2 6
+DepthwiseSeparableConvolution backbone.net.features.7.conv.1.0 240 3 3 2 2 1 1 1 0 2 8 4 14 2 6 backbone.net.features.7.conv.0.concat backbone.net.features.7.conv.1.0
+Convolution backbone.net.features.7.conv.3.primary_conv.0 40 1 1 1 1 0 0 1 0 2 12 4 18 2 6 backbone.net.features.7.conv.1.0 backbone.net.features.7.conv.3.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.7.conv.3.cheap_operation.0 40 3 3 1 1 1 1 1 0 2 6 4 12 2 7 backbone.net.features.7.conv.3.primary_conv.0 backbone.net.features.7.conv.3.cheap_operation.0
+Concat backbone.net.features.7.conv.3.concat 2 backbone.net.features.7.conv.3.primary_conv.0 backbone.net.features.7.conv.3.cheap_operation.0 backbone.net.features.7.conv.3.concat 2 6
+DepthwiseSeparableConvolution backbone.net.features.7.shortcut.0.0 48 3 3 2 2 1 1 1 1 2 12 4 18 2 7 backbone.net.features.6.eltwise backbone.net.features.7.shortcut.0.0
+Convolution backbone.net.features.7.shortcut.1 80 1 1 1 1 0 0 1 0 2 10 4 17 2 7 backbone.net.features.7.shortcut.0.0 backbone.net.features.7.shortcut.1
+Eltwise backbone.net.features.7.eltwise backbone.net.features.7.conv.3.concat backbone.net.features.7.shortcut.1 backbone.net.features.7.eltwise 2 6 0
+Convolution backbone.net.features.8.conv.0.primary_conv.0 160 1 1 1 1 0 0 1 1 2 10 4 16 2 7 backbone.net.features.7.eltwise backbone.net.features.8.conv.0.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.8.conv.0.cheap_operation.0 160 3 3 1 1 1 1 1 1 2 8 4 15 2 7 backbone.net.features.8.conv.0.primary_conv.0 backbone.net.features.8.conv.0.cheap_operation.0
+Concat backbone.net.features.8.conv.0.concat 2 backbone.net.features.8.conv.0.primary_conv.0 backbone.net.features.8.conv.0.cheap_operation.0 backbone.net.features.8.conv.0.concat 2 7
+Convolution backbone.net.features.8.conv.3.primary_conv.0 40 1 1 1 1 0 0 1 0 2 11 4 18 2 7 backbone.net.features.8.conv.0.concat backbone.net.features.8.conv.3.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.8.conv.3.cheap_operation.0 40 3 3 1 1 1 1 1 0 2 7 4 14 2 7 backbone.net.features.8.conv.3.primary_conv.0 backbone.net.features.8.conv.3.cheap_operation.0
+Concat backbone.net.features.8.conv.3.concat 2 backbone.net.features.8.conv.3.primary_conv.0 backbone.net.features.8.conv.3.cheap_operation.0 backbone.net.features.8.conv.3.concat 2 7
+Eltwise backbone.net.features.8.eltwise backbone.net.features.8.conv.3.concat backbone.net.features.7.eltwise backbone.net.features.8.eltwise 2 6 0
+Convolution backbone.net.features.9.conv.0.primary_conv.0 200 1 1 1 1 0 0 1 1 2 11 4 17 2 7 backbone.net.features.8.eltwise backbone.net.features.9.conv.0.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.9.conv.0.cheap_operation.0 200 3 3 1 1 1 1 1 1 2 9 4 16 2 7 backbone.net.features.9.conv.0.primary_conv.0 backbone.net.features.9.conv.0.cheap_operation.0
+Concat backbone.net.features.9.conv.0.concat 2 backbone.net.features.9.conv.0.primary_conv.0 backbone.net.features.9.conv.0.cheap_operation.0 backbone.net.features.9.conv.0.concat 2 7
+Convolution backbone.net.features.9.conv.3.primary_conv.0 40 1 1 1 1 0 0 1 0 2 10 4 17 2 6 backbone.net.features.9.conv.0.concat backbone.net.features.9.conv.3.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.9.conv.3.cheap_operation.0 40 3 3 1 1 1 1 1 0 2 7 4 13 2 6 backbone.net.features.9.conv.3.primary_conv.0 backbone.net.features.9.conv.3.cheap_operation.0
+Concat backbone.net.features.9.conv.3.concat 2 backbone.net.features.9.conv.3.primary_conv.0 backbone.net.features.9.conv.3.cheap_operation.0 backbone.net.features.9.conv.3.concat 2 6
+Eltwise backbone.net.features.9.eltwise backbone.net.features.9.conv.3.concat backbone.net.features.8.eltwise backbone.net.features.9.eltwise 2 6 0
+Convolution backbone.net.features.10.conv.0.primary_conv.0 160 1 1 1 1 0 0 1 1 2 12 4 18 2 7 backbone.net.features.9.eltwise backbone.net.features.10.conv.0.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.10.conv.0.cheap_operation.0 160 3 3 1 1 1 1 1 1 2 9 4 16 2 7 backbone.net.features.10.conv.0.primary_conv.0 backbone.net.features.10.conv.0.cheap_operation.0
+Concat backbone.net.features.10.conv.0.concat 2 backbone.net.features.10.conv.0.primary_conv.0 backbone.net.features.10.conv.0.cheap_operation.0 backbone.net.features.10.conv.0.concat 2 7
+Convolution backbone.net.features.10.conv.3.primary_conv.0 40 1 1 1 1 0 0 1 0 2 9 4 16 2 5 backbone.net.features.10.conv.0.concat backbone.net.features.10.conv.3.primary_conv.0
+DepthwiseSeparableConvolution backbone.net.features.10.conv.3.cheap_operation.0 40 3 3 1 1 1 1 1 0 2 5 4 10 2 5 backbone.net.features.10.conv.3.primary_conv.0 backbone.net.features.10.conv.3.cheap_operation.0
+Concat backbone.net.features.10.conv.3.concat 2 backbone.net.features.10.conv.3.primary_conv.0 backbone.net.features.10.conv.3.cheap_operation.0 backbone.net.features.10.conv.3.concat 2 5
+Eltwise backbone.net.features.10.eltwise backbone.net.features.10.conv.3.concat backbone.net.features.9.eltwise backbone.net.features.10.eltwise 2 5 0
+Convolution seg_neck.topdown0_proj_facemask.0 48 1 1 1 1 0 0 1 1 2 12 4 17 2 6 backbone.net.features.10.eltwise seg_neck.topdown0_proj_facemask.0
+UpSampling seg_neck.up0_facemask seg_neck.topdown0_proj_facemask.0 seg_neck.up0_facemask LINEAR 
+Slice seg_neck.top0_shuffle.split backbone.net.features.6.eltwise 1 1 24 2 seg_neck.top0_shuffle.split_0 6 seg_neck.top0_shuffle.split_1 6 
+Convolution seg_neck.top0_shuffle.conv1.0 48 1 1 1 1 0 0 1 1 2 12 4 18 2 7 seg_neck.top0_shuffle.split_1 seg_neck.top0_shuffle.conv1.0
+DepthwiseSeparableConvolution seg_neck.top0_shuffle.conv2.0 48 3 3 1 1 1 1 1 1 2 8 4 15 2 7 seg_neck.top0_shuffle.conv1.0 seg_neck.top0_shuffle.conv2.0
+Convolution seg_neck.top0_shuffle.conv3.0 24 1 1 1 1 0 0 1 0 2 10 4 17 2 8 seg_neck.top0_shuffle.conv2.0 seg_neck.top0_shuffle.conv3.0
+Concat seg_neck.top0_shuffle.concate 2 seg_neck.top0_shuffle.split_0 seg_neck.top0_shuffle.conv3.0 seg_neck.top0_shuffle.concate 2 6
+Shuffle seg_neck.top0_shuffle.shuffle_channels 4 2 seg_neck.top0_shuffle.concate seg_neck.top0_shuffle.shuffle_channels
+Eltwise seg_neck.add_1 seg_neck.top0_shuffle.shuffle_channels seg_neck.up0_facemask seg_neck.add_1 2 6 0
+Convolution seg_neck.topdown1_proj_facemask.0 16 1 1 1 1 0 0 1 1 2 10 4 16 2 6 seg_neck.add_1 seg_neck.topdown1_proj_facemask.0
+UpSampling seg_neck.up1_facemask seg_neck.topdown1_proj_facemask.0 seg_neck.up1_facemask LINEAR 
+Slice seg_neck.top1_shuffle.split backbone.net.features.1.eltwise 1 1 8 2 seg_neck.top1_shuffle.split_0 6 seg_neck.top1_shuffle.split_1 5 
+Convolution seg_neck.top1_shuffle.conv1.0 16 1 1 1 1 0 0 1 1 2 11 4 16 2 8 seg_neck.top1_shuffle.split_1 seg_neck.top1_shuffle.conv1.0
+DepthwiseSeparableConvolution seg_neck.top1_shuffle.conv2.0 16 3 3 1 1 1 1 1 1 2 7 4 15 2 6 seg_neck.top1_shuffle.conv1.0 seg_neck.top1_shuffle.conv2.0
+Convolution seg_neck.top1_shuffle.conv3.0 8 1 1 1 1 0 0 1 0 2 11 4 17 2 5 seg_neck.top1_shuffle.conv2.0 seg_neck.top1_shuffle.conv3.0
+Concat seg_neck.top1_shuffle.concate 2 seg_neck.top1_shuffle.split_0 seg_neck.top1_shuffle.conv3.0 seg_neck.top1_shuffle.concate 2 5
+Shuffle seg_neck.top1_shuffle.shuffle_channels 4 2 seg_neck.top1_shuffle.concate seg_neck.top1_shuffle.shuffle_channels
+Eltwise seg_neck.add_2 seg_neck.top1_shuffle.shuffle_channels seg_neck.up1_facemask seg_neck.add_2 2 5 0
+Convolution seg_neck.topdown2_proj_facemask.0 16 1 1 1 1 0 0 1 1 2 9 4 14 2 6 seg_neck.add_2 seg_neck.topdown2_proj_facemask.0
+UpSampling seg_neck.up2_facemask seg_neck.topdown2_proj_facemask.0 seg_neck.up2_facemask LINEAR 
+DepthwiseSeparableConvolution seg_neck.top2_shuffle.dw.0 16 3 3 1 1 1 1 1 1 2 9 4 14 2 7 backbone.net.features.0.eltwise seg_neck.top2_shuffle.dw.0
+Convolution seg_neck.top2_shuffle.pw.0 16 1 1 1 1 0 0 1 0 2 7 4 14 2 6 seg_neck.top2_shuffle.dw.0 seg_neck.top2_shuffle.pw.0
+Eltwise seg_neck.top2_shuffle.add seg_neck.top2_shuffle.pw.0 backbone.net.features.0.eltwise seg_neck.top2_shuffle.add 2 6 1
+Eltwise seg_neck.add_3 seg_neck.top2_shuffle.add seg_neck.up2_facemask seg_neck.add_3 2 5 0
+Convolution face_seg_head.classifier 2 1 1 1 1 0 0 1 0 2 10 4 15 2 5 seg_neck.add_3 face_seg_head.classifier
+UpSampling face_seg_head.final_upsample.0 face_seg_head.classifier face_seg_head.final_upsample.0 LINEAR 
+UpSampling face_seg_head.final_upsample.1 face_seg_head.final_upsample.0 face_seg_head.final_upsample.1 LINEAR 
+Crop crop_4 15 10 0 20 20 16 seg_neck.add_3 crop_4
+Convolution mouth_seg_head.classifier 4 1 1 1 1 0 0 1 0 2 8 4 13 2 2 crop_4 mouth_seg_head.classifier
+UpSampling mouth_seg_head.final_upsample.0 mouth_seg_head.classifier mouth_seg_head.final_upsample.0 LINEAR 
+UpSampling mouth_seg_head.final_upsample.1 mouth_seg_head.final_upsample.0 mouth_seg_head.final_upsample.1 LINEAR 
+Softmax prob mouth_seg_head.final_upsample.1 prob
+Softmax prob2 face_seg_head.final_upsample.1 prob2

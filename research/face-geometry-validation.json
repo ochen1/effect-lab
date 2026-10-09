@@ -1,0 +1,15 @@
+{
+  "reference": "Original native SDK, bundled preview frame; images and tensor captures kept outside repository",
+  "initial_crop_values": 43200,
+  "initial_crop_exact_values": 43200,
+  "base_crop_values": 43200,
+  "base_crop_exact_values": 43200,
+  "extra_crop_values": 76800,
+  "extra_crop_exact_values": 76800,
+  "base_coordinate_count": 212,
+  "base_coordinate_mean_absolute_error_pixels": 0.000005958716325224332,
+  "base_coordinate_max_absolute_error_pixels": 0.000026101601520167605,
+  "scope": "Original model input sampling and immediate coordinate decode, before temporal filtering",
+  "final_native_video_session_parity": false,
+  "private_image_data_in_report": false
+}

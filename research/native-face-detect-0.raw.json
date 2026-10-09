@@ -1,0 +1,1 @@
+{"name":"rpn_bbox_pred/32s","shape_nhwc":[1,5,5,12],"dtype":2,"fraction":11}

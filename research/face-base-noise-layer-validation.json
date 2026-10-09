@@ -1,0 +1,1611 @@
+{
+  "synthetic": true,
+  "pattern": "noise",
+  "model": "base",
+  "scope": "Only operations retained in the supplied ONNX graph; pruned auxiliary outputs are excluded",
+  "thresholds": {
+    "integer_max_abs": 0,
+    "float_max_abs": 0.0002
+  },
+  "layers": [
+    {
+      "name": "conv1.0",
+      "shape_nhwc": [
+        1,
+        30,
+        30,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 6,
+      "values": 14400,
+      "exact": 14400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1022",
+      "shape_nhwc": [
+        1,
+        30,
+        30,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 6,
+      "values": 7200,
+      "exact": 7200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1023",
+      "shape_nhwc": [
+        1,
+        30,
+        30,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 7200,
+      "exact": 7200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block1.conv1.0",
+      "shape_nhwc": [
+        1,
+        30,
+        30,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 14400,
+      "exact": 14400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block1.conv2.0",
+      "shape_nhwc": [
+        1,
+        30,
+        30,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 6,
+      "values": 14400,
+      "exact": 14400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block1.conv3.0",
+      "shape_nhwc": [
+        1,
+        30,
+        30,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 7200,
+      "exact": 7200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1065",
+      "shape_nhwc": [
+        1,
+        30,
+        30,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 7200,
+      "exact": 7200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1066",
+      "shape_nhwc": [
+        1,
+        30,
+        30,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 6,
+      "values": 7200,
+      "exact": 7200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block2.conv1.0",
+      "shape_nhwc": [
+        1,
+        30,
+        30,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 14400,
+      "exact": 14400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block2.conv2.0",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 3600,
+      "exact": 3600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block2.conv3.0",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 3600,
+      "exact": 3600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block2.conv4.0",
+      "shape_nhwc": [
+        1,
+        30,
+        30,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 14400,
+      "exact": 14400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block2.conv5.0",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 3600,
+      "exact": 3600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block2.conv6.0",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 3600,
+      "exact": 3600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1128",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 3600,
+      "exact": 3600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1129",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 3600,
+      "exact": 3600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack0.0.conv1.0",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 7200,
+      "exact": 7200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack0.0.conv2.0",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 7200,
+      "exact": 7200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack0.0.conv3.0",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 3600,
+      "exact": 3600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1171",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 3600,
+      "exact": 3600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1172",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 3600,
+      "exact": 3600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack0.1.conv1.0",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 7200,
+      "exact": 7200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack0.1.conv2.0",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 7200,
+      "exact": 7200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack0.1.conv3.0",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 3600,
+      "exact": 3600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1214",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 3600,
+      "exact": 3600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1215",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 3600,
+      "exact": 3600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5.conv1.0",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 7200,
+      "exact": 7200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5.conv2.0",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5.conv3.0",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5.conv4.0",
+      "shape_nhwc": [
+        1,
+        15,
+        15,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 7200,
+      "exact": 7200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5.conv5.0",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5.conv6.0",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1277",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1278",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack1.0.conv1.0",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 4096,
+      "exact": 4096,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack1.0.conv2.0",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 4096,
+      "exact": 4096,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack1.0.conv3.0",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1320",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1321",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack1.1.conv1.0",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 4096,
+      "exact": 4096,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack1.1.conv2.0",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 4096,
+      "exact": 4096,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack1.1.conv3.0",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1363",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1364",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block8.conv1.0",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 4096,
+      "exact": 4096,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block8.conv2.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block8.conv3.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block8.conv4.0",
+      "shape_nhwc": [
+        1,
+        8,
+        8,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 4096,
+      "exact": 4096,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block8.conv5.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block8.conv6.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1426",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1427",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.0.conv1.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.0.conv2.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.0.conv3.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1469",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1470",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.1.conv1.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.1.conv2.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.1.conv3.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1512",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1513",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.2.conv1.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.2.conv2.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.2.conv3.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1555",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1556",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.3.conv1.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.3.conv2.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.3.conv3.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1598",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1599",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.4.conv1.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.4.conv2.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.4.conv3.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1641",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1642",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.5.conv1.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.5.conv2.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.5.conv3.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 6,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1684",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 6,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1685",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.6.conv1.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.6.conv2.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.6.conv3.0",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 6,
+      "values": 1024,
+      "exact": 1024,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.6.concate",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 6,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stack2.6.shuffle_channels",
+      "shape_nhwc": [
+        1,
+        4,
+        4,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 6,
+      "values": 2048,
+      "exact": 2048,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1722",
+      "shape_nhwc": [
+        1,
+        1,
+        1,
+        128
+      ],
+      "dtype": 4,
+      "fraction": 0,
+      "values": 128,
+      "exact": 128,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "1723",
+      "shape_nhwc": [
+        1,
+        1,
+        1,
+        128
+      ],
+      "dtype": 4,
+      "fraction": 0,
+      "values": 128,
+      "exact": 128,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fc_classification",
+      "shape_nhwc": [
+        1,
+        1,
+        1,
+        3
+      ],
+      "dtype": 4,
+      "fraction": 0,
+      "values": 3,
+      "exact": 1,
+      "mae": 4.3710072835286457e-07,
+      "max_abs": 9.5367431640625e-07,
+      "max_in_native_units": 9.5367431640625e-07,
+      "passed": true
+    },
+    {
+      "name": "prob",
+      "shape_nhwc": [
+        1,
+        1,
+        1,
+        3
+      ],
+      "dtype": 4,
+      "fraction": 0,
+      "values": 3,
+      "exact": 1,
+      "mae": 2.4889838338519135e-09,
+      "max_abs": 7.450580596923828e-09,
+      "max_in_native_units": 7.450580596923828e-09,
+      "passed": true
+    },
+    {
+      "name": "fc_landmark_s1",
+      "shape_nhwc": [
+        1,
+        1,
+        1,
+        212
+      ],
+      "dtype": 4,
+      "fraction": 0,
+      "values": 212,
+      "exact": 212,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fc_pitch",
+      "shape_nhwc": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "dtype": 4,
+      "fraction": 0,
+      "values": 1,
+      "exact": 0,
+      "mae": 4.76837158203125e-07,
+      "max_abs": 4.76837158203125e-07,
+      "max_in_native_units": 4.76837158203125e-07,
+      "passed": true
+    },
+    {
+      "name": "fc_yaw",
+      "shape_nhwc": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "dtype": 4,
+      "fraction": 0,
+      "values": 1,
+      "exact": 0,
+      "mae": 1.9073486328125e-06,
+      "max_abs": 1.9073486328125e-06,
+      "max_in_native_units": 1.9073486328125e-06,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

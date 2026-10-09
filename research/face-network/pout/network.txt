@@ -1,0 +1,12 @@
+1 10
+data 1 56 56 3 1 6
+Convolution conv1 16 4 4 2 2 1 1 1 1 1 8 4 14 1 4 data conv1
+DepthwiseSeparableConvolution conv2_1 16 3 3 2 2 1 1 1 1 1 4 4 8 1 3 conv1 conv2_1
+Convolution conv2_2 32 1 1 1 1 0 0 1 1 1 6 4 9 1 3 conv2_1 conv2_2
+DepthwiseSeparableConvolution conv3_1 32 3 3 1 1 1 1 1 1 1 5 4 8 1 3 conv2_2 conv3_1
+Convolution conv3_2 32 1 1 1 1 0 0 1 1 1 7 4 10 1 4 conv3_1 conv3_2
+DepthwiseSeparableConvolution conv4_1 32 3 3 2 2 1 1 1 1 1 5 4 9 1 5 conv3_2 conv4_1
+Convolution conv4_2 64 1 1 1 1 0 0 1 1 1 5 4 10 1 3 conv4_1 conv4_2
+Pooling pool4 7 7 7 7 0 0 4 0 AVE conv4_2 pool4
+InnerProduct fc_cls 2 1 0 4 0 4 0 4 0 pool4 fc_cls
+Softmax prob fc_cls prob

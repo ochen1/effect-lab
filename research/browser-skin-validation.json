@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-09",
+  "environment": "Chrome153 on macOS (current development machine)",
+  "driver": "Aside browser REPL, observed by root agent",
+  "fixture": "tests/fixtures/skin-gradient-input.f32; mathematical RGB gradient, no photo source",
+  "reference": "tests/fixtures/skin-gradient-output.f32; native-validated Python ONNX output",
+  "model_sha256": "c4d17902dc2f74173e988a069df3d48aad3583a1ca5febebf7d381b4e006595d",
+  "values_per_backend": 409600,
+  "synthetic": true,
+  "thresholds": {
+    "mae": 1e-05,
+    "max_abs": 0.0002
+  },
+  "backends": [
+    {
+      "backend": "wasm",
+      "mae": 3.760299691102365e-07,
+      "max_abs": 1.249462366104126e-05,
+      "warm_ms": 1298.7,
+      "inference_ms": 35.7,
+      "passed": true
+    },
+    {
+      "backend": "webgpu",
+      "mae": 3.289299719844152e-07,
+      "max_abs": 1.0073184967041016e-05,
+      "warm_ms": 1181.5,
+      "inference_ms": 49.5,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "timing_note": "Single observed warm-up and inference per backend; these are not benchmark distributions."
+}

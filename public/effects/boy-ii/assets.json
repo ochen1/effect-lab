@@ -1,0 +1,42 @@
+{
+  "peach.png": {
+    "source": "AmazingFeature/texture/8089989799668825771-5578589686468603062.png",
+    "sha256": "92e4e6b5347c381bba020c7a5f53d607b133a742e21258b1697b30aeff5f2b52",
+    "bytes": 33542
+  },
+  "contour.png": {
+    "source": "AmazingFeature/texture/1823516777907017010-15901366735133081223.png",
+    "sha256": "49d2e975e4b808e65cb90649ec7d72082ea0c93e33a9cb55bf7d65e4b4b08f7b",
+    "bytes": 12169
+  },
+  "lips.png": {
+    "source": "AmazingFeature/texture/14721824955981598186-9582924473130741695.png",
+    "sha256": "9d09ebf5205c911427cddc1cd6a91479ad171e046e1baaa01777eedebf941306",
+    "bytes": 3542
+  },
+  "berry.png": {
+    "source": "AmazingFeature/texture/4921093628064734880-6255301141957278347.png",
+    "sha256": "d86ea27294b4389ad44d94e76bc9155dcde4ff67259b3a96a463bc1bcbc1ff7e",
+    "bytes": 11317
+  },
+  "opacity.png": {
+    "source": "AmazingFeature/texture/4415129028110280169-9668386161258049457.png",
+    "sha256": "52be806f5be95a9734912719ef612199dec3a4c8b40e48e88c5e0cb5b060ee0d",
+    "bytes": 11828
+  },
+  "ganmask.png": {
+    "source": "AmazingFeature/skinunified/ganmask.png",
+    "sha256": "f9e1f2c2e4007959e9e37bc08026f14b985ad64323b96cadc0ce148a815f57c5",
+    "bytes": 2796
+  },
+  "filter.frag": {
+    "source": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/9b5a7ffa4ce1ab8a8a54cd2fcab2c7a9.frag",
+    "sha256": "d94b3714a19c08c0475fbd0d7bd2b9a88a8baa9e47369d3cfaa3f14801def76e",
+    "bytes": 3610
+  },
+  "skin.frag": {
+    "source": "AmazingFeature/skinunified/shaderGLES/f6b6dfb8a5768ba3d18c52c1ddfab413.frag",
+    "sha256": "772fd122d6ea9210a2a317d4332eea2029a1e1f7aa1706aae006cad0e7fec4cd",
+    "bytes": 439
+  }
+}

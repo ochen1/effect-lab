@@ -1,0 +1,11 @@
+{
+  "name": "Effect Lab",
+  "short_name": "Effect Lab",
+  "description": "Private photo experiments, right in your browser.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f5ef",
+  "theme_color": "#181b19",
+  "icons": [{ "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

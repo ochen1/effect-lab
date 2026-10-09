@@ -1,0 +1,34 @@
+{
+  "version": 3,
+  "bytes": 51452,
+  "entries": [
+    {
+      "name": "script",
+      "kind": 52,
+      "length": 51408,
+      "children": [
+        {
+          "name": "MainSystem.js",
+          "kind": 0,
+          "length": 6198,
+          "type": 0,
+          "sha256": "e4e5039ce9908f73d1ca292d1a6fc2c73225eec3c4f33faa97ee7c3b2acee16e"
+        },
+        {
+          "name": "bach.js",
+          "kind": 0,
+          "length": 44609,
+          "type": 0,
+          "sha256": "8bf677200e318199dbde92348fb7d06dae4461a9cff81370e69b81d6f3212aa4"
+        },
+        {
+          "name": "dummy",
+          "kind": 1,
+          "length": 297,
+          "type": 3,
+          "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+        }
+      ]
+    }
+  ]
+}

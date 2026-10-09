@@ -1,0 +1,19 @@
+{
+  "synthetic": true,
+  "description": "RGB planar gradients; no photo source",
+  "model_sha256": "c4d17902dc2f74173e988a069df3d48aad3583a1ca5febebf7d381b4e006595d",
+  "input_shape": [
+    1,
+    320,
+    320,
+    3
+  ],
+  "output_shape": [
+    1,
+    320,
+    320,
+    4
+  ],
+  "dtype": "little-endian float32",
+  "layout": "NHWC"
+}

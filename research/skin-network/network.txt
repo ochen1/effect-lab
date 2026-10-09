@@ -1,0 +1,84 @@
+1 82 1655697320
+DataV2 data 1 320 320 3 4 0 0
+Convolution Conv_0 24 3 3 2 2 1 1 1 1 4 0 4 0 4 0 data Conv_0
+Convolution Conv_2 16 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Conv_0 Conv_2
+DepthwiseSeparableConvolution Conv_4 16 3 3 2 2 1 1 1 1 4 0 4 0 4 0 Conv_2 Conv_4
+Convolution Conv_6 48 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_4 Conv_6
+DepthwiseSeparableConvolution Conv_7 48 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_6 Conv_7
+Convolution Conv_9 48 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_7 Conv_9
+Eltwise Add_10 Conv_6 Conv_9 Add_10 4 0 0
+Convolution Conv_11 24 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Add_10 Conv_11
+DepthwiseSeparableConvolution Conv_13 24 3 3 2 2 1 1 1 1 4 0 4 0 4 0 Conv_11 Conv_13
+Convolution Conv_15 96 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_13 Conv_15
+Convolution Conv_16 48 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Conv_15 Conv_16
+DepthwiseSeparableConvolution Conv_18 48 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_16 Conv_18
+Convolution Conv_20 96 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_18 Conv_20
+Eltwise Add_21 Conv_15 Conv_20 Add_21 4 0 0
+Convolution Conv_22 48 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Add_21 Conv_22
+DepthwiseSeparableConvolution Conv_24 48 3 3 2 2 1 1 1 1 4 0 4 0 4 0 Conv_22 Conv_24
+Convolution Conv_26 128 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_24 Conv_26
+Convolution Conv_27 96 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Conv_26 Conv_27
+DepthwiseSeparableConvolution Conv_29 96 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_27 Conv_29
+Convolution Conv_31 128 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_29 Conv_31
+Eltwise Add_32 Conv_26 Conv_31 Add_32 4 0 0
+Convolution Conv_33 256 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Add_32 Conv_33
+DepthwiseSeparableConvolution Conv_35 256 3 3 2 2 1 1 1 1 4 0 4 0 4 0 Conv_33 Conv_35
+Convolution Conv_37 128 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_35 Conv_37
+Convolution Conv_38 288 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Conv_37 Conv_38
+DepthwiseSeparableConvolution Conv_40 288 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_38 Conv_40
+Convolution Conv_42 128 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_40 Conv_42
+Eltwise Add_43 Conv_37 Conv_42 Add_43 4 0 0
+Convolution Conv_44 64 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Add_43 Conv_44
+DepthwiseSeparableConvolution Conv_46 64 3 3 2 2 1 1 1 1 4 0 4 0 4 0 Conv_44 Conv_46
+Convolution Conv_48 192 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_46 Conv_48
+Convolution Conv_49 96 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Conv_48 Conv_49
+DepthwiseSeparableConvolution Conv_51 96 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_49 Conv_51
+Convolution Conv_53 192 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_51 Conv_53
+Eltwise Add_54 Conv_48 Conv_53 Add_54 4 0 0
+Convolution Conv_55 144 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Add_54 Conv_55
+DepthwiseSeparableConvolution Conv_57 144 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_55 Conv_57
+Convolution Conv_59 192 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_57 Conv_59
+Eltwise Add_60 Add_54 Conv_59 Add_60 4 0 0
+Convolution Conv_61 384 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Add_60 Conv_61
+DepthwiseSeparableConvolution Conv_63 384 3 3 2 2 1 1 1 1 4 0 4 0 4 0 Conv_61 Conv_63
+Convolution Conv_65 256 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_63 Conv_65
+Convolution Conv_66 576 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Conv_65 Conv_66
+DepthwiseSeparableConvolution Conv_68 576 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_66 Conv_68
+Convolution Conv_70 256 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_68 Conv_70
+Eltwise Add_71 Conv_65 Conv_70 Add_71 4 0 0
+Upsample Upsample_73 1.6666666 linear 0 1 Add_71 Upsample_73
+Convolution Conv_74 448 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Upsample_73 Conv_74
+DepthwiseSeparableConvolution Conv_76 448 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_74 Conv_76
+Convolution Conv_78 192 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_76 Conv_78
+Eltwise Add_79 Conv_78 Add_60 Add_79 4 0 1
+UpSampling Upsample_82 Add_79 Upsample_82 BILINEAR
+Convolution Conv_83 288 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Upsample_82 Conv_83
+DepthwiseSeparableConvolution Conv_85 288 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_83 Conv_85
+Convolution Conv_87 128 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_85 Conv_87
+Eltwise Add_88 Conv_87 Add_43 Add_88 4 0 1
+UpSampling Upsample_91 Add_88 Upsample_91 BILINEAR
+Convolution Conv_92 96 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Upsample_91 Conv_92
+DepthwiseSeparableConvolution Conv_94 96 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_92 Conv_94
+Convolution Conv_96 128 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_94 Conv_96
+Eltwise Add_97 Upsample_91 Conv_96 Add_97 4 0 0
+Eltwise Add_98 Add_97 Add_32 Add_98 4 0 1
+UpSampling Upsample_101 Add_98 Upsample_101 BILINEAR
+Convolution Conv_102 96 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Upsample_101 Conv_102
+DepthwiseSeparableConvolution Conv_104 96 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_102 Conv_104
+Convolution Conv_106 96 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_104 Conv_106
+Eltwise Add_107 Conv_106 Add_21 Add_107 4 0 1
+UpSampling Upsample_110 Add_107 Upsample_110 BILINEAR
+Convolution Conv_111 80 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Upsample_110 Conv_111
+DepthwiseSeparableConvolution Conv_113 80 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_111 Conv_113
+Convolution Conv_115 48 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_113 Conv_115
+Eltwise Add_116 Conv_115 Add_10 Add_116 4 0 1
+UpSampling Upsample_119 Add_116 Upsample_119 BILINEAR
+Convolution Conv_120 40 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Upsample_119 Conv_120
+DepthwiseSeparableConvolution Conv_122 40 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_120 Conv_122
+Convolution Conv_124 24 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_122 Conv_124
+Eltwise Add_125 Conv_124 Conv_0 Add_125 4 0 1
+UpSampling Upsample_128 Add_125 Upsample_128 BILINEAR
+Convolution Conv_129 24 1 1 1 1 0 0 1 1 4 0 4 0 4 0 Upsample_128 Conv_129
+DepthwiseSeparableConvolution Conv_131 24 3 3 1 1 1 1 1 1 4 0 4 0 4 0 Conv_129 Conv_131
+Convolution Conv_133 4 1 1 1 1 0 0 1 0 4 0 4 0 4 0 Conv_131 Conv_133
+Tanh Tanh_134 Conv_133 Tanh_134 4 0

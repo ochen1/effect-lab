@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Effect Lab — synthetic model checks</title></head>
+  <body>
+    <h1>Synthetic skin model checks</h1>
+    <p>Development only. Fixtures are mathematical gradients and contain no photos.</p>
+    <button id="wasm">Check WebAssembly</button>
+    <button id="webgpu">Check WebGPU</button>
+    <pre id="result" aria-live="polite">Ready. window.runSkinValidation("wasm" | "webgpu") returns the numeric result.</pre>
+    <script type="module">
+      import { validateBrowserSkin } from "/tests/model-browser.ts";
+      window.runSkinValidation = async (backend = "wasm") => {
+        const output = document.getElementById("result");
+        output.textContent = `Running ${backend}…`;
+        try {
+          const result = await validateBrowserSkin(backend);
+          window.modelValidationResult = result;
+          output.textContent = JSON.stringify(result, null, 2);
+          return result;
+        } catch (error) {
+          window.modelValidationResult = { backend, passed: false, error: String(error) };
+          output.textContent = JSON.stringify(window.modelValidationResult, null, 2);
+          throw error;
+        }
+      };
+      for (const backend of ["wasm", "webgpu"]) document.getElementById(backend).onclick = () => window.runSkinValidation(backend).catch(() => {});
+    </script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "nativeReference": "Effect House libeffect.dylib, ARM64",
+  "librarySha256": "191284fc98cebe29715f55ff6a1cac4077bf3f6ac5fe3b5e9cb2aa572ffe164c",
+  "libraryBytes": 66657616,
+  "symbols": {
+    "BEF::MakeupV2::cvtEye106to240": "0x362fcc",
+    "BEF::MakeupV2::cvtBrow106to240": "0x3637fc",
+    "BEF::MakeupV2::cvtMouth106to240": "0x3641e8",
+    "BEF::FaceParamFaceUCV248::update": "0x36fa08",
+    "AmazingEngine::FaceMakeupUtils::calcTT295Pts": "0x1c6ec0c",
+    "AmazingEngine::FaceMakeupUtils::calcAlgorithmPointsV2": "0x1c6b7c8",
+    "BEF::MakeupV2::convertToBE180": "0x36524c"
+  },
+  "syntheticFixtureFormula": {
+    "points": 240,
+    "x": "i*2.23+13*sin(i)",
+    "y": "i*.73+7*cos(i*.7)",
+    "rounding": "IEEE754 float32 after formula evaluation"
+  },
+  "privateData": "No user image or image-derived landmark data is present in these fixtures.",
+  "scope": "Reference parity against this native framework; original mobile TikTok execution has not been independently captured."
+}

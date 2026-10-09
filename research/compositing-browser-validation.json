@@ -1,0 +1,120 @@
+{
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+  "photoData": false,
+  "shaderCompile": "all four programs linked",
+  "identity3000x4000": {
+    "max": 0,
+    "mean": 0,
+    "changed": 0,
+    "tiles": 4,
+    "width": 3000,
+    "height": 4000
+  },
+  "colorTiledVersusUntiled": {
+    "max": 0,
+    "mean": 0,
+    "changed": 0
+  },
+  "skinOrientation": {
+    "topLeft": [
+      255,
+      255,
+      0,
+      255
+    ],
+    "topRight": [
+      0,
+      255,
+      0,
+      255
+    ],
+    "bottomLeft": [
+      255,
+      0,
+      0,
+      255
+    ],
+    "bottomRight": [
+      0,
+      0,
+      0,
+      255
+    ],
+    "outside": [
+      64,
+      96,
+      128,
+      255
+    ]
+  },
+  "rotatedSkin": {
+    "topLeft": [
+      255,
+      0,
+      0,
+      255
+    ],
+    "topRight": [
+      255,
+      255,
+      0,
+      255
+    ],
+    "bottomLeft": [
+      0,
+      0,
+      0,
+      255
+    ],
+    "bottomRight": [
+      0,
+      255,
+      0,
+      255
+    ]
+  },
+  "makeupDifference": {
+    "max": 19,
+    "mean": 0.10126304626464844,
+    "changed": 37387
+  },
+  "allStagesAcrossTileBoundary": {
+    "max": 0,
+    "mean": 0,
+    "changed": 0
+  },
+  "lutExtremes": [
+    [
+      11,
+      8,
+      1,
+      255
+    ],
+    [
+      189,
+      78,
+      67,
+      255
+    ],
+    [
+      25,
+      49,
+      25,
+      255
+    ],
+    [
+      116,
+      88,
+      211,
+      255
+    ],
+    [
+      186,
+      190,
+      191,
+      255
+    ]
+  ],
+  "abort": true,
+  "passed": true
+}

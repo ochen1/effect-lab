@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-09",
+  "environment": "Chrome 153 on macOS through the Aside browser REPL",
+  "scope": "Local built website, before GitHub Pages deployment",
+  "private_data_in_report": false,
+  "photo_artifacts_committed": false,
+  "root_observed_app_flow": {
+    "photo_dimensions": [3000, 4000],
+    "gpu_preview": true,
+    "png_export_decoded_dimensions": [3000, 4000],
+    "export_bytes_approximate": 19700000,
+    "brightness_control": true,
+    "saved_preset": true,
+    "reset": true,
+    "multi_face_photo_dimensions": [4000, 3000],
+    "detected_faces": 2,
+    "selected_skin_face_changed": true,
+    "compare_mode": true
+  },
+  "mobile_layout": {
+    "method": "Same-origin iframe containing the actual built application",
+    "viewport": [412, 915],
+    "document_scroll_width": 412,
+    "empty_state_export_disabled": true,
+    "synthetic_input": "400 by 600 two-color mathematical checkerboard generated in browser memory",
+    "no_face_notice": true,
+    "color_preview_dimensions": [400, 600],
+    "loaded_export_enabled": true,
+    "sticky_preview": true,
+    "numeric_brightness_input": true,
+    "focused_control_clear_of_sticky_preview": true,
+    "focused_control_top_pixels": 525.984375,
+    "sticky_preview_bottom_pixels": 510.0859375,
+    "horizontal_overflow_pixels": 0
+  },
+  "limitations": [
+    "Responsive sizing checks do not emulate Android hardware, touch input, its GPU, or its browser image decoder.",
+    "No Android physical-device test has been performed.",
+    "The real deployed website flow still needs verification after publication.",
+    "These flow checks do not establish phone-app pixel parity."
+  ]
+}

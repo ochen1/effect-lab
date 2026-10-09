@@ -1,0 +1,9 @@
+{
+  "version": 3,
+  "prefix_bytes": 3,
+  "graph_bytes": 5691,
+  "weight_bytes": 4648848,
+  "graph_weight_marker": 1655697320,
+  "payload_sha256": "c8612c90c5a2fffefc9cb49ae8b1afd4a21d2aee174f4d30bb3c6366c40ab723",
+  "weights_sha256": "6b669ba2597ea38cc3a92204da0921d34af9ea7dbb4a8615a48480192162267d"
+}

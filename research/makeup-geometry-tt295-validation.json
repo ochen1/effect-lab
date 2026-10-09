@@ -1,0 +1,245 @@
+{
+  "nativeSymbol": "AmazingEngine::FaceMakeupUtils::calcTT295Pts",
+  "inputProvenance": "Deterministic synthetic106base+134extra arrays; no private images or photo-derived landmarks.",
+  "caseCount": 47,
+  "vertices": 295,
+  "maxAbsoluteError": 0,
+  "cases": [
+    {
+      "case": "random-0",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-1",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-2",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-3",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-4",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-5",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-6",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-7",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-8",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-9",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-10",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-11",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-12",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-13",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-14",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-15",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-16",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-17",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-18",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-19",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-20",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-21",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-22",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-23",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-24",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-25",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-26",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-27",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-28",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-29",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-30",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "random-31",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "transform-0-0.1",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "transform-0-1",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "transform-0-8",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "transform-0.3-0.1",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "transform-0.3-1",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "transform-0.3-8",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "transform-1.57-0.1",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "transform-1.57-1",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "transform-1.57-8",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "transform-3.14-0.1",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "transform-3.14-1",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "transform-3.14-8",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "collinear",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "coincident",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    },
+    {
+      "case": "one-zero-chord",
+      "maxAbsoluteError": 0.0,
+      "identicalBytes": true
+    }
+  ],
+  "scope": "Original TT295 geometric assembly with eye/brow/mouth flags enabled. Landmark network output, preprocessing, SDK240-to-extra134 mapping and texture rasterization are independent validation requirements."
+}

@@ -1,0 +1,55 @@
+1 53
+data 1 128 128 3 1 6
+Convolution conv1 8 3 3 2 2 1 1 1 1 1 8 4 14 1 5 data conv1
+DepthwiseSeparableConvolution block1_conv_a 8 3 3 1 1 1 1 1 1 1 4 4 9 1 6 conv1 block1_conv_a
+Convolution block1_conv_b 8 1 1 1 1 0 0 1 0 1 5 4 11 1 5 block1_conv_a block1_conv_b
+Eltwise block1_eltsum conv1 block1_conv_b block1_eltsum 1 5 1
+Convolution block2_conv_proj 16 1 1 2 2 0 0 1 0 1 8 4 13 1 8 block1_eltsum block2_conv_proj
+DepthwiseSeparableConvolution block2_conv_a 8 3 3 2 2 1 1 1 1 1 6 4 11 1 6 block1_eltsum block2_conv_a
+Convolution block2_conv_b 16 1 1 1 1 0 0 1 0 1 7 4 13 1 7 block2_conv_a block2_conv_b
+Eltwise block2_eltsum block2_conv_proj block2_conv_b block2_eltsum 1 7 1
+DepthwiseSeparableConvolution block3a_conv_a 16 3 3 1 1 1 1 1 1 1 4 4 11 1 6 block2_eltsum block3a_conv_a
+Convolution block3a_conv_b 16 1 1 1 1 0 0 1 0 1 6 4 12 1 6 block3a_conv_a block3a_conv_b
+Eltwise block3a_eltsum block2_eltsum block3a_conv_b block3a_eltsum 1 6 1
+DepthwiseSeparableConvolution block3_conv_a 16 3 3 1 1 1 1 1 1 1 5 4 11 1 7 block3a_eltsum block3_conv_a
+Convolution block3_conv_b 16 1 1 1 1 0 0 1 0 1 5 4 12 1 6 block3_conv_a block3_conv_b
+Eltwise block3_eltsum block3a_eltsum block3_conv_b block3_eltsum 1 6 1
+Convolution block4_conv_proj 16 1 1 2 2 0 0 1 0 1 7 4 13 1 7 block3_eltsum block4_conv_proj
+DepthwiseSeparableConvolution block4_conv_a 16 3 3 2 2 1 1 1 1 1 7 4 13 1 7 block3_eltsum block4_conv_a
+Convolution block4_conv_b 16 1 1 1 1 0 0 1 0 1 5 4 12 1 6 block4_conv_a block4_conv_b
+Eltwise block4_eltsum block4_conv_proj block4_conv_b block4_eltsum 1 5 1
+DepthwiseSeparableConvolution block5a_conv_a 16 3 3 1 1 1 1 1 1 1 3 4 8 1 7 block4_eltsum block5a_conv_a
+Convolution block5a_conv_b 16 1 1 1 1 0 0 1 0 1 6 4 13 1 7 block5a_conv_a block5a_conv_b
+Eltwise block5a_eltsum block4_eltsum block5a_conv_b block5a_eltsum 1 6 1
+DepthwiseSeparableConvolution block5b_conv_a 16 3 3 1 1 1 1 1 1 1 6 4 12 1 7 block5a_eltsum block5b_conv_a
+Convolution block5b_conv_b 16 1 1 1 1 0 0 1 0 1 5 4 12 1 6 block5b_conv_a block5b_conv_b
+Eltwise block5b_eltsum block5a_eltsum block5b_conv_b block5b_eltsum 1 6 1
+DepthwiseSeparableConvolution block5_conv_a 16 3 3 1 1 1 1 1 1 1 6 4 12 1 5 block5b_eltsum block5_conv_a
+Convolution block5_conv_b 16 1 1 1 1 0 0 1 0 1 5 4 10 1 5 block5_conv_a block5_conv_b
+Eltwise block5_eltsum block5b_eltsum block5_conv_b block5_eltsum 1 5 1
+Convolution rpn_cls_score/8s 4 3 3 1 1 1 1 1 0 1 8 4 13 1 4 block5_eltsum rpn_cls_score/8s
+Convolution rpn_bbox_pred/8s 8 3 3 1 1 1 1 1 0 1 9 4 14 1 6 block5_eltsum rpn_bbox_pred/8s
+Convolution block6_conv_proj 16 1 1 2 2 0 0 1 0 1 9 4 14 1 6 block5_eltsum block6_conv_proj
+DepthwiseSeparableConvolution block6_conv_a 16 3 3 2 2 1 1 1 1 1 7 4 12 1 5 block5_eltsum block6_conv_a
+Convolution block6_conv_b 16 1 1 1 1 0 0 1 0 1 7 4 12 1 6 block6_conv_a block6_conv_b
+Eltwise block6_eltsum block6_conv_proj block6_conv_b block6_eltsum 1 6 1
+DepthwiseSeparableConvolution block7a_conv_a 16 3 3 1 1 1 1 1 1 1 4 4 10 1 5 block6_eltsum block7a_conv_a
+Convolution block7a_conv_b 16 1 1 1 1 0 0 1 0 1 6 4 11 1 6 block7a_conv_a block7a_conv_b
+Eltwise block7a_eltsum block6_eltsum block7a_conv_b block7a_eltsum 1 5 1
+DepthwiseSeparableConvolution block7_conv_a 16 3 3 1 1 1 1 1 1 1 6 4 11 1 5 block7a_eltsum block7_conv_a
+Convolution block7_conv_b 16 1 1 1 1 0 0 1 0 1 5 4 10 1 5 block7_conv_a block7_conv_b
+Eltwise block7_eltsum block7a_eltsum block7_conv_b block7_eltsum 1 5 1
+Convolution rpn_cls_score/16s 4 3 3 1 1 1 1 1 0 1 7 4 12 1 5 block7_eltsum rpn_cls_score/16s
+Convolution rpn_bbox_pred/16s 8 3 3 1 1 1 1 1 0 1 9 4 14 1 7 block7_eltsum rpn_bbox_pred/16s
+Convolution block8_conv_proj 16 1 1 2 2 0 0 1 0 1 8 4 13 1 6 block7_eltsum block8_conv_proj
+DepthwiseSeparableConvolution block8_conv_a 16 3 3 2 2 1 1 1 1 1 7 4 12 1 4 block7_eltsum block8_conv_a
+Convolution block8_conv_b 16 1 1 1 1 0 0 1 0 1 7 4 11 1 4 block8_conv_a block8_conv_b
+Eltwise block8_eltsum block8_conv_proj block8_conv_b block8_eltsum 1 4 1
+DepthwiseSeparableConvolution block9a_conv_a 16 3 3 1 1 1 1 1 1 1 6 4 10 1 4 block8_eltsum block9a_conv_a
+Convolution block9a_conv_b 16 1 1 1 1 0 0 1 0 1 7 4 11 1 5 block9a_conv_a block9a_conv_b
+Eltwise block9a_eltsum block8_eltsum block9a_conv_b block9a_eltsum 1 4 1
+DepthwiseSeparableConvolution block9_conv_a 16 3 3 1 1 1 1 1 1 1 6 4 10 1 4 block9a_eltsum block9_conv_a
+Convolution block9_conv_b 16 1 1 1 1 0 0 1 0 1 6 4 10 1 5 block9_conv_a block9_conv_b
+Eltwise block9_eltsum block9a_eltsum block9_conv_b block9_eltsum 1 4 1
+Convolution rpn_cls_score/32s 6 3 3 1 1 1 1 1 0 1 8 4 12 1 5 block9_eltsum rpn_cls_score/32s
+Convolution rpn_bbox_pred/32s 12 3 3 1 1 1 1 1 0 1 9 4 13 1 7 block9_eltsum rpn_bbox_pred/32s

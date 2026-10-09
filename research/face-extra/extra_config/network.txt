@@ -1,0 +1,51 @@
+{
+    "models": [
+        {
+            "net_name": "extra",
+            "bits": 16,
+            "mean_val": 128,
+            "point_num": 240,
+            "input_w": 160,
+            "input_h": 160,
+            "type": 1,
+            "input_vec": ["data"],
+            "output_vec": ["fc","prob","prob2"],
+            "mouth_section": [0, 4],
+            "facemask_section": [4, 8],
+	    "mouth_region": [60, 40],
+	    "face_mask_class": 2,
+            "skip_vec":["classifier_1", "up3_1.up", "up4_1.up", "prob", "classifier_facemask", "up3_facemask", "up4_facemask", "prob2"],
+            "skip_all_mask_layers" : ["classifier_1", "up3_1.up", "up4_1.up", "prob", "classifier_facemask", "up3_facemask", "up4_facemask", "prob2", "elt6", "top2_shuffle.elt", "top2_shuffle.pw.0", "top2_shuffle.dw.0", "up2_facemask", "topdown2_dw.elt", "topdown2_dw.pw.0", "topdown2_dw.dw.0", "topdown2_proj_facemask.0", "elt5", "top1_shuffle.shuffle_channels", "top1_shuffle.concate", "top1_shuffle.conv3.0", "top1_shuffle.conv2.0", "top1_shuffle.conv1.0", "top1_shuffle.split", "up1_facemask", "topdown1_dw.elt", "topdown1_dw.pw.0", "topdown1_dw.dw.0", "topdown1_proj_facemask.0", "elt4", "top0_shuffle.shuffle_channels", "top0_shuffle.concate", "top0_shuffle.conv3.0", "top0_shuffle.conv2.0", "top0_shuffle.conv1.0", "top0_shuffle.split", "up0_facemask", "topdown0_dw.elt", "topdown0_dw.pw.0", "topdown0_dw.dw.0", "topdown0_proj_facemask.0"]
+        }, 
+        {
+            "net_name": "iris",
+            "bits": 16,
+            "mean_val": 128,
+            "point_num": 20,
+            "input_w": 40,
+            "input_h": 40,
+            "type": 2,
+            "input_vec": ["data"],
+            "output_vec": ["pred_landmark"],
+            "mouth_section": [0, 0],
+            "facemask_section": [0, 0],
+            "skip_vec":[]
+        },
+        {
+            "net_name": "mask",
+            "bits": 16,
+            "backend_type": 1,
+            "mean_val": 128,
+            "point_num": 240,
+            "input_w": 160,
+            "input_h": 160,
+            "type": 4,
+	        "face_mask_class": 2,
+            "input_vec": ["data"],
+            "output_vec": ["prob", "prob2"],
+            "mouth_section": [0, 0],
+            "facemask_section": [0, 0],
+            "skip_vec":[]
+        }
+    ]
+}

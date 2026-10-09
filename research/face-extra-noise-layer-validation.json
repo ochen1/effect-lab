@@ -1,0 +1,1934 @@
+{
+  "synthetic": true,
+  "pattern": "noise",
+  "model": "extra",
+  "scope": "Only operations retained in the supplied ONNX graph; pruned auxiliary outputs are excluded",
+  "thresholds": {
+    "integer_max_abs": 0,
+    "float_max_abs": 0.0002
+  },
+  "layers": [
+    {
+      "name": "first_conv.conv",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.0.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 12800,
+      "exact": 12800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.0.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 12800,
+      "exact": 12800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.0.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.0.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 12800,
+      "exact": 12800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.0.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 12800,
+      "exact": 12800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.0.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.0.eltwise",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.1.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        24
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 38400,
+      "exact": 38400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.1.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        24
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 38400,
+      "exact": 38400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.1.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 76800,
+      "exact": 76800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.1.conv.1.0",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 19200,
+      "exact": 19200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.1.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.1.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.1.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 12800,
+      "exact": 12800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.1.shortcut.0.0",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.1.shortcut.1",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 12800,
+      "exact": 12800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.1.eltwise",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 12800,
+      "exact": 12800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.2.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.2.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.2.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 12800,
+      "exact": 12800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.2.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.2.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.2.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 12800,
+      "exact": 12800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.2.eltwise",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 12800,
+      "exact": 12800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.4.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        40
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 16000,
+      "exact": 16000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.4.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        40
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 16000,
+      "exact": 16000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.4.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        80
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 32000,
+      "exact": 32000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.4.conv.1.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        80
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 8000,
+      "exact": 8000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.4.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        24
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.4.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        24
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.4.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 4800,
+      "exact": 4800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.4.shortcut.0.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.4.shortcut.1",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 4800,
+      "exact": 4800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.4.eltwise",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 4800,
+      "exact": 4800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.5.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.5.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.5.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.5.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        24
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.5.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        24
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.5.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 4800,
+      "exact": 4800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.5.eltwise",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 4800,
+      "exact": 4800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.6.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        24
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.6.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        24
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.6.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 4800,
+      "exact": 4800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.6.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        24
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.6.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        24
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.6.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 4800,
+      "exact": 4800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.6.eltwise",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 4800,
+      "exact": 4800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.7.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.7.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.7.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 12800,
+      "exact": 12800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.7.conv.1.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        128
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.7.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.7.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.7.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.7.shortcut.0.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.7.shortcut.1",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.7.eltwise",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.8.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        40
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1000,
+      "exact": 1000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.8.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        40
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1000,
+      "exact": 1000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.8.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        80
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2000,
+      "exact": 2000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.8.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.8.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.8.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.8.eltwise",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.9.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        40
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1000,
+      "exact": 1000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.9.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        40
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1000,
+      "exact": 1000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.9.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        80
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2000,
+      "exact": 2000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.9.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.9.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.9.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.9.eltwise",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.10.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.10.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.10.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        192
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 4800,
+      "exact": 4800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.10.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.10.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.10.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.10.eltwise",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.11.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        40
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1000,
+      "exact": 1000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.11.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        40
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1000,
+      "exact": 1000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.11.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        80
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2000,
+      "exact": 2000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.11.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.11.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.11.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.11.eltwise",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.12.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 800,
+      "exact": 800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.12.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 800,
+      "exact": 800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.12.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1600,
+      "exact": 1600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.12.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.12.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.12.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.12.eltwise",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.13.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        88
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 2200,
+      "exact": 2200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.13.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        88
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2200,
+      "exact": 2200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.13.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        176
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 4400,
+      "exact": 4400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.13.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.13.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.13.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.13.eltwise",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.14.conv.0.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        120
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 3000,
+      "exact": 3000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.14.conv.0.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        120
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 3000,
+      "exact": 3000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.14.conv.0.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        240
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6000,
+      "exact": 6000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.14.conv.3.primary_conv.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.14.conv.3.cheap_operation.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        48
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1200,
+      "exact": 1200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.14.conv.3.concat",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "features.14.eltwise",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        96
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 2400,
+      "exact": 2400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "final_expand_layer.conv",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        256
+      ],
+      "dtype": 2,
+      "fraction": 6,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "hidden.0",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        240
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6000,
+      "exact": 6000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "Reshape_805",
+      "shape_nhwc": [
+        240,
+        1,
+        1,
+        25
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6000,
+      "exact": 6000,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fc",
+      "shape_nhwc": [
+        240,
+        1,
+        1,
+        2
+      ],
+      "dtype": 4,
+      "fraction": 0,
+      "values": 480,
+      "exact": 480,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "Reshape_808",
+      "shape_nhwc": [
+        1,
+        1,
+        1,
+        480
+      ],
+      "dtype": 4,
+      "fraction": 0,
+      "values": 480,
+      "exact": 480,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

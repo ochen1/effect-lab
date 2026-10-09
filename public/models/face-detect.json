@@ -1,0 +1,506 @@
+{
+  "source": "image_detect",
+  "packed12": false,
+  "quantize": true,
+  "input": [
+    1,
+    3,
+    "height",
+    "width"
+  ],
+  "outputs": {
+    "rpn_cls_score/8s": [
+      1,
+      4,
+      "rpn_cls_score/8s_height",
+      "rpn_cls_score/8s_width"
+    ],
+    "rpn_bbox_pred/8s": [
+      1,
+      8,
+      "rpn_bbox_pred/8s_height",
+      "rpn_bbox_pred/8s_width"
+    ],
+    "rpn_cls_score/16s": [
+      1,
+      4,
+      "rpn_cls_score/16s_height",
+      "rpn_cls_score/16s_width"
+    ],
+    "rpn_bbox_pred/16s": [
+      1,
+      8,
+      "rpn_bbox_pred/16s_height",
+      "rpn_bbox_pred/16s_width"
+    ],
+    "rpn_cls_score/32s": [
+      1,
+      6,
+      "rpn_cls_score/32s_height",
+      "rpn_cls_score/32s_width"
+    ],
+    "rpn_bbox_pred/32s": [
+      1,
+      12,
+      "rpn_bbox_pred/32s_height",
+      "rpn_bbox_pred/32s_width"
+    ]
+  },
+  "dynamic_input": true,
+  "weight_bytes": 81880,
+  "trailer_bytes": 0,
+  "layers": [
+    {
+      "name": "1",
+      "kind": "data",
+      "weights_offset": 0,
+      "weights_bytes": 0
+    },
+    {
+      "name": "conv1",
+      "kind": "Convolution",
+      "weights_offset": 0,
+      "weights_bytes": 464
+    },
+    {
+      "name": "block1a_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 464,
+      "weights_bytes": 176
+    },
+    {
+      "name": "block1a_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 640,
+      "weights_bytes": 160
+    },
+    {
+      "name": "block1a_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 800,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block1b_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 800,
+      "weights_bytes": 176
+    },
+    {
+      "name": "block1b_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 976,
+      "weights_bytes": 160
+    },
+    {
+      "name": "block1b_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 1136,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block1_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 1136,
+      "weights_bytes": 176
+    },
+    {
+      "name": "block1_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 1312,
+      "weights_bytes": 160
+    },
+    {
+      "name": "block1_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 1472,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block2_conv_proj",
+      "kind": "Convolution",
+      "weights_offset": 1472,
+      "weights_bytes": 320
+    },
+    {
+      "name": "block2_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 1792,
+      "weights_bytes": 176
+    },
+    {
+      "name": "block2_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 1968,
+      "weights_bytes": 320
+    },
+    {
+      "name": "block2_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 2288,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block3a_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 2288,
+      "weights_bytes": 352
+    },
+    {
+      "name": "block3a_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 2640,
+      "weights_bytes": 576
+    },
+    {
+      "name": "block3a_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 3216,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block3b_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 3216,
+      "weights_bytes": 352
+    },
+    {
+      "name": "block3b_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 3568,
+      "weights_bytes": 576
+    },
+    {
+      "name": "block3b_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 4144,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block3c_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 4144,
+      "weights_bytes": 352
+    },
+    {
+      "name": "block3c_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 4496,
+      "weights_bytes": 576
+    },
+    {
+      "name": "block3c_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 5072,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block3_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 5072,
+      "weights_bytes": 352
+    },
+    {
+      "name": "block3_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 5424,
+      "weights_bytes": 576
+    },
+    {
+      "name": "block3_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 6000,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block4_conv_proj",
+      "kind": "Convolution",
+      "weights_offset": 6000,
+      "weights_bytes": 576
+    },
+    {
+      "name": "block4_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 6576,
+      "weights_bytes": 352
+    },
+    {
+      "name": "block4_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 6928,
+      "weights_bytes": 576
+    },
+    {
+      "name": "block4_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 7504,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block5a_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 7504,
+      "weights_bytes": 352
+    },
+    {
+      "name": "block5a_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 7856,
+      "weights_bytes": 576
+    },
+    {
+      "name": "block5a_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 8432,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block5b_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 8432,
+      "weights_bytes": 352
+    },
+    {
+      "name": "block5b_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 8784,
+      "weights_bytes": 576
+    },
+    {
+      "name": "block5b_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 9360,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block5c_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 9360,
+      "weights_bytes": 352
+    },
+    {
+      "name": "block5c_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 9712,
+      "weights_bytes": 576
+    },
+    {
+      "name": "block5c_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 10288,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block5d_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 10288,
+      "weights_bytes": 352
+    },
+    {
+      "name": "block5d_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 10640,
+      "weights_bytes": 576
+    },
+    {
+      "name": "block5d_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 11216,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block5e_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 11216,
+      "weights_bytes": 352
+    },
+    {
+      "name": "block5e_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 11568,
+      "weights_bytes": 576
+    },
+    {
+      "name": "block5e_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 12144,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block5_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 12144,
+      "weights_bytes": 352
+    },
+    {
+      "name": "block5_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 12496,
+      "weights_bytes": 576
+    },
+    {
+      "name": "block5_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 13072,
+      "weights_bytes": 0
+    },
+    {
+      "name": "rpn_cls_score/8s",
+      "kind": "Convolution",
+      "weights_offset": 13072,
+      "weights_bytes": 1168
+    },
+    {
+      "name": "rpn_bbox_pred/8s",
+      "kind": "Convolution",
+      "weights_offset": 14240,
+      "weights_bytes": 2336
+    },
+    {
+      "name": "block6_conv_proj",
+      "kind": "Convolution",
+      "weights_offset": 16576,
+      "weights_bytes": 1152
+    },
+    {
+      "name": "block6_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 17728,
+      "weights_bytes": 352
+    },
+    {
+      "name": "block6_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 18080,
+      "weights_bytes": 1152
+    },
+    {
+      "name": "block6_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 19232,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block7a_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 19232,
+      "weights_bytes": 704
+    },
+    {
+      "name": "block7a_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 19936,
+      "weights_bytes": 2176
+    },
+    {
+      "name": "block7a_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 22112,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block7_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 22112,
+      "weights_bytes": 704
+    },
+    {
+      "name": "block7_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 22816,
+      "weights_bytes": 2176
+    },
+    {
+      "name": "block7_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 24992,
+      "weights_bytes": 0
+    },
+    {
+      "name": "rpn_cls_score/16s",
+      "kind": "Convolution",
+      "weights_offset": 24992,
+      "weights_bytes": 2320
+    },
+    {
+      "name": "rpn_bbox_pred/16s",
+      "kind": "Convolution",
+      "weights_offset": 27312,
+      "weights_bytes": 4640
+    },
+    {
+      "name": "block8_conv_proj",
+      "kind": "Convolution",
+      "weights_offset": 31952,
+      "weights_bytes": 4352
+    },
+    {
+      "name": "block8_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 36304,
+      "weights_bytes": 704
+    },
+    {
+      "name": "block8_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 37008,
+      "weights_bytes": 4352
+    },
+    {
+      "name": "block8_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 41360,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block9a_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 41360,
+      "weights_bytes": 1408
+    },
+    {
+      "name": "block9a_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 42768,
+      "weights_bytes": 8448
+    },
+    {
+      "name": "block9a_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 51216,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block9_conv_a",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 51216,
+      "weights_bytes": 1408
+    },
+    {
+      "name": "block9_conv_b",
+      "kind": "Convolution",
+      "weights_offset": 52624,
+      "weights_bytes": 8448
+    },
+    {
+      "name": "block9_eltsum",
+      "kind": "Eltwise",
+      "weights_offset": 61072,
+      "weights_bytes": 0
+    },
+    {
+      "name": "rpn_cls_score/32s",
+      "kind": "Convolution",
+      "weights_offset": 61072,
+      "weights_bytes": 6936
+    },
+    {
+      "name": "rpn_bbox_pred/32s",
+      "kind": "Convolution",
+      "weights_offset": 68008,
+      "weights_bytes": 13872
+    }
+  ],
+  "selected_outputs": null,
+  "onnx_nodes": 487
+}

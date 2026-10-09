@@ -1,0 +1,957 @@
+{
+  "source": "extra",
+  "packed12": true,
+  "quantize": true,
+  "input": [
+    1,
+    3,
+    160,
+    160
+  ],
+  "outputs": {
+    "Reshape_808": [
+      1,
+      480,
+      1,
+      1
+    ]
+  },
+  "weight_bytes": 372980,
+  "trailer_bytes": 4,
+  "layers": [
+    {
+      "name": "data",
+      "kind": "DataV2",
+      "weights_offset": 0,
+      "weights_bytes": 0
+    },
+    {
+      "name": "first_conv.conv",
+      "kind": "Convolution",
+      "weights_offset": 0,
+      "weights_bytes": 1216
+    },
+    {
+      "name": "features.0.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 1216,
+      "weights_bytes": 224
+    },
+    {
+      "name": "features.0.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 1440,
+      "weights_bytes": 140
+    },
+    {
+      "name": "features.0.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 1580,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.0.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 1580,
+      "weights_bytes": 224
+    },
+    {
+      "name": "features.0.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 1804,
+      "weights_bytes": 140
+    },
+    {
+      "name": "features.0.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 1944,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.0.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 1944,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.1.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 1944,
+      "weights_bytes": 672
+    },
+    {
+      "name": "features.1.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 2616,
+      "weights_bytes": 420
+    },
+    {
+      "name": "features.1.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 3036,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.1.conv.1.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 3036,
+      "weights_bytes": 840
+    },
+    {
+      "name": "features.1.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 3876,
+      "weights_bytes": 1216
+    },
+    {
+      "name": "features.1.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 5092,
+      "weights_bytes": 280
+    },
+    {
+      "name": "features.1.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 5372,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.1.shortcut.0.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 5372,
+      "weights_bytes": 280
+    },
+    {
+      "name": "features.1.shortcut.1",
+      "kind": "Convolution",
+      "weights_offset": 5652,
+      "weights_bytes": 896
+    },
+    {
+      "name": "features.1.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 6548,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.2.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 6548,
+      "weights_bytes": 832
+    },
+    {
+      "name": "features.2.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 7380,
+      "weights_bytes": 280
+    },
+    {
+      "name": "features.2.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 7660,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.2.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 7660,
+      "weights_bytes": 832
+    },
+    {
+      "name": "features.2.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 8492,
+      "weights_bytes": 280
+    },
+    {
+      "name": "features.2.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 8772,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.2.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 8772,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.4.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 8772,
+      "weights_bytes": 2080
+    },
+    {
+      "name": "features.4.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 10852,
+      "weights_bytes": 700
+    },
+    {
+      "name": "features.4.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 11552,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.4.conv.1.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 11552,
+      "weights_bytes": 1400
+    },
+    {
+      "name": "features.4.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 12952,
+      "weights_bytes": 2976
+    },
+    {
+      "name": "features.4.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 15928,
+      "weights_bytes": 420
+    },
+    {
+      "name": "features.4.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 16348,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.4.shortcut.0.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 16348,
+      "weights_bytes": 560
+    },
+    {
+      "name": "features.4.shortcut.1",
+      "kind": "Convolution",
+      "weights_offset": 16908,
+      "weights_bytes": 2496
+    },
+    {
+      "name": "features.4.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 19404,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.5.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 19404,
+      "weights_bytes": 2432
+    },
+    {
+      "name": "features.5.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 21836,
+      "weights_bytes": 560
+    },
+    {
+      "name": "features.5.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 22396,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.5.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 22396,
+      "weights_bytes": 2400
+    },
+    {
+      "name": "features.5.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 24796,
+      "weights_bytes": 420
+    },
+    {
+      "name": "features.5.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 25216,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.5.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 25216,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.6.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 25216,
+      "weights_bytes": 1824
+    },
+    {
+      "name": "features.6.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 27040,
+      "weights_bytes": 420
+    },
+    {
+      "name": "features.6.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 27460,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.6.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 27460,
+      "weights_bytes": 1824
+    },
+    {
+      "name": "features.6.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 29284,
+      "weights_bytes": 420
+    },
+    {
+      "name": "features.6.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 29704,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.6.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 29704,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.7.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 29704,
+      "weights_bytes": 4864
+    },
+    {
+      "name": "features.7.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 34568,
+      "weights_bytes": 1120
+    },
+    {
+      "name": "features.7.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 35688,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.7.conv.1.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 35688,
+      "weights_bytes": 2240
+    },
+    {
+      "name": "features.7.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 37928,
+      "weights_bytes": 9408
+    },
+    {
+      "name": "features.7.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 47336,
+      "weights_bytes": 840
+    },
+    {
+      "name": "features.7.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 48176,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.7.shortcut.0.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 48176,
+      "weights_bytes": 840
+    },
+    {
+      "name": "features.7.shortcut.1",
+      "kind": "Convolution",
+      "weights_offset": 49016,
+      "weights_bytes": 7296
+    },
+    {
+      "name": "features.7.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 56312,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.8.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 56312,
+      "weights_bytes": 5920
+    },
+    {
+      "name": "features.8.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 62232,
+      "weights_bytes": 700
+    },
+    {
+      "name": "features.8.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 62932,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.8.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 62932,
+      "weights_bytes": 5952
+    },
+    {
+      "name": "features.8.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 68884,
+      "weights_bytes": 840
+    },
+    {
+      "name": "features.8.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 69724,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.8.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 69724,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.9.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 69724,
+      "weights_bytes": 5920
+    },
+    {
+      "name": "features.9.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 75644,
+      "weights_bytes": 700
+    },
+    {
+      "name": "features.9.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 76344,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.9.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 76344,
+      "weights_bytes": 5952
+    },
+    {
+      "name": "features.9.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 82296,
+      "weights_bytes": 840
+    },
+    {
+      "name": "features.9.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 83136,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.9.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 83136,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.10.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 83136,
+      "weights_bytes": 14208
+    },
+    {
+      "name": "features.10.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 97344,
+      "weights_bytes": 1680
+    },
+    {
+      "name": "features.10.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 99024,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.10.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 99024,
+      "weights_bytes": 14016
+    },
+    {
+      "name": "features.10.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 113040,
+      "weights_bytes": 840
+    },
+    {
+      "name": "features.10.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 113880,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.10.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 113880,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.11.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 113880,
+      "weights_bytes": 5920
+    },
+    {
+      "name": "features.11.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 119800,
+      "weights_bytes": 700
+    },
+    {
+      "name": "features.11.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 120500,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.11.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 120500,
+      "weights_bytes": 5952
+    },
+    {
+      "name": "features.11.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 126452,
+      "weights_bytes": 840
+    },
+    {
+      "name": "features.11.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 127292,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.11.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 127292,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.12.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 127292,
+      "weights_bytes": 4736
+    },
+    {
+      "name": "features.12.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 132028,
+      "weights_bytes": 560
+    },
+    {
+      "name": "features.12.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 132588,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.12.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 132588,
+      "weights_bytes": 4800
+    },
+    {
+      "name": "features.12.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 137388,
+      "weights_bytes": 840
+    },
+    {
+      "name": "features.12.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 138228,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.12.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 138228,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.13.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 138228,
+      "weights_bytes": 13024
+    },
+    {
+      "name": "features.13.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 151252,
+      "weights_bytes": 1540
+    },
+    {
+      "name": "features.13.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 152792,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.13.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 152792,
+      "weights_bytes": 12864
+    },
+    {
+      "name": "features.13.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 165656,
+      "weights_bytes": 840
+    },
+    {
+      "name": "features.13.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 166496,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.13.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 166496,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.14.conv.0.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 166496,
+      "weights_bytes": 17760
+    },
+    {
+      "name": "features.14.conv.0.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 184256,
+      "weights_bytes": 2100
+    },
+    {
+      "name": "features.14.conv.0.concat",
+      "kind": "Concat",
+      "weights_offset": 186356,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.14.conv.3.primary_conv.0",
+      "kind": "Convolution",
+      "weights_offset": 186356,
+      "weights_bytes": 17472
+    },
+    {
+      "name": "features.14.conv.3.cheap_operation.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 203828,
+      "weights_bytes": 840
+    },
+    {
+      "name": "features.14.conv.3.concat",
+      "kind": "Concat",
+      "weights_offset": 204668,
+      "weights_bytes": 0
+    },
+    {
+      "name": "features.14.eltwise",
+      "kind": "Eltwise",
+      "weights_offset": 204668,
+      "weights_bytes": 0
+    },
+    {
+      "name": "final_expand_layer.conv",
+      "kind": "Convolution",
+      "weights_offset": 204668,
+      "weights_bytes": 37888
+    },
+    {
+      "name": "hidden.0",
+      "kind": "Convolution",
+      "weights_offset": 242556,
+      "weights_bytes": 93120
+    },
+    {
+      "name": "Reshape_805",
+      "kind": "OnnxOp1",
+      "weights_offset": 335676,
+      "weights_bytes": 0
+    },
+    {
+      "name": "fc",
+      "kind": "InnerProduct",
+      "weights_offset": 335676,
+      "weights_bytes": 208
+    },
+    {
+      "name": "Reshape_808",
+      "kind": "OnnxOp1",
+      "weights_offset": 335884,
+      "weights_bytes": 0
+    },
+    {
+      "name": "topdown0_proj_facemask.0",
+      "kind": "Convolution",
+      "weights_offset": 335884,
+      "weights_bytes": 18624
+    },
+    {
+      "name": "topdown0_dw.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 354508,
+      "weights_bytes": 840
+    },
+    {
+      "name": "topdown0_dw.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 355348,
+      "weights_bytes": 3648
+    },
+    {
+      "name": "topdown0_dw.elt",
+      "kind": "Eltwise",
+      "weights_offset": 358996,
+      "weights_bytes": 0
+    },
+    {
+      "name": "up0_facemask",
+      "kind": "UpSampling",
+      "weights_offset": 358996,
+      "weights_bytes": 0
+    },
+    {
+      "name": "top0_shuffle.split",
+      "kind": "Slice",
+      "weights_offset": 358996,
+      "weights_bytes": 0
+    },
+    {
+      "name": "top0_shuffle.conv1.0",
+      "kind": "Convolution",
+      "weights_offset": 358996,
+      "weights_bytes": 1920
+    },
+    {
+      "name": "top0_shuffle.conv2.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 360916,
+      "weights_bytes": 840
+    },
+    {
+      "name": "top0_shuffle.conv3.0",
+      "kind": "Convolution",
+      "weights_offset": 361756,
+      "weights_bytes": 1824
+    },
+    {
+      "name": "top0_shuffle.concate",
+      "kind": "Concat",
+      "weights_offset": 363580,
+      "weights_bytes": 0
+    },
+    {
+      "name": "top0_shuffle.shuffle_channels",
+      "kind": "Shuffle",
+      "weights_offset": 363580,
+      "weights_bytes": 0
+    },
+    {
+      "name": "elt4",
+      "kind": "Eltwise",
+      "weights_offset": 363580,
+      "weights_bytes": 0
+    },
+    {
+      "name": "topdown1_proj_facemask.0",
+      "kind": "Convolution",
+      "weights_offset": 363580,
+      "weights_bytes": 2432
+    },
+    {
+      "name": "topdown1_dw.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 366012,
+      "weights_bytes": 560
+    },
+    {
+      "name": "topdown1_dw.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 366572,
+      "weights_bytes": 1664
+    },
+    {
+      "name": "topdown1_dw.elt",
+      "kind": "Eltwise",
+      "weights_offset": 368236,
+      "weights_bytes": 0
+    },
+    {
+      "name": "up1_facemask",
+      "kind": "UpSampling",
+      "weights_offset": 368236,
+      "weights_bytes": 0
+    },
+    {
+      "name": "top1_shuffle.split",
+      "kind": "Slice",
+      "weights_offset": 368236,
+      "weights_bytes": 0
+    },
+    {
+      "name": "top1_shuffle.conv1.0",
+      "kind": "Convolution",
+      "weights_offset": 368236,
+      "weights_bytes": 896
+    },
+    {
+      "name": "top1_shuffle.conv2.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 369132,
+      "weights_bytes": 560
+    },
+    {
+      "name": "top1_shuffle.conv3.0",
+      "kind": "Convolution",
+      "weights_offset": 369692,
+      "weights_bytes": 832
+    },
+    {
+      "name": "top1_shuffle.concate",
+      "kind": "Concat",
+      "weights_offset": 370524,
+      "weights_bytes": 0
+    },
+    {
+      "name": "top1_shuffle.shuffle_channels",
+      "kind": "Shuffle",
+      "weights_offset": 370524,
+      "weights_bytes": 0
+    },
+    {
+      "name": "elt5",
+      "kind": "Eltwise",
+      "weights_offset": 370524,
+      "weights_bytes": 0
+    },
+    {
+      "name": "topdown2_proj_facemask.0",
+      "kind": "Convolution",
+      "weights_offset": 370524,
+      "weights_bytes": 832
+    },
+    {
+      "name": "topdown2_dw.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 371356,
+      "weights_bytes": 280
+    },
+    {
+      "name": "topdown2_dw.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 371636,
+      "weights_bytes": 448
+    },
+    {
+      "name": "topdown2_dw.elt",
+      "kind": "Eltwise",
+      "weights_offset": 372084,
+      "weights_bytes": 0
+    },
+    {
+      "name": "up2_facemask",
+      "kind": "UpSampling",
+      "weights_offset": 372084,
+      "weights_bytes": 0
+    },
+    {
+      "name": "top2_shuffle.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 372084,
+      "weights_bytes": 280
+    },
+    {
+      "name": "top2_shuffle.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 372364,
+      "weights_bytes": 448
+    },
+    {
+      "name": "top2_shuffle.elt",
+      "kind": "Eltwise",
+      "weights_offset": 372812,
+      "weights_bytes": 0
+    },
+    {
+      "name": "elt6",
+      "kind": "Eltwise",
+      "weights_offset": 372812,
+      "weights_bytes": 0
+    },
+    {
+      "name": "classifier_facemask",
+      "kind": "Convolution",
+      "weights_offset": 372812,
+      "weights_bytes": 56
+    },
+    {
+      "name": "up3_facemask",
+      "kind": "UpSampling",
+      "weights_offset": 372868,
+      "weights_bytes": 0
+    },
+    {
+      "name": "up4_facemask",
+      "kind": "UpSampling",
+      "weights_offset": 372868,
+      "weights_bytes": 0
+    },
+    {
+      "name": "prob2",
+      "kind": "Softmax",
+      "weights_offset": 372868,
+      "weights_bytes": 0
+    },
+    {
+      "name": "crop_4",
+      "kind": "Crop",
+      "weights_offset": 372868,
+      "weights_bytes": 0
+    },
+    {
+      "name": "classifier_1",
+      "kind": "Convolution",
+      "weights_offset": 372868,
+      "weights_bytes": 112
+    },
+    {
+      "name": "up4_1.up",
+      "kind": "Upsample",
+      "weights_offset": 372980,
+      "weights_bytes": 0
+    },
+    {
+      "name": "prob",
+      "kind": "Softmax",
+      "weights_offset": 372980,
+      "weights_bytes": 0
+    }
+  ],
+  "selected_outputs": [
+    "Reshape_808"
+  ],
+  "onnx_nodes": 839
+}

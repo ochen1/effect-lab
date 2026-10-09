@@ -1,0 +1,395 @@
+{
+  "source": "base_det",
+  "packed12": true,
+  "quantize": true,
+  "input": [
+    1,
+    3,
+    120,
+    120
+  ],
+  "outputs": {
+    "prob": [
+      1,
+      2,
+      1,
+      1
+    ],
+    "fc_landmark_s1": [
+      1,
+      212,
+      1,
+      1
+    ],
+    "fc_pitch": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "fc_yaw": [
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "weight_bytes": 128888,
+  "trailer_bytes": 4,
+  "layers": [
+    {
+      "name": "data",
+      "kind": "DataV2",
+      "weights_offset": 0,
+      "weights_bytes": 0
+    },
+    {
+      "name": "conv1.0",
+      "kind": "Convolution",
+      "weights_offset": 0,
+      "weights_bytes": 1216
+    },
+    {
+      "name": "stack0.0.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 1216,
+      "weights_bytes": 280
+    },
+    {
+      "name": "stack0.0.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 1496,
+      "weights_bytes": 448
+    },
+    {
+      "name": "stack0.0.elt",
+      "kind": "Eltwise",
+      "weights_offset": 1944,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack0.1.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 1944,
+      "weights_bytes": 280
+    },
+    {
+      "name": "stack0.1.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 2224,
+      "weights_bytes": 448
+    },
+    {
+      "name": "stack0.1.elt",
+      "kind": "Eltwise",
+      "weights_offset": 2672,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack0.2.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 2672,
+      "weights_bytes": 280
+    },
+    {
+      "name": "stack0.2.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 2952,
+      "weights_bytes": 448
+    },
+    {
+      "name": "stack0.2.elt",
+      "kind": "Eltwise",
+      "weights_offset": 3400,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack0.3.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 3400,
+      "weights_bytes": 280
+    },
+    {
+      "name": "stack0.3.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 3680,
+      "weights_bytes": 448
+    },
+    {
+      "name": "stack0.3.elt",
+      "kind": "Eltwise",
+      "weights_offset": 4128,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block0.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 4128,
+      "weights_bytes": 280
+    },
+    {
+      "name": "block0.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 4408,
+      "weights_bytes": 896
+    },
+    {
+      "name": "block0.shortcut.0",
+      "kind": "Convolution",
+      "weights_offset": 5304,
+      "weights_bytes": 896
+    },
+    {
+      "name": "block0.elt",
+      "kind": "Eltwise",
+      "weights_offset": 6200,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack1.0.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 6200,
+      "weights_bytes": 560
+    },
+    {
+      "name": "stack1.0.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 6760,
+      "weights_bytes": 1664
+    },
+    {
+      "name": "stack1.0.elt",
+      "kind": "Eltwise",
+      "weights_offset": 8424,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack1.1.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 8424,
+      "weights_bytes": 560
+    },
+    {
+      "name": "stack1.1.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 8984,
+      "weights_bytes": 1664
+    },
+    {
+      "name": "stack1.1.elt",
+      "kind": "Eltwise",
+      "weights_offset": 10648,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack1.2.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 10648,
+      "weights_bytes": 560
+    },
+    {
+      "name": "stack1.2.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 11208,
+      "weights_bytes": 1664
+    },
+    {
+      "name": "stack1.2.elt",
+      "kind": "Eltwise",
+      "weights_offset": 12872,
+      "weights_bytes": 0
+    },
+    {
+      "name": "block1.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 12872,
+      "weights_bytes": 560
+    },
+    {
+      "name": "block1.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 13432,
+      "weights_bytes": 3328
+    },
+    {
+      "name": "block1.shortcut.0",
+      "kind": "Convolution",
+      "weights_offset": 16760,
+      "weights_bytes": 3328
+    },
+    {
+      "name": "block1.elt",
+      "kind": "Eltwise",
+      "weights_offset": 20088,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack2.0.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 20088,
+      "weights_bytes": 1120
+    },
+    {
+      "name": "stack2.0.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 21208,
+      "weights_bytes": 6400
+    },
+    {
+      "name": "stack2.0.elt",
+      "kind": "Eltwise",
+      "weights_offset": 27608,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack2.1.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 27608,
+      "weights_bytes": 1120
+    },
+    {
+      "name": "stack2.1.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 28728,
+      "weights_bytes": 6400
+    },
+    {
+      "name": "stack2.1.elt",
+      "kind": "Eltwise",
+      "weights_offset": 35128,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack2.2.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 35128,
+      "weights_bytes": 1120
+    },
+    {
+      "name": "stack2.2.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 36248,
+      "weights_bytes": 6400
+    },
+    {
+      "name": "stack2.2.elt",
+      "kind": "Eltwise",
+      "weights_offset": 42648,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack2.3.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 42648,
+      "weights_bytes": 1120
+    },
+    {
+      "name": "stack2.3.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 43768,
+      "weights_bytes": 6400
+    },
+    {
+      "name": "stack2.3.elt",
+      "kind": "Eltwise",
+      "weights_offset": 50168,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack2.4.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 50168,
+      "weights_bytes": 1120
+    },
+    {
+      "name": "stack2.4.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 51288,
+      "weights_bytes": 6400
+    },
+    {
+      "name": "stack2.4.elt",
+      "kind": "Eltwise",
+      "weights_offset": 57688,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack2.5.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 57688,
+      "weights_bytes": 1120
+    },
+    {
+      "name": "stack2.5.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 58808,
+      "weights_bytes": 6400
+    },
+    {
+      "name": "stack2.5.elt",
+      "kind": "Eltwise",
+      "weights_offset": 65208,
+      "weights_bytes": 0
+    },
+    {
+      "name": "stack2.6.dw.0",
+      "kind": "DepthwiseSeparableConvolution",
+      "weights_offset": 65208,
+      "weights_bytes": 1120
+    },
+    {
+      "name": "stack2.6.pw.0",
+      "kind": "Convolution",
+      "weights_offset": 66328,
+      "weights_bytes": 6400
+    },
+    {
+      "name": "stack2.6.elt",
+      "kind": "Eltwise",
+      "weights_offset": 72728,
+      "weights_bytes": 0
+    },
+    {
+      "name": "913",
+      "kind": "PoolingDown",
+      "weights_offset": 72728,
+      "weights_bytes": 0
+    },
+    {
+      "name": "915",
+      "kind": "Reshape",
+      "weights_offset": 72728,
+      "weights_bytes": 0
+    },
+    {
+      "name": "fc_classification",
+      "kind": "Convolution",
+      "weights_offset": 72728,
+      "weights_bytes": 520
+    },
+    {
+      "name": "prob",
+      "kind": "Softmax",
+      "weights_offset": 73248,
+      "weights_bytes": 0
+    },
+    {
+      "name": "fc_landmark_s1",
+      "kind": "Convolution",
+      "weights_offset": 73248,
+      "weights_bytes": 55120
+    },
+    {
+      "name": "fc_pitch",
+      "kind": "Convolution",
+      "weights_offset": 128368,
+      "weights_bytes": 260
+    },
+    {
+      "name": "fc_yaw",
+      "kind": "Convolution",
+      "weights_offset": 128628,
+      "weights_bytes": 260
+    }
+  ]
+}

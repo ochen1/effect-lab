@@ -1,0 +1,516 @@
+{
+  "input": [
+    1,
+    3,
+    320,
+    320
+  ],
+  "output": [
+    1,
+    4,
+    320,
+    320
+  ],
+  "weights": 1162212,
+  "layers": [
+    {
+      "name": "data",
+      "type": "DataV2",
+      "weights_start": 0,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_0",
+      "type": "Convolution",
+      "weights_start": 0,
+      "weights_count": 672
+    },
+    {
+      "name": "Conv_2",
+      "type": "Convolution",
+      "weights_start": 672,
+      "weights_count": 400
+    },
+    {
+      "name": "Conv_4",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 1072,
+      "weights_count": 160
+    },
+    {
+      "name": "Conv_6",
+      "type": "Convolution",
+      "weights_start": 1232,
+      "weights_count": 816
+    },
+    {
+      "name": "Conv_7",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 2048,
+      "weights_count": 480
+    },
+    {
+      "name": "Conv_9",
+      "type": "Convolution",
+      "weights_start": 2528,
+      "weights_count": 2352
+    },
+    {
+      "name": "Add_10",
+      "type": "Eltwise",
+      "weights_start": 4880,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_11",
+      "type": "Convolution",
+      "weights_start": 4880,
+      "weights_count": 1176
+    },
+    {
+      "name": "Conv_13",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 6056,
+      "weights_count": 240
+    },
+    {
+      "name": "Conv_15",
+      "type": "Convolution",
+      "weights_start": 6296,
+      "weights_count": 2400
+    },
+    {
+      "name": "Conv_16",
+      "type": "Convolution",
+      "weights_start": 8696,
+      "weights_count": 4656
+    },
+    {
+      "name": "Conv_18",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 13352,
+      "weights_count": 480
+    },
+    {
+      "name": "Conv_20",
+      "type": "Convolution",
+      "weights_start": 13832,
+      "weights_count": 4704
+    },
+    {
+      "name": "Add_21",
+      "type": "Eltwise",
+      "weights_start": 18536,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_22",
+      "type": "Convolution",
+      "weights_start": 18536,
+      "weights_count": 4656
+    },
+    {
+      "name": "Conv_24",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 23192,
+      "weights_count": 480
+    },
+    {
+      "name": "Conv_26",
+      "type": "Convolution",
+      "weights_start": 23672,
+      "weights_count": 6272
+    },
+    {
+      "name": "Conv_27",
+      "type": "Convolution",
+      "weights_start": 29944,
+      "weights_count": 12384
+    },
+    {
+      "name": "Conv_29",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 42328,
+      "weights_count": 960
+    },
+    {
+      "name": "Conv_31",
+      "type": "Convolution",
+      "weights_start": 43288,
+      "weights_count": 12416
+    },
+    {
+      "name": "Add_32",
+      "type": "Eltwise",
+      "weights_start": 55704,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_33",
+      "type": "Convolution",
+      "weights_start": 55704,
+      "weights_count": 33024
+    },
+    {
+      "name": "Conv_35",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 88728,
+      "weights_count": 2560
+    },
+    {
+      "name": "Conv_37",
+      "type": "Convolution",
+      "weights_start": 91288,
+      "weights_count": 32896
+    },
+    {
+      "name": "Conv_38",
+      "type": "Convolution",
+      "weights_start": 124184,
+      "weights_count": 37152
+    },
+    {
+      "name": "Conv_40",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 161336,
+      "weights_count": 2880
+    },
+    {
+      "name": "Conv_42",
+      "type": "Convolution",
+      "weights_start": 164216,
+      "weights_count": 36992
+    },
+    {
+      "name": "Add_43",
+      "type": "Eltwise",
+      "weights_start": 201208,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_44",
+      "type": "Convolution",
+      "weights_start": 201208,
+      "weights_count": 8256
+    },
+    {
+      "name": "Conv_46",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 209464,
+      "weights_count": 640
+    },
+    {
+      "name": "Conv_48",
+      "type": "Convolution",
+      "weights_start": 210104,
+      "weights_count": 12480
+    },
+    {
+      "name": "Conv_49",
+      "type": "Convolution",
+      "weights_start": 222584,
+      "weights_count": 18528
+    },
+    {
+      "name": "Conv_51",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 241112,
+      "weights_count": 960
+    },
+    {
+      "name": "Conv_53",
+      "type": "Convolution",
+      "weights_start": 242072,
+      "weights_count": 18624
+    },
+    {
+      "name": "Add_54",
+      "type": "Eltwise",
+      "weights_start": 260696,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_55",
+      "type": "Convolution",
+      "weights_start": 260696,
+      "weights_count": 27792
+    },
+    {
+      "name": "Conv_57",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 288488,
+      "weights_count": 1440
+    },
+    {
+      "name": "Conv_59",
+      "type": "Convolution",
+      "weights_start": 289928,
+      "weights_count": 27840
+    },
+    {
+      "name": "Add_60",
+      "type": "Eltwise",
+      "weights_start": 317768,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_61",
+      "type": "Convolution",
+      "weights_start": 317768,
+      "weights_count": 74112
+    },
+    {
+      "name": "Conv_63",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 391880,
+      "weights_count": 3840
+    },
+    {
+      "name": "Conv_65",
+      "type": "Convolution",
+      "weights_start": 395720,
+      "weights_count": 98560
+    },
+    {
+      "name": "Conv_66",
+      "type": "Convolution",
+      "weights_start": 494280,
+      "weights_count": 148032
+    },
+    {
+      "name": "Conv_68",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 642312,
+      "weights_count": 5760
+    },
+    {
+      "name": "Conv_70",
+      "type": "Convolution",
+      "weights_start": 648072,
+      "weights_count": 147712
+    },
+    {
+      "name": "Add_71",
+      "type": "Eltwise",
+      "weights_start": 795784,
+      "weights_count": 0
+    },
+    {
+      "name": "Upsample_73",
+      "type": "Upsample",
+      "weights_start": 795784,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_74",
+      "type": "Convolution",
+      "weights_start": 795784,
+      "weights_count": 115136
+    },
+    {
+      "name": "Conv_76",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 910920,
+      "weights_count": 4480
+    },
+    {
+      "name": "Conv_78",
+      "type": "Convolution",
+      "weights_start": 915400,
+      "weights_count": 86208
+    },
+    {
+      "name": "Add_79",
+      "type": "Eltwise",
+      "weights_start": 1001608,
+      "weights_count": 0
+    },
+    {
+      "name": "Upsample_82",
+      "type": "UpSampling",
+      "weights_start": 1001608,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_83",
+      "type": "Convolution",
+      "weights_start": 1001608,
+      "weights_count": 55584
+    },
+    {
+      "name": "Conv_85",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 1057192,
+      "weights_count": 2880
+    },
+    {
+      "name": "Conv_87",
+      "type": "Convolution",
+      "weights_start": 1060072,
+      "weights_count": 36992
+    },
+    {
+      "name": "Add_88",
+      "type": "Eltwise",
+      "weights_start": 1097064,
+      "weights_count": 0
+    },
+    {
+      "name": "Upsample_91",
+      "type": "UpSampling",
+      "weights_start": 1097064,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_92",
+      "type": "Convolution",
+      "weights_start": 1097064,
+      "weights_count": 12384
+    },
+    {
+      "name": "Conv_94",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 1109448,
+      "weights_count": 960
+    },
+    {
+      "name": "Conv_96",
+      "type": "Convolution",
+      "weights_start": 1110408,
+      "weights_count": 12416
+    },
+    {
+      "name": "Add_97",
+      "type": "Eltwise",
+      "weights_start": 1122824,
+      "weights_count": 0
+    },
+    {
+      "name": "Add_98",
+      "type": "Eltwise",
+      "weights_start": 1122824,
+      "weights_count": 0
+    },
+    {
+      "name": "Upsample_101",
+      "type": "UpSampling",
+      "weights_start": 1122824,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_102",
+      "type": "Convolution",
+      "weights_start": 1122824,
+      "weights_count": 12384
+    },
+    {
+      "name": "Conv_104",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 1135208,
+      "weights_count": 960
+    },
+    {
+      "name": "Conv_106",
+      "type": "Convolution",
+      "weights_start": 1136168,
+      "weights_count": 9312
+    },
+    {
+      "name": "Add_107",
+      "type": "Eltwise",
+      "weights_start": 1145480,
+      "weights_count": 0
+    },
+    {
+      "name": "Upsample_110",
+      "type": "UpSampling",
+      "weights_start": 1145480,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_111",
+      "type": "Convolution",
+      "weights_start": 1145480,
+      "weights_count": 7760
+    },
+    {
+      "name": "Conv_113",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 1153240,
+      "weights_count": 800
+    },
+    {
+      "name": "Conv_115",
+      "type": "Convolution",
+      "weights_start": 1154040,
+      "weights_count": 3888
+    },
+    {
+      "name": "Add_116",
+      "type": "Eltwise",
+      "weights_start": 1157928,
+      "weights_count": 0
+    },
+    {
+      "name": "Upsample_119",
+      "type": "UpSampling",
+      "weights_start": 1157928,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_120",
+      "type": "Convolution",
+      "weights_start": 1157928,
+      "weights_count": 1960
+    },
+    {
+      "name": "Conv_122",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 1159888,
+      "weights_count": 400
+    },
+    {
+      "name": "Conv_124",
+      "type": "Convolution",
+      "weights_start": 1160288,
+      "weights_count": 984
+    },
+    {
+      "name": "Add_125",
+      "type": "Eltwise",
+      "weights_start": 1161272,
+      "weights_count": 0
+    },
+    {
+      "name": "Upsample_128",
+      "type": "UpSampling",
+      "weights_start": 1161272,
+      "weights_count": 0
+    },
+    {
+      "name": "Conv_129",
+      "type": "Convolution",
+      "weights_start": 1161272,
+      "weights_count": 600
+    },
+    {
+      "name": "Conv_131",
+      "type": "DepthwiseSeparableConvolution",
+      "weights_start": 1161872,
+      "weights_count": 240
+    },
+    {
+      "name": "Conv_133",
+      "type": "Convolution",
+      "weights_start": 1162112,
+      "weights_count": 100
+    },
+    {
+      "name": "Tanh_134",
+      "type": "Tanh",
+      "weights_start": 1162212,
+      "weights_count": 0
+    }
+  ],
+  "coordinates": "half_pixel"
+}

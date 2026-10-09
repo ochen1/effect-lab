@@ -1,0 +1,157 @@
+B
+1 154 1666669849
+DataV2 data 1 160 160 3 2 6 0
+Convolution first_conv.conv 16 4 4 4 4 1 1 1 1 2 13 4 19 2 8 data first_conv.conv
+Convolution features.0.conv.0.primary_conv.0 8 1 1 1 1 0 0 1 1 2 10 4 18 2 9 first_conv.conv features.0.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.0.conv.0.cheap_operation.0 8 3 3 1 1 1 1 1 1 2 10 4 19 2 8 features.0.conv.0.primary_conv.0 features.0.conv.0.cheap_operation.0
+Concat features.0.conv.0.concat 2 features.0.conv.0.primary_conv.0 features.0.conv.0.cheap_operation.0 features.0.conv.0.concat 2 8
+Convolution features.0.conv.3.primary_conv.0 8 1 1 1 1 0 0 1 0 2 9 4 17 2 7 features.0.conv.0.concat features.0.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.0.conv.3.cheap_operation.0 8 3 3 1 1 1 1 1 0 2 5 4 12 2 7 features.0.conv.3.primary_conv.0 features.0.conv.3.cheap_operation.0
+Concat features.0.conv.3.concat 2 features.0.conv.3.primary_conv.0 features.0.conv.3.cheap_operation.0 features.0.conv.3.concat 2 7
+Eltwise features.0.eltwise features.0.conv.3.concat first_conv.conv features.0.eltwise 2 7 0
+Convolution features.1.conv.0.primary_conv.0 24 1 1 1 1 0 0 1 1 2 11 4 18 2 8 features.0.eltwise features.1.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.1.conv.0.cheap_operation.0 24 3 3 1 1 1 1 1 1 2 9 4 17 2 7 features.1.conv.0.primary_conv.0 features.1.conv.0.cheap_operation.0
+Concat features.1.conv.0.concat 2 features.1.conv.0.primary_conv.0 features.1.conv.0.cheap_operation.0 features.1.conv.0.concat 2 7
+DepthwiseSeparableConvolution features.1.conv.1.0 48 3 3 2 2 1 1 1 0 2 9 4 16 2 7 features.1.conv.0.concat features.1.conv.1.0
+Convolution features.1.conv.3.primary_conv.0 16 1 1 1 1 0 0 1 0 2 12 4 19 2 8 features.1.conv.1.0 features.1.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.1.conv.3.cheap_operation.0 16 3 3 1 1 1 1 1 0 2 9 4 17 2 8 features.1.conv.3.primary_conv.0 features.1.conv.3.cheap_operation.0
+Concat features.1.conv.3.concat 2 features.1.conv.3.primary_conv.0 features.1.conv.3.cheap_operation.0 features.1.conv.3.concat 2 8
+DepthwiseSeparableConvolution features.1.shortcut.0.0 16 3 3 2 2 1 1 1 1 2 11 4 18 2 8 features.0.eltwise features.1.shortcut.0.0
+Convolution features.1.shortcut.1 32 1 1 1 1 0 0 1 0 2 11 4 19 2 9 features.1.shortcut.0.0 features.1.shortcut.1
+Eltwise features.1.eltwise features.1.conv.3.concat features.1.shortcut.1 features.1.eltwise 2 8 0
+Convolution features.2.conv.0.primary_conv.0 16 1 1 1 1 0 0 1 1 2 10 4 18 2 8 features.1.eltwise features.2.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.2.conv.0.cheap_operation.0 16 3 3 1 1 1 1 1 1 2 9 4 17 2 8 features.2.conv.0.primary_conv.0 features.2.conv.0.cheap_operation.0
+Concat features.2.conv.0.concat 2 features.2.conv.0.primary_conv.0 features.2.conv.0.cheap_operation.0 features.2.conv.0.concat 2 8
+Convolution features.2.conv.3.primary_conv.0 16 1 1 1 1 0 0 1 0 2 11 4 19 2 9 features.2.conv.0.concat features.2.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.2.conv.3.cheap_operation.0 16 3 3 1 1 1 1 1 0 2 6 4 15 2 8 features.2.conv.3.primary_conv.0 features.2.conv.3.cheap_operation.0
+Concat features.2.conv.3.concat 2 features.2.conv.3.primary_conv.0 features.2.conv.3.cheap_operation.0 features.2.conv.3.concat 2 8
+Eltwise features.2.eltwise features.2.conv.3.concat features.1.eltwise features.2.eltwise 2 8 0
+Convolution features.4.conv.0.primary_conv.0 40 1 1 1 1 0 0 1 1 2 11 4 19 2 9 features.2.eltwise features.4.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.4.conv.0.cheap_operation.0 40 3 3 1 1 1 1 1 1 2 9 4 18 2 8 features.4.conv.0.primary_conv.0 features.4.conv.0.cheap_operation.0
+Concat features.4.conv.0.concat 2 features.4.conv.0.primary_conv.0 features.4.conv.0.cheap_operation.0 features.4.conv.0.concat 2 8
+DepthwiseSeparableConvolution features.4.conv.1.0 80 3 3 2 2 1 1 1 0 2 9 4 17 2 7 features.4.conv.0.concat features.4.conv.1.0
+Convolution features.4.conv.3.primary_conv.0 24 1 1 1 1 0 0 1 0 2 11 4 18 2 7 features.4.conv.1.0 features.4.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.4.conv.3.cheap_operation.0 24 3 3 1 1 1 1 1 0 2 7 4 14 2 8 features.4.conv.3.primary_conv.0 features.4.conv.3.cheap_operation.0
+Concat features.4.conv.3.concat 2 features.4.conv.3.primary_conv.0 features.4.conv.3.cheap_operation.0 features.4.conv.3.concat 2 7
+DepthwiseSeparableConvolution features.4.shortcut.0.0 32 3 3 2 2 1 1 1 1 2 12 4 20 2 9 features.2.eltwise features.4.shortcut.0.0
+Convolution features.4.shortcut.1 48 1 1 1 1 0 0 1 0 2 10 4 19 2 9 features.4.shortcut.0.0 features.4.shortcut.1
+Eltwise features.4.eltwise features.4.conv.3.concat features.4.shortcut.1 features.4.eltwise 2 7 0
+Convolution features.5.conv.0.primary_conv.0 32 1 1 1 1 0 0 1 1 2 11 4 18 2 9 features.4.eltwise features.5.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.5.conv.0.cheap_operation.0 32 3 3 1 1 1 1 1 1 2 10 4 19 2 9 features.5.conv.0.primary_conv.0 features.5.conv.0.cheap_operation.0
+Concat features.5.conv.0.concat 2 features.5.conv.0.primary_conv.0 features.5.conv.0.cheap_operation.0 features.5.conv.0.concat 2 9
+Convolution features.5.conv.3.primary_conv.0 24 1 1 1 1 0 0 1 0 2 11 4 20 2 8 features.5.conv.0.concat features.5.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.5.conv.3.cheap_operation.0 24 3 3 1 1 1 1 1 0 2 8 4 16 2 8 features.5.conv.3.primary_conv.0 features.5.conv.3.cheap_operation.0
+Concat features.5.conv.3.concat 2 features.5.conv.3.primary_conv.0 features.5.conv.3.cheap_operation.0 features.5.conv.3.concat 2 8
+Eltwise features.5.eltwise features.5.conv.3.concat features.4.eltwise features.5.eltwise 2 7 0
+Convolution features.6.conv.0.primary_conv.0 24 1 1 1 1 0 0 1 1 2 11 4 18 2 9 features.5.eltwise features.6.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.6.conv.0.cheap_operation.0 24 3 3 1 1 1 1 1 1 2 10 4 19 2 8 features.6.conv.0.primary_conv.0 features.6.conv.0.cheap_operation.0
+Concat features.6.conv.0.concat 2 features.6.conv.0.primary_conv.0 features.6.conv.0.cheap_operation.0 features.6.conv.0.concat 2 8
+Convolution features.6.conv.3.primary_conv.0 24 1 1 1 1 0 0 1 0 2 10 4 18 2 8 features.6.conv.0.concat features.6.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.6.conv.3.cheap_operation.0 24 3 3 1 1 1 1 1 0 2 7 4 15 2 8 features.6.conv.3.primary_conv.0 features.6.conv.3.cheap_operation.0
+Concat features.6.conv.3.concat 2 features.6.conv.3.primary_conv.0 features.6.conv.3.cheap_operation.0 features.6.conv.3.concat 2 8
+Eltwise features.6.eltwise features.6.conv.3.concat features.5.eltwise features.6.eltwise 2 7 0
+Convolution features.7.conv.0.primary_conv.0 64 1 1 1 1 0 0 1 1 2 12 4 19 2 8 features.6.eltwise features.7.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.7.conv.0.cheap_operation.0 64 3 3 1 1 1 1 1 1 2 9 4 17 2 8 features.7.conv.0.primary_conv.0 features.7.conv.0.cheap_operation.0
+Concat features.7.conv.0.concat 2 features.7.conv.0.primary_conv.0 features.7.conv.0.cheap_operation.0 features.7.conv.0.concat 2 8
+DepthwiseSeparableConvolution features.7.conv.1.0 128 3 3 2 2 1 1 1 0 2 9 4 17 2 8 features.7.conv.0.concat features.7.conv.1.0
+Convolution features.7.conv.3.primary_conv.0 48 1 1 1 1 0 0 1 0 2 12 4 20 2 8 features.7.conv.1.0 features.7.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.7.conv.3.cheap_operation.0 48 3 3 1 1 1 1 1 0 2 9 4 17 2 9 features.7.conv.3.primary_conv.0 features.7.conv.3.cheap_operation.0
+Concat features.7.conv.3.concat 2 features.7.conv.3.primary_conv.0 features.7.conv.3.cheap_operation.0 features.7.conv.3.concat 2 8
+DepthwiseSeparableConvolution features.7.shortcut.0.0 48 3 3 2 2 1 1 1 1 2 13 4 20 2 9 features.6.eltwise features.7.shortcut.0.0
+Convolution features.7.shortcut.1 96 1 1 1 1 0 0 1 0 2 11 4 20 2 10 features.7.shortcut.0.0 features.7.shortcut.1
+Eltwise features.7.eltwise features.7.conv.3.concat features.7.shortcut.1 features.7.eltwise 2 7 0
+Convolution features.8.conv.0.primary_conv.0 40 1 1 1 1 0 0 1 1 2 11 4 18 2 9 features.7.eltwise features.8.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.8.conv.0.cheap_operation.0 40 3 3 1 1 1 1 1 1 2 10 4 19 2 9 features.8.conv.0.primary_conv.0 features.8.conv.0.cheap_operation.0
+Concat features.8.conv.0.concat 2 features.8.conv.0.primary_conv.0 features.8.conv.0.cheap_operation.0 features.8.conv.0.concat 2 9
+Convolution features.8.conv.3.primary_conv.0 48 1 1 1 1 0 0 1 0 2 11 4 20 2 10 features.8.conv.0.concat features.8.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.8.conv.3.cheap_operation.0 48 3 3 1 1 1 1 1 0 2 8 4 18 2 9 features.8.conv.3.primary_conv.0 features.8.conv.3.cheap_operation.0
+Concat features.8.conv.3.concat 2 features.8.conv.3.primary_conv.0 features.8.conv.3.cheap_operation.0 features.8.conv.3.concat 2 9
+Eltwise features.8.eltwise features.8.conv.3.concat features.7.eltwise features.8.eltwise 2 7 0
+Convolution features.9.conv.0.primary_conv.0 40 1 1 1 1 0 0 1 1 2 11 4 18 2 9 features.8.eltwise features.9.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.9.conv.0.cheap_operation.0 40 3 3 1 1 1 1 1 1 2 9 4 18 2 9 features.9.conv.0.primary_conv.0 features.9.conv.0.cheap_operation.0
+Concat features.9.conv.0.concat 2 features.9.conv.0.primary_conv.0 features.9.conv.0.cheap_operation.0 features.9.conv.0.concat 2 9
+Convolution features.9.conv.3.primary_conv.0 48 1 1 1 1 0 0 1 0 2 11 4 20 2 9 features.9.conv.0.concat features.9.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.9.conv.3.cheap_operation.0 48 3 3 1 1 1 1 1 0 2 8 4 17 2 9 features.9.conv.3.primary_conv.0 features.9.conv.3.cheap_operation.0
+Concat features.9.conv.3.concat 2 features.9.conv.3.primary_conv.0 features.9.conv.3.cheap_operation.0 features.9.conv.3.concat 2 9
+Eltwise features.9.eltwise features.9.conv.3.concat features.8.eltwise features.9.eltwise 2 7 0
+Convolution features.10.conv.0.primary_conv.0 96 1 1 1 1 0 0 1 1 2 11 4 18 2 9 features.9.eltwise features.10.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.10.conv.0.cheap_operation.0 96 3 3 1 1 1 1 1 1 2 9 4 18 2 9 features.10.conv.0.primary_conv.0 features.10.conv.0.cheap_operation.0
+Concat features.10.conv.0.concat 2 features.10.conv.0.primary_conv.0 features.10.conv.0.cheap_operation.0 features.10.conv.0.concat 2 9
+Convolution features.10.conv.3.primary_conv.0 48 1 1 1 1 0 0 1 0 2 11 4 20 2 9 features.10.conv.0.concat features.10.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.10.conv.3.cheap_operation.0 48 3 3 1 1 1 1 1 0 2 8 4 17 2 8 features.10.conv.3.primary_conv.0 features.10.conv.3.cheap_operation.0
+Concat features.10.conv.3.concat 2 features.10.conv.3.primary_conv.0 features.10.conv.3.cheap_operation.0 features.10.conv.3.concat 2 8
+Eltwise features.10.eltwise features.10.conv.3.concat features.9.eltwise features.10.eltwise 2 7 0
+Convolution features.11.conv.0.primary_conv.0 40 1 1 1 1 0 0 1 1 2 12 4 19 2 9 features.10.eltwise features.11.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.11.conv.0.cheap_operation.0 40 3 3 1 1 1 1 1 1 2 9 4 18 2 9 features.11.conv.0.primary_conv.0 features.11.conv.0.cheap_operation.0
+Concat features.11.conv.0.concat 2 features.11.conv.0.primary_conv.0 features.11.conv.0.cheap_operation.0 features.11.conv.0.concat 2 9
+Convolution features.11.conv.3.primary_conv.0 48 1 1 1 1 0 0 1 0 2 10 4 19 2 8 features.11.conv.0.concat features.11.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.11.conv.3.cheap_operation.0 48 3 3 1 1 1 1 1 0 2 8 4 16 2 9 features.11.conv.3.primary_conv.0 features.11.conv.3.cheap_operation.0
+Concat features.11.conv.3.concat 2 features.11.conv.3.primary_conv.0 features.11.conv.3.cheap_operation.0 features.11.conv.3.concat 2 8
+Eltwise features.11.eltwise features.11.conv.3.concat features.10.eltwise features.11.eltwise 2 7 0
+Convolution features.12.conv.0.primary_conv.0 32 1 1 1 1 0 0 1 1 2 12 4 19 2 9 features.11.eltwise features.12.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.12.conv.0.cheap_operation.0 32 3 3 1 1 1 1 1 1 2 9 4 18 2 9 features.12.conv.0.primary_conv.0 features.12.conv.0.cheap_operation.0
+Concat features.12.conv.0.concat 2 features.12.conv.0.primary_conv.0 features.12.conv.0.cheap_operation.0 features.12.conv.0.concat 2 9
+Convolution features.12.conv.3.primary_conv.0 48 1 1 1 1 0 0 1 0 2 10 4 19 2 9 features.12.conv.0.concat features.12.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.12.conv.3.cheap_operation.0 48 3 3 1 1 1 1 1 0 2 8 4 17 2 9 features.12.conv.3.primary_conv.0 features.12.conv.3.cheap_operation.0
+Concat features.12.conv.3.concat 2 features.12.conv.3.primary_conv.0 features.12.conv.3.cheap_operation.0 features.12.conv.3.concat 2 9
+Eltwise features.12.eltwise features.12.conv.3.concat features.11.eltwise features.12.eltwise 2 7 0
+Convolution features.13.conv.0.primary_conv.0 88 1 1 1 1 0 0 1 1 2 12 4 19 2 9 features.12.eltwise features.13.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.13.conv.0.cheap_operation.0 88 3 3 1 1 1 1 1 1 2 8 4 17 2 8 features.13.conv.0.primary_conv.0 features.13.conv.0.cheap_operation.0
+Concat features.13.conv.0.concat 2 features.13.conv.0.primary_conv.0 features.13.conv.0.cheap_operation.0 features.13.conv.0.concat 2 8
+Convolution features.13.conv.3.primary_conv.0 48 1 1 1 1 0 0 1 0 2 10 4 18 2 8 features.13.conv.0.concat features.13.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.13.conv.3.cheap_operation.0 48 3 3 1 1 1 1 1 0 2 7 4 15 2 8 features.13.conv.3.primary_conv.0 features.13.conv.3.cheap_operation.0
+Concat features.13.conv.3.concat 2 features.13.conv.3.primary_conv.0 features.13.conv.3.cheap_operation.0 features.13.conv.3.concat 2 8
+Eltwise features.13.eltwise features.13.conv.3.concat features.12.eltwise features.13.eltwise 2 7 0
+Convolution features.14.conv.0.primary_conv.0 120 1 1 1 1 0 0 1 1 2 12 4 19 2 9 features.13.eltwise features.14.conv.0.primary_conv.0
+DepthwiseSeparableConvolution features.14.conv.0.cheap_operation.0 120 3 3 1 1 1 1 1 1 2 6 4 15 2 8 features.14.conv.0.primary_conv.0 features.14.conv.0.cheap_operation.0
+Concat features.14.conv.0.concat 2 features.14.conv.0.primary_conv.0 features.14.conv.0.cheap_operation.0 features.14.conv.0.concat 2 8
+Convolution features.14.conv.3.primary_conv.0 48 1 1 1 1 0 0 1 0 2 9 4 17 2 7 features.14.conv.0.concat features.14.conv.3.primary_conv.0
+DepthwiseSeparableConvolution features.14.conv.3.cheap_operation.0 48 3 3 1 1 1 1 1 0 2 6 4 13 2 7 features.14.conv.3.primary_conv.0 features.14.conv.3.cheap_operation.0
+Concat features.14.conv.3.concat 2 features.14.conv.3.primary_conv.0 features.14.conv.3.cheap_operation.0 features.14.conv.3.concat 2 7
+Eltwise features.14.eltwise features.14.conv.3.concat features.13.eltwise features.14.eltwise 2 7 0
+Convolution final_expand_layer.conv 256 1 1 1 1 0 0 1 1 2 11 4 18 2 6 features.14.eltwise final_expand_layer.conv
+Convolution hidden.0 240 1 1 1 1 0 0 1 1 2 11 4 17 2 8 final_expand_layer.conv hidden.0
+OnnxOp1 Reshape_805 Reshape hidden.0 Reshape_805 2 8 240 1 1 25 2
+InnerProduct fc 2 1 0 4 0 4 0 4 0 Reshape_805 fc
+OnnxOp1 Reshape_808 Reshape fc Reshape_808 4 0 1 1 1 480 2
+Convolution topdown0_proj_facemask.0 48 1 1 1 1 0 0 1 1 2 10 4 16 2 8 final_expand_layer.conv topdown0_proj_facemask.0
+DepthwiseSeparableConvolution topdown0_dw.dw.0 48 3 3 1 1 1 1 1 1 2 5 4 13 2 6 topdown0_proj_facemask.0 topdown0_dw.dw.0
+Convolution topdown0_dw.pw.0 48 1 1 1 1 0 0 1 0 2 10 4 16 2 6 topdown0_dw.dw.0 topdown0_dw.pw.0
+Eltwise topdown0_dw.elt topdown0_dw.pw.0 topdown0_proj_facemask.0 topdown0_dw.elt 2 6 1
+UpSampling up0_facemask topdown0_dw.elt up0_facemask LINEAR 
+Slice top0_shuffle.split features.6.eltwise 1 1 24 2 top0_shuffle.split_0 7 top0_shuffle.split_1 8 
+Convolution top0_shuffle.conv1.0 48 1 1 1 1 0 0 1 1 2 13 4 21 2 10 top0_shuffle.split_1 top0_shuffle.conv1.0
+DepthwiseSeparableConvolution top0_shuffle.conv2.0 48 3 3 1 1 1 1 1 1 2 9 4 19 2 9 top0_shuffle.conv1.0 top0_shuffle.conv2.0
+Convolution top0_shuffle.conv3.0 24 1 1 1 1 0 0 1 0 2 10 4 19 2 8 top0_shuffle.conv2.0 top0_shuffle.conv3.0
+Concat top0_shuffle.concate 2 top0_shuffle.split_0 top0_shuffle.conv3.0 top0_shuffle.concate 2 7
+Shuffle top0_shuffle.shuffle_channels 4 2 top0_shuffle.concate top0_shuffle.shuffle_channels
+Eltwise elt4 top0_shuffle.shuffle_channels up0_facemask elt4 2 7 0
+Convolution topdown1_proj_facemask.0 32 1 1 1 1 0 0 1 1 2 11 4 18 2 7 elt4 topdown1_proj_facemask.0
+DepthwiseSeparableConvolution topdown1_dw.dw.0 32 3 3 1 1 1 1 1 1 2 9 4 16 2 5 topdown1_proj_facemask.0 topdown1_dw.dw.0
+Convolution topdown1_dw.pw.0 32 1 1 1 1 0 0 1 0 2 10 4 15 2 6 topdown1_dw.dw.0 topdown1_dw.pw.0
+Eltwise topdown1_dw.elt topdown1_dw.pw.0 topdown1_proj_facemask.0 topdown1_dw.elt 2 6 1
+UpSampling up1_facemask topdown1_dw.elt up1_facemask LINEAR 
+Slice top1_shuffle.split features.2.eltwise 1 1 16 2 top1_shuffle.split_0 8 top1_shuffle.split_1 8 
+Convolution top1_shuffle.conv1.0 32 1 1 1 1 0 0 1 1 2 12 4 20 2 10 top1_shuffle.split_1 top1_shuffle.conv1.0
+DepthwiseSeparableConvolution top1_shuffle.conv2.0 32 3 3 1 1 1 1 1 1 2 9 4 19 2 10 top1_shuffle.conv1.0 top1_shuffle.conv2.0
+Convolution top1_shuffle.conv3.0 16 1 1 1 1 0 0 1 0 2 9 4 19 2 9 top1_shuffle.conv2.0 top1_shuffle.conv3.0
+Concat top1_shuffle.concate 2 top1_shuffle.split_0 top1_shuffle.conv3.0 top1_shuffle.concate 2 8
+Shuffle top1_shuffle.shuffle_channels 4 2 top1_shuffle.concate top1_shuffle.shuffle_channels
+Eltwise elt5 top1_shuffle.shuffle_channels up1_facemask elt5 2 6 0
+Convolution topdown2_proj_facemask.0 16 1 1 1 1 0 0 1 1 2 10 4 16 2 6 elt5 topdown2_proj_facemask.0
+DepthwiseSeparableConvolution topdown2_dw.dw.0 16 3 3 1 1 1 1 1 1 2 10 4 16 2 6 topdown2_proj_facemask.0 topdown2_dw.dw.0
+Convolution topdown2_dw.pw.0 16 1 1 1 1 0 0 1 0 2 10 4 16 2 7 topdown2_dw.dw.0 topdown2_dw.pw.0
+Eltwise topdown2_dw.elt topdown2_dw.pw.0 topdown2_proj_facemask.0 topdown2_dw.elt 2 6 1
+UpSampling up2_facemask topdown2_dw.elt up2_facemask LINEAR 
+DepthwiseSeparableConvolution top2_shuffle.dw.0 16 3 3 1 1 1 1 1 1 2 10 4 17 2 9 features.0.eltwise top2_shuffle.dw.0
+Convolution top2_shuffle.pw.0 16 1 1 1 1 0 0 1 0 2 8 4 17 2 7 top2_shuffle.dw.0 top2_shuffle.pw.0
+Eltwise top2_shuffle.elt top2_shuffle.pw.0 features.0.eltwise top2_shuffle.elt 2 7 1
+Eltwise elt6 top2_shuffle.elt up2_facemask elt6 2 6 0
+Convolution classifier_facemask 2 1 1 1 1 0 0 1 0 2 10 4 16 2 6 elt6 classifier_facemask
+UpSampling up3_facemask classifier_facemask up3_facemask LINEAR 
+UpSampling up4_facemask up3_facemask up4_facemask LINEAR 
+Softmax prob2 up4_facemask prob2
+Crop crop_4 15 10 0 20 20 16 elt6 crop_4
+Convolution classifier_1 4 1 1 1 1 0 0 1 0 2 10 4 16 2 5 crop_4 classifier_1
+Upsample up4_1.up 4.0 linear 0 1 classifier_1 up4_1.up
+Softmax prob up4_1.up prob

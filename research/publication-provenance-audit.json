@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-09",
+  "scope": "Research directory snapshot during publication preparation; later additions require the same provenance check.",
+  "research_files_examined": 220,
+  "raster_image_files_found": [],
+  "private_photo_or_photo_derived_artifacts_found": [],
+  "safe_artifact_groups": [
+    {
+      "paths": [
+        "research/face-gradient-120.i16",
+        "research/face-gradient-160.i16",
+        "research/native-face-base-*.raw",
+        "research/native-face-detect-*.raw"
+      ],
+      "origin": "Mathematical RGB gradients generated in this session; all native tensor outputs use those synthetic inputs."
+    },
+    {
+      "paths": [
+        "research/reference-*.f32",
+        "research/onnx-output.npy"
+      ],
+      "origin": "Seeded uniform random skin-model input and its native/ONNX activations, confirmed in the originating task context."
+    },
+    {
+      "paths": [
+        "research/makeup-geometry-synthetic-*.f32",
+        "tests/fixtures/skin-gradient-*"
+      ],
+      "origin": "Deterministic mathematical inputs and native reference outputs; provenance formulas accompany the fixtures."
+    },
+    {
+      "paths": [
+        "research/face-network/**",
+        "research/face-extra/**",
+        "research/face-parts/**",
+        "research/skin-network/**",
+        "research/extracted/**"
+      ],
+      "origin": "Original package model graphs, weights, configuration, and authored scripts; model source manifests record hashes."
+    },
+    {
+      "paths": [
+        "research/*.asm",
+        "research/*.cpp",
+        "research/*.frag",
+        "research/*validation*.json"
+      ],
+      "origin": "Native routine disassembly, helper source, shaders, and numerical synthetic validation reports."
+    },
+    {
+      "paths": [
+        "research/makeup.uv.f32",
+        "research/makeup.triangles.u16",
+        "research/decoder-table.bin"
+      ],
+      "origin": "Authored static geometry or model decoding constants."
+    }
+  ],
+  "historical_geometry_files_confirmed_safe": [
+    {
+      "file": "research/makeup-final.f32",
+      "sha256": "c348b1389369b157c9a0c9c6ee02f9b7c5a0e077d59eb33a6e169c59d5bdff13",
+      "origin": "Original package mean landmarks; no photo input. Jacobian uses mean plus four-unit coordinate perturbations.",
+      "evidence": "Confirmed by original compositing author through root agent.",
+      "independent_reproduction": true
+    },
+    {
+      "file": "research/makeup248.f32",
+      "sha256": "70683871c410def9ebbf25cf89a2845fb1b1a4c72c222cef24092356949190f4",
+      "origin": "Original package mean landmarks; no photo input. Jacobian uses mean plus four-unit coordinate perturbations.",
+      "evidence": "Confirmed by original compositing author through root agent.",
+      "independent_reproduction": false
+    },
+    {
+      "file": "research/makeup.positions.f32",
+      "sha256": "c348b1389369b157c9a0c9c6ee02f9b7c5a0e077d59eb33a6e169c59d5bdff13",
+      "origin": "Original package mean landmarks; no photo input. Jacobian uses mean plus four-unit coordinate perturbations.",
+      "evidence": "Confirmed by original compositing author through root agent.",
+      "independent_reproduction": true
+    },
+    {
+      "file": "research/makeup.jacobian.f32",
+      "sha256": "f7a03e127d4983a6cfb8292155faa682f920979d758a7c2e1dbed3b23dcd3e5e",
+      "origin": "Original package mean landmarks; no photo input. Jacobian uses mean plus four-unit coordinate perturbations.",
+      "evidence": "Confirmed by original compositing author through root agent.",
+      "independent_reproduction": false
+    }
+  ],
+  "excluded_from_publication": "All native face SDK photo captures and derived tensors under temporary directories or user artifact storage remain outside this repository. Do not copy them into publication.",
+  "compiled_helpers": "Research Mach-O executables are locally built tools, not native frameworks; publish their source and rebuild instructions rather than platform binaries.",
+  "deletions_performed": false,
+  "browser_verification_report": "research/browser-skin-validation.json"
+}

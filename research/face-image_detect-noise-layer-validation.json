@@ -1,0 +1,1271 @@
+{
+  "synthetic": true,
+  "pattern": "noise",
+  "model": "image_detect",
+  "scope": "Only operations retained in the supplied ONNX graph; pruned auxiliary outputs are excluded",
+  "thresholds": {
+    "integer_max_abs": 0,
+    "float_max_abs": 0.0002
+  },
+  "layers": [
+    {
+      "name": "conv1",
+      "shape_nhwc": [
+        1,
+        80,
+        80,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 51200,
+      "exact": 51200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block1a_conv_a",
+      "shape_nhwc": [
+        1,
+        80,
+        80,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 51200,
+      "exact": 51200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block1a_conv_b",
+      "shape_nhwc": [
+        1,
+        80,
+        80,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 51200,
+      "exact": 51200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block1a_eltsum",
+      "shape_nhwc": [
+        1,
+        80,
+        80,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 51200,
+      "exact": 51200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block1b_conv_a",
+      "shape_nhwc": [
+        1,
+        80,
+        80,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 51200,
+      "exact": 51200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block1b_conv_b",
+      "shape_nhwc": [
+        1,
+        80,
+        80,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 51200,
+      "exact": 51200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block1b_eltsum",
+      "shape_nhwc": [
+        1,
+        80,
+        80,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 51200,
+      "exact": 51200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block1_conv_a",
+      "shape_nhwc": [
+        1,
+        80,
+        80,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 51200,
+      "exact": 51200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block1_conv_b",
+      "shape_nhwc": [
+        1,
+        80,
+        80,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 51200,
+      "exact": 51200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block1_eltsum",
+      "shape_nhwc": [
+        1,
+        80,
+        80,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 51200,
+      "exact": 51200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block2_conv_proj",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block2_conv_a",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 12800,
+      "exact": 12800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block2_conv_b",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 11,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block2_eltsum",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block3a_conv_a",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block3a_conv_b",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block3a_eltsum",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block3b_conv_a",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block3b_conv_b",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block3b_eltsum",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block3c_conv_a",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block3c_conv_b",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block3c_eltsum",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block3_conv_a",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block3_conv_b",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block3_eltsum",
+      "shape_nhwc": [
+        1,
+        40,
+        40,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 25600,
+      "exact": 25600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block4_conv_proj",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block4_conv_a",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block4_conv_b",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block4_eltsum",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5a_conv_a",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5a_conv_b",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5a_eltsum",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5b_conv_a",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5b_conv_b",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5b_eltsum",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5c_conv_a",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5c_conv_b",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5c_eltsum",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5d_conv_a",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5d_conv_b",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5d_eltsum",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5e_conv_a",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5e_conv_b",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5e_eltsum",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5_conv_a",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5_conv_b",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block5_eltsum",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 6400,
+      "exact": 6400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "rpn_cls_score/8s",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        4
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1600,
+      "exact": 1600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "rpn_bbox_pred/8s",
+      "shape_nhwc": [
+        1,
+        20,
+        20,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block6_conv_proj",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block6_conv_a",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        16
+      ],
+      "dtype": 2,
+      "fraction": 11,
+      "values": 1600,
+      "exact": 1600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block6_conv_b",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block6_eltsum",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block7a_conv_a",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block7a_conv_b",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block7a_eltsum",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block7_conv_a",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 10,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block7_conv_b",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block7_eltsum",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 3200,
+      "exact": 3200,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "rpn_cls_score/16s",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        4
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 400,
+      "exact": 400,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "rpn_bbox_pred/16s",
+      "shape_nhwc": [
+        1,
+        10,
+        10,
+        8
+      ],
+      "dtype": 2,
+      "fraction": 11,
+      "values": 800,
+      "exact": 800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block8_conv_proj",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 9,
+      "values": 1600,
+      "exact": 1600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block8_conv_a",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        32
+      ],
+      "dtype": 2,
+      "fraction": 11,
+      "values": 800,
+      "exact": 800,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block8_conv_b",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1600,
+      "exact": 1600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block8_eltsum",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1600,
+      "exact": 1600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block9a_conv_a",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 11,
+      "values": 1600,
+      "exact": 1600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block9a_conv_b",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1600,
+      "exact": 1600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block9a_eltsum",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1600,
+      "exact": 1600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block9_conv_a",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 11,
+      "values": 1600,
+      "exact": 1600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block9_conv_b",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 1600,
+      "exact": 1600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "block9_eltsum",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        64
+      ],
+      "dtype": 2,
+      "fraction": 7,
+      "values": 1600,
+      "exact": 1600,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "rpn_cls_score/32s",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        6
+      ],
+      "dtype": 2,
+      "fraction": 8,
+      "values": 150,
+      "exact": 150,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    },
+    {
+      "name": "rpn_bbox_pred/32s",
+      "shape_nhwc": [
+        1,
+        5,
+        5,
+        12
+      ],
+      "dtype": 2,
+      "fraction": 11,
+      "values": 300,
+      "exact": 300,
+      "mae": 0.0,
+      "max_abs": 0.0,
+      "max_in_native_units": 0.0,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

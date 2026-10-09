@@ -1,0 +1,127 @@
+{
+  "name": "tt_fsnew_v2.1",
+  "sha256": "c4b081d04f6829f7cd5849abca0941891f1a7f2cb250efd7f0e42fece5426610",
+  "entries": [
+    {
+      "name": "detect",
+      "graph_bytes": 4689,
+      "weights_bytes": 14448,
+      "graph_checksum": 1233213853,
+      "weights_checksum": 3084866443,
+      "graph_sha256": "e96283032a6db00a63030acea54ff0b392c0c8eb10b0a33164ba239164d64bdd",
+      "weights_sha256": "0c86723c127f886659b22ff863a951f232ff16a5c769a0dbfc11d90c2c85b06b"
+    },
+    {
+      "name": "image_detect",
+      "graph_bytes": 6639,
+      "weights_bytes": 81880,
+      "graph_checksum": 2248810839,
+      "weights_checksum": 391612331,
+      "graph_sha256": "a3e0ab7b5a9daa1330e60d20189f8b00230a1d95261a63e9e89cd54ffcfb841e",
+      "weights_sha256": "a638104441870f8c025be46fc31a85e4c7e32acfbdcb15d750177303320377f6"
+    },
+    {
+      "name": "slowimage_detect",
+      "graph_bytes": 6652,
+      "weights_bytes": 92296,
+      "graph_checksum": 3503271469,
+      "weights_checksum": 3205895943,
+      "graph_sha256": "4cd675eddaa84b330f4cd953834970d991ea4f27543ccff6a07a663dde5c23b6",
+      "weights_sha256": "9c3e4c0abdcd6b7bbeafd99c3fe46533f3c2f04f84da7f4350dc89c81e533df2"
+    },
+    {
+      "name": "base_det",
+      "graph_bytes": 4786,
+      "weights_bytes": 128892,
+      "graph_checksum": 1407065607,
+      "weights_checksum": 3149490213,
+      "graph_sha256": "b91158956cb941c1899d32388f509ad05f7badb7221bb6877685081466aa65b0",
+      "weights_sha256": "eab2fcafea8e661a41951fd047abf2dd250e73cec6a2802fe8a99fdf271f07c2"
+    },
+    {
+      "name": "base",
+      "graph_bytes": 6829,
+      "weights_bytes": 356816,
+      "graph_checksum": 4070219216,
+      "weights_checksum": 1913457215,
+      "graph_sha256": "16e18b7bf21646ede767dbf29724489fdac95d822de83e4bcc4a7acf477e5db6",
+      "weights_sha256": "39778294d25cd16c4d90087f9d45b1828c216f713572729bdd3e608a7e967134"
+    },
+    {
+      "name": "base_partface",
+      "graph_bytes": 5003,
+      "weights_bytes": 151169,
+      "graph_checksum": 3370936620,
+      "weights_checksum": 3988122965,
+      "graph_sha256": "f6067b1f6bb270ef0668ea8f0c16efed2090d9787ba5dccff3e1d71196d959de",
+      "weights_sha256": "35f2863391423102408a7b837b09def9d3829691dc20e31ef0c68829ccab2964"
+    },
+    {
+      "name": "pout",
+      "graph_bytes": 664,
+      "weights_bytes": 6489,
+      "graph_checksum": 2386513877,
+      "weights_checksum": 3798428517,
+      "graph_sha256": "bc29e7cfcbb2f2ee3f488ee9cb9ce3a1800005a84e6d3770838a816218bcb4e2",
+      "weights_sha256": "b9d47ce8644d41fcfeb9253db5b9dae11ae622aa5a80c4d590e36c4806cc86c1"
+    },
+    {
+      "name": "eyecls",
+      "graph_bytes": 667,
+      "weights_bytes": 6489,
+      "graph_checksum": 587826648,
+      "weights_checksum": 104346602,
+      "graph_sha256": "0456b5561c935d14f4d5840fa725a0cc57a674ffc228021a40ce89d43318b2ed",
+      "weights_sha256": "52baf56051779479af447b47c27b262efec2fa45ecbbd55b00a3b448266b0a90"
+    },
+    {
+      "name": "mean",
+      "graph_bytes": 1,
+      "weights_bytes": 8468,
+      "graph_checksum": 2935291933,
+      "weights_checksum": 4143494286,
+      "graph_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "weights_sha256": "0844c6736c692ada0144fc1f373a75b26cd49945c444fba1a78a158f3fbd0ec2"
+    },
+    {
+      "name": "detect_config",
+      "graph_bytes": 2340,
+      "weights_bytes": 0,
+      "graph_checksum": 4193889688,
+      "weights_checksum": 1315423911,
+      "graph_sha256": "1c08deae68c8a9f19dc06c72c332152890953ac1e2d205db2816ef34a5670bb3",
+      "weights_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "base_config",
+      "graph_bytes": 1801,
+      "weights_bytes": 0,
+      "graph_checksum": 1804114664,
+      "weights_checksum": 1315423911,
+      "graph_sha256": "828d9f5d4e43e16954c4af7dd57a384caa74d5af6cb089a0f9fcc73a08678695",
+      "weights_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "parameters": {
+    "base_model_version": 2021012501,
+    "basetracking_lifecycle": 0,
+    "detector_force": -1,
+    "enable_basetracking_model": 0,
+    "enlarge_scale_for_tracking": 4,
+    "keep_bbox_in_edge": 0,
+    "max_face_num": 10,
+    "mean_scale_for_tracking": 6,
+    "model_combination_type": 0,
+    "num_of_base_cycles_in_image_mode": 2,
+    "num_of_base_cycles_in_video_forcedetect_mode": 1,
+    "only_detect": -1,
+    "performance_analysis": 0,
+    "support_basetracking": 0,
+    "support_small_detection": 0,
+    "support_tiny_detection": 0,
+    "use_basetracking_for_tracking": 0,
+    "use_detect_for_tracking": 0,
+    "use_linear_upsample": 0,
+    "use_old_detect_mode": 1
+  }
+}

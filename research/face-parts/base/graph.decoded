@@ -1,0 +1,82 @@
+B
+1 79 1607162243
+DataV2 data 1 120 120 3 2 6 0
+Convolution conv1.0 16 4 4 4 4 0 0 1 1 2 10 4 16 2 6 data conv1.0
+Slice 1022_1023 conv1.0 1 1 8 2 1022 6 1023 7 
+Convolution block1.conv1.0 16 1 1 1 1 0 0 1 1 2 9 4 16 2 7 1023 block1.conv1.0
+DepthwiseSeparableConvolution block1.conv2.0 16 3 3 1 1 1 1 1 1 2 8 4 15 2 6 block1.conv1.0 block1.conv2.0
+Convolution block1.conv3.0 8 1 1 1 1 0 0 1 0 2 10 4 16 2 7 block1.conv2.0 block1.conv3.0
+ShuffleNet 1065_1066 2 1022 block1.conv3.0 4 2 1065 7 1066 6 
+Convolution block2.conv1.0 16 1 1 1 1 0 0 1 1 2 11 4 17 2 7 1066 block2.conv1.0
+DepthwiseSeparableConvolution block2.conv2.0 16 3 3 2 2 1 1 1 1 2 11 4 18 2 8 block2.conv1.0 block2.conv2.0
+Convolution block2.conv3.0 16 1 1 1 1 0 0 1 0 2 9 4 17 2 7 block2.conv2.0 block2.conv3.0
+Convolution block2.conv4.0 16 1 1 1 1 0 0 1 1 2 7 4 14 2 7 1065 block2.conv4.0
+DepthwiseSeparableConvolution block2.conv5.0 16 3 3 2 2 1 1 1 1 2 9 4 16 2 7 block2.conv4.0 block2.conv5.0
+Convolution block2.conv6.0 16 1 1 1 1 0 0 1 0 2 10 4 17 2 7 block2.conv5.0 block2.conv6.0
+ShuffleNet 1128_1129 2 block2.conv6.0 block2.conv3.0 4 2 1128 7 1129 7 
+Convolution stack0.0.conv1.0 32 1 1 1 1 0 0 1 1 2 10 4 17 2 8 1129 stack0.0.conv1.0
+DepthwiseSeparableConvolution stack0.0.conv2.0 32 3 3 1 1 1 1 1 1 2 7 4 15 2 8 stack0.0.conv1.0 stack0.0.conv2.0
+Convolution stack0.0.conv3.0 16 1 1 1 1 0 0 1 0 2 10 4 18 2 8 stack0.0.conv2.0 stack0.0.conv3.0
+ShuffleNet 1171_1172 2 1128 stack0.0.conv3.0 4 2 1171 8 1172 7 
+Convolution stack0.1.conv1.0 32 1 1 1 1 0 0 1 1 2 12 4 19 2 8 1172 stack0.1.conv1.0
+DepthwiseSeparableConvolution stack0.1.conv2.0 32 3 3 1 1 1 1 1 1 2 9 4 17 2 8 stack0.1.conv1.0 stack0.1.conv2.0
+Convolution stack0.1.conv3.0 16 1 1 1 1 0 0 1 0 2 10 4 18 2 7 stack0.1.conv2.0 stack0.1.conv3.0
+ShuffleNet 1214_1215 2 1171 stack0.1.conv3.0 4 2 1214 7 1215 8 
+Convolution block5.conv1.0 32 1 1 1 1 0 0 1 1 2 11 4 19 2 8 1215 block5.conv1.0
+DepthwiseSeparableConvolution block5.conv2.0 32 3 3 2 2 1 1 1 1 2 10 4 18 2 8 block5.conv1.0 block5.conv2.0
+Convolution block5.conv3.0 32 1 1 1 1 0 0 1 0 2 10 4 18 2 7 block5.conv2.0 block5.conv3.0
+Convolution block5.conv4.0 32 1 1 1 1 0 0 1 1 2 11 4 18 2 8 1214 block5.conv4.0
+DepthwiseSeparableConvolution block5.conv5.0 32 3 3 2 2 1 1 1 1 2 10 4 18 2 8 block5.conv4.0 block5.conv5.0
+Convolution block5.conv6.0 32 1 1 1 1 0 0 1 0 2 9 4 17 2 7 block5.conv5.0 block5.conv6.0
+ShuffleNet 1277_1278 2 block5.conv6.0 block5.conv3.0 4 2 1277 8 1278 7 
+Convolution stack1.0.conv1.0 64 1 1 1 1 0 0 1 1 2 12 4 19 2 8 1278 stack1.0.conv1.0
+DepthwiseSeparableConvolution stack1.0.conv2.0 64 3 3 1 1 1 1 1 1 2 9 4 17 2 8 stack1.0.conv1.0 stack1.0.conv2.0
+Convolution stack1.0.conv3.0 32 1 1 1 1 0 0 1 0 2 10 4 18 2 8 stack1.0.conv2.0 stack1.0.conv3.0
+ShuffleNet 1320_1321 2 1277 stack1.0.conv3.0 4 2 1320 8 1321 8 
+Convolution stack1.1.conv1.0 64 1 1 1 1 0 0 1 1 2 12 4 20 2 8 1321 stack1.1.conv1.0
+DepthwiseSeparableConvolution stack1.1.conv2.0 64 3 3 1 1 1 1 1 1 2 8 4 16 2 8 stack1.1.conv1.0 stack1.1.conv2.0
+Convolution stack1.1.conv3.0 32 1 1 1 1 0 0 1 0 2 10 4 18 2 8 stack1.1.conv2.0 stack1.1.conv3.0
+ShuffleNet 1363_1364 2 1320 stack1.1.conv3.0 4 2 1363 8 1364 8 
+Convolution block8.conv1.0 64 1 1 1 1 0 0 1 1 2 11 4 19 2 8 1364 block8.conv1.0
+DepthwiseSeparableConvolution block8.conv2.0 64 3 3 2 2 1 1 1 1 2 8 4 16 2 9 block8.conv1.0 block8.conv2.0
+Convolution block8.conv3.0 64 1 1 1 1 0 0 1 0 2 9 4 18 2 8 block8.conv2.0 block8.conv3.0
+Convolution block8.conv4.0 64 1 1 1 1 0 0 1 1 2 11 4 19 2 8 1363 block8.conv4.0
+DepthwiseSeparableConvolution block8.conv5.0 64 3 3 2 2 1 1 1 1 2 8 4 16 2 8 block8.conv4.0 block8.conv5.0
+Convolution block8.conv6.0 64 1 1 1 1 0 0 1 0 2 9 4 17 2 7 block8.conv5.0 block8.conv6.0
+ShuffleNet 1426_1427 2 block8.conv6.0 block8.conv3.0 4 2 1426 7 1427 8 
+Convolution stack2.0.conv1.0 128 1 1 1 1 0 0 1 1 2 12 4 20 2 9 1427 stack2.0.conv1.0
+DepthwiseSeparableConvolution stack2.0.conv2.0 128 3 3 1 1 1 1 1 1 2 9 4 18 2 8 stack2.0.conv1.0 stack2.0.conv2.0
+Convolution stack2.0.conv3.0 64 1 1 1 1 0 0 1 0 2 10 4 18 2 8 stack2.0.conv2.0 stack2.0.conv3.0
+ShuffleNet 1469_1470 2 1426 stack2.0.conv3.0 4 2 1469 7 1470 8 
+Convolution stack2.1.conv1.0 128 1 1 1 1 0 0 1 1 2 12 4 20 2 9 1470 stack2.1.conv1.0
+DepthwiseSeparableConvolution stack2.1.conv2.0 128 3 3 1 1 1 1 1 1 2 7 4 16 2 8 stack2.1.conv1.0 stack2.1.conv2.0
+Convolution stack2.1.conv3.0 64 1 1 1 1 0 0 1 0 2 11 4 19 2 8 stack2.1.conv2.0 stack2.1.conv3.0
+ShuffleNet 1512_1513 2 1469 stack2.1.conv3.0 4 2 1512 7 1513 8 
+Convolution stack2.2.conv1.0 128 1 1 1 1 0 0 1 1 2 12 4 20 2 9 1513 stack2.2.conv1.0
+DepthwiseSeparableConvolution stack2.2.conv2.0 128 3 3 1 1 1 1 1 1 2 8 4 17 2 8 stack2.2.conv1.0 stack2.2.conv2.0
+Convolution stack2.2.conv3.0 64 1 1 1 1 0 0 1 0 2 9 4 17 2 7 stack2.2.conv2.0 stack2.2.conv3.0
+ShuffleNet 1555_1556 2 1512 stack2.2.conv3.0 4 2 1555 7 1556 8 
+Convolution stack2.3.conv1.0 128 1 1 1 1 0 0 1 1 2 11 4 19 2 9 1556 stack2.3.conv1.0
+DepthwiseSeparableConvolution stack2.3.conv2.0 128 3 3 1 1 1 1 1 1 2 8 4 17 2 9 stack2.3.conv1.0 stack2.3.conv2.0
+Convolution stack2.3.conv3.0 64 1 1 1 1 0 0 1 0 2 8 4 17 2 7 stack2.3.conv2.0 stack2.3.conv3.0
+ShuffleNet 1598_1599 2 1555 stack2.3.conv3.0 4 2 1598 7 1599 8 
+Convolution stack2.4.conv1.0 128 1 1 1 1 0 0 1 1 2 11 4 19 2 9 1599 stack2.4.conv1.0
+DepthwiseSeparableConvolution stack2.4.conv2.0 128 3 3 1 1 1 1 1 1 2 8 4 17 2 8 stack2.4.conv1.0 stack2.4.conv2.0
+Convolution stack2.4.conv3.0 64 1 1 1 1 0 0 1 0 2 8 4 16 2 7 stack2.4.conv2.0 stack2.4.conv3.0
+ShuffleNet 1641_1642 2 1598 stack2.4.conv3.0 4 2 1641 7 1642 8 
+Convolution stack2.5.conv1.0 128 1 1 1 1 0 0 1 1 2 11 4 19 2 9 1642 stack2.5.conv1.0
+DepthwiseSeparableConvolution stack2.5.conv2.0 128 3 3 1 1 1 1 1 1 2 8 4 17 2 8 stack2.5.conv1.0 stack2.5.conv2.0
+Convolution stack2.5.conv3.0 64 1 1 1 1 0 0 1 0 2 8 4 16 2 6 stack2.5.conv2.0 stack2.5.conv3.0
+ShuffleNet 1684_1685 2 1641 stack2.5.conv3.0 4 2 1684 6 1685 8 
+Convolution stack2.6.conv1.0 128 1 1 1 1 0 0 1 1 2 12 4 20 2 9 1685 stack2.6.conv1.0
+DepthwiseSeparableConvolution stack2.6.conv2.0 128 3 3 1 1 1 1 1 1 2 8 4 17 2 9 stack2.6.conv1.0 stack2.6.conv2.0
+Convolution stack2.6.conv3.0 64 1 1 1 1 0 0 1 0 2 7 4 16 2 6 stack2.6.conv2.0 stack2.6.conv3.0
+Concat stack2.6.concate 2 1684 stack2.6.conv3.0 stack2.6.concate 2 6
+Shuffle stack2.6.shuffle_channels 4 2 stack2.6.concate stack2.6.shuffle_channels
+PoolingDown 1722 4 4 1 1 0 0 4 0 AVE stack2.6.shuffle_channels 1722 GLOBAL 
+Reshape 1723 1 1 1 128 1722 1723
+Convolution fc_classification 3 1 1 1 1 0 0 1 0 4 0 4 0 4 0 1723 fc_classification
+Softmax prob fc_classification prob
+Convolution fc_landmark_s1 212 1 1 1 1 0 0 1 0 4 0 4 0 4 0 1723 fc_landmark_s1
+Convolution fc_pitch 1 1 1 1 1 0 0 1 0 4 0 4 0 4 0 1723 fc_pitch
+Convolution fc_yaw 1 1 1 1 1 0 0 1 0 4 0 4 0 4 0 1723 fc_yaw

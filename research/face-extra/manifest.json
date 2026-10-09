@@ -1,0 +1,58 @@
+{
+  "name": "tt_fsnew_extramask_v16.6",
+  "sha256": "75c7e11b1a71120c1994917f2c57cc29bb3c6a91a39907f88f68c3676c7a9d1b",
+  "entries": [
+    {
+      "name": "extra",
+      "graph_bytes": 18782,
+      "weights_bytes": 372984,
+      "graph_checksum": 3349007588,
+      "weights_checksum": 541178430,
+      "graph_sha256": "7938cfc3abdb0934cfe28353561963b2118f3bf3e439835d86339d4d98f05f85",
+      "weights_sha256": "84e987cd3155af712ee6c3bef905f82fbfeaf718007509321f429626163c7b9d"
+    },
+    {
+      "name": "iris",
+      "graph_bytes": 3545,
+      "weights_bytes": 22324,
+      "graph_checksum": 371463689,
+      "weights_checksum": 1583358532,
+      "graph_sha256": "d3d65bdc1ad0358dffef0dc30c902afb8968c637baa7f52b58c038dc7b2e36eb",
+      "weights_sha256": "4e15768c75b4c4f99c81226cf7e4b5f197bd964a90743b2129042db465243f5b"
+    },
+    {
+      "name": "mask",
+      "graph_bytes": 18978,
+      "weights_bytes": 249900,
+      "graph_checksum": 2233213235,
+      "weights_checksum": 2683363916,
+      "graph_sha256": "4a4912734596c69133bc77f89832b26529447150f56ab438d7e91d4053d52d00",
+      "weights_sha256": "8feb90381d7e76bbff397366309d93858d3c766b37fb00c966607daf389ecc3a"
+    },
+    {
+      "name": "extra_config",
+      "graph_bytes": 2300,
+      "weights_bytes": 0,
+      "graph_checksum": 3711218006,
+      "weights_checksum": 1315423911,
+      "graph_sha256": "4749d85b3e5b1643d5a5ee48f2702c16692ac5e96678ad02973e682eae91f8fa",
+      "weights_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "mean_face_mask",
+      "graph_bytes": 1,
+      "weights_bytes": 852,
+      "graph_checksum": 2935291933,
+      "weights_checksum": 2303381648,
+      "graph_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "weights_sha256": "a161e8ed93d3a63d41790effaa33bfb56e7780f287999a79aa395a08944d71e5"
+    }
+  ],
+  "parameters": {
+    "enable_extra_mask_model": 1,
+    "enable_mouth_smooth": 0,
+    "extra_model_version": 20230427,
+    "extra_type": 1,
+    "iris_type": 1
+  }
+}

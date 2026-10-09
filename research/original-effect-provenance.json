@@ -1,0 +1,2164 @@
+{
+  "effect_id": "2420270134",
+  "name": "BOY II",
+  "creator": "dikdikz7",
+  "resource_id": "7508786888774259217",
+  "api_path": "https://www.tiktok.com/api/effect/detail/?sticker_ids=2420270134",
+  "archive_url": "https://lf16-effectcdn-sg.tiktokcdn.com/obj/ies.fe.effect.alisg/bccbefabc0ff09f12e3954f857d04b4a",
+  "archive_bytes": 536589,
+  "sha256": "f4948df5107318bb00a36ad1aad9dc0a07b0acbeeff75a3adea8475b52b0b5c2",
+  "effect_house_version": "4.14.2",
+  "members": [
+    {
+      "path": "AmazingFeature/content.json",
+      "bytes": 133,
+      "sha256": "ab0e4fa15e531fd70b79e3134cd9e0aed8705593cf93b7af12a325cf73857ef9"
+    },
+    {
+      "path": "AmazingFeature/customAssets.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "AmazingFeature/settings.json",
+      "bytes": 3683,
+      "sha256": "97265d03c3a64e1ce8ca086822dbf6aadb582e66a6ce64e44c02891315c7360e"
+    },
+    {
+      "path": "AmazingFeature/sticker.config",
+      "bytes": 473,
+      "sha256": "d20e0dbbe3d9a4186260ef303fc2dfdd8c51994b3b48d9e1095f6deb70b0daad"
+    },
+    {
+      "path": "AmazingFeature/assetManifest.json",
+      "bytes": 31513,
+      "sha256": "da7867e5650fc6243156fb677cc9fc3e129107f7aa82b673d2ba0eb0c29ff7d7"
+    },
+    {
+      "path": "AmazingFeature/main.scene",
+      "bytes": 12985,
+      "sha256": "cda4fd97c28b9dfe87bdba97d217f9d51be55d93a82243563156a5fcd6d90a1e"
+    },
+    {
+      "path": "AmazingFeature/resourceMap.json",
+      "bytes": 1129,
+      "sha256": "908310ca368d2f6924696ef4e17f144be816b8bab912ebf7e147020f9d792bf2"
+    },
+    {
+      "path": "AmazingFeature/material/6577977691872761387-11788480738391602349.material",
+      "bytes": 1290,
+      "sha256": "8ccfebb6a5bfc438290e43af07eee06158f340b30330e0c6c4013b932720cc44"
+    },
+    {
+      "path": "AmazingFeature/material/2254455536104543969-17831254263241108153.material",
+      "bytes": 850,
+      "sha256": "2962662d5dc2a6a38291014dbc636ea34d95c851ad96d1da461bccc2a7cd7403"
+    },
+    {
+      "path": "AmazingFeature/material/3189800632738344780-6453769906042368920.material",
+      "bytes": 983,
+      "sha256": "f58223ce32ee613e0cc4dd643974e2bf25bacf93355031db3a83c632e5e68655"
+    },
+    {
+      "path": "AmazingFeature/material/2182100737483995953-3722931407024389541.material",
+      "bytes": 1289,
+      "sha256": "c712b0e1bcbde68db65e18bb388041d7c4b907b795174256e2704c4d165033fd"
+    },
+    {
+      "path": "AmazingFeature/material/9892852238160119911-9322003864237130136.material",
+      "bytes": 850,
+      "sha256": "1a1f75ffe00ffffc33389d5000b2377d6ffdd89dbde46bfa77fbcfb198532d75"
+    },
+    {
+      "path": "AmazingFeature/material/9819680139279140502-283041979229625528.material",
+      "bytes": 850,
+      "sha256": "c8308a0aca49bbdcda368352b21b38e7e8210e3d114618c4ec1cf2f244fb139c"
+    },
+    {
+      "path": "AmazingFeature/material/10539801411038607844-1585591034811296922.material",
+      "bytes": 853,
+      "sha256": "a120c1f451570ede5647752cc41307e6f1d3c06878821d27db7ed74f2cac35f7"
+    },
+    {
+      "path": "AmazingFeature/material/7803388497303172489-5269590624638209957.material",
+      "bytes": 1290,
+      "sha256": "1c598d03a3ed56c063052ce6d5bc8a80401ceaade5877484a71bdd4f759a0f28"
+    },
+    {
+      "path": "AmazingFeature/skinunified/.DS_Store",
+      "bytes": 8196,
+      "sha256": "cc8da569f4843a0810e3fa56e6989a6d7543288e2435c7c7dd1e68b717eb54fb"
+    },
+    {
+      "path": "AmazingFeature/skinunified/gan.material",
+      "bytes": 913,
+      "sha256": "3904dc65b969c12061de9d8aef328e0cccde728e94d242aa9f0ff6a9ae9b6188"
+    },
+    {
+      "path": "AmazingFeature/skinunified/12341865156699220881-14478031588737750418.xshader",
+      "bytes": 4645,
+      "sha256": "62285e1e7f65fa0857408af0116ee7f1c3e5ee76912d9b32d6dd45d1e36b9bea"
+    },
+    {
+      "path": "AmazingFeature/skinunified/ganmask.png.meta",
+      "bytes": 372,
+      "sha256": "e85ec9f6ee63cde7c9d04c48be79221855d8d0d3a6113fae35009f2e22120d6e"
+    },
+    {
+      "path": "AmazingFeature/skinunified/12340403390842748300-6662108720675243170.xshader",
+      "bytes": 1871,
+      "sha256": "3e95d538431b2654f83dd6b2037a51d1e4478fef5aa95749870339278c4cbf7a"
+    },
+    {
+      "path": "AmazingFeature/skinunified/ganmask.png",
+      "bytes": 2796,
+      "sha256": "f9e1f2c2e4007959e9e37bc08026f14b985ad64323b96cadc0ce148a815f57c5"
+    },
+    {
+      "path": "AmazingFeature/skinunified/skinunified.js",
+      "bytes": 5364,
+      "sha256": "b86466d6cd1044bf45f9241f1ef61757d8db87e7c918ad2c915b61ce6665609e"
+    },
+    {
+      "path": "AmazingFeature/skinunified/shaderHLSL5/f6b6dfb8a5768ba3d18c52c1ddfab413.vert",
+      "bytes": 861,
+      "sha256": "c6e359e1091a7964b7d1f043e7e77b09458379fb1acc667bc61e4155476270e2"
+    },
+    {
+      "path": "AmazingFeature/skinunified/shaderHLSL5/f6b6dfb8a5768ba3d18c52c1ddfab413.frag",
+      "bytes": 803,
+      "sha256": "434083df114f025d1bcb4cf6ba32b792462d33247d394aba756ab930a089be4b"
+    },
+    {
+      "path": "AmazingFeature/skinunified/shaderGLES/f6b6dfb8a5768ba3d18c52c1ddfab413.vert",
+      "bytes": 257,
+      "sha256": "293029fc2a269824f2179b20d1289323e33e9e72202b518fe57526eb485cc8a4"
+    },
+    {
+      "path": "AmazingFeature/skinunified/shaderGLES/f6b6dfb8a5768ba3d18c52c1ddfab413.frag",
+      "bytes": 439,
+      "sha256": "772fd122d6ea9210a2a317d4332eea2029a1e1f7aa1706aae006cad0e7fec4cd"
+    },
+    {
+      "path": "AmazingFeature/skinunified/shaderVulkan/f6b6dfb8a5768ba3d18c52c1ddfab413.vert",
+      "bytes": 331,
+      "sha256": "38eebee72aff97f392c8aefded431e372ccf83ed29aec9d9a9455ec990b24498"
+    },
+    {
+      "path": "AmazingFeature/skinunified/shaderVulkan/f6b6dfb8a5768ba3d18c52c1ddfab413.frag",
+      "bytes": 453,
+      "sha256": "b3c29f3cb5c788812b9fa2db236559331c13e32686fd2fd84a850a2cb4609cac"
+    },
+    {
+      "path": "AmazingFeature/skinunified/shaderMetal/f6b6dfb8a5768ba3d18c52c1ddfab413.vert",
+      "bytes": 651,
+      "sha256": "c1a38327f43fe602e89b631b58f727171efd33de217fcec250342b90e187ba64"
+    },
+    {
+      "path": "AmazingFeature/skinunified/shaderMetal/f6b6dfb8a5768ba3d18c52c1ddfab413.frag",
+      "bytes": 726,
+      "sha256": "4fc87cfe1877a43886fe2e5d2e5eca6816420787e2719bec25ac38554eb4d99e"
+    },
+    {
+      "path": "AmazingFeature/texture/14721824955981598186-9582924473130741695.png.meta",
+      "bytes": 389,
+      "sha256": "a97b3290b931e5858c4479b29b9fecdbf706e1a58804fad69359b83305f6bd04"
+    },
+    {
+      "path": "AmazingFeature/texture/6433433967240549823-4300858515373496193.png.meta",
+      "bytes": 389,
+      "sha256": "8bc84b8d516e38ae6c81c2f598b411bb290ffb41bf5fdae410d18d96b839d015"
+    },
+    {
+      "path": "AmazingFeature/texture/4415129028110280169-9668386161258049457.png",
+      "bytes": 11828,
+      "sha256": "52be806f5be95a9734912719ef612199dec3a4c8b40e48e88c5e0cb5b060ee0d"
+    },
+    {
+      "path": "AmazingFeature/texture/4921093628064734880-6255301141957278347.png.meta",
+      "bytes": 389,
+      "sha256": "902f4ac6d3d5d189fd4fe2bed7596d5799fe54eb9358de7a6631c6d92fcaa1cb"
+    },
+    {
+      "path": "AmazingFeature/texture/8089989799668825771-5578589686468603062.png.meta",
+      "bytes": 389,
+      "sha256": "a905ef9c3e436d02e48c939e68f600e286995ce2de17ab99c485bf48d5d06f28"
+    },
+    {
+      "path": "AmazingFeature/texture/15945133530777548137-273497834035444405.png.meta",
+      "bytes": 389,
+      "sha256": "95032feabc5f51338c3738bce26b30f3f93d7dbbbfc1f40a3b27b11fe055fab7"
+    },
+    {
+      "path": "AmazingFeature/texture/14721824955981598186-9582924473130741695.png",
+      "bytes": 3542,
+      "sha256": "9d09ebf5205c911427cddc1cd6a91479ad171e046e1baaa01777eedebf941306"
+    },
+    {
+      "path": "AmazingFeature/texture/8089989799668825771-5578589686468603062.png",
+      "bytes": 33542,
+      "sha256": "92e4e6b5347c381bba020c7a5f53d607b133a742e21258b1697b30aeff5f2b52"
+    },
+    {
+      "path": "AmazingFeature/texture/14216455183704033883-13690593557918397057.png.meta",
+      "bytes": 389,
+      "sha256": "fd0a8e3bd9427561b7687dedf9092761181d75a7b1b5b069997dbb848fd409db"
+    },
+    {
+      "path": "AmazingFeature/texture/4921093628064734880-6255301141957278347.png",
+      "bytes": 11317,
+      "sha256": "d86ea27294b4389ad44d94e76bc9155dcde4ff67259b3a96a463bc1bcbc1ff7e"
+    },
+    {
+      "path": "AmazingFeature/texture/15945133530777548137-273497834035444405.png",
+      "bytes": 17723,
+      "sha256": "d7f297e93d457202ce66c6aea46d7cc387f7d75fdef2f56408f00f337dff4dbc"
+    },
+    {
+      "path": "AmazingFeature/texture/6433433967240549823-4300858515373496193.png",
+      "bytes": 10932,
+      "sha256": "7f8c0b5cbd70c3b3fe23ccee1a5b809414b72548b02636e838442e36a3dbb5d1"
+    },
+    {
+      "path": "AmazingFeature/texture/4415129028110280169-9668386161258049457.png.meta",
+      "bytes": 389,
+      "sha256": "b8f61890198048ec96db34f41030d8fa24f3a9a7537b502ba0eb1ff35123c349"
+    },
+    {
+      "path": "AmazingFeature/texture/4559967011286989027-13745227613691769988.png.meta",
+      "bytes": 389,
+      "sha256": "e4dac8423979d3527612a141550777387d8ab6e1a1b008e0536ac58f020f8e32"
+    },
+    {
+      "path": "AmazingFeature/texture/1823516777907017010-15901366735133081223.png",
+      "bytes": 12169,
+      "sha256": "49d2e975e4b808e65cb90649ec7d72082ea0c93e33a9cb55bf7d65e4b4b08f7b"
+    },
+    {
+      "path": "AmazingFeature/texture/14216455183704033883-13690593557918397057.png",
+      "bytes": 233083,
+      "sha256": "99a996c357e2a9707e42b45a48b83396ca8cd539503561ed7166189355e1a8e1"
+    },
+    {
+      "path": "AmazingFeature/texture/4559967011286989027-13745227613691769988.png",
+      "bytes": 87,
+      "sha256": "50c3fe208f882e775734b8c6ea48d512aab1fd8b4e9e6249624527a5de52199f"
+    },
+    {
+      "path": "AmazingFeature/texture/1823516777907017010-15901366735133081223.png.meta",
+      "bytes": 389,
+      "sha256": "5cc3fc026a6590faba7099fff34f4cb9d21b7615905e805b84c6d35061b7aa6c"
+    },
+    {
+      "path": "AmazingFeature/model/3189927803139804916-727998476918625172.mesh",
+      "bytes": 54050,
+      "sha256": "a6af7008425d8b46b34058d89eaa8218d9e6dacba54f0c80998bc37d42392be2"
+    },
+    {
+      "path": "AmazingFeature/model/15298389979568976405-6133511378928852657.mesh",
+      "bytes": 54050,
+      "sha256": "df4cc11ecdfbc1b422fa7f07bf4cfb61bad7bb5e8a0dede2dd64c1e476b64cf7"
+    },
+    {
+      "path": "AmazingFeature/model/8305677783335965474-13064040672492298121.mesh",
+      "bytes": 54050,
+      "sha256": "2adfca377d249c13378b7a98e474e5da5ea1f81f167938ef7823da830b758e38"
+    },
+    {
+      "path": "AmazingFeature/model/12700175322249611987-5891583894714228915.mesh",
+      "bytes": 54050,
+      "sha256": "c2fabd5b1f1bfc25b9ea44d9299e56b96b980fbb9b36fa7d4c0c5a1aa7517baf"
+    },
+    {
+      "path": "AmazingFeature/rt/10106382247339743399-12919527998807600042.rt",
+      "bytes": 618,
+      "sha256": "cda9b37c13dbd81fb729dd46b407228e086c4fbe2a1bfbb5fd83d1e04a18b93b"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/18aa2e78e09460a47bd8af92868deb79/shaderGLES/52fc8af34612ce514e8dab56d8602434.frag",
+      "bytes": 1244,
+      "sha256": "7766025ad8ca09047fd98984726f3d6026dabd9cd872704641c856e526edffa7"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/18aa2e78e09460a47bd8af92868deb79/shaderGLES/7bafe855fa79d2286a44fce20d7f5f5a.vert",
+      "bytes": 489,
+      "sha256": "73244043d7b3f75d5bccfc6cd432743dae6c5aa3f9de4ecdb17c3bb5df881d80"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/18aa2e78e09460a47bd8af92868deb79/shaderGLES/52fc8af34612ce514e8dab56d8602434.vert",
+      "bytes": 489,
+      "sha256": "73244043d7b3f75d5bccfc6cd432743dae6c5aa3f9de4ecdb17c3bb5df881d80"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/18aa2e78e09460a47bd8af92868deb79/shaderGLES/7bafe855fa79d2286a44fce20d7f5f5a.frag",
+      "bytes": 828,
+      "sha256": "f7a798fd853003c3350d96b13bd6ba494d134ef6e08986b4a7510d2b74c7e2f9"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/18aa2e78e09460a47bd8af92868deb79/shaderMetal/52fc8af34612ce514e8dab56d8602434.frag",
+      "bytes": 1142,
+      "sha256": "0299ca554a945a4a5e2f9665646059553f4f1fcf5ecb59d01d892831fa778e07"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/18aa2e78e09460a47bd8af92868deb79/shaderMetal/7bafe855fa79d2286a44fce20d7f5f5a.vert",
+      "bytes": 871,
+      "sha256": "38ffdb37ee783d2ae6f702acc87b949bedc2a0c70b869927b01304b51ec6b1e3"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/18aa2e78e09460a47bd8af92868deb79/shaderMetal/52fc8af34612ce514e8dab56d8602434.vert",
+      "bytes": 871,
+      "sha256": "38ffdb37ee783d2ae6f702acc87b949bedc2a0c70b869927b01304b51ec6b1e3"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/18aa2e78e09460a47bd8af92868deb79/shaderMetal/7bafe855fa79d2286a44fce20d7f5f5a.frag",
+      "bytes": 1142,
+      "sha256": "48ee65c3d8ce1de06c8108d0aa969804cb19a0cac6a96d831b34d909133a28e5"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/2358215817041d9b8192b2393016fb4a/shaderGLES/c957f27c8a07dcef56a4acb0352daa55.frag",
+      "bytes": 2102,
+      "sha256": "b0dcd9ee1445532cade2fb942d74407bb1f055c09f1fba4b53695e734f2867f2"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/2358215817041d9b8192b2393016fb4a/shaderGLES/7bafe855fa79d2286a44fce20d7f5f5a.vert",
+      "bytes": 489,
+      "sha256": "73244043d7b3f75d5bccfc6cd432743dae6c5aa3f9de4ecdb17c3bb5df881d80"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/2358215817041d9b8192b2393016fb4a/shaderGLES/c957f27c8a07dcef56a4acb0352daa55.vert",
+      "bytes": 489,
+      "sha256": "73244043d7b3f75d5bccfc6cd432743dae6c5aa3f9de4ecdb17c3bb5df881d80"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/2358215817041d9b8192b2393016fb4a/shaderGLES/7bafe855fa79d2286a44fce20d7f5f5a.frag",
+      "bytes": 1699,
+      "sha256": "65a43ea396767504bbe9f89ed38b2db3c138dc06ebe59a1edb7704d60bb04677"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/2358215817041d9b8192b2393016fb4a/shaderMetal/c957f27c8a07dcef56a4acb0352daa55.frag",
+      "bytes": 1972,
+      "sha256": "91f399f8482dac1ba243c9d996aabfe71c91f8cfdfc56057a37220246f28728a"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/2358215817041d9b8192b2393016fb4a/shaderMetal/7bafe855fa79d2286a44fce20d7f5f5a.vert",
+      "bytes": 871,
+      "sha256": "38ffdb37ee783d2ae6f702acc87b949bedc2a0c70b869927b01304b51ec6b1e3"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/2358215817041d9b8192b2393016fb4a/shaderMetal/c957f27c8a07dcef56a4acb0352daa55.vert",
+      "bytes": 871,
+      "sha256": "38ffdb37ee783d2ae6f702acc87b949bedc2a0c70b869927b01304b51ec6b1e3"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/2358215817041d9b8192b2393016fb4a/shaderMetal/7bafe855fa79d2286a44fce20d7f5f5a.frag",
+      "bytes": 2118,
+      "sha256": "39bc556c2dbc27af2a4c383d4df4cc85e6c1372cd9c7f77b3d074d6c33c339c3"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/c957f27c8a07dcef56a4acb0352daa55.frag",
+      "bytes": 3057,
+      "sha256": "79e2e68e9864b794876aad1cd0519f554338936c9f1b640a507338d21d71ebdc"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/6ed59e4aa2be16af36f29f4043bdda9a.frag",
+      "bytes": 880,
+      "sha256": "92e49aa0bc56bfd56e616d0f057daaf28a8b4d01717c5fee782464bd0fab9e7a"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/52fc8af34612ce514e8dab56d8602434.frag",
+      "bytes": 702,
+      "sha256": "c02ff94706321b80e6c2f719cd1053b46d795ecca20aef896c88baad8216dafb"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/885a4e36c17b9aa23a9da131dcf65c1c.frag",
+      "bytes": 4009,
+      "sha256": "cb42f03be0bc8b4e92c442e8323976f65857b1d23da17d54122df4b517dd71c7"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/c98150ef0b58500674da7e01cea0313c.frag",
+      "bytes": 1279,
+      "sha256": "2985164ac1a773c28e83a3c4a5351d83ff537ab1b4fe3a83ead1bf317ce87eb0"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/9b5a7ffa4ce1ab8a8a54cd2fcab2c7a9.vert",
+      "bytes": 283,
+      "sha256": "ae1870aafe6aea8f1f2b52341778cfe9b48c9d6ce1db7ecc2171466762a9ded8"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/7bafe855fa79d2286a44fce20d7f5f5a.vert",
+      "bytes": 283,
+      "sha256": "ae1870aafe6aea8f1f2b52341778cfe9b48c9d6ce1db7ecc2171466762a9ded8"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/e6cd35d477460ba500ac9e2281d453ce.vert",
+      "bytes": 283,
+      "sha256": "ae1870aafe6aea8f1f2b52341778cfe9b48c9d6ce1db7ecc2171466762a9ded8"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/c98150ef0b58500674da7e01cea0313c.vert",
+      "bytes": 283,
+      "sha256": "ae1870aafe6aea8f1f2b52341778cfe9b48c9d6ce1db7ecc2171466762a9ded8"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/885a4e36c17b9aa23a9da131dcf65c1c.vert",
+      "bytes": 283,
+      "sha256": "ae1870aafe6aea8f1f2b52341778cfe9b48c9d6ce1db7ecc2171466762a9ded8"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/52fc8af34612ce514e8dab56d8602434.vert",
+      "bytes": 283,
+      "sha256": "ae1870aafe6aea8f1f2b52341778cfe9b48c9d6ce1db7ecc2171466762a9ded8"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/6ed59e4aa2be16af36f29f4043bdda9a.vert",
+      "bytes": 283,
+      "sha256": "ae1870aafe6aea8f1f2b52341778cfe9b48c9d6ce1db7ecc2171466762a9ded8"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/c957f27c8a07dcef56a4acb0352daa55.vert",
+      "bytes": 283,
+      "sha256": "ae1870aafe6aea8f1f2b52341778cfe9b48c9d6ce1db7ecc2171466762a9ded8"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/e6cd35d477460ba500ac9e2281d453ce.frag",
+      "bytes": 3456,
+      "sha256": "7fd2600a9ae9fed1680b0943b4bb8db8a9cdea0f718e133705252a85b74bc1cb"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/7bafe855fa79d2286a44fce20d7f5f5a.frag",
+      "bytes": 303,
+      "sha256": "695bff520b4cb38eb81fbbd4e00ed48578985853e14984384ea0e54b89f49115"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderGLES/9b5a7ffa4ce1ab8a8a54cd2fcab2c7a9.frag",
+      "bytes": 3610,
+      "sha256": "d94b3714a19c08c0475fbd0d7bd2b9a88a8baa9e47369d3cfaa3f14801def76e"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/c957f27c8a07dcef56a4acb0352daa55.frag",
+      "bytes": 3362,
+      "sha256": "0870b5ebdcbbbcf788cf784e7fae2aea84c42c3f14bab7a4a5362052749ba79a"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/6ed59e4aa2be16af36f29f4043bdda9a.frag",
+      "bytes": 1179,
+      "sha256": "675b03168441e74a15c96ff60a2655d0996eb3313ca9aa70fc32c6704001d6ac"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/52fc8af34612ce514e8dab56d8602434.frag",
+      "bytes": 264,
+      "sha256": "02ef8402a503bbd572df65d2c4f58a43008b7ada4189b60ae4777279ecf18291"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/885a4e36c17b9aa23a9da131dcf65c1c.frag",
+      "bytes": 3806,
+      "sha256": "69993cbdc097126e089722afeeeb00c8b44f52d6f0573ef238210c687799b699"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/c98150ef0b58500674da7e01cea0313c.frag",
+      "bytes": 981,
+      "sha256": "99486502b5188a46318ad5b9c260458bfb892ecf34184a7d7b8e489b24257f33"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/9b5a7ffa4ce1ab8a8a54cd2fcab2c7a9.vert",
+      "bytes": 575,
+      "sha256": "e795b6bcd8cacce275b32fc7e71846a8ecfc6d6ef8492458fa998015acbfae9b"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/7bafe855fa79d2286a44fce20d7f5f5a.vert",
+      "bytes": 575,
+      "sha256": "e795b6bcd8cacce275b32fc7e71846a8ecfc6d6ef8492458fa998015acbfae9b"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/e6cd35d477460ba500ac9e2281d453ce.vert",
+      "bytes": 575,
+      "sha256": "e795b6bcd8cacce275b32fc7e71846a8ecfc6d6ef8492458fa998015acbfae9b"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/c98150ef0b58500674da7e01cea0313c.vert",
+      "bytes": 575,
+      "sha256": "e795b6bcd8cacce275b32fc7e71846a8ecfc6d6ef8492458fa998015acbfae9b"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/885a4e36c17b9aa23a9da131dcf65c1c.vert",
+      "bytes": 575,
+      "sha256": "e795b6bcd8cacce275b32fc7e71846a8ecfc6d6ef8492458fa998015acbfae9b"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/52fc8af34612ce514e8dab56d8602434.vert",
+      "bytes": 575,
+      "sha256": "e795b6bcd8cacce275b32fc7e71846a8ecfc6d6ef8492458fa998015acbfae9b"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/6ed59e4aa2be16af36f29f4043bdda9a.vert",
+      "bytes": 575,
+      "sha256": "e795b6bcd8cacce275b32fc7e71846a8ecfc6d6ef8492458fa998015acbfae9b"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/c957f27c8a07dcef56a4acb0352daa55.vert",
+      "bytes": 575,
+      "sha256": "e795b6bcd8cacce275b32fc7e71846a8ecfc6d6ef8492458fa998015acbfae9b"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/e6cd35d477460ba500ac9e2281d453ce.frag",
+      "bytes": 3164,
+      "sha256": "6ed08e53b4f678a4a76dcce2138420938c7d976de8748dafc57995039a5548d4"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/7bafe855fa79d2286a44fce20d7f5f5a.frag",
+      "bytes": 462,
+      "sha256": "b37beab46228f24df15439be4527ce265286f5280546768848607f7a4e203452"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/a3ac6e18a05484b9ca8961b612d476ff/shaderMetal/9b5a7ffa4ce1ab8a8a54cd2fcab2c7a9.frag",
+      "bytes": 4004,
+      "sha256": "7021e6845c5b8ee9dd41b8d9e0323a5d7f5a820b859d7370a388102df1cdc75d"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/72d2afc049af594b58d75a9a2875db5c/shaderGLES/52fc8af34612ce514e8dab56d8602434.frag",
+      "bytes": 1439,
+      "sha256": "b18e4e257aee5130f4184732cc8e677d2a4582e51c8932e8c9ac3834fab9e37b"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/72d2afc049af594b58d75a9a2875db5c/shaderGLES/7bafe855fa79d2286a44fce20d7f5f5a.vert",
+      "bytes": 489,
+      "sha256": "73244043d7b3f75d5bccfc6cd432743dae6c5aa3f9de4ecdb17c3bb5df881d80"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/72d2afc049af594b58d75a9a2875db5c/shaderGLES/52fc8af34612ce514e8dab56d8602434.vert",
+      "bytes": 489,
+      "sha256": "73244043d7b3f75d5bccfc6cd432743dae6c5aa3f9de4ecdb17c3bb5df881d80"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/72d2afc049af594b58d75a9a2875db5c/shaderGLES/7bafe855fa79d2286a44fce20d7f5f5a.frag",
+      "bytes": 1023,
+      "sha256": "8fcf4abe46a8264ad5662bd36d639c430949366ed85351c4f682de4424a595e6"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/72d2afc049af594b58d75a9a2875db5c/shaderMetal/52fc8af34612ce514e8dab56d8602434.frag",
+      "bytes": 1349,
+      "sha256": "45883316c81e78d94225a75adc831f180ada960e9347165a9fdac41bbe8f4b67"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/72d2afc049af594b58d75a9a2875db5c/shaderMetal/7bafe855fa79d2286a44fce20d7f5f5a.vert",
+      "bytes": 871,
+      "sha256": "38ffdb37ee783d2ae6f702acc87b949bedc2a0c70b869927b01304b51ec6b1e3"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/72d2afc049af594b58d75a9a2875db5c/shaderMetal/52fc8af34612ce514e8dab56d8602434.vert",
+      "bytes": 871,
+      "sha256": "38ffdb37ee783d2ae6f702acc87b949bedc2a0c70b869927b01304b51ec6b1e3"
+    },
+    {
+      "path": "AmazingFeature/Library/ShaderData/72d2afc049af594b58d75a9a2875db5c/shaderMetal/7bafe855fa79d2286a44fce20d7f5f5a.frag",
+      "bytes": 1349,
+      "sha256": "46c20164804c14e9393d5cbd3ae6cd00d0f8556ba91928e6fd3a6450d04746c4"
+    },
+    {
+      "path": "AmazingFeature/xshader/13062817694053845193-10439353919187670969.xshader",
+      "bytes": 2045,
+      "sha256": "dc45c5533fce7e67806996b82bb40318120dd22de888efaf2074c89086a9ceda"
+    },
+    {
+      "path": "AmazingFeature/xshader/2542794412663532827-4840601877507129753.xshader",
+      "bytes": 2423,
+      "sha256": "ed0dd0c24264e76392cf2f873a5863bdcb8fdd9c5cd3fc306e57fa0aa16dfc3b"
+    },
+    {
+      "path": "AmazingFeature/xshader/17964673873454140755-5893797963471585157.xshader",
+      "bytes": 2045,
+      "sha256": "f095be0d281f20a5df25b6ec8d4a90a80e73957ffe8eb9abbd7c3f6435ba9289"
+    },
+    {
+      "path": "AmazingFeature/xshader/7516467476377350270-16464808129934909612.xshader",
+      "bytes": 2045,
+      "sha256": "a7809712833c9aa1dc7e0a37060b70f78df0a7f63b717b401462e050e51243c8"
+    },
+    {
+      "path": "AmazingFeature/xshader/3264731731654551157-4045058146759742877.xshader",
+      "bytes": 2422,
+      "sha256": "8f1ad333f87a7ab747e33df2540378580ddb9ff61122871cfd378fe994d7f309"
+    },
+    {
+      "path": "AmazingFeature/xshader/15656660835951102843-1677519180907041963.xshader",
+      "bytes": 2423,
+      "sha256": "a8f7aa9f6739f3aa18bbc58f1f13cdd8a6be0c1c26a4d562299c78dfb970effe"
+    },
+    {
+      "path": "AmazingFeature/xshader/7874233654619242006-3325052343512990379.xshader",
+      "bytes": 2045,
+      "sha256": "be2aecd56908eab319820ab3b862290b9357d1ae332d088b03d88f4d3547f8df"
+    },
+    {
+      "path": "AmazingFeature/xshader/13493508514702874743-14778530120210855866.xshader",
+      "bytes": 2423,
+      "sha256": "086b9cf78df96183ee94ddd3b5dfb16784d78e23e979417af6df7728560bcce0"
+    },
+    {
+      "path": "AmazingFeature/xshader/2613489051353875207-8176056966439970746.xshader",
+      "bytes": 2424,
+      "sha256": "c28827f3d02f0d90d1f3980c523d57c5ecfab7e864463985c4f7bbc769b2fb30"
+    },
+    {
+      "path": "AmazingFeature/xshader/3912675054177023070-7685243376728837782.xshader",
+      "bytes": 2424,
+      "sha256": "a9a12a6d1e9c2151c9dbae72a321495ffcd97493ef1427ee5b99139ae61d1a1d"
+    },
+    {
+      "path": "AmazingFeature/xshader/5425878166826373301-1962326331482623916.xshader",
+      "bytes": 2045,
+      "sha256": "d93bab69365f2031eb687445d1bf61435e3aa7848bb87199a4081df86eb1cc8e"
+    },
+    {
+      "path": "AmazingFeature/xshader/15082174612554986355-453586898615273893.xshader",
+      "bytes": 2422,
+      "sha256": "144a2a5290de83f6b971c68376b2a2e28586a45c47b67e63afe4f05c8c052d4c"
+    },
+    {
+      "path": "AmazingFeature/xshader/15006412725298296222-12824915603909786296.xshader",
+      "bytes": 2045,
+      "sha256": "bd2f084ccb7c6c890a92de005af68a67e9927d0ba76b3a239200f118c223bb44"
+    },
+    {
+      "path": "AmazingFeature/xshader/5568118182029005981-18320523601522123435.xshader",
+      "bytes": 2045,
+      "sha256": "59554dfcc9df23a2e68fb6709986947bf9d9ca66ef68610635f8b489ab0c0920"
+    },
+    {
+      "path": "AmazingFeature/xshader/2183659449327876953-11047733942548893108.xshader",
+      "bytes": 2423,
+      "sha256": "c51845a72a28426913f7c3fc7ef88140dfb1cf2a270b9f5d9e40ded26d3a9f24"
+    },
+    {
+      "path": "AmazingFeature/xshader/13565518211112627309-3430361498836662433.xshader",
+      "bytes": 7454,
+      "sha256": "f42cddf00ef4a62b8a671038438a16815cb9a75a61b7388d3c5309c5cb950562"
+    },
+    {
+      "path": "AmazingFeature/js/JSAssetScriptBase.js",
+      "bytes": 8131,
+      "sha256": "8e51df689d8c733a06d7eaf04d6d2a8d004ffc56153e60af1de73e952f33fa40"
+    },
+    {
+      "path": "AmazingFeature/js/EffectReset.js",
+      "bytes": 4462,
+      "sha256": "1de141488d39e66052faaeac9132b494a32fbcaf79e9d03af859a627d128add8"
+    },
+    {
+      "path": "AmazingFeature/js/JSAssetSystem.js",
+      "bytes": 917,
+      "sha256": "a685cc197a41f07b90e88999863786bf13200c14c65a41d9826907adfd43132d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProRuntime.js",
+      "bytes": 7574,
+      "sha256": "c7d2dbcfecba2a9b1b797f604c1fac8205f7674407f991423689f4cc9bb1f719"
+    },
+    {
+      "path": "AmazingFeature/js/JSAssetProvider.js",
+      "bytes": 164,
+      "sha256": "55f021af992d626e5ca8b0aed8063a0110ec55d4caa6ecda9680625de5d89086"
+    },
+    {
+      "path": "AmazingFeature/js/JSAssetRuntimeManager.js",
+      "bytes": 17930,
+      "sha256": "41104f79550f87849ffc6c09c490dcd1f7617b61eebdd875e598d08d5552387d"
+    },
+    {
+      "path": "AmazingFeature/js/amazingpro.js",
+      "bytes": 24472,
+      "sha256": "4deb3ad861f64e0a6f52cbb134898c68ece210c21dc7c60ab389600b95a90c4e"
+    },
+    {
+      "path": "AmazingFeature/js/FaceMaskTTControllerSystem.js",
+      "bytes": 2844,
+      "sha256": "50149bc921bbc6e1e8547eced48bdf50f2d5c7aebf29e4d4708c4efaec415006"
+    },
+    {
+      "path": "AmazingFeature/js/PluginComponents/CineMove.js",
+      "bytes": 7492,
+      "sha256": "6f8631402e4b698a9bbd4dc05dffa04efa6d5dbbf2f49106dff9f04e5b3a91bc"
+    },
+    {
+      "path": "AmazingFeature/js/PluginComponents/index.js",
+      "bytes": 201,
+      "sha256": "6a5358ec45f1195588a962c5781b2933524de9833820bc0bb6c959fea461a29c"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/OriginalVertex.js",
+      "bytes": 2850,
+      "sha256": "c44ec9186eae742c17c30faebe365df7a5e9441eafe38791544a9551426839b4"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Texture2DCreateDesc.js",
+      "bytes": 1149,
+      "sha256": "dff811dd743cace77c5f8243fff85fb3dfb4cfedd8cb321eb237bdd7fd310458"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Vector2.js",
+      "bytes": 8833,
+      "sha256": "fad713c80a3edd2b32b5e7959e977c293fbcba4deba9ab8f36c97e2af44e2fbf"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Mat4Vector.js",
+      "bytes": 4574,
+      "sha256": "27ebb00dd69ed46d56da0dd66c782b4ce4eca4953aaca9ea0ef5bfd54f197aec"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AssetRedirectData.js",
+      "bytes": 2514,
+      "sha256": "0606522d851f888d149be03c006d983bbf9e74321e299343d764e7bf75e5ea1c"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/StringVector.js",
+      "bytes": 4334,
+      "sha256": "8eb3745994d6109685cc51e4bf1119c79cd352ec9b73f64675f6058d0fd73844"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextureDelegateProvider.js",
+      "bytes": 1518,
+      "sha256": "c82ef028434c9d4f684d0fc716306990274a0443d0f7c99c8da6ecd4c77ad250"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/LayerSet.js",
+      "bytes": 3023,
+      "sha256": "f45beef63289dd040ef13fad2d69ccebf6954a635238a25a996cb06ace8e7fb1"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/LookAt.js",
+      "bytes": 3285,
+      "sha256": "1041e94d26b5c774fe319dd87f8c7d2aa4ba6052f98ab5d8dc824fa2a16fbf34"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/NsEditorUtils.js",
+      "bytes": 2321,
+      "sha256": "974b8653e389dfb72ef097d1324e1ad6f8d196db937e51b3fa2cfad4511e18b0"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AlgorithmResultDescription.js",
+      "bytes": 20212,
+      "sha256": "89616d2a066429deb5674d073db68c03dd7a3da6c77314f744df02a2e134042c"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/FaceCapture.js",
+      "bytes": 5663,
+      "sha256": "623a26f01e9c9e7d92fece8a810c9fccc2216e49b6831e998799e660b07290b3"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/FaceStretchComponent.js",
+      "bytes": 1853,
+      "sha256": "0f1a7f6d3addb67f933265937220f112610e410079769786eddd0056d1931594"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/SceneUtils.js",
+      "bytes": 4020,
+      "sha256": "9b1e564c7205e98cd80f5b8027f8a93640b3634ce05f9ab5d7e25ba53d9491ad"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/VFXContextBlock.js",
+      "bytes": 8013,
+      "sha256": "17a53e57e63f834cda0829e4e929cfd0079acf0d298d1b72a2b5db330189ec1d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/IFSkeletonAnchorAlignment.js",
+      "bytes": 1862,
+      "sha256": "03c6665fba717f439d1944b4932cf67dc785572e128326496792c6454b6a08bf"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/DirectionalLight.js",
+      "bytes": 2977,
+      "sha256": "24a6df0ab59ba295f8462f94a10b1362cd43aa93b1fb3ce085d6f5a432afc01f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ShaderSnippet.js",
+      "bytes": 2466,
+      "sha256": "3340663afca0f1d1e3c06f46cd905b0a8607ef553541fd6bd56e04398a769bbc"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AppInfo.js",
+      "bytes": 2311,
+      "sha256": "86ff423a87df5fce6004f8987b320402b3da300add976d28e8456ad30c871168"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/APJSUtils.js",
+      "bytes": 7216,
+      "sha256": "6f24312084f95600eda9b610d9a7408ab8412d189631a65205fce51d91f8557d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/RigidBody.js",
+      "bytes": 33122,
+      "sha256": "38cd1a2468c1430b4f5a70453d5754ae2664c43a00b623ccd3790855b2a6b5c0"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGClothInfo.js",
+      "bytes": 4006,
+      "sha256": "0bf3977f5b5ac97ab4b02dd9a7fce237c8f7147cce67246df67fd4c541354df6"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/BehaviorComponent.js",
+      "bytes": 1809,
+      "sha256": "14a1db0f8b6c24da689e237de243abbde8d1e83b3cb1e1940a4281c0efd6f9be"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/UIAnnotationDecorator.js",
+      "bytes": 2671,
+      "sha256": "0d970bd27296a33f4313194b3d2a5ce1179b2313bee2979aace4d5e796ee1fee"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGChar.js",
+      "bytes": 4517,
+      "sha256": "8e23f5d38d8f538f823bb74d27e1756374e50d974fb77f3fd607b6eb13ddfdc3"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Renderer.js",
+      "bytes": 7301,
+      "sha256": "5a59ac8f4d6b6a3499fff2e07f4619342cc7877664cb6bd07a1cbe93beab05fe"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/UInt8Vector.js",
+      "bytes": 4329,
+      "sha256": "1aacd5af96fd57ce619667b2e74220c67b1b0ecaad5d974aa66007c06bfecfab"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/DoubleVector.js",
+      "bytes": 4241,
+      "sha256": "96b0b349d7fa7e486dce1eb9385660a73d551bfbe013611b01dd22a8f5753782"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/FaceWarpXRenderer.js",
+      "bytes": 3350,
+      "sha256": "7b44e0e351529134ea2a470491a5827221bec2eae8bce9ba9ffb5fbefc98a88e"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Guid.js",
+      "bytes": 2086,
+      "sha256": "87b1174d92e91bb8245f3e3e59c6e59b78eae6548fc78d038515c65586f710bf"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/IFHandAnchorAlignment.js",
+      "bytes": 2052,
+      "sha256": "5a93c7c76cbb6b97ede4ae442b27f2a9eb3018b12df8f122ce30fadd351d3bba"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AnalyticsManager.js",
+      "bytes": 1891,
+      "sha256": "6f5a5300affc2645632938b2c9b5d533966f47944fa055c416e9f51764ec8d8d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Rect.js",
+      "bytes": 3337,
+      "sha256": "53e363455ed856d087c5145c9535244fdf65a9f9b95dd01dcfbbd6f85f8cff90"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AABB.js",
+      "bytes": 5035,
+      "sha256": "933ce47e92f2e871c9d5f4de595292186f7f0ecfd7a906ab3aa8eab660875b89"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Preset.js",
+      "bytes": 2410,
+      "sha256": "c756b7506be219c366deb2b374f799b19153fb0046e1dbe04c8f9b4e1a8c44ee"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGContactInfo.js",
+      "bytes": 2997,
+      "sha256": "b76e5d7c0ceea98ce2e6ad949a67b88f227ebdb83b5c9d21727c5d293e782a7f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Mesh.js",
+      "bytes": 11240,
+      "sha256": "483ea2c90d63b18c7e14c765cf58e523598ce4d7a29ccec3f719b10a784642bb"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AudioClip.js",
+      "bytes": 2215,
+      "sha256": "8363a528ce15087c1e6214e578d9a31f52a4981bf91d0963364447700a591d88"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/DrawTextureProvider.js",
+      "bytes": 1807,
+      "sha256": "2026dbb11e589c91b64d566f182cca3dfa47bbb2018daa2ab8b73925cd9a4a09"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/EffectFacePupiV2.js",
+      "bytes": 3633,
+      "sha256": "d5f0fafff44963a3bbf9b6b80e4e94edc7135a51794fd6828e6a5ce702c0c598"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Vector3.js",
+      "bytes": 10362,
+      "sha256": "12e567e2f1c9d2d2aa1e4ae1a6e98cfb928ec45c4262588b76d4419fd12f6665"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Scene.js",
+      "bytes": 21025,
+      "sha256": "4a1f2498077d8c78bf4ac91958aec5f59b96631a0b9bb0b7e2c839cb6b8fe654"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ScreenTextureCreateDesc.js",
+      "bytes": 1180,
+      "sha256": "fd7ef913fea19c2edbc71ae02b9525077e342e0df205fc88ca5afdf910b7ce8f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Ray.js",
+      "bytes": 3552,
+      "sha256": "a1b43a2254542e75e67237bb82adfa12bba334bff32cbddae8dd3dbbaaeb62fb"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGModifiedProperty.js",
+      "bytes": 2751,
+      "sha256": "60859bc26eb9b7357f5d9e7fed79c38e6a99187aa2ccf02bf759971fff2b9b86"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/MemoryView.js",
+      "bytes": 1755,
+      "sha256": "a617d683eb459c0b489c322ee6654a3e704ee30cef12e1a88036d3739fcdfeae"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/DynamicBitset.js",
+      "bytes": 3513,
+      "sha256": "42432b2746c7267ff6c8543fae81c4fe09f993d592adce5911e8610c3de75586"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/QuatVector.js",
+      "bytes": 4574,
+      "sha256": "79864deea9a56fb20e48a6ab09030e4529b824e17a6459ad6a32f04d1b252318"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Int16Vector.js",
+      "bytes": 4327,
+      "sha256": "7b29bf34f21f5f4a0ffbf02a016ac954f1b9a5fb912aa92c21ea40d1a483e354"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/EditorUtils.js",
+      "bytes": 14316,
+      "sha256": "3faf80fb5654be0664ad442b09dc696ae1259b3e4a4ce227ce92e4f8ea16fa0d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/GSplat.js",
+      "bytes": 2478,
+      "sha256": "fc33faa034f5c08588cd3c324471ec728b2fd69109ba05e7a0a63cf484c89fe5"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/RTTICollectionUtils.js",
+      "bytes": 10224,
+      "sha256": "ef25fb6d4c77f4d4b779bd8df7bd07a9a90eb80ba343ac19352835ef7eda1bcc"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/System.js",
+      "bytes": 2312,
+      "sha256": "6654023d8ee40e574ebd9f457ae4b5c16769eb781a04b649d90c10cbc8a9d58a"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Event.js",
+      "bytes": 2584,
+      "sha256": "78d813e8b869a806d16d0cf524fb43c6b4eba5df3b7c350e45c0281e699c0c57"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGCollisionFinder.js",
+      "bytes": 10791,
+      "sha256": "029ca77310d46d9a6bec4ea4317dce2e2f5a3ab4ef40b60816e7a9508a3bed90"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGTetMeshInfo.js",
+      "bytes": 4929,
+      "sha256": "2f367160f315f186272057c3c9448897f3c6d4529b57d8c5f6f5d9d4dfcd2655"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/MaterialArray.js",
+      "bytes": 2299,
+      "sha256": "5af1eb53a747371c7b0cb8f6292ea76fcf7158ff1610d7031b1d64ac3d65b03d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Material.js",
+      "bytes": 8698,
+      "sha256": "786274d0dc118110cd44235b01a8717d964d367b04facbb6b3383b0a38052b18"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Prefab.js",
+      "bytes": 2334,
+      "sha256": "bb97f420282e0fb78f567644bea721cda1061809d8e0301aca0674e5b7066ebf"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Matrix4x4.js",
+      "bytes": 18075,
+      "sha256": "a462fd63b581d720c19e3b6c20d3ac866d0925fbb2e17a835feac6eea2612e58"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AttributeMap.js",
+      "bytes": 2822,
+      "sha256": "7b6a5a0b7623f931e265886855a70a41a4cf001795a09c4424e32a963fa1137b"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextTexture.js",
+      "bytes": 2576,
+      "sha256": "e361f78e43ac1c46cf07edf30c91f579c87257675169471977400cb374e6ddf1"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/IFFaceAnchorAlignment.js",
+      "bytes": 2250,
+      "sha256": "aa6dbf5105cb2146df561a5cf5372c75ecd968ea7d322e95cb5bfc5c2f4552d1"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/SceneManager.js",
+      "bytes": 1646,
+      "sha256": "5354a2081e13dc82a30119cfffcf9f41405d749b410218210b3ec5d6a36316b7"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/SpotLight.js",
+      "bytes": 2831,
+      "sha256": "b069f7416d8df59a2f9fce21c7eb802e3e58baeeb4f56c0c935b9228b06e247f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextBackground.js",
+      "bytes": 4571,
+      "sha256": "c610e04e6d43d6c02be4a25c82fdcf90cf1158af319aef1cac60d22794726428"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ComputeEntity.js",
+      "bytes": 3475,
+      "sha256": "3ca38d8dfbf79d966038a970b5e714b50a4f9bb11094f93cb253f7c7e953f8cd"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/IFSprite2d.js",
+      "bytes": 10364,
+      "sha256": "c904ec5a700daf42005abe56127a33026c0fe29b631442b2af1820dc2e9175e7"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/PinToMesh.js",
+      "bytes": 4009,
+      "sha256": "97822fb77298033767d459aeab6448ebd75b8beea78fd1d0d545a6bf28a6fc87"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/DynamicAssetInterface.js",
+      "bytes": 369,
+      "sha256": "0fab1c7158448ca96b259aeaa9b8be8b9024255fd74f1ef4b7420ad685776968"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ModelNode.js",
+      "bytes": 4182,
+      "sha256": "d5e551cb475f5bb7b0e9af9b97823e989e45623b59fa52a89892e983911304ec"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/DualInstance.js",
+      "bytes": 1273,
+      "sha256": "95bbf8982ca620367d8f1b2adc46105025ae778ec844291a1f246c440d922f61"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/VFXBuffer.js",
+      "bytes": 2579,
+      "sha256": "51ee9627e0449220e467bed8af375f3fcf3bfcf45f49fad7ca0fd2f292cf0009"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AnimatedMesh.js",
+      "bytes": 4249,
+      "sha256": "9da29a03f8b0d521b107fd7cdddf40eb827ac41c2d33f25f80785312c8854a38"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/SceneOutputRTProvider.js",
+      "bytes": 2155,
+      "sha256": "aa3e2bf52a9bc1053c81c33174c9275063740be05a8ef35196cb206336f8e73c"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AlgorithmEnumsAndInterfaces.js",
+      "bytes": 6682,
+      "sha256": "1c9b1db9941b13b2fb7d925a48e6a7a811633434b2b1afe5ee899c3b3e6d417f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/VFXProfile.js",
+      "bytes": 3645,
+      "sha256": "ad5815fe852524f115bbddc93b4cd066a6270bc9b2c157155484d97b56676f6f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/SharedMemory.js",
+      "bytes": 7033,
+      "sha256": "05f343a64ca3eb61c39a94dc00b8c2eda3b4259c44d8448a2f7b8a8d3a53d969"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/EffectNode.js",
+      "bytes": 3677,
+      "sha256": "7b723f8649d1c494422b1c0c41670b0f2f4e747cb59c65b84d39e463b72c117d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TouchPointer.js",
+      "bytes": 3132,
+      "sha256": "0ff753010239f4da9e5c7465e292a974e8393760ac471fe54dec429f6f086367"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/EffectFaceMakeupFaceUPupiV2.js",
+      "bytes": 1892,
+      "sha256": "470dd8e09494c645fecc6e08395891f675c4d22491e62139f488594076c670dc"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ArtTextAsset.js",
+      "bytes": 2950,
+      "sha256": "54e29d709cbb161104ded8812de914bfee16957c8b7be3f2ea109a617638ac35"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/serialize.js",
+      "bytes": 8945,
+      "sha256": "c491dd465210c25d1963e106059de051d4e1717855afef9072f6be01144a2654"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Morpher.js",
+      "bytes": 2144,
+      "sha256": "72d42e080ecc32fc76981f17a70589441f99a47f9e18cc1fa3237ddbed11dfe6"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Mat3Vector.js",
+      "bytes": 4572,
+      "sha256": "23c2678e849019635cc4a94f6787b4e7049ca4d7e38fc2186d223d59e647d48f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Texture3DProvider.js",
+      "bytes": 3342,
+      "sha256": "52073a0386287a49dc45629f58080b4b978bdb892dbfcac98b0c9cac1765fe01"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Animaz.js",
+      "bytes": 4818,
+      "sha256": "3e1d19781b5544f8e13a7c17c1bfe26c296f7354c9256c17671c530d802022ae"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGAudioModule.js",
+      "bytes": 2446,
+      "sha256": "c482009d53b556dea4d194564fbc7c3c74f9ac3c0ef9fb0395da65d5e9f679e4"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AlgorithmAsset.js",
+      "bytes": 2216,
+      "sha256": "5550fee5d478b3684f9981cd8843eb6f351b981d62547045411c3dcffb2af3b1"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/LetterStyleLayer.js",
+      "bytes": 18961,
+      "sha256": "0f3919f39e80fe3536cf1fcc6ce45915c46300a94529fe14241608d8614ab0c4"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/PhysicsMaterial.js",
+      "bytes": 2473,
+      "sha256": "13cc3f55125649521aff14a52bb87f95ac8c50b6f9565688f336a2622118ac59"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGAudioGraph.js",
+      "bytes": 2462,
+      "sha256": "4a8188f54b90730bdc72173c1a7a4abb151d222216754d7d329867f5edee801a"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Log.js",
+      "bytes": 911,
+      "sha256": "9d73da218e6fd617a88c74c9917be106fc12b34a5d7391049f19a3b08830521c"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Light.js",
+      "bytes": 9789,
+      "sha256": "bf02b252272299270165a8c78ec0eab55327852d1ec8cb0da15056527a94ee57"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Int32Vector.js",
+      "bytes": 4329,
+      "sha256": "ae7370611e0c8e7b6b4db95a22efa505657455f5e69dc4440f3e950f414c48b7"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGVolumetricMeshUtils.js",
+      "bytes": 1981,
+      "sha256": "fd6707b118dec121bed5d09a35e4bdcc91ee79b2ab4ca38acb741d8ef55c29c8"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AmazManager.js",
+      "bytes": 1159,
+      "sha256": "f24185d936ebceb858fbf0892a7961c86c71c683f9159ca11733e538c7c0d507"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/LetterStyle.js",
+      "bytes": 7587,
+      "sha256": "21b6a483c40c47dce875346ffe96b94a06e4af5aa3e26b37640b5fa694445813"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGSoftBodyInfo.js",
+      "bytes": 2869,
+      "sha256": "c1e54d84df4fb101ae78ca72f0640a8748e25f03ccb4a619af65edaab0d1d4e8"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/CommandBuffer.js",
+      "bytes": 1722,
+      "sha256": "1fbd59c55045db58b6c6ac8e14afecfabadc7bb55571b7abdf3a571b6f53a937"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/NsItem.js",
+      "bytes": 2150,
+      "sha256": "331b531a4f6e818054516392fe54121a02675ef6f6005b1d9466a47d968e5206"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Face3DMesh.js",
+      "bytes": 2152,
+      "sha256": "a06fed5c19ea61ecb3a6e924b70f034643773427026c6b6493fa9b2c59c2c0b8"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/SeqMesh.js",
+      "bytes": 3564,
+      "sha256": "e69736e66623fe22e327993fdb448699681cf391a941897a727033a4cc4421a7"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/JSScriptComponent.js",
+      "bytes": 2547,
+      "sha256": "5ad2766136f4561dd76975b8bbd08c3d8ecb3d097edc17fc3118e51cca81ab56"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/VertexAttribDesc.js",
+      "bytes": 1772,
+      "sha256": "ccd2adc45879d1d205063ec49e89a13df25f425e38b83a44b74ed20186e91a17"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextCanvas.js",
+      "bytes": 4921,
+      "sha256": "b7819b96edc7e5ce57ff22662160e4d79d6a08a17a07e6bf8a70e6c0e7cf47f6"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/DynamicComponent.js",
+      "bytes": 2525,
+      "sha256": "f35fd7b015a6a3f60d4796cb44ef4bfb77ec8deb2b62cda1c70d4042367458e1"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ScriptMethodInfo.js",
+      "bytes": 1800,
+      "sha256": "2dfc025ae8e82654fc44bba78e1a75863925654b8e3159942ddd2ba527f06477"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/FaceWarpXWarpInfo.js",
+      "bytes": 2509,
+      "sha256": "7b6a8016170f644327a850ed1734c3e005c76c32d83313722123a0aadde333f7"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/MorpherChannel.js",
+      "bytes": 2369,
+      "sha256": "96871d2ae0360c6d0a31613bb4b77dca9246928b6d0dc7841d376cea777f9443"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGModifiedPropertyHandler.js",
+      "bytes": 2194,
+      "sha256": "7c6afd8cb98f5e104d3fc0ec560805e6c52a974338a35fca641196a6cd491ea0"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/EffectTextParam.js",
+      "bytes": 3046,
+      "sha256": "466c9e76dfcb2ddac7b5bb8eae6c03077c6ee0ba347a8a81c5fa6dd1e80e32e9"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/MeshRectangle.js",
+      "bytes": 1795,
+      "sha256": "3901fcd2560c7124cdaeae11f6a3484e9d3c2e57e50157b152c97ca2d36c6c4d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/DrawTextureCreateDesc.js",
+      "bytes": 1165,
+      "sha256": "2166759b7e9eabef8ea66757f9a737f97a17c3ff2a5034d30471a23a4223c79d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ScriptComponent.js",
+      "bytes": 2717,
+      "sha256": "85545e4252ad876b20d37fb7e7f432a65ba1d481d783291c695bf44d7f129021"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Pass.js",
+      "bytes": 7671,
+      "sha256": "b404a18fdd156663e35f0b5425453c79b8e167b6401e0bc712fe618b832bc06a"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextureUtils.js",
+      "bytes": 8740,
+      "sha256": "88c858f6235ed4950d49b355f6400a94a36cfcd49b458e47248757c6d4edb32f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/FilterV2.js",
+      "bytes": 10158,
+      "sha256": "66a15e09175ff0f095cca5c95150413bef1d08044d10ffe2323e5ebf1d46c13f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Vector.js",
+      "bytes": 5444,
+      "sha256": "8919c7686d4f177daa6dcadb73a2639096fa7a9f576513768082db78e61c8442"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Color.js",
+      "bytes": 3417,
+      "sha256": "0e10e2196db02be4b3e2d1916961948eb6a59ee7af83c43b6d21bf64721e55a4"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGAudioProxy.js",
+      "bytes": 3281,
+      "sha256": "fbd42f66d60869083633377ed92206ddfd1243021b745eea6b7759bf768866c7"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/GlobalDefine.js",
+      "bytes": 14243,
+      "sha256": "a0926defd659a2bd1096edfb23b82e4624bba12a691f26cc20a7c61d22cce7ce"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Sprite2DRenderer.js",
+      "bytes": 3551,
+      "sha256": "da4022a32deb6b2de722112be490a7e459cb565be70fb9de5f26f7fe368f6f6f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Shader.js",
+      "bytes": 2601,
+      "sha256": "d91373dc46a84f6432ac5ff9ef03f99611436922cb28c346e081c8a16844313a"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ScriptSerializedProperty.js",
+      "bytes": 2350,
+      "sha256": "7f81bf5953dc54355df583682bddae0473ce7ad5cd56d5942382d74c90a85a81"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/MathNativeObjectPool.js",
+      "bytes": 2870,
+      "sha256": "9e7ca4abdb1b23dfc8eea4ca583c920df1748287b4a52de934cf1a1248622368"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/SkinMeshRenderer.js",
+      "bytes": 3036,
+      "sha256": "c233829b7ee9209f7c30a31790f641942ef91f282eb1eb583be033c136a91da9"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Profiler.js",
+      "bytes": 2681,
+      "sha256": "73140195c656d3d852e14f96b92ba3852e12cb68d44629cd9eacaf30a6020dd1"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AnimState.js",
+      "bytes": 6393,
+      "sha256": "451969e9ebb86fffbc380bde2abfdbccbc1f4b7bdc01100daae98e65514ac8da"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Component.js",
+      "bytes": 3679,
+      "sha256": "1bb15c5081c36fa3a6b656f606feb8a95ea43cf67d2e8cf78f2e0f964e50e569"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/APJSReflection.js",
+      "bytes": 9603,
+      "sha256": "7dcdd49c8ab9ca8c2b5f46ab8abbb7e213c6986de1791561ab08e2eeb97d391d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AnimazClip.js",
+      "bytes": 4937,
+      "sha256": "d8a6f87a7fda69d19d857f51c1912eaae8029e3fbedb85afe09e312e74dc2792"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TimelineCore.js",
+      "bytes": 21192,
+      "sha256": "5a52f0f4862ca39485d95443888dd28fe47a253e3d405f0cc2a45f9bccf737e6"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/FaceInsetMeshGenerator.js",
+      "bytes": 2661,
+      "sha256": "b721dec8e8c4a28254ff29e3fa4cf0ac6b75bc415270cc84f4796bcf3a55d27b"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/VFXBufferData.js",
+      "bytes": 2875,
+      "sha256": "a191f31059b98a0299f9d5a4fcf8f7c9b5d8945ca4c34d3380b545ef5ef07276"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/JSScript.js",
+      "bytes": 3527,
+      "sha256": "4b76c04da3fc28294a5400ba4e1fb1ae55cae90e2b666a85a0ba96f44bda02d9"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGPhysicsMaterial.js",
+      "bytes": 2812,
+      "sha256": "d9d76149e306005e2ce48d9a25c0c44827a73bd89025adfb0338e75ade4846e2"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextTypeSettingParam.js",
+      "bytes": 4658,
+      "sha256": "da1bab72f6846477141391ebb387ee9d9eeb0271f12fb3be37575d79b67fd45e"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGPbdSimulator.js",
+      "bytes": 17918,
+      "sha256": "ae28045bb31aa01df54cbc3b41837734ce99b44cf67a7da474dead8f60d132fb"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Script.js",
+      "bytes": 3100,
+      "sha256": "0961a835106526b3b9c520e5a59ae031206cf3836ae4df4a022b743a5b63b20b"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/JSManager.js",
+      "bytes": 1765,
+      "sha256": "27d7612712dee2b3d5c0d6840fe22c7111bda99cd0b24b203f76cec8a3d3ac37"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/BuiltinObject.js",
+      "bytes": 2238,
+      "sha256": "e52170133117cf896440231e52ffd4b57ee8028542ace5b831a4b74b9c9166c7"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/FloatVector.js",
+      "bytes": 4327,
+      "sha256": "267a66f28c3ace630340f219c2b1d7de4d659287a6854180474780bf71ef5808"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AnimSeq.js",
+      "bytes": 4150,
+      "sha256": "2dd0aee57b8785f77b86604afcaebc19662bae266c4af8ac54a21ec9c0defdcd"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AnimSeqComponent.js",
+      "bytes": 5041,
+      "sha256": "bbd368186ce65d096b09e248b1e43753d019b683fd2f734822dc838c67649e28"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/BaseText.js",
+      "bytes": 5897,
+      "sha256": "006c8d98739ae98c3d4f74cc555e9f14b4058a1defeae1e478dd74dcefa951a6"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Vec4Vector.js",
+      "bytes": 4574,
+      "sha256": "0b768a49a3373ad898765fb89c0887293161c7e811ab6902da5f3bd2268d032f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Text3D.js",
+      "bytes": 5871,
+      "sha256": "2b2ea6db18421874d07f944ee028d3268a8d1baf1ec0df697ef1b33a7531bd0b"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Enum.js",
+      "bytes": 2379,
+      "sha256": "b161dea007bd79c337bb5d432cd80b081a635896667c532312391be69ebed66e"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/FaceWarpXToolUtils.js",
+      "bytes": 3657,
+      "sha256": "8741283e49be7efbf6439dd8b0d5d2b2d63816ce74fa992abe84e6ece6685bde"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AmazUtil.js",
+      "bytes": 8354,
+      "sha256": "30ba58bb0e60ac424494c02687853d42f072be56a26b204b52b867b0006d5947"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/KeywordProgramProfile.js",
+      "bytes": 3145,
+      "sha256": "5fbbb9dc2627b5a196411423e16efcb5b38158d5861ab834e9167c41e715a981"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/IFWidget.js",
+      "bytes": 3151,
+      "sha256": "0c857f1c4fe858d2083ed2d12e87ab01e0f6e2a39f7be7a95c011ce0fb1d9a5f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/IFAnchorAligment.js",
+      "bytes": 9161,
+      "sha256": "eb329948f82792a0918ee3546a253e9d9d5aa217adbdc649b56b1243f0de944f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/UserDecorator.js",
+      "bytes": 8440,
+      "sha256": "7b185246d24ba635c5aeca37ff7816b8f64491c7aaaf7c9a78f5930c5d6ef172"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ImageAtlas.js",
+      "bytes": 3002,
+      "sha256": "1ad0203b4841071998cb5d779fc7ef89f0129b906f9f1b8e0e9c418675a1c5b9"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Audio.js",
+      "bytes": 2872,
+      "sha256": "854875aa0e91da6add89e7f6648d69a327f6404c22297e6334cc1c651a14a59e"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/MorpherComponent.js",
+      "bytes": 5165,
+      "sha256": "cd257a705e807e59475bf547c22b99ffa15bfea6903edfdced68b3f9c9bd155b"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Value.js",
+      "bytes": 5573,
+      "sha256": "af7a420a5e8fcf5b529a0f84d3911d1ff7d56634b652521785922d250bc53958"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/IFTransform2d.js",
+      "bytes": 4705,
+      "sha256": "40832fed1482b84144d183e64307315055398db2c030665755a9d9a22323dc2a"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AssetManager.js",
+      "bytes": 4360,
+      "sha256": "b37b649377d74af2367dc105f3f00b0aafbc25a211efdf400a8228ace87c6e0d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/IFCanvas2d.js",
+      "bytes": 2301,
+      "sha256": "a1968dfecf4f880179ca7d53801aec9b2c9ed1f7e9f8b652dcd92fc70da1c9d3"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AnimSequenceEventInfo.js",
+      "bytes": 2743,
+      "sha256": "43f769386a569753f75269a227de4f557bcd5a2b39d588848e51f9df3826f95a"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Head3DUtil.js",
+      "bytes": 604,
+      "sha256": "b41d1dfdd62edf6c511c1186123518aa5f8fa7069fa2a425073bdbf80084164d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/PointCache.js",
+      "bytes": 2996,
+      "sha256": "4b0593b8563dfab407d9df94295d01bb309d1f6c990cc04c6e7bffcab4e6d1fc"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/GeometryMesh.js",
+      "bytes": 1774,
+      "sha256": "4c7c4e07e40e4ad9ed1b683663ffbf25a49f850f866bf56f7be31416bdf35ce4"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Skin.js",
+      "bytes": 4776,
+      "sha256": "bc500834b89a64876030ea553a523d2e44d1ecc2f772dc5b773a775cc918769e"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Meta.js",
+      "bytes": 6445,
+      "sha256": "9b0177846ad01f4b107f4999b84a74f18d1bdde64f4faeb8f637ef308c590141"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Int8Vector.js",
+      "bytes": 4318,
+      "sha256": "749ef4196c2c9f531b2f1fa2c79d5c557ae04ff7aaf8b9661e6ff7b38a5acbf0"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/EventManager.js",
+      "bytes": 19075,
+      "sha256": "435b71b37cc5ae78a24c65410de34c4f7fe404a35ec5f6de4b2530e10320ae49"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AssetImporter.js",
+      "bytes": 2074,
+      "sha256": "4f69be00c38c0970e49e26892e81214dfbe630db212e01fd4cb6b6956480807e"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/MorpherTarget.js",
+      "bytes": 2916,
+      "sha256": "7373e3e5aad153c695b29ae74ef841a018f5be2af019ae9311c4280b6fb25df7"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGRayHitInfo.js",
+      "bytes": 2530,
+      "sha256": "7a91b8751e9f7c431cbeaa819fdd54e4ec094a1d482007fbd48f1932d65b5377"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/CollectionUtils.js",
+      "bytes": 2921,
+      "sha256": "a697575cafce3e564dbd91c56529242f63eb7911b9782abab8becd4a9c18cd35"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/RenderTextureCreateDesc.js",
+      "bytes": 1199,
+      "sha256": "9a8e7e156777be2f70654962421c9dd31a418c365e68a3159475e5d4fd23b38a"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/EffectFaceMakeup.js",
+      "bytes": 7597,
+      "sha256": "630d5012dd70d8dd0f146149084b1365476d7bc2d2be4fef129dadf7f3b096f0"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/XShader.js",
+      "bytes": 4122,
+      "sha256": "9bc3ab2570c7269558f5006b5d87cc7c55f97c2366e9a39fd37e61a35278c815"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ScreenTextureProvider.js",
+      "bytes": 10828,
+      "sha256": "15da75e166389cba2a1300e1b33388934ec39ad061f41a0e89e487b36d57290f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/IFLayer2d.js",
+      "bytes": 3967,
+      "sha256": "b3bd6a1b2c6f6c0d13f0e6335836a917d8f47126c98aa54f4365d1d88c5c3078"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/UInt16Vector.js",
+      "bytes": 1675,
+      "sha256": "34b1668f49716ef7001b5bb4123119babfe202b7627c26953032db80770214a8"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ScriptCustomLocalObject.js",
+      "bytes": 1835,
+      "sha256": "6b9c4f5216940e485d3d3404411f392cde3b88d173f7d02d2e48c9040c03e376"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ImageRenderer.js",
+      "bytes": 1816,
+      "sha256": "6e9f02ae6d415f558e4db7d102046389127cec600d7cec34a9d0e83b5b634022"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Image.js",
+      "bytes": 5504,
+      "sha256": "0fbcf292ae37eb9a064130b02b56db64b3ddb747f507366ca4a4d6299252c262"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Plane.js",
+      "bytes": 2883,
+      "sha256": "91acd9b234c7d624c29a681cd6ca7a1911231d9e2e7e911e3011a7023726583d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/DynamicAssetRuntimeManager.js",
+      "bytes": 8623,
+      "sha256": "049b0451eef0cf8e425143e2112c1b2a99af8c021d024f0b4a8a0e97bcc9ca58"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Sphere.js",
+      "bytes": 1714,
+      "sha256": "75f0a2ea1c5acff27566b4bfd575b56ca07816151aad56a10dd8964a4cbc9628"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AnimLayerMask.js",
+      "bytes": 2299,
+      "sha256": "ec868487d01bc79b91a3cd018d2744a8735b73373557a13748b59a37eb2e11c0"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextureCubeCreateDesc.js",
+      "bytes": 1169,
+      "sha256": "681a4ebac5428d09e38b243dbb00c57913057cb06cd288c15e4643967b5064bf"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AnimatedTextureProvider.js",
+      "bytes": 29621,
+      "sha256": "6731ff1d89cda5a7b4b957f6036f9bd4e6d9ec9c46a4da44cd8887c2a227f6f1"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/PlaceHolderTextureProvider.js",
+      "bytes": 1918,
+      "sha256": "e9faff0279d3282df0897db757c5ebfb4b905bce835bb31fd71d07138d038b6b"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextureProvider.js",
+      "bytes": 6189,
+      "sha256": "063b2d7bee809aaee0dd63b3b59c5b46399fb895b977213696414cd84a277e44"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/RTTIDescriptor.js",
+      "bytes": 369,
+      "sha256": "0fab1c7158448ca96b259aeaa9b8be8b9024255fd74f1ef4b7420ad685776968"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ScriptableCullingParameters.js",
+      "bytes": 3107,
+      "sha256": "51b548a268199ee1aae665d270bcaecfd66327dc8e776e1f503c1dd61bb17b8a"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Vector4.js",
+      "bytes": 7842,
+      "sha256": "6728ab6f73735863aa270408dd335108e6929c6e24e682a080b8f8440be559cd"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/UserRequire.js",
+      "bytes": 4115,
+      "sha256": "8243396b85970319cbaa20813f7367ba4d548229b0bccd1a68dc413bee975683"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AnimLayer.js",
+      "bytes": 4073,
+      "sha256": "1a3aa1923a38a1f449dc9f3797a3651f947d656cbe5f2cd02690a8c4fdab9959"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Physics3D.js",
+      "bytes": 25732,
+      "sha256": "c9848d03256fdc31f104286fd19c7caf15b3786248c978b39aed2158257364bb"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextureSequence.js",
+      "bytes": 3633,
+      "sha256": "2d8e2d72c0979ddafd486817b2cd6500548594254f6a6628b887c25d3730047f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ImageProvider.js",
+      "bytes": 4213,
+      "sha256": "0ad337c1056792b4bf591db2c729b23042aac6312bcbef66b2542a6c101237ed"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextCommand.js",
+      "bytes": 2975,
+      "sha256": "1090fd1380fdaba76f821467b0f4fc8d4f0db0cd3522278daa580b8542261563"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/FaceInsetRenderer.js",
+      "bytes": 6772,
+      "sha256": "d37c81217e356a796b724e06ebedf6da716e9ba42544ee7f058b4a46b69b7010"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/LuaScript.js",
+      "bytes": 1763,
+      "sha256": "cefe7a16c0685996b8d9078a48f12133e7501a0a8fc550e02d622365dc58694b"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Camera.js",
+      "bytes": 12545,
+      "sha256": "9d139fe4b40474bb6f6eb71579a8292da68612208a0724978d640f637d60cc61"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/PropertySheet.js",
+      "bytes": 5408,
+      "sha256": "222fa7d4638d1b020bc08b20f25fe28f64d23f5af410b09760c91e5e88459d49"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGPointSampler.js",
+      "bytes": 2339,
+      "sha256": "0b69894c79b7a688df4a289f656e8fa18067d24c20788de80ef04aa8940ed11a"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ProxyBase.js",
+      "bytes": 1765,
+      "sha256": "81a4d46a7db719322d5f9e58e3cf66fbedd40c1c9996740af855be175c3bda70"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Quaternionf.js",
+      "bytes": 8179,
+      "sha256": "53eb13e00083f0f04f34ac15499f5705139eb6af889af26d3ba96fcaf0c9228e"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Envmap.js",
+      "bytes": 4751,
+      "sha256": "879690218935994790828dbc400230927a11d6ec147e0b929efac3238f098864"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ProxyVector4f.js",
+      "bytes": 1787,
+      "sha256": "479af26a8b7dada46a75c722d9cd6d0a6863f2713f9c0e5fd017990a20159568"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/BuiltinEffectConfig.js",
+      "bytes": 3599,
+      "sha256": "674e4890b63ca7e32fa474b35639fb846a37b733798bca55bd7c6fa60ae20a47"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Matrix3x3.js",
+      "bytes": 9625,
+      "sha256": "53b935870bf0980585ab3619eeff7f5c08f6a09b1f527c3f500c9f7ce7149448"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Model.js",
+      "bytes": 3911,
+      "sha256": "a1c0467ef7bd65786bde2c623fbdadb7180fced31107bbd1015d12390f425c85"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Texture2DProvider.js",
+      "bytes": 3609,
+      "sha256": "c24dce87b11184826c35d231b820be43abcfb56c65be7b7a9c238541ea7ae06d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Platform.js",
+      "bytes": 1796,
+      "sha256": "a1c743a921ead50eec240eac7bccde8e637362772ef4a3479ae9fb18e6a9cf29"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/MeshRenderer.js",
+      "bytes": 2422,
+      "sha256": "fff2cb52c2bf26017ab72d26bc7f6838691f7ce80c5ff575998941d0d07cbd87"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextureCommonUtils.js",
+      "bytes": 6837,
+      "sha256": "1598a9d369a78a09ce7f891fc75fafc0a4abccda349a1cabcb6869c46d2532eb"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextureCreateDesc.js",
+      "bytes": 1411,
+      "sha256": "943d570fbce6caeef812d71f9e4d762ce354e90625e3149bfbe65cdab3e1b80b"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Map.js",
+      "bytes": 4465,
+      "sha256": "af8cc1e3233a2ba44c80a0743e8af71fc56875875d5a8bff3237cc1b70f66272"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/VFXEffectBlock.js",
+      "bytes": 3764,
+      "sha256": "f23ac4cf09bd20f63e7b1acb7d691bdf0e9f5a3fc54d93f19931e4c6898bcee6"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/JSScriptMethodInfo.js",
+      "bytes": 1810,
+      "sha256": "9ecee27dc02b5f78b61014241bb6aa7ffd821ba2554c569cea11a6a3e6526d6a"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Int64Vector.js",
+      "bytes": 4329,
+      "sha256": "3be5e944d2ea61c945fc06d1c39d4b501044d72bb251fcb3fa89664253c7bf10"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/GSplatRenderer.js",
+      "bytes": 4472,
+      "sha256": "8d06f4835004b91c15a6f275d491837575b5cc8e033c621bfc23654d37e94915"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/RenderState.js",
+      "bytes": 22131,
+      "sha256": "16cab9d8f56429262ee498cbf5fb9ca5c051db6fb54ea33345641fa713e23657"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Joint.js",
+      "bytes": 2584,
+      "sha256": "1c8cb4800001dc93f38e98aee69bff6452da6251b6a43c26cefef375aadcbe04"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/VideoAsset.js",
+      "bytes": 5728,
+      "sha256": "904bf0221866519db45d1da3a154b13334063a27da878877712cb3d36a80c26f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/GifAsset.js",
+      "bytes": 5373,
+      "sha256": "6315b75a7eca4e164a7f01120eebb9fdb2bee9802b24f64b76816d70191bd819"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/EffectFaceMakeupFaceU.js",
+      "bytes": 2247,
+      "sha256": "a800be402a80e78c6ec83fa45b84b85dc2954dc54b20d471d90fd99fe823a00a"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/GifTextureProvider.js",
+      "bytes": 12057,
+      "sha256": "4238b7f2ced2a9f35d0dd76b2e31e8f1c7dba50b716adebd942379db26d85096"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/IFPetAnchorAlignment.js",
+      "bytes": 2249,
+      "sha256": "bb9088454f966fcecc5839ebfe6af348ef658a7d29883e12efb62b0366a0b104"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Letter.js",
+      "bytes": 3396,
+      "sha256": "2daf7346fadaf3ed6a3012ebc1afd8734bc031b1f50276535489ac0d5ffeedbd"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/UserIndex.js",
+      "bytes": 3829,
+      "sha256": "cf19260744c66224b81e7fe0a4f8825c1c2c53cb01d9daa65ff18e1b49cd054d"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ScriptCustomObject.js",
+      "bytes": 1879,
+      "sha256": "37c699a50725160c85af4c4d2231ff95a78bd6e3e58a423124a67f940c12187b"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AObject.js",
+      "bytes": 4557,
+      "sha256": "6bb8f95e4832f30be69e4867e3ece24dac23f83b3acc9c941aa88ab1d3e566b2"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/IFScriptComponent.js",
+      "bytes": 2280,
+      "sha256": "2a2120aa810c48c211b063ae7a4037a725162ef4f15c439037885e72471555e4"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AudioFeature.js",
+      "bytes": 3177,
+      "sha256": "448b7424f8ae5d23de57ef93a220618e07d6140d2af4691b53c55540871a2343"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AMGAudioNode.js",
+      "bytes": 14350,
+      "sha256": "0173101c4baf1f3d195d811b8a9f5b6bff4a942089b319d0cafa8491d12810f1"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Texture3DCreateDesc.js",
+      "bytes": 1127,
+      "sha256": "69c646c279aa04b5fcf47f68b851576af314f0515db5d37509f9cf4c2868e9f0"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/BaseClip.js",
+      "bytes": 2978,
+      "sha256": "4c4e1edcce592733d0385c380afc011422ff76675f0023ed00a56a117a91daa7"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Text.js",
+      "bytes": 10268,
+      "sha256": "afee27aac45b238b1039065474d6813cd7065396c005c84b14214fa7673128a5"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Transform.js",
+      "bytes": 7092,
+      "sha256": "9d192959bf79cf4336fcc79820dece295f8685bcc0c670ad774cb68fa54755a9"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ScriptCustomExternalObject.js",
+      "bytes": 1940,
+      "sha256": "e442fff2120ad760e021d446ac062db4efa0017295bc3a61565858da24a5d9a6"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TimelineCommon.js",
+      "bytes": 4327,
+      "sha256": "410af12504ce25c528936be68052ee15ac544be02733a5b8c530221dd8d63f07"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TableComponent.js",
+      "bytes": 2229,
+      "sha256": "d35d0fd066c7a4a686efb7f3f8199719a0172ea2cbcb8d3a977b8cc1acaa5ee8"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/MathTypeCollection.js",
+      "bytes": 369,
+      "sha256": "0fab1c7158448ca96b259aeaa9b8be8b9024255fd74f1ef4b7420ad685776968"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/MeshQuad.js",
+      "bytes": 1770,
+      "sha256": "6b7af9c7551753beb063c823bb58a2aea4c790cad89d4b0a740cf37d37cc0a47"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TextureCubeProvider.js",
+      "bytes": 2660,
+      "sha256": "879cb29608f9034de9f9c8b8238b54307e3bda242118d232a102e44819785c1b"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Input.js",
+      "bytes": 7259,
+      "sha256": "53aeef8a81ad7276d1a24a481dcb97fd33b085230edaf92275a3ba3c13203fe1"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/FaceWarpXModelInfo.js",
+      "bytes": 4381,
+      "sha256": "daafedc4e7788fd445d577ef81709ad2652dc6023abb9776bc8d6552440dae04"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/TimelinePlayer.js",
+      "bytes": 10428,
+      "sha256": "2f648df9dcf42ece1944f6da11f9f37bf813aea8365cff96e76a0ad6b845dc98"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/UInt32Vector.js",
+      "bytes": 1759,
+      "sha256": "23e62bd5f3570c85c3f96d7b9cc84c94e3cb94d0401dafe88592acbacd9eeac5"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Vec3Vector.js",
+      "bytes": 4574,
+      "sha256": "ca387ec2d913d91945df3112decf5040a50c1996080046ccc82f82011910ae6f"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Vec2Vector.js",
+      "bytes": 4574,
+      "sha256": "1a101104dd0b11f38d8ef42e6320b342391dc1a80ef744b67f709f8dedbf57c2"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Buffer.js",
+      "bytes": 7135,
+      "sha256": "7818d3b9b90456f9d3296e0f23eb16f05bf3a8019faa13ef575fd3e0235ebdcf"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Texture.js",
+      "bytes": 6971,
+      "sha256": "8db1e09f9e209bdbb7daf4a6bed57f2b53d45999ebb564ad3a38e529787fd0f1"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/PointLight.js",
+      "bytes": 2408,
+      "sha256": "4a937cae8d957df26115031a7a2fe162fad0324af3380c37bba44f56b8ea1ffd"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ProxyVector3f.js",
+      "bytes": 1789,
+      "sha256": "e1822fabea7eb075aa565a7785b160389db9be8e84b14169d962ab602822b43b"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/MaskRenderer.js",
+      "bytes": 3920,
+      "sha256": "524ed962345de61e1591c5d58b84ee8772808777efb9d755fdd6d3b00ae8e991"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ImageFrame.js",
+      "bytes": 2688,
+      "sha256": "4d62ab3b3e6fc524734d1e8b50a655fa4d49449a1c99101dd2d0b84f8ddaba43"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AlgorithmManager.js",
+      "bytes": 8337,
+      "sha256": "9188507ce97a146cad0e6839fb0b2751882dc39da34d2d5103733d9cd0d3c1e4"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/ScreenTransform.js",
+      "bytes": 5522,
+      "sha256": "11dc67236d7970751075e6b163151156f6c9ad86ce063d19f8e424491cfa24cc"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/Animator.js",
+      "bytes": 6160,
+      "sha256": "5673c367503952949dacfb04c74edd985092133b4374de019494dbfcb057cfba"
+    },
+    {
+      "path": "AmazingFeature/js/AmazingProJS/AnimazTrack.js",
+      "bytes": 4206,
+      "sha256": "bc6a5ed65858fa4240cd0abd19ecedd3b9b42999e15838c2cf9dfaa9344a2792"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/GraphSystem.js",
+      "bytes": 7053,
+      "sha256": "b28a7650af4383325113ed005ccdbee8f7994f9f63c3c760de45569dc0c246eb"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/AmazEventListener.js",
+      "bytes": 2919,
+      "sha256": "a921f4b87733bf15302a4e296592774dfe7bfac00999150b8ec1182e185048de"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/Types.js",
+      "bytes": 734,
+      "sha256": "2a78a4bccca564770493ffdead4b856b6b4908e7ec02385bd516250e8660ca57"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/GraphLifeCircle.js",
+      "bytes": 2394,
+      "sha256": "17323b41ecf79a08c9492337f6aa274a9c2e1876a03aa95cb79ec343eb00b157"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/SystemGraph.js",
+      "bytes": 2883,
+      "sha256": "e21ca789a6f04d373f335ec167e0452478d873fd443436ee7e33d774b5694769"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/GraphHelper.js",
+      "bytes": 15975,
+      "sha256": "6a1a69cfd6a8cb5b667a13de4fa49a0bd3ef604792ba2bbdd9183aa739338f06"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/ComponentGraph.js",
+      "bytes": 9757,
+      "sha256": "57e8f115e47d84c11acc4d098093e9f84f97701203521ce9b9592276a836ba51"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/BaseGroup.js",
+      "bytes": 15360,
+      "sha256": "742ec64f0379d83320aa030be5db2cbd27d8bb7c30476f65e2007f2508342b74"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/DataFlow.js",
+      "bytes": 746,
+      "sha256": "7172cee69ae56e24569b02d6cce83d8baafa67e63401e601087a90297aa240dd"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/GraphManager.js",
+      "bytes": 4430,
+      "sha256": "969a1656487972d86764c6e497ae635ea8d4d73014fc377ceabd48293e4021b5"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/BaseGraph.js",
+      "bytes": 20994,
+      "sha256": "6e82a2961bc37022ed9d7bcc1987487607680e9b089dbd5dfbe8a4c83b3483be"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/ControlFlow.js",
+      "bytes": 2667,
+      "sha256": "a044706c99057ec6d8ca4c588f4b5e27da6a087fb2fea4d6f2b54d279853918a"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/GraphUtils.js",
+      "bytes": 8290,
+      "sha256": "a2a8431c81e0ee24aafe551b56bb2df4048131afd4c5d2a06ba4181c32c87f6e"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/ScriptNodeAPI.js",
+      "bytes": 2100,
+      "sha256": "d78576e4c8481396a8a73a2a3c2627bd3bdf6b9c573e3c1c5487c0fabe0af31e"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/CentralDataReset.js",
+      "bytes": 9090,
+      "sha256": "1177b221419688686bb178eb3ed19dd4d7cf7aeee05019d15396593854d5967e"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/BEMessage.js",
+      "bytes": 7003,
+      "sha256": "88ec08dd5eb187ad474e1a586dc12ae9c2d17cf9a4dc740f10564e5fe51a51a2"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Utils/BaseNode.js",
+      "bytes": 1878,
+      "sha256": "cca5c2e7ad79ac0505e5d22200651776bdab92dd9c9ba69cbb7315ba786a0b49"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Nodes/CGOnUpdate100.js",
+      "bytes": 493,
+      "sha256": "8b88f9f659f7e1c868d57f2938015862c054c3c36f993a084096611b6d412c93"
+    },
+    {
+      "path": "AmazingFeature/js/Graph/Lib/Nodes/CGOnStart100.js",
+      "bytes": 441,
+      "sha256": "bfbf449aaa611c1b170e9185bed3673c562a40046ecce845b62daa50b20ada32"
+    },
+    {
+      "path": "AmazingFeature/js/Natural Makeup/Generative Effects/Natural Makeup.algo.folder/skinunified.js",
+      "bytes": 5364,
+      "sha256": "b86466d6cd1044bf45f9241f1ef61757d8db87e7c918ad2c915b61ce6665609e"
+    },
+    {
+      "path": "algConfigs/AlSubGraph_Mon26May2025154146GMT2757kbw.json",
+      "bytes": 2109,
+      "sha256": "9b6c138839d2495f8f9347bcffe433bb71d6794b53257c344a8f40ca05b7f4b7"
+    },
+    {
+      "path": "algConfigs/AlSubGraph_Mon26May2025154146GMT2755mob.json",
+      "bytes": 694,
+      "sha256": "3c1c1d8b9812d26d369649bf0f7130f74b58a050f31989f2d0364cc76c10e8c5"
+    },
+    {
+      "path": "algorithmConfig.json",
+      "bytes": 2348,
+      "sha256": "7bffd0c09b955290249ce990eb2f8b51baaa735e6baa820d610019c679ca9d3b"
+    },
+    {
+      "path": "assets.json",
+      "bytes": 112,
+      "sha256": "a7cdcf3dfb888f63c231b960e0144ab2588f8780861b329f682a5601c4ee347a"
+    },
+    {
+      "path": "config.json",
+      "bytes": 828,
+      "sha256": "c7b560f3990a8e8173f8c2e836c68b83d48cabfcc0598fd5cf353db9b3ff0cb1"
+    },
+    {
+      "path": "device.json",
+      "bytes": 92,
+      "sha256": "1f5cb2a669018d9c47bbac876398252e533a42714b8d3ba25f9409846f7a2e74"
+    },
+    {
+      "path": "extra.json",
+      "bytes": 229,
+      "sha256": "3830f43e5a1283f06a80dcd91f49486b7d94095bdf7ccbe9483bfcc91a9b7181"
+    },
+    {
+      "path": "graph.json",
+      "bytes": 149,
+      "sha256": "a1157d619e686558c7e02ec2054be1748459a306dc0c3fa1e75060275728d152"
+    },
+    {
+      "path": "loki.json",
+      "bytes": 550,
+      "sha256": "28efba791b645da86664d12823591f0e7c47eadf9bd66d504c921fa651f84070"
+    },
+    {
+      "path": "scene.json",
+      "bytes": 25728,
+      "sha256": "18f566ada7a7ddc1dd450054fc3c5e0f2d09cbc6b4d5bb73c9622cf41209dc57"
+    },
+    {
+      "path": "submission_extra.json",
+      "bytes": 55,
+      "sha256": "82bb3a80db77f67a591ebbeeebb10dec905ea5eaefa31c1189d67d60c828196d"
+    },
+    {
+      "path": "tooldata.json",
+      "bytes": 509,
+      "sha256": "261857f6549a697428373cf2396325eab18ce7d67d96c9df3ed14481d0bd54c8"
+    },
+    {
+      "path": "trigger.json",
+      "bytes": 182,
+      "sha256": "c4a383957bdceba2448185706c5be420823f5aaad4f672ece5d5b89be85444b2"
+    }
+  ],
+  "privacy": "Original downloaded effect archive only. Download preceded all user-photo runtime operations. The archive was never mutated; these are authored textures and effect components, not user photographs."
+}

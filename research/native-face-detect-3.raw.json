@@ -1,0 +1,1 @@
+{"name":"rpn_cls_score/16s","shape_nhwc":[1,10,10,4],"dtype":2,"fraction":8}

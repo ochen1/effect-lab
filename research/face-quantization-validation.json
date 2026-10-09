@@ -1,0 +1,38 @@
+{
+  "synthetic": true,
+  "input": "mathematical RGB gradients; no photographs",
+  "native_runtime": "libbytenn 3.12.30 macOS arm64 CPU",
+  "arithmetic": {
+    "stored_dtype": "int16",
+    "saturation": [
+      -2047,
+      2047
+    ],
+    "rounding": "floor(x + 0.5)",
+    "bias": "round bias to input_fraction + weight_fraction before accumulation"
+  },
+  "layers": [
+    {
+      "layer": "conv1",
+      "values": 51200,
+      "identical": 51200,
+      "max_integer_error": 0,
+      "passed": true
+    },
+    {
+      "layer": "block1a_conv_a",
+      "values": 51200,
+      "identical": 51200,
+      "max_integer_error": 0,
+      "passed": true
+    },
+    {
+      "layer": "block1a_conv_b",
+      "values": 51200,
+      "identical": 51200,
+      "max_integer_error": 0,
+      "passed": true
+    }
+  ],
+  "passed": true
+}
