@@ -46,11 +46,15 @@ export interface PipelineOptions {
 function cancelled(signal?: AbortSignal) {
 	if (signal?.aborted) throw new DOMException("Cancelled", "AbortError");
 }
-function canvas(width: number, height: number): HTMLCanvasElement {
+function canvas(
+	width: number,
+	height: number,
+	readback = false,
+): HTMLCanvasElement {
 	const value = document.createElement("canvas");
 	value.width = width;
 	value.height = height;
-	getSdrContext(value);
+	getSdrContext(value, { willReadFrequently: readback });
 	return value;
 }
 async function jsonAsset<T>(path: string): Promise<T> {
@@ -138,7 +142,7 @@ export async function createPipeline(options: PipelineOptions = {}) {
 		);
 		const width = Math.max(1, Math.round(input.width * scale));
 		const height = Math.max(1, Math.round(input.height * scale));
-		const small = reusable ?? canvas(width, height);
+		const small = reusable ?? canvas(width, height, true);
 		if (small.width !== width) small.width = width;
 		if (small.height !== height) small.height = height;
 		try {
@@ -466,7 +470,7 @@ export async function createPipeline(options: PipelineOptions = {}) {
 				const w = Math.max(1, Math.round(width * scale)),
 					h = Math.max(1, Math.round(height * scale));
 				frameSource ??= canvas(w, h);
-				frameAnalysis ??= canvas(1, 1);
+				frameAnalysis ??= canvas(1, 1, true);
 				if (frameSource.width !== w) frameSource.width = w;
 				if (frameSource.height !== h) frameSource.height = h;
 				const context = getSdrContext(frameSource);

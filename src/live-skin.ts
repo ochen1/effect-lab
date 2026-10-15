@@ -9,6 +9,7 @@ import type { SkinPatch } from "./compositor";
 
 interface Processor {
 	readonly busy: boolean;
+	getStatus?(): { segmentationBackend?: string };
 	idle?(): Promise<void>;
 	process(input: HTMLCanvasElement, face: Face): Promise<SkinPatch>;
 }
@@ -28,6 +29,7 @@ export interface LiveSkinDiagnostics {
 	invalidations: number;
 	inFlight: boolean;
 	lastInferenceMs: number | null;
+	refreshIntervalMs: number;
 	mapAgeMs: number | null;
 	hasMap: boolean;
 }
@@ -110,6 +112,7 @@ export function createLiveSkin(
 	let lastWidth = 0,
 		lastHeight = 0;
 	let pending: Promise<void> | undefined;
+	let lastRequestedAt = -Infinity;
 	let epoch = 0;
 	let error: unknown;
 	const stats: LiveSkinDiagnostics = {
@@ -120,6 +123,7 @@ export function createLiveSkin(
 		invalidations: 0,
 		inFlight: false,
 		lastInferenceMs: null,
+		refreshIntervalMs: 0,
 		mapAgeMs: null,
 		hasMap: false,
 	};
@@ -130,6 +134,7 @@ export function createLiveSkin(
 		latest = { ...stats };
 	};
 	function reset() {
+		lastRequestedAt = -Infinity;
 		epoch++;
 		cached = undefined;
 		last = undefined;
@@ -137,8 +142,21 @@ export function createLiveSkin(
 		stats.invalidations++;
 		publish();
 	}
-	function start(input: HTMLCanvasElement, face: Face, light: number[]) {
+	function start(
+		input: HTMLCanvasElement,
+		face: Face,
+		light: number[],
+		force = false,
+	) {
 		if (pending || processor.busy) return;
+		// Leave room for camera textures and composition on the same GPU. CPU
+		// fallback stays continuously busy off-thread; it does not need this GPU budget.
+		stats.refreshIntervalMs =
+			processor.getStatus?.().segmentationBackend === "webgpu"
+				? Math.max(250, Math.min(1000, (stats.lastInferenceMs ?? 200) * 2.5))
+				: 0;
+		if (!force && clock() - lastRequestedAt < stats.refreshIntervalMs) return;
+		lastRequestedAt = clock();
 		const generation = epoch,
 			capturedAt = clock(),
 			snapshot = structuredClone(face),
@@ -183,6 +201,7 @@ export function createLiveSkin(
 			light: number[],
 		) {
 			epoch++;
+			lastRequestedAt = clock();
 			error = undefined;
 			last = structuredClone(face);
 			lastWidth = input.width;
@@ -255,7 +274,7 @@ export function createLiveSkin(
 					throw e;
 				}
 				cached = undefined;
-				start(input, face, light);
+				start(input, face, light, true);
 				await pending;
 				if (generation !== epoch) return undefined;
 				if (error) {

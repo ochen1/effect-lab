@@ -192,5 +192,14 @@
       360,
       480
     ]
+  },
+  "cameraPacingFollowup": {
+    "source": "Looping 30FPS encoded local portrait fed through MediaStream; avoids a main-thread canvas producer bottleneck",
+    "measuredSourceDecodedFps": 29.985606908112175,
+    "graphicsBudget": "GPU skin job starts spaced by2.5x measured inference duration, clamped250\u20131000ms; CPU fallback remains unthrottled",
+    "analysisReadback": "CPU-readable canvas selected on first context creation",
+    "fpsMeter": "Counts frames over elapsed time; no averaging instantaneous reciprocal rates",
+    "scope": "Local final build; physical S26 remains unmeasured",
+    "finalCountedPreviewFps": 30.0
   }
 }

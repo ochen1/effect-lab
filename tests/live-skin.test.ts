@@ -162,3 +162,22 @@ test("a slow CPU fallback can reuse a newly completed field, but never indefinit
 	h.complete();
 	await h.cache.drain();
 });
+
+test("GPU field updates leave rendering time while CPU fallback is not throttled", async () => {
+	const h = harness();
+	Object.assign(h.processor, {
+		getStatus: () => ({ segmentationBackend: "webgpu" }),
+	});
+	const first = h.cache.get(input, face, [], true);
+	h.time(100);
+	h.complete();
+	await first;
+	h.time(150);
+	expect((await h.cache.get(input, face))?.rgba).toBe(patch.rgba);
+	expect(h.calls()).toBe(1);
+	h.time(260);
+	await h.cache.get(input, face);
+	expect(h.calls()).toBe(2);
+	h.complete();
+	await h.cache.drain();
+});

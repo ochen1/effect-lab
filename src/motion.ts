@@ -1,5 +1,5 @@
 import type { EffectSettings } from "./ui-types";
-import { createFramePump } from "./frame-pump";
+import { createFramePump, createFrameRateMeter } from "./frame-pump";
 import { describeCaptureColor, getSdrContext } from "./capture-color";
 
 export type MotionMode = "video" | "camera";
@@ -149,7 +149,7 @@ export function createMotionController(options: MotionOptions) {
 	let showOriginal = false;
 	let canExport = false;
 	let sourceHasAudio = false;
-	let lastFrameAt = 0;
+	const frameRate = createFrameRateMeter();
 	let fps = 0;
 	let recordingSession: PairedRecordingSession | undefined;
 	let recordingController: AbortController | undefined;
@@ -338,11 +338,7 @@ export function createMotionController(options: MotionOptions) {
 			renderedRevision = frameRevision;
 			renderedEngine = frameSettings.inferenceEngine;
 			const now = performance.now();
-			if (lastFrameAt)
-				fps = fps
-					? fps * 0.7 + (1000 / (now - lastFrameAt)) * 0.3
-					: 1000 / (now - lastFrameAt);
-			lastFrameAt = now;
+			fps = frameRate.record(now);
 			e("motion-fps").textContent =
 				mode === "camera"
 					? `Edited preview · ${fps ? fps.toFixed(1) : "…"} fps. Original recording follows the camera independently.`
@@ -414,7 +410,7 @@ export function createMotionController(options: MotionOptions) {
 	])
 		video.addEventListener(event, updateTransport);
 	video.addEventListener("play", () => {
-		lastFrameAt = 0;
+		frameRate.reset();
 		fps = 0;
 	});
 	video.addEventListener("seeked", () => {
@@ -585,7 +581,8 @@ export function createMotionController(options: MotionOptions) {
 		renderedTime = -1;
 		renderedFrameKey = -1;
 		renderedRevision = 0;
-		fps = lastFrameAt = 0;
+		frameRate.reset();
+		fps = 0;
 		capture.width = capture.height = 1;
 		e("motion-loading").hidden = true;
 		e("motion-picture").hidden = true;
