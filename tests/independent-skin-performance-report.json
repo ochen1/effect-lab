@@ -1,0 +1,312 @@
+{
+  "state": "complete",
+  "stages": [
+    {
+      "model": "smoothing",
+      "backend": "webgpu",
+      "warmMilliseconds": [
+        146.79999995231628
+      ]
+    },
+    {
+      "model": "segmentation",
+      "backend": "wasm",
+      "warmMilliseconds": [
+        1659.0999999046326
+      ]
+    },
+    {
+      "model": "segmentation",
+      "backend": "webgpu",
+      "warmMilliseconds": [
+        67.89999985694885
+      ]
+    },
+    {
+      "model": "segmentation",
+      "diagnostic": {
+        "maximum": 0.10083180665969849,
+        "mean": 0.0004257280088157483,
+        "overOneByte": 3804,
+        "values": 262144,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      }
+    }
+  ],
+  "cases": [
+    {
+      "correctionField": {
+        "passed": true,
+        "maximumOutputByteErrorBound": 0.010784313725490453,
+        "meanOutputByteErrorBound": 3.365909352022076e-07,
+        "checkedValues": 786432
+      },
+      "index": 0,
+      "move": 0,
+      "mask": {
+        "maximum": 0.0002669095993041992,
+        "mean": 1.347786761497925e-07,
+        "overOneByte": 0,
+        "values": 262144,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      },
+      "correctedRgb": {
+        "maximum": 5.960464477539062e-07,
+        "mean": 1.5586228604054972e-10,
+        "overOneByte": 0,
+        "values": 786432,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      }
+    },
+    {
+      "correctionField": {
+        "passed": true,
+        "maximumOutputByteErrorBound": 0.022549019607843057,
+        "meanOutputByteErrorBound": 5.485185610702599e-07,
+        "checkedValues": 786432
+      },
+      "index": 0,
+      "move": -1,
+      "mask": {
+        "maximum": 0.0002046525478363037,
+        "mean": 1.2577734660483776e-07,
+        "overOneByte": 0,
+        "values": 262144,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      },
+      "correctedRgb": {
+        "maximum": 5.885958671569824e-07,
+        "mean": 2.1116856411633003e-10,
+        "overOneByte": 0,
+        "values": 786432,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      }
+    },
+    {
+      "correctionField": {
+        "passed": true,
+        "maximumOutputByteErrorBound": 0.014705882352941336,
+        "meanOutputByteErrorBound": 6.008771509906041e-07,
+        "checkedValues": 786432
+      },
+      "index": 0,
+      "move": 1,
+      "mask": {
+        "maximum": 0.00031954050064086914,
+        "mean": 2.7410651697421047e-07,
+        "overOneByte": 0,
+        "values": 262144,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      },
+      "correctedRgb": {
+        "maximum": 2.2649765014648438e-06,
+        "mean": 7.084205814559633e-10,
+        "overOneByte": 0,
+        "values": 786432,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      }
+    },
+    {
+      "correctionField": {
+        "passed": true,
+        "maximumOutputByteErrorBound": 0.010784313725490147,
+        "meanOutputByteErrorBound": 3.2163133808210707e-07,
+        "checkedValues": 786432
+      },
+      "index": 1,
+      "move": 0,
+      "mask": {
+        "maximum": 0.00013887882232666016,
+        "mean": 1.49841576962813e-07,
+        "overOneByte": 0,
+        "values": 262144,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      },
+      "correctedRgb": {
+        "maximum": 7.152557373046875e-07,
+        "mean": 1.9914529284884944e-10,
+        "overOneByte": 0,
+        "values": 786432,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      }
+    },
+    {
+      "correctionField": {
+        "passed": true,
+        "maximumOutputByteErrorBound": 0.016666666666666604,
+        "meanOutputByteErrorBound": 2.617929496017148e-07,
+        "checkedValues": 786432
+      },
+      "index": 1,
+      "move": -1,
+      "mask": {
+        "maximum": 0.00017464160919189453,
+        "mean": 1.5930475890135646e-07,
+        "overOneByte": 0,
+        "values": 262144,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      },
+      "correctedRgb": {
+        "maximum": 7.748603820800781e-07,
+        "mean": 1.6438346979915272e-10,
+        "overOneByte": 0,
+        "values": 786432,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      }
+    },
+    {
+      "correctionField": {
+        "passed": true,
+        "maximumOutputByteErrorBound": 0.012745098039215651,
+        "meanOutputByteErrorBound": 1.8450169781454183e-07,
+        "checkedValues": 786432
+      },
+      "index": 1,
+      "move": 1,
+      "mask": {
+        "maximum": 0.000276029109954834,
+        "mean": 1.240257357350299e-07,
+        "overOneByte": 0,
+        "values": 262144,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      },
+      "correctedRgb": {
+        "maximum": 1.341104507446289e-06,
+        "mean": 1.4725258049944992e-10,
+        "overOneByte": 0,
+        "values": 786432,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      }
+    },
+    {
+      "correctionField": {
+        "passed": true,
+        "maximumOutputByteErrorBound": 0.016666666666666604,
+        "meanOutputByteErrorBound": 4.2634851792279324e-07,
+        "checkedValues": 786432
+      },
+      "index": 2,
+      "move": 0,
+      "mask": {
+        "maximum": 0.00010436773300170898,
+        "mean": 1.1569468223987685e-07,
+        "overOneByte": 0,
+        "values": 262144,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      },
+      "correctedRgb": {
+        "maximum": 9.834766387939453e-07,
+        "mean": 1.495710222343405e-10,
+        "overOneByte": 0,
+        "values": 786432,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      }
+    },
+    {
+      "correctionField": {
+        "passed": true,
+        "maximumOutputByteErrorBound": 0.016666666666666604,
+        "meanOutputByteErrorBound": 2.917121438419105e-07,
+        "checkedValues": 786432
+      },
+      "index": 2,
+      "move": -1,
+      "mask": {
+        "maximum": 0.00017303228378295898,
+        "mean": 1.2414316347437745e-07,
+        "overOneByte": 0,
+        "values": 262144,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      },
+      "correctedRgb": {
+        "maximum": 1.3113021850585938e-06,
+        "mean": 1.272410325251864e-10,
+        "overOneByte": 0,
+        "values": 786432,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      }
+    },
+    {
+      "correctionField": {
+        "passed": true,
+        "maximumOutputByteErrorBound": 0.008823529411764671,
+        "meanOutputByteErrorBound": 2.2439395680147008e-07,
+        "checkedValues": 786432
+      },
+      "index": 2,
+      "move": 1,
+      "mask": {
+        "maximum": 0.00019741058349609375,
+        "mean": 1.333968102638451e-07,
+        "overOneByte": 0,
+        "values": 262144,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      },
+      "correctedRgb": {
+        "maximum": 5.960464477539062e-07,
+        "mean": 1.141859939934875e-10,
+        "overOneByte": 0,
+        "values": 786432,
+        "cpuNonfinite": 0,
+        "gpuNonfinite": 0
+      }
+    }
+  ],
+  "comparison": "Same independently qualified smoothing output on both sides; original CPU mask versus parallel-reduce GPU mask. Four-corner RGBA8 coefficient bound covers arbitrary source brightness and bilinear sampling.",
+  "inputPolicy": "Three private photographs and six translated/scaled crops evaluated locally. This report contains only aggregate errors and timings; no images, pixels, tensors, or landmarks.",
+  "date": "2026-10-15",
+  "baselineWarmMilliseconds": {
+    "smoothingGpu": [
+      115.9,
+      112.3,
+      112.9
+    ],
+    "segmentationCpu": [
+      1594.7,
+      1648.9,
+      1585.0
+    ]
+  },
+  "syntheticRuntimeGate": {
+    "maximumOutputByteErrorBound": 0.5,
+    "meanOutputByteErrorBound": 0.0005300521850583957,
+    "cases": 2,
+    "channelsPerCase": 786432,
+    "passed": true
+  },
+  "firstImageRuntimeGate": {
+    "maximumOutputByteErrorBound": 0.010784313725490453,
+    "meanOutputByteErrorBound": 3.365909352022076e-07,
+    "channels": 786432,
+    "passed": true
+  },
+  "subsequentRuntimeMilliseconds": {
+    "smoothing": 181.4,
+    "segmentation": 88.3,
+    "total": 284.2
+  },
+  "transparentInputRuntimeCheck": {
+    "input": "Synthetic512RGBA with onealpha254 pixel",
+    "segmentationBackend": "wasm",
+    "segmentationGraph": "upstream",
+    "passed": true
+  }
+}

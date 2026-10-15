@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "source": {
+    "name": "skin-segmentation.onnx",
+    "bytes": 67207114,
+    "sha256": "f027e0820d499eb77558459e9f1b272634a1c4f610ae0f73e7009a9623c17437"
+  },
+  "candidate": {
+    "input": "rgb",
+    "output": "skin",
+    "files": [
+      {
+        "name": "skin-segmentation-gpu.onnx",
+        "bytes": 67208567,
+        "sha256": "5aed436ee0b7394f4d5e890b371bf6b1435f2dda9e824a4ce515d6a6ccdd33e1"
+      }
+    ]
+  },
+  "transformation": "Replace62 GlobalAveragePool nodes by mathematically equivalent two-axis ReduceMean; preserve all weights, epsilon and two-pass variance.",
+  "qualification": "Full RGBA8 correction-field four-corner output bounds: maximum1 byte, mean0.1 byte. Original model remains CPU fallback.",
+  "cases": [
+    {
+      "input": "radial",
+      "reference": {
+        "name": "skin-correction-radial.rgba",
+        "bytes": 1048576,
+        "sha256": "860c933301379b693ed5a07bea8ed553b76391d980122a4fb5ad700d90b70073"
+      },
+      "nativeCandidateOutputBound": {
+        "maximumOutputByteErrorBound": 0.05490196078431352,
+        "meanOutputByteErrorBound": 0.0006397546506395513,
+        "passed": true
+      }
+    },
+    {
+      "input": "gradient",
+      "reference": {
+        "name": "skin-correction-gradient.rgba",
+        "bytes": 1048576,
+        "sha256": "bb76ef6887f9e373535b2ee881a824b00acac6540b92522e2df409668c8077ef"
+      },
+      "nativeCandidateOutputBound": {
+        "maximumOutputByteErrorBound": 0.0,
+        "meanOutputByteErrorBound": 0.0,
+        "passed": true
+      }
+    }
+  ],
+  "nativeRawMaskComparison": [
+    {
+      "input": "radial",
+      "values": 262144,
+      "maximumError": 0.2194821834564209,
+      "meanError": 0.0017744617071002722,
+      "milliseconds": [
+        205.95350000075996,
+        210.88441601023078
+      ]
+    },
+    {
+      "input": "gradient",
+      "values": 262144,
+      "maximumError": 0.000501926988363266,
+      "meanError": 1.0013008022724534e-07,
+      "milliseconds": [
+        173.12762513756752,
+        176.63529189303517
+      ]
+    }
+  ]
+}

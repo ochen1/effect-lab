@@ -1,6 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import {
 	independentBlendPatch,
+	compareIndependentCorrection,
+	quantizeIndependentPatch,
 	independentSegmentationDiagnostic,
 	independentSkinCrop,
 } from "../src/independent-skin";
@@ -67,4 +69,47 @@ describe("independent skin ROI and full-resolution blend contract", () => {
 		expect(diagnostic[256 * 512 + 256]).toBe(1);
 		expect(diagnostic[512 * 512 + 100]).toBe(diagnostic[100]);
 	});
+});
+
+test("correction bound covers bilinear alpha/map products at arbitrary source brightness", () => {
+	const expected = new Uint8ClampedArray([
+		100, 140, 120, 200, 110, 150, 120, 210, 120, 160, 120, 220, 130, 170, 120,
+		230,
+	]);
+	const actual = expected.slice();
+	actual[0]++;
+	actual[7]++;
+	actual[8]--;
+	actual[14]++;
+	const bound = compareIndependentCorrection(actual, expected, 2);
+	expect(bound.maximumOutputByteErrorBound).toBeLessThanOrEqual(1);
+	const sample = (bytes: Uint8ClampedArray, c: number, u: number, v: number) =>
+		((bytes[c] * (1 - u) + bytes[4 + c] * u) * (1 - v) +
+			(bytes[8 + c] * (1 - u) + bytes[12 + c] * u) * v) /
+		255;
+	for (let uy = 0; uy <= 8; uy++)
+		for (let ux = 0; ux <= 8; ux++)
+			for (const light of [0, 0.01, 0.2, 0.5, 0.8, 0.99, 1])
+				for (let c = 0; c < 3; c++) {
+					const u = ux / 8,
+						v = uy / 8;
+					const render = (bytes: Uint8ClampedArray) =>
+						light +
+						sample(bytes, 3, u, v) *
+							(2 * sample(bytes, c, u, v) - 1) *
+							light *
+							(1 - light);
+					expect(
+						Math.abs(render(actual) - render(expected)) * 255,
+					).toBeLessThanOrEqual(bound.maximumOutputByteErrorBound + 1e-12);
+				}
+});
+
+test("NaNs cannot disappear during correction quantization", () => {
+	expect(() =>
+		quantizeIndependentPatch(new Float32Array([0, 0, NaN, 0])),
+	).toThrow("finite");
+	expect(() =>
+		quantizeIndependentPatch(new Float32Array([0, 0, Infinity, 0])),
+	).toThrow("finite");
 });

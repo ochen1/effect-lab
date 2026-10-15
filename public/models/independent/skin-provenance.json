@@ -77,8 +77,34 @@
     },
     {
       "name": "skin-manifest.json",
-      "bytes": 530,
-      "sha256": "681f2c49c69bad63f510f9f817b2aabc9dd46f54570f3b0aa94d214dd6b16e03"
+      "bytes": 573,
+      "sha256": "2ce643bbc006ab3303b54f06e75c077c0a3bdd371af5461e3d76ee3597c37ae6"
+    },
+    {
+      "name": "skin-segmentation-gpu.onnx",
+      "bytes": 67208567,
+      "sha256": "5aed436ee0b7394f4d5e890b371bf6b1435f2dda9e824a4ce515d6a6ccdd33e1"
+    },
+    {
+      "name": "skin-gpu-manifest.json",
+      "bytes": 2063,
+      "sha256": "bb50642b49b4f54463ddc295cc3efb09b76cee19164b5c5dfb1e631637a506d1"
+    },
+    {
+      "name": "skin-correction-radial.rgba",
+      "bytes": 1048576,
+      "sha256": "860c933301379b693ed5a07bea8ed553b76391d980122a4fb5ad700d90b70073"
+    },
+    {
+      "name": "skin-correction-gradient.rgba",
+      "bytes": 1048576,
+      "sha256": "bb76ef6887f9e373535b2ee881a824b00acac6540b92522e2df409668c8077ef"
     }
-  ]
+  ],
+  "gpuOptimization": {
+    "tool": "tools/optimize_independent_skin.py",
+    "sourceSha256": "f027e0820d499eb77558459e9f1b272634a1c4f610ae0f73e7009a9623c17437",
+    "weights": "Unchanged float32 tensors; original graph retained as CPU fallback.",
+    "qualification": "Full RGBA8 four-corner correction bounds on two synthetic cases and the first real face; transparent inputs use original CPU mask; every output checked for finiteness."
+  }
 }

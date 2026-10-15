@@ -1,0 +1,196 @@
+{
+  "version": 1,
+  "date": "2026-10-15",
+  "baselineCommit": "785f6f4",
+  "scope": "Same desktop Chromium, same local portrait, 540x720 input. Model warmup and first skin acquisition excluded from steady preview numbers. These are desktop measurements under concurrent host workloads, not S26 benchmarks.",
+  "privacy": "Timing and counters only; no images or facial coordinates.",
+  "baseline": {
+    "realtime": false,
+    "frames": 4,
+    "elapsedMs": 7072.200000047684,
+    "fps": 0.5655948643948178,
+    "meanProcessingMs": 1767.5000000596046,
+    "p50Ms": 1772.5,
+    "p95Ms": 1813.3000001907349,
+    "maxMainThreadGapMs": 1649.4000000953674,
+    "skin": {
+      "state": "ready",
+      "backend": "webgpu",
+      "provider": "Alibaba ModelScope / Apache-2.0",
+      "model": "cv_unet_skin_retouching_torch",
+      "whitening": false,
+      "localBlemishInpainting": false,
+      "downloadedBytes": 121823314,
+      "gpuRejections": {
+        "segmentation": {
+          "maximumError": 0.1006699800491333,
+          "meanError": 0.0004254209779573664,
+          "checkedValues": 262144
+        }
+      },
+      "fallbackReason": "Independent segmentation webgpu output did not match its model reference (maximum 0.100670, mean 0.000425).",
+      "segmentationBackend": "wasm",
+      "validation": {
+        "passed": true,
+        "maximumError": 0.00018972158432006836,
+        "checkedValues": 262336
+      }
+    }
+  },
+  "workerTrackedPreview": {
+    "realtime": true,
+    "frames": 120,
+    "elapsedMs": 2269.5,
+    "fps": 52.875082617316586,
+    "meanProcessingMs": 18.726666673024496,
+    "p50Ms": 17.700000047683716,
+    "p95Ms": 26.5,
+    "maxMainThreadGapMs": 42.5,
+    "skin": {
+      "state": "ready",
+      "backend": "webgpu",
+      "provider": "Alibaba ModelScope / Apache-2.0",
+      "model": "cv_unet_skin_retouching_torch",
+      "whitening": false,
+      "localBlemishInpainting": false,
+      "downloadedBytes": 121823314,
+      "gpuRejections": {
+        "segmentation": {
+          "maximumError": 0.1006699800491333,
+          "meanError": 0.0004254209779573664,
+          "checkedValues": 262144
+        }
+      },
+      "fallbackReason": "Independent segmentation webgpu output did not match its model reference (maximum 0.100670, mean 0.000425).",
+      "segmentationBackend": "wasm",
+      "validation": {
+        "passed": true,
+        "maximumError": 0.00018972158432006836,
+        "checkedValues": 262336
+      },
+      "lastProcessing": {
+        "cropMilliseconds": 1.4000000953674316,
+        "smoothingMilliseconds": 131.39999985694885,
+        "segmentationMilliseconds": 1565.9000000953674,
+        "totalMilliseconds": 1700.5
+      }
+    }
+  },
+  "translatedAndRotatedSource": {
+    "frames": 120,
+    "fps": 41.62908485188542,
+    "markerErrors": 0,
+    "live": {
+      "requested": 4,
+      "completed": 3,
+      "reused": 241,
+      "discarded": 0,
+      "invalidations": 0,
+      "inFlight": true,
+      "lastInferenceMs": 1779.8999998569489,
+      "mapAgeMs": 3412.2999999523163,
+      "hasMap": true
+    }
+  },
+  "interpretation": "Preview FPS counts fresh source/landmark/compositor frames. Skin network refresh remains asynchronous; see lastInferenceMs and mapAgeMs. Photos, paused video, shutter captures and offline export wait for fresh inference.",
+  "simulatedCameraRecording": {
+    "source": "Canvas MediaStream with moving portrait and changing authored corner marker; not a physical camera",
+    "dimensions": [
+      540,
+      720
+    ],
+    "durationSeconds": 5.645,
+    "decodedEditedFrames": 165,
+    "averageRecordedFps": 29.229406554472988,
+    "uniqueAuthoredCornerMarkers": 78
+  },
+  "gpuTrackedPreview": {
+    "realtime": true,
+    "frames": 180,
+    "elapsedMs": 4439.799999952316,
+    "fps": 40.5423667737135,
+    "meanProcessingMs": 24.467777772744498,
+    "p50Ms": 22.600000143051147,
+    "p95Ms": 37.200000047683716,
+    "maxMainThreadGapMs": 41,
+    "skin": {
+      "state": "ready",
+      "backend": "webgpu",
+      "provider": "Alibaba ModelScope / Apache-2.0",
+      "model": "cv_unet_skin_retouching_torch",
+      "whitening": false,
+      "localBlemishInpainting": false,
+      "downloadedBytes": 191129033,
+      "segmentationDiagnostic": {
+        "maximumError": 0.10064208507537842,
+        "meanError": 0.0004254227631527176,
+        "checkedValues": 262144
+      },
+      "segmentationBackend": "webgpu",
+      "segmentationGraph": "parallel-reduce",
+      "correctionValidation": {
+        "synthetic": [
+          {
+            "passed": true,
+            "maximumOutputByteErrorBound": 0.4999999999999982,
+            "meanOutputByteErrorBound": 0.0005300521850583957,
+            "checkedValues": 786432
+          },
+          {
+            "passed": true,
+            "maximumOutputByteErrorBound": 0,
+            "meanOutputByteErrorBound": 0,
+            "checkedValues": 786432
+          }
+        ],
+        "firstImage": {
+          "passed": true,
+          "maximumOutputByteErrorBound": 0.008823529411764671,
+          "meanOutputByteErrorBound": 3.540437985089886e-07,
+          "checkedValues": 786432
+        }
+      },
+      "validation": {
+        "passed": true,
+        "maximumError": 8.940696716308594e-08,
+        "checkedValues": 192
+      },
+      "lastProcessing": {
+        "cropMilliseconds": 1.2000000476837158,
+        "smoothingMilliseconds": 122.79999995231628,
+        "segmentationMilliseconds": 67.39999985694885,
+        "totalMilliseconds": 191.39999985694885
+      }
+    }
+  },
+  "gpuTranslatedAndRotatedSource": {
+    "frames": 180,
+    "fps": 34.614053305324695,
+    "markerErrors": 0,
+    "live": {
+      "requested": 48,
+      "completed": 47,
+      "reused": 361,
+      "discarded": 0,
+      "invalidations": 0,
+      "inFlight": true,
+      "lastInferenceMs": 184.5,
+      "mapAgeMs": 343.89999985694885,
+      "hasMap": true
+    }
+  },
+  "bundledApp": {
+    "workerLoaded": true,
+    "gpuSkinQualified": true,
+    "photoLoaded": [
+      3000,
+      4000
+    ],
+    "pausedSeekRepaintMs": 254.5,
+    "pausedSeekError": null,
+    "freshPausedFrameCapture": [
+      360,
+      480
+    ]
+  }
+}

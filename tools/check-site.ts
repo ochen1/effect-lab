@@ -30,6 +30,7 @@ const skinManifest = JSON.parse(
 ) as {
 	smoothing: { files: { name: string; bytes: number; sha256: string }[] };
 	segmentation: { files: { name: string; bytes: number; sha256: string }[] };
+	gpuManifest?: string;
 };
 const independentFiles = new Map([
 	[
@@ -52,6 +53,22 @@ const independentMetadata = new Set([
 	"SKIN-LICENSE.txt",
 	"skin-conversion-validation.json",
 ]);
+if (skinManifest.gpuManifest) {
+	if (skinManifest.gpuManifest !== "skin-gpu-manifest.json")
+		throw new Error("Unknown independent GPU manifest");
+	const gpu = JSON.parse(
+		await readFile(new URL(skinManifest.gpuManifest, independentBase), "utf8"),
+	) as {
+		candidate: { files: { name: string; bytes: number; sha256: string }[] };
+		cases: { reference: { name: string; bytes: number; sha256: string } }[];
+	};
+	for (const file of [
+		...gpu.candidate.files,
+		...gpu.cases.map((c) => c.reference),
+	])
+		independentFiles.set(file.name, file);
+	independentMetadata.add(skinManifest.gpuManifest);
+}
 let files = 0;
 let bytes = 0;
 
@@ -117,9 +134,10 @@ async function inspect(directory: URL, prefix = "") {
 		)
 			throw new Error(`Native executable found in website: ${path}`);
 		if (
-			path.endsWith(".png") ||
-			path.endsWith(".rgba") ||
-			path.endsWith(".frag")
+			path.startsWith("effects/boy-ii/") &&
+			(path.endsWith(".png") ||
+				path.endsWith(".rgba") ||
+				path.endsWith(".frag"))
 		) {
 			const expected =
 				entry.name === "peach-lut.rgba" ? lutManifest : manifest[entry.name];

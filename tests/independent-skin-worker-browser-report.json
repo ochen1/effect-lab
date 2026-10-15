@@ -1,0 +1,42 @@
+{
+  "syntheticOnly": true,
+  "platform": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+  "documentVisibility": "hidden",
+  "warmMs": 28059.89999985695,
+  "workerRoundTripMs": [
+    6966
+  ],
+  "transferredBytes": 4194304,
+  "outputValues": 1048576,
+  "workerStatus": {
+    "state": "ready",
+    "backend": "wasm",
+    "provider": "Alibaba ModelScope / Apache-2.0",
+    "model": "cv_unet_skin_retouching_torch",
+    "whitening": false,
+    "localBlemishInpainting": false,
+    "downloadedBytes": 121823314,
+    "segmentationBackend": "wasm",
+    "validation": {
+      "passed": true,
+      "maximumError": 0.00018972158432006836,
+      "checkedValues": 262336
+    }
+  },
+  "parity": {
+    "maximumError": 0,
+    "meanError": 0,
+    "passed": true
+  },
+  "heartbeat": {
+    "targetIntervalMs": 10,
+    "ticks": 7,
+    "maximumGapMs": 1000.0999999046326,
+    "medianGapMs": 999.9000000953674,
+    "p95GapMs": 1000.0999999046326
+  },
+  "inputTransferredBytes": 1048576,
+  "timingValid": false,
+  "timingLimitation": "The tab was hidden and Chromium throttled main-thread timers to 1 Hz; warm/round-trip/heartbeat timings are not performance evidence. Use the visible full-app realtime benchmark for FPS.",
+  "scope": "Exact CPU worker versus direct inference parity on a synthetic512x512 image. Artistic assets and shaders unchanged."
+}

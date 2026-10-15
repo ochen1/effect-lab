@@ -21,5 +21,6 @@
         "sha256": "f027e0820d499eb77558459e9f1b272634a1c4f610ae0f73e7009a9623c17437"
       }
     ]
-  }
+  },
+  "gpuManifest": "skin-gpu-manifest.json"
 }

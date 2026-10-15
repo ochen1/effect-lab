@@ -2,6 +2,7 @@ import { getSdrContext, describeCaptureColor } from "./capture-color";
 import { getCompositorDiagnostics } from "./compositor";
 import { getSkinStatus, getSkinBackendPreference } from "./inference";
 import { getIndependentSkinStatus } from "./independent-skin";
+import { getLiveSkinDiagnostics } from "./live-skin";
 import type { EffectSettings } from "./ui-types";
 
 /** Generated colors only. A report never includes photographs or landmark arrays. */
@@ -69,6 +70,7 @@ export async function collectProcessingReport(settings: EffectSettings) {
 		bundles: [...document.scripts].map((script) => script.src).filter(Boolean),
 		preference: getSkinBackendPreference(),
 		inferenceEngine: settings.inferenceEngine,
+		liveSkin: getLiveSkinDiagnostics(),
 		skin:
 			settings.inferenceEngine === "independent"
 				? getIndependentSkinStatus()

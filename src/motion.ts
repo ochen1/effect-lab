@@ -12,13 +12,20 @@ type PairedRecordingSession = Awaited<
 	ReturnType<typeof import("./live-recording").startPairedRecording>
 >;
 interface MotionPipeline {
+	resetRealtime?(): void;
+	getRealtimeSkinStats?(): { lastInferenceMs: number | null } | null;
 	warm(signal?: AbortSignal, settings?: EffectSettings): Promise<void>;
 	processFrame(
 		source: CanvasImageSource,
 		width: number,
 		height: number,
 		settings: EffectSettings,
-		options: { maxDimension: number | null; signal?: AbortSignal },
+		options: {
+			maxDimension: number | null;
+			signal?: AbortSignal;
+			realtime?: boolean;
+			primeRealtime?: boolean;
+		},
 	): Promise<HTMLCanvasElement>;
 }
 interface MotionActivity {
@@ -309,7 +316,12 @@ export function createMotionController(options: MotionOptions) {
 			width,
 			height,
 			frameSettings,
-			{ maxDimension: 720, signal: abort.signal },
+			{
+				maxDimension: 720,
+				signal: abort.signal,
+				realtime: mode === "camera" || !video.paused,
+				primeRealtime: mode === "video" && video.paused,
+			},
 		);
 		try {
 			if (
@@ -334,7 +346,9 @@ export function createMotionController(options: MotionOptions) {
 			e("motion-fps").textContent =
 				mode === "camera"
 					? `Edited preview · ${fps ? fps.toFixed(1) : "…"} fps. Original recording follows the camera independently.`
-					: `Preview · ${fps ? fps.toFixed(1) : "…"} fps. Export processes every source frame.`;
+					: video.paused
+						? "Paused · full-quality frame. Export processes every source frame."
+						: `Preview · ${fps ? fps.toFixed(1) : "…"} fps. Export processes every source frame.`;
 			e("motion-export-note").textContent =
 				mode === "camera"
 					? `Original recording: ${video.videoWidth} × ${video.videoHeight}. Edited recording: ${filtered.width} × ${filtered.height} px.`
@@ -399,7 +413,12 @@ export function createMotionController(options: MotionOptions) {
 		"ended",
 	])
 		video.addEventListener(event, updateTransport);
+	video.addEventListener("play", () => {
+		lastFrameAt = 0;
+		fps = 0;
+	});
 	video.addEventListener("seeked", () => {
+		engine?.resetRealtime?.();
 		revision++;
 		pump.start();
 	});
@@ -532,6 +551,7 @@ export function createMotionController(options: MotionOptions) {
 	}
 
 	async function stopMedia() {
+		engine?.resetRealtime?.();
 		const request = ++requestSerial;
 		generation++;
 		controller?.abort();
@@ -1228,6 +1248,7 @@ export function createMotionController(options: MotionOptions) {
 			revision++;
 			if (mode && engine && video.readyState >= 2 && !exporting && !capturing) {
 				if (renderedEngine !== options.getSettings().inferenceEngine) {
+					engine.resetRealtime?.();
 					ready = false;
 					loading = true;
 					e("motion-loading-label").textContent =

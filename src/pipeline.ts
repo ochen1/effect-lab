@@ -1,5 +1,6 @@
 import { getSdrContext } from "./capture-color";
-import { createIndependentSkinRuntime } from "./independent-skin";
+import { createIndependentSkinWorkerClient } from "./independent-skin-worker-client";
+import { createLiveSkin } from "./live-skin";
 import {
 	alignFace,
 	sampleAlignedRGB,
@@ -33,6 +34,8 @@ interface Topology {
 }
 interface RenderOptions {
 	maxDimension: number | null;
+	realtime?: boolean;
+	primeRealtime?: boolean;
 	signal?: AbortSignal;
 	onProgress?: (fraction: number) => void;
 }
@@ -83,7 +86,7 @@ export async function createPipeline(options: PipelineOptions = {}) {
 		  >
 		| undefined;
 	let independentSkin:
-		| ReturnType<typeof createIndependentSkinRuntime>
+		| ReturnType<typeof createIndependentSkinWorkerClient>
 		| undefined;
 	async function getDetector(engine: InferenceEngine) {
 		if (engine === "original") return detector;
@@ -92,8 +95,11 @@ export async function createPipeline(options: PipelineOptions = {}) {
 		).createIndependentFaceRuntime();
 		return independentFace;
 	}
+	let liveSkin: ReturnType<typeof createLiveSkin> | undefined;
+	let realtimePrimed = false;
 	async function getIndependentSkin() {
-		independentSkin ??= createIndependentSkinRuntime();
+		independentSkin ??= createIndependentSkinWorkerClient();
+		liveSkin ??= createLiveSkin(independentSkin);
 		return independentSkin;
 	}
 	let source: HTMLCanvasElement | undefined;
@@ -230,11 +236,47 @@ export async function createPipeline(options: PipelineOptions = {}) {
 						points: face.points.map(point),
 						extra: face.extra?.map(point),
 					};
-					patch = await (await getIndependentSkin()).process(
-						input,
-						fullFace,
-						signal,
-					);
+					const processor = await getIndependentSkin();
+					const light = [0, 0, 0];
+					if (renderOptions.realtime || renderOptions.primeRealtime) {
+						let samples = 0;
+						const b = face.box,
+							a = prepared.analysis;
+						for (let y = 0; y < 4; y++)
+							for (let x = 0; x < 4; x++) {
+								const xx = Math.min(
+									a.width - 1,
+									Math.max(0, Math.round(b.x + b.width * (0.25 + x / 6))),
+								);
+								const yy = Math.min(
+									a.height - 1,
+									Math.max(0, Math.round(b.y + b.height * (0.25 + y / 6))),
+								);
+								const k = (yy * a.width + xx) * 4;
+								for (let c = 0; c < 3; c++) light[c] += a.data[k + c] / 255;
+								samples++;
+							}
+						for (let c = 0; c < 3; c++) light[c] /= samples;
+					}
+					if (renderOptions.realtime) {
+						patch = await liveSkin!.get(
+							input,
+							fullFace,
+							light,
+							!realtimePrimed,
+						);
+						cancelled(signal);
+						realtimePrimed = Boolean(patch);
+					} else {
+						await liveSkin!.drain();
+						await processor.idle(signal);
+						cancelled(signal);
+						patch = await processor.process(input, fullFace, signal);
+						if (renderOptions.primeRealtime) {
+							liveSkin!.seed(input, fullFace, patch, light);
+							realtimePrimed = true;
+						}
+					}
 				} else {
 					await warmSkin();
 					cancelled(signal);
@@ -254,9 +296,19 @@ export async function createPipeline(options: PipelineOptions = {}) {
 					];
 					patch = { rgba, size: alignment.size, cropToSource };
 				}
-				cache?.set(faceIndex, patch);
+				if (patch) cache?.set(faceIndex, patch);
 			}
-			active.push(patch);
+			if (patch) active.push(patch);
+		}
+		if (
+			renderOptions.realtime &&
+			(!settings.skinEnabled ||
+				settings.skin <= 0 ||
+				!prepared.faces.length ||
+				settings.inferenceEngine !== "independent")
+		) {
+			liveSkin?.reset();
+			realtimePrimed = false;
 		}
 		cancelled(signal);
 		onProgress?.(0.35);
@@ -281,6 +333,13 @@ export async function createPipeline(options: PipelineOptions = {}) {
 	}
 
 	return {
+		resetRealtime() {
+			liveSkin?.reset();
+			realtimePrimed = false;
+		},
+		getRealtimeSkinStats() {
+			return liveSkin?.getDiagnostics() ?? null;
+		},
 		setSkinBackend(preference: SkinBackendPreference) {
 			return enqueue(async () => {
 				await setSkinBackendPreference(preference);
@@ -418,7 +477,7 @@ export async function createPipeline(options: PipelineOptions = {}) {
 					settings.inferenceEngine,
 					renderOptions.signal,
 					frameAnalysis,
-					true,
+					renderOptions.realtime === true,
 				);
 				return renderPrepared(frameSource, prepared, settings, renderOptions);
 			});
@@ -436,7 +495,8 @@ export async function createPipeline(options: PipelineOptions = {}) {
 				compositor.dispose();
 				await detector.dispose();
 				await independentFace?.dispose();
-				await independentSkin?.dispose();
+				liveSkin?.reset();
+				independentSkin?.dispose();
 				photoAnalyses.clear();
 				await disposeSkin();
 				patches.clear();
