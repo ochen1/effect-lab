@@ -1,0 +1,453 @@
+{
+  "schemaVersion": 1,
+  "finalAppAnalysis": [
+    {
+      "independentFaces": 2,
+      "originalFaces": 2,
+      "width": 720,
+      "height": 540,
+      "originalAnalysisWidth": 360,
+      "originalAnalysisHeight": 270,
+      "independentMs": 24.100000143051147,
+      "originalMs": 24.5,
+      "comparisons": [
+        {
+          "jaw": {
+            "meanPixels": 4.408071945527278,
+            "maxPixels": 7.644349405857018,
+            "meanInterocularFraction": 0.08064541268393167
+          },
+          "nose": {
+            "meanPixels": 1.4727342829750245,
+            "maxPixels": 3.2769502811457962,
+            "meanInterocularFraction": 0.026943585651955208
+          },
+          "eyes": {
+            "meanPixels": 1.4909543899519164,
+            "maxPixels": 2.659435235700831,
+            "meanInterocularFraction": 0.027276921419713662
+          },
+          "brows": {
+            "meanPixels": 4.1579703181497925,
+            "maxPixels": 7.149135229863921,
+            "meanInterocularFraction": 0.07606981836468613
+          },
+          "lips": {
+            "meanPixels": 2.1521619881094707,
+            "maxPixels": 3.9999003108677984,
+            "meanInterocularFraction": 0.03937367489427358
+          }
+        },
+        {
+          "jaw": {
+            "meanPixels": 2.5566414107568156,
+            "maxPixels": 4.276119079864913,
+            "meanInterocularFraction": 0.06578553186563113
+          },
+          "nose": {
+            "meanPixels": 2.0336086325107896,
+            "maxPixels": 3.787736047549062,
+            "meanInterocularFraction": 0.05232725439452966
+          },
+          "eyes": {
+            "meanPixels": 0.9435062908708286,
+            "maxPixels": 1.9385447908674849,
+            "meanInterocularFraction": 0.024277578741530546
+          },
+          "brows": {
+            "meanPixels": 1.340945771408637,
+            "maxPixels": 1.9859802792157775,
+            "meanInterocularFraction": 0.0345041860011854
+          },
+          "lips": {
+            "meanPixels": 1.8991144084591802,
+            "maxPixels": 4.062448830689263,
+            "meanInterocularFraction": 0.04886655238725389
+          }
+        }
+      ],
+      "note": "Tracker disagreement, not ground-truth error. No private coordinates are exported."
+    },
+    {
+      "independentFaces": 1,
+      "originalFaces": 1,
+      "width": 720,
+      "height": 960,
+      "originalAnalysisWidth": 360,
+      "originalAnalysisHeight": 480,
+      "independentMs": 77.80000019073486,
+      "originalMs": 45.69999980926514,
+      "comparisons": [
+        {
+          "jaw": {
+            "meanPixels": 4.456590223593727,
+            "maxPixels": 6.295760435259291,
+            "meanInterocularFraction": 0.036418977794787206
+          },
+          "nose": {
+            "meanPixels": 3.9132738841885506,
+            "maxPixels": 7.822675287614928,
+            "meanInterocularFraction": 0.031979030501543305
+          },
+          "eyes": {
+            "meanPixels": 2.4676693468628677,
+            "maxPixels": 3.971946086035184,
+            "meanInterocularFraction": 0.020165640240489963
+          },
+          "brows": {
+            "meanPixels": 3.327778496326783,
+            "maxPixels": 6.773857585839932,
+            "meanInterocularFraction": 0.027194398650806674
+          },
+          "lips": {
+            "meanPixels": 1.995974951403685,
+            "maxPixels": 4.721646330693729,
+            "meanInterocularFraction": 0.016310983013265477
+          }
+        }
+      ],
+      "note": "Tracker disagreement, not ground-truth error. No private coordinates are exported."
+    },
+    {
+      "independentFaces": 1,
+      "originalFaces": 1,
+      "width": 720,
+      "height": 960,
+      "originalAnalysisWidth": 360,
+      "originalAnalysisHeight": 480,
+      "independentMs": 26.299999952316284,
+      "originalMs": 20,
+      "comparisons": [
+        {
+          "jaw": {
+            "meanPixels": 6.673747648690624,
+            "maxPixels": 16.277381483140655,
+            "meanInterocularFraction": 0.05468061489160192
+          },
+          "nose": {
+            "meanPixels": 4.0707163637425126,
+            "maxPixels": 8.636348899172757,
+            "meanInterocularFraction": 0.03335296531064042
+          },
+          "eyes": {
+            "meanPixels": 2.4814640894487243,
+            "maxPixels": 3.2721743559754133,
+            "meanInterocularFraction": 0.020331602179939637
+          },
+          "brows": {
+            "meanPixels": 8.209661444764578,
+            "maxPixels": 15.477292931536477,
+            "meanInterocularFraction": 0.06726495508706853
+          },
+          "lips": {
+            "meanPixels": 1.4798944210065503,
+            "maxPixels": 4.023912436156179,
+            "meanInterocularFraction": 0.01212535162775686
+          }
+        }
+      ],
+      "note": "Tracker disagreement, not ground-truth error. No private coordinates are exported."
+    }
+  ],
+  "finalAppAnalysisMethod": "Independent model uses 720x1280 analysis cap; original uses 360x640. Original predictions rescaled to independent pixel coordinates before comparison, matching the shipped pipeline. Source photos decoded independently at each analysis resolution.",
+  "evaluation": "Three local photo inputs; source files and all inferred coordinates excluded. Anonymized aggregate measurements only.",
+  "date": "2026-10-15",
+  "platform": "Chromium on development Mac, CPU MediaPipe delegate. Not a phone benchmark.",
+  "method": "Matched accepted faces by closest box centre. Euclidean correspondence disagreement normalized by original tracker eye-centre distance. Original output is a comparison baseline, not human ground truth. No mapping coefficients fitted to test photos.",
+  "limits": [
+    "Small sample includes glasses, closed/open mouth, roll, bright and mixed lighting; not a comprehensive demographic or pose benchmark.",
+    "No physical S26 test; live temporal stability on actual camera pending.",
+    "Brows and jaw differ more than lips and eyes; artistic assets remain unchanged."
+  ],
+  "largeAnalysis": [
+    {
+      "independentFaces": 2,
+      "originalFaces": 2,
+      "width": 1280,
+      "height": 960,
+      "independentMs": 24.200000047683716,
+      "originalMs": 22.799999952316284,
+      "comparisons": [
+        {
+          "eyes": {
+            "meanPixels": 2.4620143127230865,
+            "maxPixels": 4.611374074451934,
+            "meanInterocularFraction": 0.02557555500387344
+          },
+          "brows": {
+            "meanPixels": 4.78103100219232,
+            "maxPixels": 7.3914603289581695,
+            "meanInterocularFraction": 0.04966564196637427
+          },
+          "lips": {
+            "meanPixels": 2.600303746233097,
+            "maxPixels": 6.0578174981625725,
+            "meanInterocularFraction": 0.02701211408271888
+          }
+        },
+        {
+          "eyes": {
+            "meanPixels": 2.1788559708094137,
+            "maxPixels": 4.734819098059738,
+            "meanInterocularFraction": 0.03350657748747484
+          },
+          "brows": {
+            "meanPixels": 2.283201043122772,
+            "maxPixels": 4.6528539407297025,
+            "meanInterocularFraction": 0.035111202252830445
+          },
+          "lips": {
+            "meanPixels": 2.725517185855146,
+            "maxPixels": 5.705431994030715,
+            "meanInterocularFraction": 0.04191316636104897
+          }
+        }
+      ],
+      "note": "Tracker disagreement, not ground-truth error. No private coordinates are exported."
+    },
+    {
+      "independentFaces": 1,
+      "originalFaces": 1,
+      "width": 960,
+      "height": 1280,
+      "independentMs": 58.40000009536743,
+      "originalMs": 17.59999990463257,
+      "comparisons": [
+        {
+          "eyes": {
+            "meanPixels": 3.1821832888944397,
+            "maxPixels": 3.9381249377785075,
+            "meanInterocularFraction": 0.019456953572659568
+          },
+          "brows": {
+            "meanPixels": 4.045601292534587,
+            "maxPixels": 8.516804293939861,
+            "meanInterocularFraction": 0.02473618562357681
+          },
+          "lips": {
+            "meanPixels": 2.4378467922069578,
+            "maxPixels": 5.132188460226247,
+            "meanInterocularFraction": 0.014905826455303625
+          }
+        }
+      ],
+      "note": "Tracker disagreement, not ground-truth error. No private coordinates are exported."
+    },
+    {
+      "independentFaces": 1,
+      "originalFaces": 1,
+      "width": 960,
+      "height": 1280,
+      "independentMs": 60.69999980926514,
+      "originalMs": 35.200000047683716,
+      "comparisons": [
+        {
+          "eyes": {
+            "meanPixels": 2.8287778069952427,
+            "maxPixels": 4.078484863281368,
+            "meanInterocularFraction": 0.01762960170684629
+          },
+          "brows": {
+            "meanPixels": 8.726488665173967,
+            "maxPixels": 16.897268138956903,
+            "meanInterocularFraction": 0.05438550849977893
+          },
+          "lips": {
+            "meanPixels": 2.50919283173889,
+            "maxPixels": 5.352098251159199,
+            "meanInterocularFraction": 0.015637873755881316
+          }
+        }
+      ],
+      "note": "Tracker disagreement, not ground-truth error. No private coordinates are exported."
+    }
+  ],
+  "videoRepeatWithSeek": [
+    {
+      "ms": 41.30000019073486,
+      "count": 2
+    },
+    {
+      "ms": 20.59999990463257,
+      "count": 2
+    },
+    {
+      "ms": 18.799999952316284,
+      "count": 2
+    },
+    {
+      "ms": 18.40000009536743,
+      "count": 2
+    },
+    {
+      "ms": 18.5,
+      "count": 2
+    }
+  ],
+  "legacy360Analysis": [
+    {
+      "independentFaces": 2,
+      "originalFaces": 2,
+      "width": 360,
+      "height": 270,
+      "independentMs": 20.299999952316284,
+      "originalMs": 23,
+      "comparisons": [
+        {
+          "jaw": {
+            "meanPixels": 2.0485823341952933,
+            "maxPixels": 4.416539339808823,
+            "meanInterocularFraction": 0.07495738263792324
+          },
+          "nose": {
+            "meanPixels": 0.8967596810828672,
+            "maxPixels": 2.0789816032049764,
+            "meanInterocularFraction": 0.032812329495946174
+          },
+          "eyes": {
+            "meanPixels": 0.5412308145458561,
+            "maxPixels": 1.2556854020756814,
+            "meanInterocularFraction": 0.019803570783638858
+          },
+          "brows": {
+            "meanPixels": 2.9964175984350256,
+            "maxPixels": 4.2925860279281665,
+            "meanInterocularFraction": 0.10963856161394075
+          },
+          "lips": {
+            "meanPixels": 0.6931374061483954,
+            "maxPixels": 1.519092745247058,
+            "meanInterocularFraction": 0.025361814805325702
+          }
+        },
+        {
+          "jaw": {
+            "meanPixels": 1.0932421472197558,
+            "maxPixels": 1.9020800608133388,
+            "meanInterocularFraction": 0.05626093343413902
+          },
+          "nose": {
+            "meanPixels": 0.7545716102215942,
+            "maxPixels": 1.2539751612338013,
+            "meanInterocularFraction": 0.03883211349098731
+          },
+          "eyes": {
+            "meanPixels": 0.7804949143264469,
+            "maxPixels": 1.1853001271130323,
+            "meanInterocularFraction": 0.040166190566542
+          },
+          "brows": {
+            "meanPixels": 0.6677771736852324,
+            "maxPixels": 1.0503366279154336,
+            "meanInterocularFraction": 0.034365458021433516
+          },
+          "lips": {
+            "meanPixels": 1.0305733207139605,
+            "maxPixels": 2.0949556644253096,
+            "meanInterocularFraction": 0.05303584127554937
+          }
+        }
+      ],
+      "note": "Tracker disagreement, not ground-truth error. No private coordinates are exported."
+    },
+    {
+      "independentFaces": 1,
+      "originalFaces": 1,
+      "width": 360,
+      "height": 480,
+      "independentMs": 11.599999904632568,
+      "originalMs": 13.400000095367432,
+      "comparisons": [
+        {
+          "jaw": {
+            "meanPixels": 3.2932830639457746,
+            "maxPixels": 4.541855273166333,
+            "meanInterocularFraction": 0.053825008250847774
+          },
+          "nose": {
+            "meanPixels": 1.8417133322749903,
+            "maxPixels": 3.3475621427207427,
+            "meanInterocularFraction": 0.030100733335271516
+          },
+          "eyes": {
+            "meanPixels": 1.0811509504014067,
+            "maxPixels": 1.8719985227420273,
+            "meanInterocularFraction": 0.017670196486555583
+          },
+          "brows": {
+            "meanPixels": 1.633393924958893,
+            "maxPixels": 3.387242344189766,
+            "meanInterocularFraction": 0.026695986886247393
+          },
+          "lips": {
+            "meanPixels": 0.73547692961626,
+            "maxPixels": 2.169740685592841,
+            "meanInterocularFraction": 0.012020543341170626
+          }
+        }
+      ],
+      "note": "Tracker disagreement, not ground-truth error. No private coordinates are exported."
+    },
+    {
+      "independentFaces": 1,
+      "originalFaces": 1,
+      "width": 360,
+      "height": 480,
+      "independentMs": 54.799999952316284,
+      "originalMs": 32.09999990463257,
+      "comparisons": [
+        {
+          "jaw": {
+            "meanPixels": 3.597372567673635,
+            "maxPixels": 7.993456009531189,
+            "meanInterocularFraction": 0.05894935030489761
+          },
+          "nose": {
+            "meanPixels": 1.7723482781303426,
+            "maxPixels": 3.567839934637254,
+            "meanInterocularFraction": 0.02904308006589167
+          },
+          "eyes": {
+            "meanPixels": 1.1364791745640779,
+            "maxPixels": 1.7995136336373412,
+            "meanInterocularFraction": 0.018623233405852972
+          },
+          "brows": {
+            "meanPixels": 5.0565654242961156,
+            "maxPixels": 8.62044183737179,
+            "meanInterocularFraction": 0.08286082159380825
+          },
+          "lips": {
+            "meanPixels": 0.8354068165905806,
+            "maxPixels": 1.6287820008681488,
+            "meanInterocularFraction": 0.01368962712420542
+          }
+        }
+      ],
+      "note": "Tracker disagreement, not ground-truth error. No private coordinates are exported."
+    }
+  ],
+  "finalAppVideoRepeatWithSeek": [
+    {
+      "ms": 50.10000014305115,
+      "count": 2
+    },
+    {
+      "ms": 23.199999809265137,
+      "count": 2
+    },
+    {
+      "ms": 20.40000009536743,
+      "count": 2
+    },
+    {
+      "ms": 20.90000009536743,
+      "count": 2
+    },
+    {
+      "ms": 21.399999856948853,
+      "count": 2
+    }
+  ],
+  "browserTools": "T3 collaborative preview; final two uploads via Aside REPL after repeated T3 upload transport errors. Both desktop Chromium."
+}

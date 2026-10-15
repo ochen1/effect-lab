@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Independent skin runtime validation</title></head>
+<body><h1>Independent skin runtime validation</h1>
+<button id="warm">Validate models</button><input type="file" accept="image/*" id="photo">
+<pre id="status">Ready. Inputs remain in this browser.</pre><div id="images"></div>
+<script type="module">
+import { createIndependentSkinRuntime } from '../src/independent-skin.ts';
+import { createIndependentFaceRuntime } from '../src/independent-face.ts';
+import { createCompositor } from '../src/compositor.ts';
+import { DEFAULT_SETTINGS } from '../src/ui-types.ts';
+import { compareIndependentProviders } from './independent-skin-gpu.ts';
+window.compareIndependentProviders=compareIndependentProviders;
+const status=document.querySelector('#status');
+const runtime=createIndependentSkinRuntime();window.skinRuntime=runtime;
+window.skinWarm=async()=>{const start=performance.now();try{const result=await runtime.warm();window.skinResult={ok:true,milliseconds:performance.now()-start,status:result};}catch(e){window.skinResult={ok:false,error:String(e),status:runtime.getStatus()};}status.textContent=JSON.stringify(window.skinResult,null,2);return window.skinResult;};
+document.querySelector('#warm').onclick=window.skinWarm;
+document.querySelector('#photo').onchange=async e=>{try{
+const bitmap=await createImageBitmap(e.target.files[0]);const input=document.createElement('canvas');input.width=bitmap.width;input.height=bitmap.height;input.getContext('2d').drawImage(bitmap,0,0);bitmap.close();
+const detector=createIndependentFaceRuntime();const faces=await detector.detect(input);await detector.dispose();if(!faces.length)throw Error('No face found');
+const start=performance.now();const patch=await runtime.process(input,faces[0]);
+const compositor=await createCompositor(new URL('../public/effects/boy-ii/',location.href).href.replace('/public/','/'));
+const settings={...DEFAULT_SETTINGS,skin:1,colorEnabled:false,contourEnabled:false,lipsEnabled:false,berryEnabled:false};
+const output=await compositor.render(input,input.width,input.height,[patch],[],settings,{maxDimension:null});
+document.querySelector('#images').replaceChildren(input,output);for(const c of [input,output])c.style.width='45%';
+let low=1,high=-1,total=0;for(let i=3;i<patch.rgba.length;i+=4){const a=(patch.rgba[i]+1)/2;low=Math.min(low,a);high=Math.max(high,a);total+=a;}
+window.skinPhotoResult={ok:true,faces:faces.length,milliseconds:performance.now()-start,width:input.width,height:input.height,mask:{min:low,max:high,mean:total/(patch.size**2)},status:runtime.getStatus()};
+status.textContent=JSON.stringify(window.skinPhotoResult,null,2);compositor.dispose();
+}catch(e){window.skinPhotoResult={ok:false,error:String(e)};status.textContent=JSON.stringify(window.skinPhotoResult);}};
+</script></body></html>

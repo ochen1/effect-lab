@@ -7,6 +7,8 @@ export interface SkinPatch {
 	rgba: Float32Array;
 	size: number;
 	cropToSource: Affine;
+	maskMode?: "alpha-only";
+	kind?: "quadratic-blend";
 }
 export interface FaceMesh {
 	positions: Float32Array;
@@ -76,13 +78,15 @@ const SKIN =
 	HEADER +
 	`
 uniform highp sampler2D ganTexture,maskTexture;uniform mat3 sourceToCrop;
-uniform vec2 tileOrigin,tileSize;uniform float cropSize,strength;
+uniform vec2 tileOrigin,tileSize;uniform float cropSize,strength,alphaOnly,quadraticBlend;
 void main(){vec4 src=sourceAt(v2f_v_texCoord);vec2 pt=tileOrigin+v2f_v_texCoord*tileSize;
  vec2 uv=(sourceToCrop*vec3(pt,1.)).xy/cropSize;
  if(any(lessThan(uv,vec2(0.)))||any(greaterThan(uv,vec2(1.)))){o_FragColor=src;return;}
  vec4 gan=texture(ganTexture,uv);
- float alpha=clamp(gan.a*texture(maskTexture,vec2(uv.x,1.-uv.y)).r*strength,0.,1.);
- o_FragColor=vec4(mix(src.rgb,gan.rgb,alpha),src.a+alpha*(1.-src.a));}`;
+ float mask=mix(texture(maskTexture,vec2(uv.x,1.-uv.y)).r,1.,alphaOnly);
+ float alpha=clamp(gan.a*mask*strength,0.,1.);
+ vec3 adjusted=mix(gan.rgb,(1.-2.*gan.rgb)*src.rgb*src.rgb+2.*gan.rgb*src.rgb,quadraticBlend);
+ o_FragColor=vec4(mix(src.rgb,adjusted,alpha),src.a+alpha*(1.-src.a));}`;
 const MESH_VERT = `#version 300 es
 precision highp float;
 in vec2 position;in vec2 texCoord;out vec2 v2f_v_texCoord;out vec2 makeupUV;
@@ -588,6 +592,16 @@ export class Compositor {
 							this.bind(p, "ganTexture", patchTextures[i], 1);
 							this.bind(p, "maskTexture", this.textures.ganmask, 2);
 							this.one(p, "strength", settings.skin);
+							this.one(
+								p,
+								"alphaOnly",
+								patches[i].maskMode === "alpha-only" ? 1 : 0,
+							);
+							this.one(
+								p,
+								"quadraticBlend",
+								patches[i].kind === "quadratic-blend" ? 1 : 0,
+							);
 							this.one(p, "cropSize", patches[i].size);
 							gl.uniformMatrix3fv(
 								gl.getUniformLocation(p, "sourceToCrop"),

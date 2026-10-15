@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "name": "MediaPipe Face Landmarker float16 v1",
+  "publisher": "Google",
+  "license": "Apache-2.0",
+  "model": "face-landmarker.task",
+  "bytes": 3758596,
+  "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+  "sourceUrl": "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+  "licenseUrl": "https://github.com/google-ai-edge/mediapipe/blob/master/LICENSE",
+  "modelCards": [
+    "https://storage.googleapis.com/mediapipe-assets/Model%20Card%20MediaPipe%20Face%20Mesh%20V2.pdf",
+    "https://storage.googleapis.com/mediapipe-assets/MediaPipe%20BlazeFace%20Model%20Card%20(Short%20Range).pdf"
+  ],
+  "runtime": "@mediapipe/tasks-vision@1.1.1",
+  "runtimeOptions": {
+    "delegate": "CPU",
+    "outputFaceBlendshapes": false,
+    "outputFacialTransformationMatrixes": false
+  },
+  "components": [
+    {
+      "path": "face_detector.tflite",
+      "bytes": 229746,
+      "sha256": "b4578f35940bf5a1a655214a1cce5cab13eba73c1297cd78e1a04c2380b0152f"
+    },
+    {
+      "path": "face_landmarks_detector.tflite",
+      "bytes": 2553590,
+      "sha256": "c7d54204ce0448474c7f3fa9af494787c0965cbdd6f20fc72867e43046bd43d5"
+    },
+    {
+      "path": "geometry_pipeline_metadata_landmarks.binarypb",
+      "bytes": 19376,
+      "sha256": "bdbcda96dfcb7da883da124aaa2c55dee49770d934f0fcc71747f8c21bdc75b4"
+    },
+    {
+      "path": "face_blendshapes.tflite",
+      "bytes": 955312,
+      "sha256": "4f36dded049db18d76048567439b2a7f58f1daabc00d78bfe8f3ad396a2d2082"
+    }
+  ],
+  "adaptation": "Public anatomical contour correspondences to the user-owned TT295 topology; no original detector templates or neural predictions used. Dense contours resampled with pinned mouth corners, centres, and cupid bow peaks.",
+  "limitations": [
+    "Tracker disagreement is expected; mapping is not pixel equivalent to the original detector.",
+    "Score field is an accepted-result marker because MediaPipe does not expose per-face scalar confidence.",
+    "Multiple-face VIDEO mode does not enable MediaPipe single-face smoothing."
+  ],
+  "references": [
+    {
+      "path": "tools/references/mediapipe/canonical-face.obj",
+      "url": "https://raw.githubusercontent.com/google-ai-edge/mediapipe/master/mediapipe/modules/face_geometry/data/canonical_face_model.obj",
+      "bytes": 45999,
+      "sha256": "8bac80443397e113f41a8b565ea72c59390bc031d9defab289dba7bc0c54e618"
+    },
+    {
+      "path": "tools/references/mediapipe/face-mesh-v2-model-card.pdf",
+      "url": "https://storage.googleapis.com/mediapipe-assets/Model%20Card%20MediaPipe%20Face%20Mesh%20V2.pdf",
+      "bytes": 3476420,
+      "sha256": "c6add060f4ebfb37b2690136b6c711c7e5fcb7038baa2649ae3338b83979565a"
+    },
+    {
+      "path": "tools/references/mediapipe/blazeface-short-range-model-card.pdf",
+      "url": "https://storage.googleapis.com/mediapipe-assets/MediaPipe%20BlazeFace%20Model%20Card%20(Short%20Range).pdf",
+      "bytes": 434425,
+      "sha256": "cd335c06fc0de7807cd815a0777a697932598bcdb28fa98adaaabf847485f758"
+    },
+    {
+      "path": "public/models/independent/FACE-LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/google-ai-edge/mediapipe/master/LICENSE",
+      "bytes": 12331,
+      "sha256": "8707eef0533987efc5b155d64761eeb6e20793f50b9bd1a68dad1cf4719d0ed8"
+    }
+  ]
+}

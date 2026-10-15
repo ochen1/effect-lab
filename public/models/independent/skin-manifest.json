@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "smoothing": {
+    "input": "rgb",
+    "output": "blend",
+    "files": [
+      {
+        "name": "skin-smoothing.onnx",
+        "bytes": 53567624,
+        "sha256": "818b6562b4348dd8c14516e1cf430805f0e18e8971c6dd465c2f4be3c2204adb"
+      }
+    ]
+  },
+  "segmentation": {
+    "input": "rgb",
+    "output": "skin",
+    "files": [
+      {
+        "name": "skin-segmentation.onnx",
+        "bytes": 67207114,
+        "sha256": "f027e0820d499eb77558459e9f1b272634a1c4f610ae0f73e7009a9623c17437"
+      }
+    ]
+  }
+}

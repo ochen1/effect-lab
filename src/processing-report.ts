@@ -1,6 +1,7 @@
 import { getSdrContext, describeCaptureColor } from "./capture-color";
 import { getCompositorDiagnostics } from "./compositor";
 import { getSkinStatus, getSkinBackendPreference } from "./inference";
+import { getIndependentSkinStatus } from "./independent-skin";
 import type { EffectSettings } from "./ui-types";
 
 /** Generated colors only. A report never includes photographs or landmark arrays. */
@@ -67,7 +68,11 @@ export async function collectProcessingReport(settings: EffectSettings) {
 		browser: { userAgent: navigator.userAgent, brave },
 		bundles: [...document.scripts].map((script) => script.src).filter(Boolean),
 		preference: getSkinBackendPreference(),
-		skin: getSkinStatus(),
+		inferenceEngine: settings.inferenceEngine,
+		skin:
+			settings.inferenceEngine === "independent"
+				? getIndependentSkinStatus()
+				: getSkinStatus(),
 		compositor: getCompositorDiagnostics(),
 		canvas: checkCanvasReadback(),
 		captureColor:

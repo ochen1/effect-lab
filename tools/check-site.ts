@@ -21,10 +21,47 @@ const textures = new Set([
 	"opacity.png",
 	"ganmask.png",
 ]);
+const independentBase = new URL("public/models/independent/", root);
+const faceManifest = JSON.parse(
+	await readFile(new URL("face-provenance.json", independentBase), "utf8"),
+) as { model: string; sha256: string; bytes: number };
+const skinManifest = JSON.parse(
+	await readFile(new URL("skin-manifest.json", independentBase), "utf8"),
+) as {
+	smoothing: { files: { name: string; bytes: number; sha256: string }[] };
+	segmentation: { files: { name: string; bytes: number; sha256: string }[] };
+};
+const independentFiles = new Map([
+	[
+		faceManifest.model,
+		{ sha256: faceManifest.sha256, bytes: faceManifest.bytes },
+	],
+	...[...skinManifest.smoothing.files, ...skinManifest.segmentation.files].map(
+		(file) => [file.name, file] as const,
+	),
+]);
+const independentMetadata = new Set([
+	"face-provenance.json",
+	"FACE-LICENSE.txt",
+	"skin-manifest.json",
+	"skin-provenance.json",
+	"skin-smoothing-diagnostic.json",
+	"skin-segmentation-diagnostic.json",
+	"skin-segmentation-reference.f32",
+	"skin-model-card.md",
+	"SKIN-LICENSE.txt",
+	"skin-conversion-validation.json",
+]);
 let files = 0;
 let bytes = 0;
 
 function allowed(path: string) {
+	if (/^vendor\/mediapipe\/vision_wasm[\w]*\.(js|wasm)$/.test(path))
+		return true;
+	if (path.startsWith("models/independent/")) {
+		const name = path.slice("models/independent/".length);
+		return independentFiles.has(name) || independentMetadata.has(name);
+	}
 	if (["index.html", "icon.svg", "manifest.webmanifest"].includes(path))
 		return true;
 	if (/^assets\/[^/]+\.(js|mjs|css|map|wasm)$/.test(path)) return true;
@@ -62,6 +99,17 @@ async function inspect(directory: URL, prefix = "") {
 			throw new Error(`Unexpected published file: ${path}`);
 		const content = await readFile(location);
 		if (
+			path.startsWith("models/independent/") &&
+			independentFiles.has(entry.name)
+		) {
+			const expected = independentFiles.get(entry.name)!;
+			if (
+				expected.bytes !== content.length ||
+				expected.sha256 !== createHash("sha256").update(content).digest("hex")
+			)
+				throw new Error(`Independent model does not match provenance: ${path}`);
+		}
+		if (
 			content.subarray(0, 4).equals(Buffer.from([0x7f, 0x45, 0x4c, 0x46])) ||
 			[0xfeedfacf, 0xfeedface, 0xcafebabe].includes(
 				content.length >= 4 ? content.readUInt32LE(0) : 0,
@@ -91,6 +139,8 @@ async function inspect(directory: URL, prefix = "") {
 }
 
 await inspect(dist);
+for (const name of [...independentFiles.keys(), ...independentMetadata])
+	await lstat(new URL(`models/independent/${name}`, dist));
 for (const path of [
 	"index.html",
 	"models/skin.onnx",

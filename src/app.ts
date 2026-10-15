@@ -2,6 +2,7 @@ import { createExportTray, type ExportArtifact } from "./export-tray";
 import { setupPreviewFullscreen } from "./fullscreen";
 import "./styles.css";
 import { createPipeline } from "./pipeline";
+import { getIndependentSkinStatus } from "./independent-skin";
 import {
 	getSkinStatus,
 	getSkinBackendPreference,
@@ -99,7 +100,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <aside class="inspector" aria-label="Effect controls">
       <div class="inspector-top"><span class="eyebrow">THE EFFECT COLLECTION</span><span class="count-pill">01</span></div>
       <div class="effect-card"><div class="effect-card-copy"><span class="effect-category">Soft light · berry tones</span><h2>BOY <span>II</span></h2><p>A softer finish. A little more you.</p></div><div class="effect-swatch" aria-hidden="true"><span></span><span></span><span></span></div></div>
-      <div class="preset-row"><label for="preset-select" class="sr-only">Saved preset</label><select id="preset-select"><option value="default">BOY II · original settings</option><option value="custom" disabled>Custom settings</option></select><button class="icon-button" id="save-preset" aria-label="Save settings as a preset" title="Save preset">${icons.bookmark}</button><button class="icon-button" id="reset-settings" aria-label="Reset to BOY II original settings" title="Reset original settings">${icons.reset}</button></div>
+      <div class="engine-controls"><label for="inference-engine">AI engine</label><select id="inference-engine"><option value="original">Original models · reference</option><option value="independent">Independent models · preview</option></select><p>Switch face and skin AI using the same makeup and color settings. Original shows your unedited image. Independent mode downloads additional models on first use.</p></div><div class="preset-row"><label for="preset-select" class="sr-only">Saved preset</label><select id="preset-select"><option value="default">BOY II · original settings</option><option value="custom" disabled>Custom settings</option></select><button class="icon-button" id="save-preset" aria-label="Save settings as a preset" title="Save preset">${icons.bookmark}</button><button class="icon-button" id="reset-settings" aria-label="Reset to BOY II original settings" title="Reset original settings">${icons.reset}</button></div>
       <div class="face-select" id="face-select-wrap" hidden><label for="face-select">Apply skin smoothing to</label><select id="face-select"></select><p>Face details apply to all detected faces.</p></div>
       <p class="slider-reset-tip" id="slider-reset-tip">Double-click a slider to reset it, or use ↺.</p><span class="sr-only" id="control-reset-status" role="status"></span>
       <div class="control-groups" id="control-groups">
@@ -108,7 +109,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <details class="control-group" open><summary><span><span class="group-index">03</span> Color</span>${icons.chevron}</summary><div class="group-content"><div class="group-intro"><span>The signature BOY II color</span>${toggle("colorEnabled", "Enable color adjustments")}</div>${slider("lut", "Color intensity")}${slider("highlightProtection", "Highlight protection", "Reduce the color effect on bright areas. 0 keeps the original look; try 1 for darkened highlights.")}${slider("brightness", "Brightness")}${slider("temperature", "Temperature")}</div></details>
         <details class="control-group"><summary><span><span class="group-index">04</span> Fine-tune</span>${icons.chevron}</summary><div class="group-content">${slider("saturation", "Saturation")}${slider("contrast", "Contrast")}${slider("exposure", "Exposure")}${slider("tint", "Tint")}</div></details>
       </div>
-      <details class="processing-controls"><summary>Processing & troubleshooting</summary><label for="processing-mode">Skin processing</label><select id="processing-mode"><option value="auto">Automatic · checked GPU</option><option value="wasm">CPU compatibility</option></select><p>For skin-processing issues, try CPU compatibility. It may be slower.</p><button class="button button-small" id="processing-report">Download processing report</button><p>The report contains generated-test results and settings, with no photos.</p><span id="processing-feedback" role="status"></span></details>
+      <details class="processing-controls"><summary>Processing & troubleshooting</summary><label for="processing-mode">Original engine skin processing</label><select id="processing-mode"><option value="auto">Automatic · checked GPU</option><option value="wasm">CPU compatibility</option></select><p>For skin-processing issues, try CPU compatibility. It may be slower.</p><button class="button button-small" id="processing-report">Download processing report</button><p>The report contains generated-test results and settings, with no photos.</p><span id="processing-feedback" role="status"></span></details>
       <div class="export-area" id="photo-export-area"><div class="export-meta"><span id="export-resolution">Full resolution export</span><label><span class="sr-only">Export format</span><select id="export-format"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option></select></label></div><button class="button button-export" id="export-photo" disabled>${icons.download}<span id="export-button-text">Export photo</span>${icons.arrow}</button><button class="button button-small" id="download-original-photo" disabled>Download original photo</button><div class="export-progress" id="export-progress" hidden><progress id="export-progress-bar" aria-label="Photo export progress" max="1" value="0"></progress><button class="text-button" id="cancel-export">Cancel</button></div><p class="export-note" id="export-note">Your photo never leaves this device.</p></div>
       <div class="export-area" id="motion-export-area" hidden></div><button class="button button-small share-button" id="share-photo" hidden>Save or share exported file ${icons.arrow}</button>
     </aside>
@@ -227,7 +228,12 @@ const motion = createMotionController({
 		motionHasMedia = hasMedia;
 		motionRecording = recording;
 		element<HTMLSelectElement>("processing-mode").disabled =
-			busy || recording || changingProcessing;
+			busy ||
+			recording ||
+			changingProcessing ||
+			settings.inferenceEngine === "independent";
+		element<HTMLSelectElement>("inference-engine").disabled =
+			busy || recording || phase === "loading" || phase === "exporting";
 		if (mediaMode !== "photo") {
 			document.body.classList.toggle("has-photo", hasMedia);
 			for (const control of document.querySelectorAll<
@@ -362,21 +368,38 @@ function refreshPresetOptions(selected = "custom") {
 function setStatus(text: string, busy = false) {
 	element("status-text").textContent = text;
 	element("status-dot").classList.toggle("working", busy);
-	const runtime = getSkinStatus();
+	const originalRuntime = getSkinStatus();
+	const independentRuntime = getIndependentSkinStatus();
+	const runtime =
+		settings.inferenceEngine === "independent"
+			? independentRuntime
+			: originalRuntime;
 	const badge = element("runtime-status");
 	badge.hidden = !runtime.backend;
-	badge.textContent = runtime.backend === "webgpu" ? "GPU" : "CPU";
+	const mixed =
+		settings.inferenceEngine === "independent" &&
+		independentRuntime.backend === "webgpu" &&
+		independentRuntime.segmentationBackend === "wasm";
+	badge.textContent = mixed
+		? "GPU + CPU"
+		: runtime.backend === "webgpu"
+			? "GPU"
+			: "CPU";
 	badge.title =
 		runtime.backend === "webgpu"
 			? "Skin smoothing uses graphics acceleration on this device."
 			: "Skin smoothing runs on this device’s CPU. Larger photos may take longer.";
+	if (mixed)
+		badge.title =
+			"Skin retouching uses the GPU; skin detection uses the CPU after numerical validation.";
 	const graphics = getCompositorDiagnostics();
 	if (graphics?.status === "failed" || graphics?.status === "error") {
 		element("processing-feedback").textContent =
 			"The graphics check found a mismatch. Download the processing report to identify the affected stage.";
 	} else if (
+		settings.inferenceEngine === "original" &&
 		runtime.backend === "wasm" &&
-		runtime.validation?.phase === "failed"
+		originalRuntime.validation?.phase === "failed"
 	) {
 		element("processing-feedback").textContent =
 			"GPU verification failed. Skin processing switched to CPU compatibility.";
@@ -404,7 +427,15 @@ function updatePhase(next: Phase) {
 	if (next !== "ready") photoHold?.cancel();
 	phase = next;
 	element<HTMLSelectElement>("processing-mode").disabled =
-		phase === "loading" || phase === "exporting" || changingProcessing;
+		phase === "loading" ||
+		phase === "exporting" ||
+		changingProcessing ||
+		settings.inferenceEngine === "independent";
+	element<HTMLSelectElement>("inference-engine").disabled =
+		phase === "loading" ||
+		phase === "exporting" ||
+		motionBusy ||
+		motionRecording;
 	element<HTMLButtonElement>("download-original-photo").disabled =
 		!originalFile || phase === "loading" || phase === "exporting";
 	element("stage").setAttribute("aria-busy", String(phase === "loading"));
@@ -453,6 +484,10 @@ function updateControl(key: NumericSetting) {
 }
 
 function syncControls() {
+	element<HTMLSelectElement>("inference-engine").value =
+		settings.inferenceEngine;
+	element<HTMLSelectElement>("processing-mode").disabled =
+		processingUnavailable() || settings.inferenceEngine === "independent";
 	for (const key of Object.keys(SETTING_RANGES) as NumericSetting[])
 		updateControl(key);
 	for (const key of ["skinEnabled", "colorEnabled", "makeupEnabled"] as const)
@@ -588,7 +623,11 @@ async function openPhoto(file?: File) {
 	try {
 		const engine = await ensurePipeline();
 		if (controller.signal.aborted) return;
-		const info = await engine.loadPhoto(file, controller.signal);
+		const info = await engine.loadPhoto(
+			file,
+			controller.signal,
+			settings.inferenceEngine,
+		);
 		if (controller.signal.aborted || version !== loadVersion) return;
 		const photo = engine.getOriginal();
 		original = photo;
@@ -610,25 +649,7 @@ async function openPhoto(file?: File) {
 			`${info.width.toLocaleString()} × ${info.height.toLocaleString()}`;
 		element("export-resolution").textContent =
 			`${info.width.toLocaleString()} × ${info.height.toLocaleString()} px`;
-		const faceSelect = element<HTMLSelectElement>("face-select");
-		faceSelect.replaceChildren(
-			...Array.from(
-				{ length: info.faceCount },
-				(_, index) => new Option(`Face ${index + 1}`, String(index)),
-			),
-		);
-		settings.faceIndex = Math.max(
-			0,
-			Math.min(settings.faceIndex, info.faceCount - 1),
-		);
-		faceSelect.value = String(settings.faceIndex);
-		element("face-select-wrap").hidden = info.faceCount <= 1;
-		element("photo-message").textContent =
-			info.faceCount === 0
-				? "No face found. You can still adjust the photo’s color. Try a clear, front-facing portrait for skin and face details."
-				: info.faceCount > 1
-					? `${info.faceCount} faces found. Choose a face for skin smoothing. Face details apply to all faces.`
-					: "";
+		updatePhotoFaces(info.faceCount);
 		element("stage-busy-label").textContent = "Finding your light…";
 		await renderPreview(1280, controller.signal);
 		if (controller.signal.aborted || version !== loadVersion) return;
@@ -649,6 +670,25 @@ async function openPhoto(file?: File) {
 			setStatus(original ? "Photo loading cancelled" : "Ready when you are");
 		}
 	}
+}
+
+function updatePhotoFaces(faceCount: number) {
+	const faceSelect = element<HTMLSelectElement>("face-select");
+	faceSelect.replaceChildren(
+		...Array.from(
+			{ length: faceCount },
+			(_, index) => new Option(`Face ${index + 1}`, String(index)),
+		),
+	);
+	settings.faceIndex = Math.max(0, Math.min(settings.faceIndex, faceCount - 1));
+	faceSelect.value = String(settings.faceIndex);
+	element("face-select-wrap").hidden = faceCount <= 1;
+	element("photo-message").textContent =
+		faceCount === 0
+			? "No face found. You can still adjust the photo’s color. Try a clear, front-facing portrait for skin and face details."
+			: faceCount > 1
+				? `${faceCount} faces found. Choose a face for skin smoothing. Face details apply to all faces.`
+				: "";
 }
 
 function schedulePreview(quick = false) {
@@ -689,6 +729,7 @@ async function renderPreview(maxDimension: number, parentSignal?: AbortSignal) {
 		);
 		if (controller.signal.aborted || version !== previewVersion) return;
 		element("edited-image").replaceChildren(result);
+		updatePhotoFaces(pipeline.getPhotoInfo().faceCount);
 		hasPreview = true;
 		if (phase === "ready") {
 			element<HTMLButtonElement>("export-photo").disabled = false;
@@ -927,9 +968,31 @@ window.addEventListener("drop", (event) => {
 	event.preventDefault();
 });
 
+element("inference-engine").addEventListener("change", () => {
+	const select = element<HTMLSelectElement>("inference-engine");
+	if (processingUnavailable()) {
+		select.value = settings.inferenceEngine;
+		return;
+	}
+	settings.inferenceEngine =
+		select.value === "independent" ? "independent" : "original";
+	clearError();
+	syncControls();
+	settingsChanged();
+	setStatus(
+		settings.inferenceEngine === "independent"
+			? "Independent models selected"
+			: "Original reference models selected",
+	);
+});
+
 element("reset-settings").addEventListener("click", () => {
 	const faceIndex = settings.faceIndex;
-	settings = { ...DEFAULT_SETTINGS, faceIndex };
+	settings = {
+		...DEFAULT_SETTINGS,
+		faceIndex,
+		inferenceEngine: settings.inferenceEngine,
+	};
 	syncControls();
 	element<HTMLSelectElement>("preset-select").value = "default";
 	schedulePreview();
@@ -938,7 +1001,13 @@ element("preset-select").addEventListener("change", () => {
 	const selected = element<HTMLSelectElement>("preset-select").value;
 	const preset = presets.find((item) => item.id === selected);
 	settings = {
-		...(preset?.settings ?? DEFAULT_SETTINGS),
+		...(preset?.settings ?? {
+			...DEFAULT_SETTINGS,
+			inferenceEngine: settings.inferenceEngine,
+		}),
+		inferenceEngine: motionRecording
+			? settings.inferenceEngine
+			: (preset?.settings.inferenceEngine ?? settings.inferenceEngine),
 		faceIndex: settings.faceIndex,
 	};
 	syncControls();
@@ -1182,7 +1251,8 @@ element("processing-mode").addEventListener("change", async () => {
 	} finally {
 		changingProcessing = false;
 		select.value = getSkinBackendPreference();
-		select.disabled = processingUnavailable();
+		select.disabled =
+			processingUnavailable() || settings.inferenceEngine === "independent";
 	}
 });
 element("processing-report").addEventListener("click", async () => {

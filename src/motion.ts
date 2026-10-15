@@ -12,7 +12,7 @@ type PairedRecordingSession = Awaited<
 	ReturnType<typeof import("./live-recording").startPairedRecording>
 >;
 interface MotionPipeline {
-	warm(signal?: AbortSignal): Promise<void>;
+	warm(signal?: AbortSignal, settings?: EffectSettings): Promise<void>;
 	processFrame(
 		source: CanvasImageSource,
 		width: number,
@@ -135,6 +135,7 @@ export function createMotionController(options: MotionOptions) {
 	let capturing = false;
 	let snapshotController: AbortController | undefined;
 	let revision = 1;
+	let renderedEngine: EffectSettings["inferenceEngine"] | undefined;
 	let renderedRevision = 0;
 	let renderedTime = -1;
 	let renderedFrameKey = -1;
@@ -146,7 +147,9 @@ export function createMotionController(options: MotionOptions) {
 	let recordingSession: PairedRecordingSession | undefined;
 	let recordingController: AbortController | undefined;
 	let recordingInitialSettings: EffectSettings | undefined;
-	let recordingCaptureColor: ReturnType<typeof describeCaptureColor> | undefined;
+	let recordingCaptureColor:
+		| ReturnType<typeof describeCaptureColor>
+		| undefined;
 	let recordingBaseName = "";
 	let recordingAt = 0;
 	let recordTimer = 0;
@@ -191,7 +194,7 @@ export function createMotionController(options: MotionOptions) {
 		e<HTMLButtonElement>("motion-original-toggle").disabled =
 			!ready || exporting || capturing;
 		e<HTMLButtonElement>("camera-record").disabled =
-			(!ready && !recording) ||
+			((!ready || renderedRevision !== revision) && !recording) ||
 			exporting ||
 			capturing ||
 			loading ||
@@ -277,6 +280,12 @@ export function createMotionController(options: MotionOptions) {
 			return;
 		const version = generation;
 		const frameRevision = revision;
+		const frameSettings = { ...options.getSettings(), faceIndex: 0 };
+		if (
+			recordingInitialSettings &&
+			(recordingStarting || recordingSession?.state === "recording")
+		)
+			frameSettings.inferenceEngine = recordingInitialSettings.inferenceEngine;
 		const scale = Math.min(1, 720 / video.videoWidth, 720 / video.videoHeight);
 		const recording =
 			recordingStarting ||
@@ -299,16 +308,23 @@ export function createMotionController(options: MotionOptions) {
 			capture,
 			width,
 			height,
-			{ ...options.getSettings(), faceIndex: 0 },
+			frameSettings,
 			{ maxDimension: 720, signal: abort.signal },
 		);
 		try {
-			if (abort.signal.aborted || version !== generation || exporting) return;
+			if (
+				abort.signal.aborted ||
+				version !== generation ||
+				exporting ||
+				frameRevision !== revision
+			)
+				return;
 			paint(original, capture, result.width, result.height);
 			paint(filtered, result, result.width, result.height);
 			renderedTime = currentTime;
 			renderedFrameKey = frameKey;
 			renderedRevision = frameRevision;
+			renderedEngine = frameSettings.inferenceEngine;
 			const now = performance.now();
 			if (lastFrameAt)
 				fps = fps
@@ -338,6 +354,7 @@ export function createMotionController(options: MotionOptions) {
 						: "Your video is ready",
 				);
 			}
+			activity();
 		} finally {
 			result.width = result.height = 1;
 		}
@@ -630,7 +647,7 @@ export function createMotionController(options: MotionOptions) {
 			await mediaReady(video, abort.signal);
 			engine = await options.getPipeline();
 			options.onStatus("Preparing live processing", true);
-			await engine.warm(abort.signal);
+			await engine.warm(abort.signal, options.getSettings());
 			if (abort.signal.aborted || version !== generation) return;
 			pump.start();
 		} catch (error) {
@@ -684,7 +701,7 @@ export function createMotionController(options: MotionOptions) {
 			e<HTMLInputElement>("video-keep-audio").checked = info.audioTracks > 0;
 			e<HTMLInputElement>("video-keep-audio").disabled = info.audioTracks === 0;
 			engine = await options.getPipeline();
-			await engine.warm(abort.signal);
+			await engine.warm(abort.signal, options.getSettings());
 			if (abort.signal.aborted || version !== generation) return;
 			e("video-transport").hidden = false;
 			updateTransport();
@@ -825,7 +842,12 @@ export function createMotionController(options: MotionOptions) {
 			await endRecording();
 			return;
 		}
-		if (!stream) return;
+		if (
+			!stream ||
+			renderedRevision !== revision ||
+			renderedEngine !== options.getSettings().inferenceEngine
+		)
+			return;
 		const version = generation;
 		const cameraStream = stream;
 		const abort = new AbortController();
@@ -854,7 +876,11 @@ export function createMotionController(options: MotionOptions) {
 				return;
 			}
 			recordingInitialSettings = { ...options.getSettings(), faceIndex: 0 };
-			recordingCaptureColor = describeCaptureColor(video, filtered, cameraStream.getVideoTracks()[0]);
+			recordingCaptureColor = describeCaptureColor(
+				video,
+				filtered,
+				cameraStream.getVideoTracks()[0],
+			);
 			const active = await startPairedRecording({
 				originalStream: cameraStream,
 				filteredCanvas: filtered,
@@ -888,7 +914,9 @@ export function createMotionController(options: MotionOptions) {
 					(performance.now() - recordingAt) / 1000,
 				);
 				if (recordingSession === active && active.state !== "recording") {
-					void endRecording(active.state === "stopping" || active.state === "stopped");
+					void endRecording(
+						active.state === "stopping" || active.state === "stopped",
+					);
 				}
 			}, 250);
 			options.onStatus(
@@ -962,7 +990,11 @@ export function createMotionController(options: MotionOptions) {
 		try {
 			// Snapshot the actual decoded camera/video pixels synchronously, before any await.
 			paint(source, video, width, height);
-			captureColor = describeCaptureColor(video, source, stream?.getVideoTracks()[0]);
+			captureColor = describeCaptureColor(
+				video,
+				source,
+				stream?.getVideoTracks()[0],
+			);
 			if (capturedMode === "video") video.pause();
 			frameController?.abort();
 			await pump.stop();
@@ -1194,7 +1226,18 @@ export function createMotionController(options: MotionOptions) {
 		openVideo,
 		settingsChanged() {
 			revision++;
-			if (mode && ready && !exporting && !capturing) pump.start();
+			if (mode && engine && video.readyState >= 2 && !exporting && !capturing) {
+				if (renderedEngine !== options.getSettings().inferenceEngine) {
+					ready = false;
+					loading = true;
+					e("motion-loading-label").textContent =
+						"Preparing the selected AI engine…";
+					e("motion-loading").hidden = false;
+					options.onStatus("Preparing the selected AI engine…", true);
+				}
+				activity();
+				pump.start();
+			}
 		},
 		async stop() {
 			mode = null;

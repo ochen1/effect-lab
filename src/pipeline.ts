@@ -1,4 +1,5 @@
 import { getSdrContext } from "./capture-color";
+import { createIndependentSkinRuntime } from "./independent-skin";
 import {
 	alignFace,
 	sampleAlignedRGB,
@@ -19,7 +20,12 @@ import {
 	tt295ToImageCoordinates,
 } from "./makeup-geometry";
 import { buildTT295Positions } from "./makeup-tt295";
-import { validateSettings, type EffectSettings } from "./ui-types";
+import {
+	validateSettings,
+	DEFAULT_SETTINGS,
+	type EffectSettings,
+	type InferenceEngine,
+} from "./ui-types";
 
 interface Topology {
 	uv: number[];
@@ -71,13 +77,34 @@ export async function createPipeline(options: PipelineOptions = {}) {
 	}
 	const compositor = await createCompositor(base);
 	const detector = createFaceRuntime();
+	let independentFace:
+		| ReturnType<
+				typeof import("./independent-face").createIndependentFaceRuntime
+		  >
+		| undefined;
+	let independentSkin:
+		| ReturnType<typeof createIndependentSkinRuntime>
+		| undefined;
+	async function getDetector(engine: InferenceEngine) {
+		if (engine === "original") return detector;
+		independentFace ??= (
+			await import("./independent-face")
+		).createIndependentFaceRuntime();
+		return independentFace;
+	}
+	async function getIndependentSkin() {
+		independentSkin ??= createIndependentSkinRuntime();
+		return independentSkin;
+	}
 	let source: HTMLCanvasElement | undefined;
 	let analysis: ImageData | undefined;
 	let faces: Face[] = [];
 	let meshes: FaceMesh[] = [];
 	let disposed = false;
 	let queue: Promise<unknown> = Promise.resolve();
-	const patches = new Map<number, SkinPatch>();
+	const photoAnalyses = new Map<InferenceEngine, Prepared>();
+	const patches = new Map<InferenceEngine, Map<number, SkinPatch>>();
+	let photoEngine: InferenceEngine = "original";
 	const enqueue = <T>(operation: () => Promise<T>): Promise<T> => {
 		const next = queue.then(() => {
 			if (disposed) throw new Error("The image editor has been closed.");
@@ -92,11 +119,17 @@ export async function createPipeline(options: PipelineOptions = {}) {
 	type Prepared = { analysis: ImageData; faces: Face[]; meshes: FaceMesh[] };
 	async function analyze(
 		input: HTMLCanvasElement,
+		engine: InferenceEngine,
 		signal?: AbortSignal,
 		reusable?: HTMLCanvasElement,
+		motion = false,
 	): Promise<Prepared> {
 		cancelled(signal);
-		const scale = Math.min(1, 360 / input.width, 640 / input.height);
+		const scale = Math.min(
+			1,
+			(engine === "independent" ? 720 : 360) / input.width,
+			(engine === "independent" ? 1280 : 640) / input.height,
+		);
 		const width = Math.max(1, Math.round(input.width * scale));
 		const height = Math.max(1, Math.round(input.height * scale));
 		const small = reusable ?? canvas(width, height);
@@ -106,7 +139,15 @@ export async function createPipeline(options: PipelineOptions = {}) {
 			const context = getSdrContext(small, { willReadFrequently: true });
 			context.clearRect(0, 0, width, height);
 			context.drawImage(input, 0, 0, width, height);
-			const nextFaces = await detector.detect(small, signal);
+			const faceRuntime = await getDetector(engine);
+			const nextFaces =
+				engine === "independent"
+					? await independentFace!.detect(
+							small,
+							signal,
+							motion ? performance.now() : undefined,
+						)
+					: await faceRuntime.detect(small, signal);
 			cancelled(signal);
 			const sx = input.width / width,
 				sy = input.height / height;
@@ -170,23 +211,49 @@ export async function createPipeline(options: PipelineOptions = {}) {
 			let patch = cache?.get(faceIndex);
 			if (!patch) {
 				if (cache) options.onStatus?.("Applying the skin effect…");
-				await warmSkin();
-				cancelled(signal);
-				const crop = alignFace(prepared.faces[faceIndex].points, alignment);
-				const rgb = sampleAlignedRGB(prepared.analysis, crop, alignment.size);
-				const rgba = await runSkin(rgb);
-				cancelled(signal);
-				const sx = input.width / prepared.analysis.width,
-					sy = input.height / prepared.analysis.height;
-				const cropToSource: Affine = [
-					crop[0] * sx,
-					crop[1] * sy,
-					crop[2] * sx,
-					crop[3] * sy,
-					crop[4] * sx,
-					crop[5] * sy,
-				];
-				patch = { rgba, size: alignment.size, cropToSource };
+				if (settings.inferenceEngine === "independent") {
+					const sx = input.width / prepared.analysis.width,
+						sy = input.height / prepared.analysis.height;
+					const face = prepared.faces[faceIndex];
+					const point = (p: { x: number; y: number }) => ({
+						x: p.x * sx,
+						y: p.y * sy,
+					});
+					const fullFace: Face = {
+						...face,
+						box: {
+							x: face.box.x * sx,
+							y: face.box.y * sy,
+							width: face.box.width * sx,
+							height: face.box.height * sy,
+						},
+						points: face.points.map(point),
+						extra: face.extra?.map(point),
+					};
+					patch = await (await getIndependentSkin()).process(
+						input,
+						fullFace,
+						signal,
+					);
+				} else {
+					await warmSkin();
+					cancelled(signal);
+					const crop = alignFace(prepared.faces[faceIndex].points, alignment);
+					const rgb = sampleAlignedRGB(prepared.analysis, crop, alignment.size);
+					const rgba = await runSkin(rgb);
+					cancelled(signal);
+					const sx = input.width / prepared.analysis.width,
+						sy = input.height / prepared.analysis.height;
+					const cropToSource: Affine = [
+						crop[0] * sx,
+						crop[1] * sy,
+						crop[2] * sx,
+						crop[3] * sy,
+						crop[4] * sx,
+						crop[5] * sy,
+					];
+					patch = { rgba, size: alignment.size, cropToSource };
+				}
 				cache?.set(faceIndex, patch);
 			}
 			active.push(patch);
@@ -222,16 +289,28 @@ export async function createPipeline(options: PipelineOptions = {}) {
 			});
 		},
 		/** Warm the shared models once before starting a camera or offline conversion. */
-		warm(signal?: AbortSignal) {
+		warm(
+			signal?: AbortSignal,
+			values: EffectSettings = { ...DEFAULT_SETTINGS },
+		) {
+			const settings = validateSettings(values);
 			return enqueue(async () => {
 				cancelled(signal);
-				await detector.load();
+				await (await getDetector(settings.inferenceEngine)).load();
 				cancelled(signal);
-				await warmSkin();
+				if (settings.skinEnabled && settings.skin > 0) {
+					if (settings.inferenceEngine === "independent")
+						await (await getIndependentSkin()).warm();
+					else await warmSkin();
+				}
 				cancelled(signal);
 			});
 		},
-		loadPhoto(file: File, signal?: AbortSignal) {
+		loadPhoto(
+			file: File,
+			signal?: AbortSignal,
+			engine: InferenceEngine = "original",
+		) {
 			return enqueue(async () => {
 				cancelled(signal);
 				options.onStatus?.("Opening your photo…");
@@ -255,10 +334,13 @@ export async function createPipeline(options: PipelineOptions = {}) {
 				}
 				try {
 					options.onStatus?.("Finding facial details…");
-					const prepared = await analyze(nextSource, signal);
+					const prepared = await analyze(nextSource, engine, signal);
 					if (source) source.width = source.height = 1;
 					source = nextSource;
 					({ analysis, faces, meshes } = prepared);
+					photoAnalyses.clear();
+					photoAnalyses.set(engine, prepared);
+					photoEngine = engine;
 					patches.clear();
 					return {
 						width: source.width,
@@ -272,15 +354,29 @@ export async function createPipeline(options: PipelineOptions = {}) {
 			});
 		},
 		render(values: EffectSettings, renderOptions: RenderOptions) {
+			const settings = validateSettings(values);
 			return enqueue(async () => {
 				if (!source || !analysis) throw new Error("Choose a photo first.");
-				return renderPrepared(
-					source,
-					{ analysis, faces, meshes },
-					values,
-					renderOptions,
-					patches,
-				);
+				let prepared = photoAnalyses.get(settings.inferenceEngine);
+				if (!prepared) {
+					options.onStatus?.(
+						"Finding facial details with the selected engine…",
+					);
+					prepared = await analyze(
+						source,
+						settings.inferenceEngine,
+						renderOptions.signal,
+					);
+					photoAnalyses.set(settings.inferenceEngine, prepared);
+				}
+				({ analysis, faces, meshes } = prepared);
+				photoEngine = settings.inferenceEngine;
+				let cache = patches.get(photoEngine);
+				if (!cache) {
+					cache = new Map();
+					patches.set(photoEngine, cache);
+				}
+				return renderPrepared(source, prepared, settings, renderOptions, cache);
 			});
 		},
 		/** Capture a coherent frame before inference; never reuse a previous frame's skin patch.
@@ -319,11 +415,16 @@ export async function createPipeline(options: PipelineOptions = {}) {
 				context.drawImage(input, 0, 0, w, h);
 				const prepared = await analyze(
 					frameSource,
+					settings.inferenceEngine,
 					renderOptions.signal,
 					frameAnalysis,
+					true,
 				);
 				return renderPrepared(frameSource, prepared, settings, renderOptions);
 			});
+		},
+		getPhotoInfo() {
+			return { faceCount: faces.length, engine: photoEngine };
 		},
 		getOriginal() {
 			if (!source) throw new Error("Choose a photo first.");
@@ -334,6 +435,9 @@ export async function createPipeline(options: PipelineOptions = {}) {
 			return queue.then(async () => {
 				compositor.dispose();
 				await detector.dispose();
+				await independentFace?.dispose();
+				await independentSkin?.dispose();
+				photoAnalyses.clear();
 				await disposeSkin();
 				patches.clear();
 				for (const value of [source, frameSource, frameAnalysis])

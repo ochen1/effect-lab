@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "license": "Apache-2.0",
+  "copyright": "Alibaba, Inc. and its affiliates.",
+  "modelId": "damo/cv_unet_skin_retouching_torch",
+  "modelRevision": "30ddc0087d8dbfc4e7605dfd93f043c087858d0b",
+  "modelScopeCodeRevision": "958c3f7da68b700cc671134e267c356a2444398b",
+  "sourceFiles": [
+    {
+      "name": "pytorch_model.pt",
+      "url": "https://modelscope.cn/api/v1/models/damo/cv_unet_skin_retouching_torch/repo?Revision=30ddc0087d8dbfc4e7605dfd93f043c087858d0b&FilePath=pytorch_model.pt",
+      "sha256": "760d0c0b95c4e0a692165677fe2b82dbdf8fbbd4a3780ca966599c627b082993"
+    },
+    {
+      "name": "model.onnx",
+      "url": "https://modelscope.cn/api/v1/models/damo/cv_unet_skin_retouching_torch/repo?Revision=30ddc0087d8dbfc4e7605dfd93f043c087858d0b&FilePath=model.onnx",
+      "sha256": "d5b2a94201849f24ab4c38f2c56d52b1df6a2e6dd178f0f94e25f21997e5a16a"
+    },
+    {
+      "name": "README.md",
+      "url": "https://modelscope.cn/api/v1/models/damo/cv_unet_skin_retouching_torch/repo?Revision=30ddc0087d8dbfc4e7605dfd93f043c087858d0b&FilePath=README.md",
+      "sha256": "77780bbc14517556f0bda6512be8cc2d02a92ce6ef25f0440b7c3fd31aa2685c"
+    },
+    {
+      "name": "ms_wrapper.py",
+      "url": "https://modelscope.cn/api/v1/models/damo/cv_unet_skin_retouching_torch/repo?Revision=30ddc0087d8dbfc4e7605dfd93f043c087858d0b&FilePath=ms_wrapper.py",
+      "sha256": "592c9941594c285f23ff25a9d0d5535e5a433d3e42c334301b41d147a5b25c12"
+    }
+  ],
+  "conversion": "tools/convert_independent_skin.py",
+  "modifications": [
+    "Export original UNet to ONNX float32 with fixed512 RGB NCHW input.",
+    "Use original coarse256/refine448 skin segmentation networks on the caller face ROI; remove upstream body localization.",
+    "Preserve upstream squared skin mask as floating probability; resize to512.",
+    "Use upstream torch wrapper blend degree0.7 with no whitening and no optional local inpainting."
+  ],
+  "files": [
+    {
+      "name": "skin-smoothing.onnx",
+      "bytes": 53567624,
+      "sha256": "818b6562b4348dd8c14516e1cf430805f0e18e8971c6dd465c2f4be3c2204adb"
+    },
+    {
+      "name": "skin-smoothing-diagnostic.json",
+      "bytes": 7078,
+      "sha256": "80239a262a1b6fb907461c52e0715ff752fd26100ebddf5404598487d7898ec4"
+    },
+    {
+      "name": "skin-conversion-validation.json",
+      "bytes": 1194,
+      "sha256": "dac201fdf2c7448d2b3a540fe2cb52198afd63605e48151d37ee030cf6402f24"
+    },
+    {
+      "name": "skin-model-card.md",
+      "bytes": 5017,
+      "sha256": "77780bbc14517556f0bda6512be8cc2d02a92ce6ef25f0440b7c3fd31aa2685c"
+    },
+    {
+      "name": "SKIN-LICENSE.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "name": "skin-segmentation.onnx",
+      "bytes": 67207114,
+      "sha256": "f027e0820d499eb77558459e9f1b272634a1c4f610ae0f73e7009a9623c17437"
+    },
+    {
+      "name": "skin-segmentation-diagnostic.json",
+      "bytes": 7196,
+      "sha256": "9b34d3e4f224833e9bb5782f900b3c4b9c326fc13b90d91e5edf6c7f2aaa52f0"
+    },
+    {
+      "name": "skin-segmentation-reference.f32",
+      "bytes": 1048576,
+      "sha256": "7f6fea7b072fd3f3f0391e8bfe9ff76f5bea967f0a22fb0c9ddc4010b789d3d2"
+    },
+    {
+      "name": "skin-manifest.json",
+      "bytes": 530,
+      "sha256": "681f2c49c69bad63f510f9f817b2aabc9dd46f54570f3b0aa94d214dd6b16e03"
+    }
+  ]
+}

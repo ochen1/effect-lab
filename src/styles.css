@@ -1855,3 +1855,8 @@ dialog input:not([type]) {
 		margin-bottom: 10px;
 	}
 }
+
+.engine-controls { margin: 16px 0; }
+.engine-controls label { display: block; font-size: 12px; margin-bottom: 6px; }
+.engine-controls select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: inherit; }
+.engine-controls p { font-size: 11px; line-height: 1.5; color: var(--muted); margin: 8px 0 0; }

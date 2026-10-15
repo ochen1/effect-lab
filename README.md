@@ -6,6 +6,23 @@ The original **BOY II** effect is by **dikdikz7**, effect ID **2420270134**. [So
 
 [Open the app](https://ochen1.github.io/effect-lab/) · [Source and research](https://github.com/ochen1/effect-lab)
 
+## Compare AI engines
+
+**AI engine → Independent models · preview** selects a new implementation of face detection, landmarks, skin detection and retouching. **Original models · reference** selects the existing recovered TikTok model implementation. The **Original** preview button still shows the unedited input. Switching engines leaves artistic slider values unchanged. Reset restores the authored artistic defaults within the selected engine; saved presets and exported settings include the engine choice.
+
+Both engines use the same authored BOY II color LUT, makeup textures, opacity masks, UV topology, shader colors, and slider defaults. The independent engine uses:
+
+- **Google MediaPipe Face Landmarker**, Apache-2.0, for detection and 478 landmarks. Explicit anatomical contour mapping adapts those results to the authored 106+134 makeup layout. Its analysis image is capped at 720×1280; the reference engine retains its original 360×640 analysis. Motion frames use MediaPipe’s video tracking mode.
+- **Alibaba ModelScope skin retouching**, Apache-2.0 model card, converted to ONNX without changing weights. A UNet predicts adjustment maps; a separate learned segmentation model limits retouching to skin. The GPU compositor applies the upstream quadratic blend to original-resolution pixels, retaining high-frequency source texture. Whitening and optional local blemish inpainting are disabled. The upstream smoothing degree is 0.7, scaled by the existing Skin strength control.
+
+The smoothing and segmentation networks are numerically qualified separately. A rejected GPU mask falls back to the independent CPU model while retaining GPU smoothing when it passes; the badge shows **GPU + CPU** for that combination. This guards against observed localized GPU segmentation differences.
+
+Models load only for the selected engine. Selecting independent mode before opening a photo or camera does not fetch the original ByteDance AI models. The independent face model is 3.8 MB; the two skin networks total about 121 MB, plus runtime downloads. First use takes longer. The comparison website and repository intentionally retain both model sets; the combined publication is not a distribution containing only the replacement models.
+
+**Parity is measured, not assumed.** Both trackers detected the same faces in the tested portraits. Lip and eye placement are close in those limited checks; eyebrows under hair/glasses and small faces show larger disagreement. The replacement skin model performs a different learned transformation, so pixel-identical skin output and equivalent blemish removal are not established. CPU skin detection can substantially reduce live preview speed; smooth real-time independent retouching is not yet established. No original model is used as a hidden fallback. [Landmark comparison](tests/independent-face-browser-report.json), [skin conversion validation](public/models/independent/skin-conversion-validation.json), [face provenance](public/models/independent/face-provenance.json), and [skin provenance](public/models/independent/skin-provenance.json) document the current evidence. [Application verification](tests/independent-app-browser-report.json) covers engine switching, full-resolution photo export, paired simulated-camera recordings, and frame-preserving video export. Private images and facial coordinate arrays are excluded.
+
+Reproduce the replacement face download with `python3 tools/fetch_independent_face.py`. The skin conversion procedure and source URLs are in `tools/convert_independent_skin.py`; conversion uses a development Python environment and is not needed in the browser. Model SHA-256 hashes, sizes and license notices are checked during website publication. Browser processing reports identify the selected engine and its active skin backend.
+
 ## What the app does
 
 Choose **Photo**, **Video**, or **Live camera**. The same effect controls and saved presets work across all three modes. Photos keep their full-resolution JPEG/PNG export and before/after comparison. Video playback supports play, pause, seeking, sound, and original/filtered preview. Live camera supports camera switching, paired original/edited photos, and paired original/edited video recording. Camera access begins only when you press Start; microphone recording is a separate opt-in. Every mode has a fullscreen preview, using native fullscreen when available and a viewport-filling fallback otherwise.
@@ -31,7 +48,7 @@ Skin processing applies to one selected face. The authored makeup overlays apply
 
 ## Objective and approach
 
-The goal is a complete, adjustable browser implementation of the supplied effect, including its original neural skin treatment, face analysis, authored textures, and color processing. The browser does not load a native desktop framework or substitute another face model.
+The reference engine reconstructs the supplied effect’s original neural skin treatment, face analysis, authored textures, and color processing. The independent engine replaces the AI stages while preserving the authored artistic assets. Neither engine loads a native desktop framework.
 
 The implementation was built by extracting the original model containers and assets, converting the original networks to ONNX, recovering alignment and mesh arithmetic, and comparing isolated stages with native reference tools on mathematical inputs. Native tools are development references; the deployed app runs TypeScript, WebGL 2, and ONNX Runtime Web.
 

@@ -39,3 +39,17 @@ describe("saved settings boundary", () => {
 		expect(DEFAULT_SETTINGS.lut).toBe(0.3);
 	});
 });
+
+it("AI engine selection survives saved settings and defaults safely", () => {
+	expect(
+		validateSettings({ inferenceEngine: "independent", lut: 0.35 })
+			.inferenceEngine,
+	).toBe("independent");
+	expect(
+		validateSettings({ inferenceEngine: "independent", lut: 0.35 }).lut,
+	).toBe(0.35);
+	expect(validateSettings({ inferenceEngine: "unknown" }).inferenceEngine).toBe(
+		"original",
+	);
+	expect(validateSettings({}).inferenceEngine).toBe("original");
+});

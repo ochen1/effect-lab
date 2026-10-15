@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "date": "2026-10-15",
+  "inputs": "Authored synthetic RGB gradient and radial field only; no user media or face-derived tensors.",
+  "nativeConversion": "public/models/independent/skin-conversion-validation.json",
+  "browser": "Aside Chromium on macOS; hardware GPU available",
+  "gpuVersusWasm": {
+    "smoothing": {
+      "values": 786432,
+      "meanAbsoluteError": 1.4352205350102546e-8,
+      "maximumAbsoluteError": 1.1920928955078125e-7,
+      "nonfinite": 0,
+      "beyondOneByte": 0
+    },
+    "segmentation": {
+      "values": 262144,
+      "meanAbsoluteError": 0.00042572478935523915,
+      "maximumAbsoluteError": 0.10085970163345337,
+      "nonfinite": 0,
+      "beyondOneByte": 3805,
+      "decision": "Reject WebGPU for this model on this device; retain independently validated WASM segmentation."
+    }
+  },
+  "runtimeQualification": {
+    "smoothingBackend": "webgpu",
+    "segmentationBackend": "wasm",
+    "checkedValues": 262336,
+    "maximumAbsoluteError": 0.00018972158432006836,
+    "passed": true,
+    "downloadedBytes": 121823314
+  },
+  "noGpuBrowser": {
+    "browser": "T3 collaborative Chromium",
+    "adapter": null,
+    "smoothingBackend": "wasm",
+    "segmentationBackend": "wasm",
+    "initializationSucceeded": true
+  },
+  "limitations": [
+    "This checks conversion and browser backend fidelity, not equivalence to the ByteDance skin model.",
+    "No Samsung S26 hardware or mobile latency result is claimed.",
+    "The machine had unrelated concurrent workloads; browser timings are not recorded as a reproducible performance benchmark.",
+    "Whitening and the optional upstream local blemish-inpainting networks are disabled."
+  ]
+}

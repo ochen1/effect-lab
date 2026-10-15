@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "date": "2026-10-15",
+  "privacy": "Only operational results. Private images and generated recordings were used locally and are excluded, along with filenames, pixel arrays and facial coordinates.",
+  "environment": "Desktop Chromium via T3 preview and Aside REPL; no physical phone benchmark",
+  "photo": {
+    "independentFirstLoad": true,
+    "originalModelRequestsOnIndependentFirstLoad": 0,
+    "referenceAndIndependentSwitching": true,
+    "artisticSettingsPreserved": true,
+    "resetPreservesSelectedEngine": true,
+    "fullResolutionPngExport": [3000, 4000],
+    "settingsSidecarEngine": "independent"
+  },
+  "camera": {
+    "source": "Browser canvas MediaStream from a locally supplied portrait; not physical hardware",
+    "originalAndEditedRecording": true,
+    "dimensions": [360, 480],
+    "originalDurationSeconds": 30.633,
+    "editedDurationSeconds": 30.633,
+    "originalDecodedFrames": 43,
+    "editedDecodedFrames": 21,
+    "decodedEditedFrameIsNonblack": true,
+    "recordingBlockedDuringEngineSwitch": true,
+    "settingsSidecarEngine": "independent",
+    "backgroundingFinalizedRecording": true
+  },
+  "video": {
+    "independentUploadPreview": true,
+    "independentMp4Export": true,
+    "inputFrames": 2,
+    "exportedFrames": 2,
+    "durationSeconds": 1,
+    "dimensions": [360, 480],
+    "decodedEditedFrameIsNonblack": true
+  },
+  "limitations": [
+    "This is functional verification, not pixel parity with TikTok or a controlled speed benchmark.",
+    "CPU segmentation makes live processing slower; smooth real-time independent retouching is not established.",
+    "A separate numerical test covers the mask and quadratic blending; tracker disagreement is documented separately."
+  ]
+}

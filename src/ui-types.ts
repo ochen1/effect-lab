@@ -1,4 +1,7 @@
+export type InferenceEngine = "original" | "independent";
+
 export interface EffectSettings {
+	inferenceEngine: InferenceEngine;
 	skin: number;
 	lut: number;
 	highlightProtection: number;
@@ -18,6 +21,7 @@ export interface EffectSettings {
 }
 
 export const DEFAULT_SETTINGS: Readonly<EffectSettings> = Object.freeze({
+	inferenceEngine: "original",
 	skin: 1,
 	lut: 0.3,
 	highlightProtection: 0,
@@ -38,7 +42,11 @@ export const DEFAULT_SETTINGS: Readonly<EffectSettings> = Object.freeze({
 
 export type NumericSetting = Exclude<
 	keyof EffectSettings,
-	"skinEnabled" | "colorEnabled" | "makeupEnabled" | "faceIndex"
+	| "skinEnabled"
+	| "colorEnabled"
+	| "makeupEnabled"
+	| "faceIndex"
+	| "inferenceEngine"
 >;
 export const SETTING_RANGES: Record<NumericSetting, readonly [number, number]> =
 	{
@@ -61,6 +69,11 @@ export function validateSettings(input: unknown): EffectSettings {
 	const result: EffectSettings = { ...DEFAULT_SETTINGS };
 	if (!input || typeof input !== "object") return result;
 	const source = input as Record<string, unknown>;
+	if (
+		source.inferenceEngine === "original" ||
+		source.inferenceEngine === "independent"
+	)
+		result.inferenceEngine = source.inferenceEngine;
 	for (const [key, [min, max]] of Object.entries(SETTING_RANGES)) {
 		const value = source[key];
 		if (typeof value === "number" && Number.isFinite(value))
