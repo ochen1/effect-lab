@@ -16,6 +16,8 @@ export interface FaceMesh {
 	indices: Uint16Array;
 }
 export interface CompositeOptions {
+	/** Realtime correction arrays are immutable; only their crop transform changes. */
+	realtime?: boolean;
 	signal?: AbortSignal;
 	onProgress?: (progress: number) => void;
 	maxDimension?: number | null;
@@ -164,6 +166,14 @@ export class Compositor {
 	private fbo: WebGLFramebuffer;
 	private targets: WebGLTexture[] = [];
 	private tileLimit: number;
+	private tile = document.createElement("canvas");
+	private inputTexture: WebGLTexture | undefined;
+	private targetWidth = 0;
+	private targetHeight = 0;
+	private patchCache = new Map<
+		Float32Array,
+		{ size: number; texture: WebGLTexture }
+	>();
 	private diagnostics: CompositorDiagnostics;
 	private constructor() {
 		const gl = this.canvas.getContext("webgl2", {
@@ -483,7 +493,7 @@ export class Compositor {
 		out.width = Math.max(1, Math.round(width * scale));
 		out.height = Math.max(1, Math.round(height * scale));
 		const ctx = getSdrContext(out);
-		const tile = document.createElement("canvas"),
+		const tile = this.tile,
 			tc = getSdrContext(tile, { alpha: true });
 		const gl = this.gl;
 		const patchTextures: WebGLTexture[] = [];
@@ -491,20 +501,32 @@ export class Compositor {
 			for (const patch of patches) {
 				if (patch.rgba.length !== patch.size * patch.size * 4)
 					throw new Error("Invalid skin model RGBA output");
-				const t = gl.createTexture()!;
+				let cached = options.realtime
+					? this.patchCache.get(patch.rgba)
+					: undefined;
+				if (cached && cached.size !== patch.size) {
+					gl.deleteTexture(cached.texture);
+					this.patchCache.delete(patch.rgba);
+					cached = undefined;
+				}
+				const t = cached?.texture ?? gl.createTexture()!;
 				patchTextures.push(t);
-				this.configure(t);
-				gl.texImage2D(
-					gl.TEXTURE_2D,
-					0,
-					gl.RGBA8,
-					patch.size,
-					patch.size,
-					0,
-					gl.RGBA,
-					gl.UNSIGNED_BYTE,
-					quantizeGanRGBA(patch.rgba),
-				);
+				if (!cached) {
+					this.configure(t);
+					gl.texImage2D(
+						gl.TEXTURE_2D,
+						0,
+						gl.RGBA8,
+						patch.size,
+						patch.size,
+						0,
+						gl.RGBA,
+						gl.UNSIGNED_BYTE,
+						quantizeGanRGBA(patch.rgba),
+					);
+					if (options.realtime)
+						this.patchCache.set(patch.rgba, { size: patch.size, texture: t });
+				}
 			}
 			const total =
 				Math.ceil(out.width / this.tileLimit) *
@@ -519,8 +541,8 @@ export class Compositor {
 						);
 					const w = Math.min(this.tileLimit, out.width - ox),
 						h = Math.min(this.tileLimit, out.height - oy);
-					tile.width = w;
-					tile.height = h;
+					if (tile.width !== w) tile.width = w;
+					if (tile.height !== h) tile.height = h;
 					tc.clearRect(0, 0, w, h);
 					tc.drawImage(
 						source,
@@ -533,31 +555,57 @@ export class Compositor {
 						w,
 						h,
 					);
-					this.canvas.width = w;
-					this.canvas.height = h;
+					if (this.canvas.width !== w) this.canvas.width = w;
+					if (this.canvas.height !== h) this.canvas.height = h;
 					gl.viewport(0, 0, w, h);
 					gl.disable(gl.BLEND);
 					gl.disable(gl.DEPTH_TEST);
-					let current = this.imageTexture(tile),
-						flip = 0;
-					const input = current;
-					this.targets.forEach((t) => gl.deleteTexture(t));
-					this.targets = [];
-					for (let i = 0; i < 2; i++) {
-						const t = gl.createTexture()!;
-						this.targets.push(t);
-						this.configure(t);
+					const resized = this.targetWidth !== w || this.targetHeight !== h;
+					if (!this.inputTexture) this.inputTexture = gl.createTexture()!;
+					this.configure(this.inputTexture);
+					gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+					gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+					gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE);
+					if (resized)
 						gl.texImage2D(
 							gl.TEXTURE_2D,
 							0,
-							gl.RGBA8,
-							w,
-							h,
+							gl.RGBA,
+							gl.RGBA,
+							gl.UNSIGNED_BYTE,
+							tile,
+						);
+					else
+						gl.texSubImage2D(
+							gl.TEXTURE_2D,
+							0,
+							0,
 							0,
 							gl.RGBA,
 							gl.UNSIGNED_BYTE,
-							null,
+							tile,
 						);
+					let current = this.inputTexture,
+						flip = 0;
+					if (resized) {
+						for (let i = 0; i < 2; i++) {
+							const t = this.targets[i] ?? gl.createTexture()!;
+							this.targets[i] = t;
+							this.configure(t);
+							gl.texImage2D(
+								gl.TEXTURE_2D,
+								0,
+								gl.RGBA8,
+								w,
+								h,
+								0,
+								gl.RGBA,
+								gl.UNSIGNED_BYTE,
+								null,
+							);
+						}
+						this.targetWidth = w;
+						this.targetHeight = h;
 					}
 					let pass = 0;
 					const target = () => {
@@ -684,13 +732,22 @@ export class Compositor {
 					common(this.programs.copy);
 					this.draw();
 					ctx.drawImage(this.canvas, ox, oy);
-					gl.deleteTexture(input);
 					options.onProgress?.(++done / total);
-					await new Promise<void>((r) => setTimeout(r, 0));
+					if (done < total) await new Promise<void>((r) => setTimeout(r, 0));
 				}
 			return out;
 		} finally {
-			patchTextures.forEach((t) => gl.deleteTexture(t));
+			if (!options.realtime) patchTextures.forEach((t) => gl.deleteTexture(t));
+			// Retain only this frame's fields; no history or unbounded GPU cache.
+			const active = new Set(
+				options.realtime ? patches.map((p) => p.rgba) : [],
+			);
+			for (const [data, cached] of this.patchCache) {
+				if (!active.has(data)) {
+					gl.deleteTexture(cached.texture);
+					this.patchCache.delete(data);
+				}
+			}
 		}
 	}
 	dispose() {
@@ -698,6 +755,11 @@ export class Compositor {
 		Object.values(this.programs).forEach((p) => gl.deleteProgram(p));
 		Object.values(this.textures).forEach((t) => gl.deleteTexture(t));
 		this.targets.forEach((t) => gl.deleteTexture(t));
+		if (this.inputTexture) gl.deleteTexture(this.inputTexture);
+		for (const entry of this.patchCache.values())
+			gl.deleteTexture(entry.texture);
+		this.patchCache.clear();
+		this.tile.width = this.tile.height = 1;
 		[this.quad, this.vertex, this.uv, this.index].forEach((b) =>
 			gl.deleteBuffer(b),
 		);

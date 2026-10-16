@@ -270,7 +270,9 @@ export async function createPipeline(options: PipelineOptions = {}) {
 							!realtimePrimed,
 						);
 						cancelled(signal);
-						realtimePrimed = Boolean(patch);
+						// A tracking/lighting miss must not turn the next live frame
+						// back into a blocking first inference.
+						realtimePrimed ||= Boolean(patch);
 					} else {
 						await liveSkin!.drain();
 						await processor.idle(signal);
@@ -312,7 +314,14 @@ export async function createPipeline(options: PipelineOptions = {}) {
 				settings.inferenceEngine !== "independent")
 		) {
 			liveSkin?.reset();
-			realtimePrimed = false;
+			// Returning to frame after a face disappears refreshes in the background.
+			// Source changes still reset priming explicitly through resetRealtime().
+			if (
+				!settings.skinEnabled ||
+				settings.skin <= 0 ||
+				settings.inferenceEngine !== "independent"
+			)
+				realtimePrimed = false;
 		}
 		cancelled(signal);
 		onProgress?.(0.35);
@@ -326,6 +335,7 @@ export async function createPipeline(options: PipelineOptions = {}) {
 			{
 				maxDimension: renderOptions.maxDimension,
 				signal,
+				realtime: renderOptions.realtime,
 				onProgress: (p) => onProgress?.(0.35 + p * 0.65),
 			},
 		);

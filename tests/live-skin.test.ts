@@ -163,7 +163,7 @@ test("a slow CPU fallback can reuse a newly completed field, but never indefinit
 	await h.cache.drain();
 });
 
-test("GPU field updates leave rendering time while CPU fallback is not throttled", async () => {
+test("GPU field updates leave rendering time between jobs", async () => {
 	const h = harness();
 	Object.assign(h.processor, {
 		getStatus: () => ({ segmentationBackend: "webgpu" }),
@@ -180,4 +180,43 @@ test("GPU field updates leave rendering time while CPU fallback is not throttled
 	expect(h.calls()).toBe(2);
 	h.complete();
 	await h.cache.drain();
+});
+
+for (const backend of ["webgpu", "wasm"]) {
+	test(`slow ${backend} inference gets idle time and invalidated fields refresh immediately`, async () => {
+		const h = harness();
+		Object.assign(h.processor, {
+			getStatus: () => ({ segmentationBackend: backend }),
+		});
+		const first = h.cache.get(input, face, [0.5, 0.5, 0.5], true);
+		h.time(1200);
+		h.complete();
+		await first;
+		h.time(1300);
+		expect((await h.cache.get(input, face, [0.5, 0.5, 0.5]))?.rgba).toBe(
+			patch.rgba,
+		);
+		expect(h.calls()).toBe(1);
+		expect(h.cache.getDiagnostics().refreshIntervalMs).toBe(3000);
+		// A lighting change invalidates the field, overriding the normal refresh budget.
+		expect(await h.cache.get(input, face, [0.9, 0.9, 0.9])).toBeUndefined();
+		expect(h.calls()).toBe(2);
+		h.complete();
+		await h.cache.drain();
+	});
+}
+
+test("seeding from a slow full-quality frame preserves its inference budget", async () => {
+	const h = harness();
+	Object.assign(h.processor, {
+		lastDurationMs: 6000,
+		getStatus: () => ({ segmentationBackend: "wasm" }),
+	});
+	h.cache.seed(input, face, patch, [0.5, 0.5, 0.5]);
+	h.time(1000);
+	expect((await h.cache.get(input, face, [0.5, 0.5, 0.5]))?.rgba).toBe(
+		patch.rgba,
+	);
+	expect(h.calls()).toBe(0);
+	expect(h.cache.getDiagnostics().refreshIntervalMs).toBe(15000);
 });

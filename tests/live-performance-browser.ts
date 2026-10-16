@@ -144,7 +144,7 @@ document.querySelector<HTMLInputElement>("#input")!.onchange = async (
 			source.width,
 			source.height,
 			settings,
-			{ maxDimension: 720 },
+			{ maxDimension: 720, primeRealtime: true },
 		);
 		result.width = result.height = 1;
 		api.performanceBench.ready = true;
@@ -152,4 +152,37 @@ document.querySelector<HTMLInputElement>("#input")!.onchange = async (
 	} catch (e) {
 		state.textContent = String(e);
 	}
+};
+
+// After warm-up, losing/reacquiring the face must not await a second skin job.
+api.performanceBench.reacquire = async () => {
+	const blank = document.createElement("canvas");
+	blank.width = source.width;
+	blank.height = source.height;
+	blank.getContext("2d")!.fillRect(0, 0, blank.width, blank.height);
+	const timings = [];
+	for (const input of [source, blank, source, source]) {
+		const start = performance.now();
+		const output = await pipeline.processFrame(
+			input,
+			input.width,
+			input.height,
+			settings,
+			{ maxDimension: 720, realtime: true },
+		);
+		output.width = output.height = 1;
+		timings.push(performance.now() - start);
+	}
+	return { timings, live: pipeline.getRealtimeSkinStats() };
+};
+
+api.performanceBench.prime = async () => {
+	const out = await pipeline.processFrame(
+		source,
+		source.width,
+		source.height,
+		settings,
+		{ maxDimension: 720, primeRealtime: true },
+	);
+	out.width = out.height = 1;
 };

@@ -1,0 +1,14 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Compositor resource reuse</title></head><body><h1>Compositor resource reuse</h1><p id="state">Running synthetic frames…</p><pre id="report"></pre><script type="module">
+import {createCompositor} from '../src/compositor';
+import {runReuseBench} from './compositor-reuse-browser';
+try {
+ const compositor=await createCompositor('../effects/boy-ii/');
+ const cached=await runReuseBench(compositor);
+ const fresh=await runReuseBench(compositor,60,false);
+ const identical=cached.hashes.every((value,i)=>value===fresh.hashes[i]);
+ const passed=identical && cached.counts.createTexture<=2 && cached.counts.texImage2D<20;
+ compositor.dispose();
+ document.querySelector('#report').textContent=JSON.stringify({passed,identical,cached,fresh},null,2);
+ document.querySelector('#state').textContent=passed?'Passed':'Failed';
+} catch(error) {document.querySelector('#state').textContent=String(error);}
+</script></body></html>

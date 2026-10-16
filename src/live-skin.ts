@@ -9,6 +9,7 @@ import type { SkinPatch } from "./compositor";
 
 interface Processor {
 	readonly busy: boolean;
+	readonly lastDurationMs?: number | null;
 	getStatus?(): { segmentationBackend?: string };
 	idle?(): Promise<void>;
 	process(input: HTMLCanvasElement, face: Face): Promise<SkinPatch>;
@@ -149,12 +150,12 @@ export function createLiveSkin(
 		force = false,
 	) {
 		if (pending || processor.busy) return;
-		// Leave room for camera textures and composition on the same GPU. CPU
-		// fallback stays continuously busy off-thread; it does not need this GPU budget.
-		stats.refreshIntervalMs =
-			processor.getStatus?.().segmentationBackend === "webgpu"
-				? Math.max(250, Math.min(1000, (stats.lastInferenceMs ?? 200) * 2.5))
-				: 0;
+		// Leave room for rendering on the GPU and avoid continuously saturating
+		// mobile CPU cores in WASM fallback. Slow inference must get a rest too;
+		// the former 1s cap made slower devices run back-to-back jobs.
+		stats.refreshIntervalMs = processor.getStatus?.().segmentationBackend
+			? Math.max(250, (stats.lastInferenceMs ?? 200) * 2.5)
+			: 0;
 		if (!force && clock() - lastRequestedAt < stats.refreshIntervalMs) return;
 		lastRequestedAt = clock();
 		const generation = epoch,
@@ -201,6 +202,7 @@ export function createLiveSkin(
 			light: number[],
 		) {
 			epoch++;
+			stats.lastInferenceMs = processor.lastDurationMs ?? stats.lastInferenceMs;
 			lastRequestedAt = clock();
 			error = undefined;
 			last = structuredClone(face);
@@ -282,7 +284,7 @@ export function createLiveSkin(
 					error = undefined;
 					throw e;
 				}
-			} else start(input, face, light);
+			} else start(input, face, light, !cached);
 			if (!cached) {
 				publish();
 				return undefined;
