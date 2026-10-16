@@ -9,6 +9,7 @@ export interface IndependentFaceOptions {
 	modelBaseUrl?: string;
 	wasmBaseUrl?: string;
 	maxFaces?: number;
+	moduleWasm?: boolean;
 }
 type Mode = "IMAGE" | "VIDEO";
 /** Narrow backend boundary permits lifecycle tests without loading WASM. */
@@ -44,6 +45,7 @@ async function createBackend(
 	const modelAssetBuffer = new Uint8Array(await response.arrayBuffer());
 	const fileset = await FilesetResolver.forVisionTasks(
 		options.wasmBaseUrl.replace(/\/$/, ""),
+		options.moduleWasm,
 	);
 	signal.throwIfAborted();
 	return FaceLandmarker.createFromOptions(fileset, {
@@ -78,6 +80,7 @@ export function createIndependentFaceRuntime(
 			.href,
 		wasmBaseUrl: new URL(options.wasmBaseUrl ?? "vendor/mediapipe/", root).href,
 		maxFaces,
+		moduleWasm: options.moduleWasm ?? false,
 	};
 	let pending: Promise<IndependentFaceBackend> | undefined;
 	let mode: Mode = "IMAGE";

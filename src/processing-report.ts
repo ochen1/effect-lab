@@ -3,6 +3,7 @@ import { getCompositorDiagnostics } from "./compositor";
 import { getSkinStatus, getSkinBackendPreference } from "./inference";
 import { getIndependentSkinStatus } from "./independent-skin";
 import { getLiveSkinDiagnostics } from "./live-skin";
+import { getIndependentFaceDiagnostics } from "./independent-face-worker-client";
 import type { EffectSettings } from "./ui-types";
 
 /** Generated colors only. A report never includes photographs or landmark arrays. */
@@ -71,6 +72,10 @@ export async function collectProcessingReport(settings: EffectSettings) {
 		preference: getSkinBackendPreference(),
 		inferenceEngine: settings.inferenceEngine,
 		liveSkin: getLiveSkinDiagnostics(),
+		face:
+			settings.inferenceEngine === "independent"
+				? getIndependentFaceDiagnostics()
+				: null,
 		skin:
 			settings.inferenceEngine === "independent"
 				? getIndependentSkinStatus()

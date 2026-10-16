@@ -1,0 +1,19 @@
+{
+  "baselineCommit": "2718cb4",
+  "environment": "Desktop Chromium 154; CPU delegate; 540×720 portrait translated across 24 frames. Both IMAGE and VIDEO modes. Local private input excluded.",
+  "facesChecked": 24,
+  "countMismatch": 0,
+  "maxLandmarkDistancePx": 0,
+  "direct": {
+    "p50Ms": 10.900000002235174,
+    "p95Ms": 25,
+    "p95HeartbeatGapMs": 25.100000001490116
+  },
+  "worker": {
+    "p50Ms": 11.200000002980232,
+    "p95Ms": 25,
+    "p95HeartbeatGapMs": 4.800000000745058
+  },
+  "passed": true,
+  "interpretation": "Inference duration is essentially unchanged. Moving inference off-thread reduces main-thread heartbeat stalls; this is not a mobile FPS measurement."
+}

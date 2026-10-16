@@ -86,7 +86,7 @@ export async function createPipeline(options: PipelineOptions = {}) {
 	const detector = createFaceRuntime();
 	let independentFace:
 		| ReturnType<
-				typeof import("./independent-face").createIndependentFaceRuntime
+				typeof import("./independent-face-worker-client").createIndependentFaceWorkerClient
 		  >
 		| undefined;
 	let independentSkin:
@@ -95,8 +95,8 @@ export async function createPipeline(options: PipelineOptions = {}) {
 	async function getDetector(engine: InferenceEngine) {
 		if (engine === "original") return detector;
 		independentFace ??= (
-			await import("./independent-face")
-		).createIndependentFaceRuntime();
+			await import("./independent-face-worker-client")
+		).createIndependentFaceWorkerClient();
 		return independentFace;
 	}
 	let liveSkin: ReturnType<typeof createLiveSkin> | undefined;
@@ -149,15 +149,16 @@ export async function createPipeline(options: PipelineOptions = {}) {
 			const context = getSdrContext(small, { willReadFrequently: true });
 			context.clearRect(0, 0, width, height);
 			context.drawImage(input, 0, 0, width, height);
-			const faceRuntime = await getDetector(engine);
+			await getDetector(engine);
+			const pixels = context.getImageData(0, 0, width, height);
 			const nextFaces =
 				engine === "independent"
 					? await independentFace!.detect(
-							small,
+							pixels,
 							signal,
 							motion ? performance.now() : undefined,
 						)
-					: await faceRuntime.detect(small, signal);
+					: await detector.detect(small, signal);
 			cancelled(signal);
 			const sx = input.width / width,
 				sy = input.height / height;
@@ -194,7 +195,7 @@ export async function createPipeline(options: PipelineOptions = {}) {
 			return {
 				faces: nextFaces,
 				meshes: nextMeshes,
-				analysis: context.getImageData(0, 0, width, height),
+				analysis: pixels,
 			};
 		} finally {
 			if (!reusable) small.width = small.height = 1;
