@@ -1259,7 +1259,10 @@ element("processing-report").addEventListener("click", async () => {
 	const button = element<HTMLButtonElement>("processing-report");
 	button.disabled = true;
 	try {
-		const report = await collectProcessingReport(settings);
+		const report = {
+			...(await collectProcessingReport(settings)),
+			motion: motion.getDiagnostics(),
+		};
 		const file = new File(
 			[JSON.stringify(report, null, 2)],
 			"effect-lab-processing-report.json",

@@ -104,3 +104,61 @@ test("FPS meter measures elapsed throughput rather than inflated instantaneous r
 	meter.record(1300);
 	expect(meter.record(1600)).toBeCloseTo(1000 / 300, 8);
 });
+
+test("restarting before a cancelled frame settles keeps scheduling", async () => {
+	const callbacks: FrameRequestCallback[] = [];
+	const errors: unknown[] = [];
+	let rejectFirst!: (error: Error) => void;
+	let rendered = 0;
+	const pump = createFramePump(
+		async () => {
+			if (++rendered === 1)
+				await new Promise<void>((_, reject) => {
+					rejectFirst = reject;
+				});
+		},
+		(error) => errors.push(error),
+		(callback) => {
+			callbacks.push(callback);
+			return callbacks.length;
+		},
+		() => {},
+	);
+	pump.start();
+	callbacks.shift()!(0);
+	await Promise.resolve();
+	const drained = pump.stop();
+	pump.start();
+	rejectFirst(new DOMException("Superseded frame", "AbortError"));
+	await drained;
+	expect(errors).toEqual([]);
+	expect(pump.running).toBe(true);
+	expect(callbacks.length).toBe(1);
+	callbacks.shift()!(1);
+	await pump.stop();
+	expect(rendered).toBe(2);
+	expect(pump.running).toBe(false);
+});
+
+test("an unexpected cancellation in the active run is reported rather than retried forever", async () => {
+	const callbacks: FrameRequestCallback[] = [];
+	const errors: unknown[] = [];
+	const failure = new DOMException("Backend interrupted", "AbortError");
+	const pump = createFramePump(
+		async () => {
+			throw failure;
+		},
+		(error) => errors.push(error),
+		(callback) => {
+			callbacks.push(callback);
+			return callbacks.length;
+		},
+		() => {},
+	);
+	pump.start();
+	callbacks.shift()!(0);
+	for (let i = 0; i < 10; i++) await Promise.resolve();
+	expect(errors).toEqual([failure]);
+	expect(pump.running).toBe(false);
+	expect(callbacks.length).toBe(0);
+});

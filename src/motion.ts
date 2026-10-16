@@ -146,6 +146,12 @@ export function createMotionController(options: MotionOptions) {
 	let renderedRevision = 0;
 	let renderedTime = -1;
 	let renderedFrameKey = -1;
+	let framesStarted = 0;
+	let framesPresented = 0;
+	let lastFrameStartedAt: number | null = null;
+	let lastFramePresentedAt: number | null = null;
+	let settingsChangeCount = 0;
+	let lastFrameError: string | null = null;
 	let showOriginal = false;
 	let canExport = false;
 	let sourceHasAudio = false;
@@ -287,6 +293,8 @@ export function createMotionController(options: MotionOptions) {
 			return;
 		const version = generation;
 		const frameRevision = revision;
+		framesStarted++;
+		lastFrameStartedAt = performance.now();
 		const frameSettings = { ...options.getSettings(), faceIndex: 0 };
 		if (
 			recordingInitialSettings &&
@@ -337,6 +345,8 @@ export function createMotionController(options: MotionOptions) {
 			renderedFrameKey = frameKey;
 			renderedRevision = frameRevision;
 			renderedEngine = frameSettings.inferenceEngine;
+			framesPresented++;
+			lastFramePresentedAt = performance.now();
 			const now = performance.now();
 			fps = frameRate.record(now);
 			e("motion-fps").textContent =
@@ -371,12 +381,20 @@ export function createMotionController(options: MotionOptions) {
 	}
 
 	const pump = createFramePump(frame, (error) => {
-		if (aborted(error)) return;
+		lastFrameError = text(error);
 		void endRecording(true);
 		stopTracks(stream);
 		stream = undefined;
 		video.pause();
-		fail(error);
+		// An unexpected backend cancellation must be visible, not leave the
+		// loading overlay waiting for a pump that has stopped.
+		fail(
+			aborted(error)
+				? new Error(
+						"Processing was interrupted. Start the camera or reopen the video to retry.",
+					)
+				: error,
+		);
 	});
 
 	function updateTransport() {
@@ -1242,6 +1260,7 @@ export function createMotionController(options: MotionOptions) {
 		},
 		openVideo,
 		settingsChanged() {
+			settingsChangeCount++;
 			revision++;
 			if (mode && engine && video.readyState >= 2 && !exporting && !capturing) {
 				if (renderedEngine !== options.getSettings().inferenceEngine) {
@@ -1260,6 +1279,46 @@ export function createMotionController(options: MotionOptions) {
 		async stop() {
 			mode = null;
 			await stopMedia();
+		},
+		getDiagnostics() {
+			const now = performance.now();
+			return {
+				mode,
+				ready,
+				loading,
+				exporting,
+				capturing,
+				selectedEngine: options.getSettings().inferenceEngine,
+				renderedEngine: renderedEngine ?? null,
+				revision,
+				renderedRevision,
+				settingsChangeCount,
+				pumpRunning: pump.running,
+				frameInFlight: pump.busy,
+				framesStarted,
+				framesPresented,
+				lastFrameError,
+				lastFrameStartedAgoMs:
+					lastFrameStartedAt === null ? null : now - lastFrameStartedAt,
+				lastFramePresentedAgoMs:
+					lastFramePresentedAt === null ? null : now - lastFramePresentedAt,
+				documentHidden: document.hidden,
+				video: {
+					readyState: video.readyState,
+					paused: video.paused,
+					seeking: video.seeking,
+					width: video.videoWidth,
+					height: video.videoHeight,
+					currentTime: video.currentTime,
+					trackStates:
+						stream
+							?.getVideoTracks()
+							.map((track) => ({
+								readyState: track.readyState,
+								muted: track.muted,
+							})) ?? [],
+				},
+			};
 		},
 		get active() {
 			return mode !== null;

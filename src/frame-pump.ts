@@ -6,6 +6,7 @@ export function createFramePump(
 	cancel: (handle: number) => void = cancelAnimationFrame,
 ) {
 	let running = false;
+	let generation = 0;
 	let handle: number | undefined;
 	let inFlight: Promise<void> | undefined;
 	const next = () => {
@@ -13,9 +14,19 @@ export function createFramePump(
 		handle = schedule(() => {
 			handle = undefined;
 			if (!running) return;
+			const frameGeneration = generation;
 			inFlight = Promise.resolve()
 				.then(render)
 				.catch((error) => {
+					// Cancellation belongs to the frame, not a newer start request.
+					// stop() already clears running; a restart while the old frame
+					// drains must survive its eventual AbortError.
+					if (
+						generation !== frameGeneration &&
+						error instanceof Error &&
+						error.name === "AbortError"
+					)
+						return;
 					running = false;
 					onError(error);
 				})
@@ -31,12 +42,16 @@ export function createFramePump(
 			next();
 		},
 		async stop() {
+			generation++;
 			running = false;
 			if (handle !== undefined) {
 				cancel(handle);
 				handle = undefined;
 			}
 			await inFlight;
+		},
+		get running() {
+			return running;
 		},
 		get busy() {
 			return Boolean(inFlight);
